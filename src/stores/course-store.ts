@@ -78,6 +78,13 @@ export function useCourseStore() {
     setData((prev) => ({ ...prev, activities: [...prev.activities, a] }));
   };
 
+  const updateActivity = (a: Activity) => {
+    setData((prev) => ({
+      ...prev,
+      activities: prev.activities.map((act) => (act.id === a.id ? a : act)),
+    }));
+  };
+
   const deleteActivity = (id: string) => {
     setData((prev) => ({
       ...prev,
@@ -107,6 +114,7 @@ export function useCourseStore() {
     updateExamQuestion,
     deleteExamQuestion,
     addActivity,
+    updateActivity,
     deleteActivity,
     addPracticeExam,
     updateWeekTitle,
