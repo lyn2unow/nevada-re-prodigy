@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import type { CourseData, Module, ExamQuestion, Activity, PracticeExam } from "@/types/course";
 import { DEFAULT_WEEKS } from "@/types/course";
 import { getSeedWeeks, getSeedModules, getSeedExamQuestions, getSeedActivities } from "@/data/seed-content";
+import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActivities } from "@/data/pearson-vue-content";
 
 const STORAGE_KEY = "re103-course-data";
 
@@ -116,6 +117,27 @@ export function useCourseStore() {
     });
   };
 
+  const loadPearsonVueContent = () => {
+    const pvModules = getPearsonVueModules();
+    const pvQuestions = getPearsonVueExamQuestions();
+    const pvActivities = getPearsonVueActivities();
+    setData((prev) => {
+      const existingModuleIds = new Set(prev.modules.map((m) => m.id));
+      const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
+      const existingActivityIds = new Set(prev.activities.map((a) => a.id));
+      return {
+        ...prev,
+        modules: [...prev.modules, ...pvModules.filter((m) => !existingModuleIds.has(m.id))],
+        examQuestions: [...prev.examQuestions, ...pvQuestions.filter((q) => !existingQuestionIds.has(q.id))],
+        activities: [...prev.activities, ...pvActivities.filter((a) => !existingActivityIds.has(a.id))],
+        weeks: prev.weeks.map((w) => {
+          const newModIds = pvModules.filter((m) => m.weekNumber === w.number && !existingModuleIds.has(m.id)).map((m) => m.id);
+          return newModIds.length > 0 ? { ...w, moduleIds: [...w.moduleIds, ...newModIds] } : w;
+        }),
+      };
+    });
+  };
+
   const importData = (incoming: CourseData, mode: "replace" | "merge") => {
     if (mode === "replace") {
       setData(incoming);
@@ -168,6 +190,7 @@ export function useCourseStore() {
     addPracticeExam,
     updateWeekTitle,
     loadSeedContent,
+    loadPearsonVueContent,
     importData,
   };
 }

@@ -1,4 +1,4 @@
-import { BookOpen, ClipboardCheck, Gamepad2, Library, Download, Plus, Sparkles } from "lucide-react";
+import { BookOpen, ClipboardCheck, Gamepad2, Library, Download, Plus, Sparkles, FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,17 +14,23 @@ const quickActions = [
 ];
 
 export default function Index() {
-  const { data, loadSeedContent } = useCourse();
+  const { data, loadSeedContent, loadPearsonVueContent } = useCourse();
   const navigate = useNavigate();
 
   const totalModules = data.modules.length;
   const totalQuestions = data.examQuestions.length;
   const totalActivities = data.activities.length;
   const isEmpty = totalModules === 0 && totalQuestions === 0 && totalActivities === 0;
+  const hasPearsonVue = data.modules.some((m) => m.sourceTag === "Pearson VUE");
 
   const handleLoadSeed = () => {
     loadSeedContent();
     toast({ title: "Starter content loaded!", description: "7 modules, 25 exam questions, and 6 activities added." });
+  };
+
+  const handleLoadPearsonVue = () => {
+    loadPearsonVueContent();
+    toast({ title: "Pearson VUE content loaded!", description: "3 modules, 15 exam questions, and 1 activity added from the Candidate Handbook." });
   };
 
   return (
@@ -53,6 +59,27 @@ export default function Index() {
             <Button onClick={handleLoadSeed} className="gap-2 shrink-0">
               <Sparkles className="h-4 w-4" />
               Load Starter Content
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Pearson VUE Content CTA */}
+      {!isEmpty && !hasPearsonVue && (
+        <Card className="border-accent/30 bg-accent/5">
+          <CardContent className="flex items-center justify-between py-5">
+            <div className="flex items-center gap-3">
+              <FileText className="h-6 w-6 text-accent" />
+              <div>
+                <p className="font-medium">Pearson VUE Candidate Handbook</p>
+                <p className="text-sm text-muted-foreground">
+                  Add 3 modules, 15 exam questions, and 1 activity from the official exam handbook
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" onClick={handleLoadPearsonVue} className="gap-2 shrink-0">
+              <FileText className="h-4 w-4" />
+              Load Pearson VUE Content
             </Button>
           </CardContent>
         </Card>
