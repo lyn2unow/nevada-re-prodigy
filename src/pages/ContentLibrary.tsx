@@ -1,6 +1,11 @@
-import { Library, BookOpen, Scale } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Library, BookOpen, Scale, Search, ClipboardCheck, Gamepad2, X } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { useCourse } from "@/contexts/CourseContext";
 import { SourceAuthority } from "@/types/course";
 
@@ -12,15 +17,57 @@ const sourceColors: Record<SourceAuthority, string> = {
   Textbook: "bg-destructive/10 text-destructive",
 };
 
+const ALL_SOURCES: SourceAuthority[] = ["NRS/NAC", "Pearson VUE", "CE Shop", "Lecture Notes", "Textbook"];
+
 export default function ContentLibrary() {
   const { data } = useCourse();
+  const [search, setSearch] = useState("");
+  const [sourceFilter, setSourceFilter] = useState<string>("all");
+  const [weekFilter, setWeekFilter] = useState<string>("all");
 
-  const allModules = data.modules;
-  const correctedCount = allModules.filter((m) => m.correctsTextbook).length;
-  const sourceCounts = allModules.reduce(
+  const lowerSearch = search.toLowerCase();
+
+  const filteredModules = useMemo(() => {
+    return data.modules.filter((m) => {
+      if (sourceFilter !== "all" && m.sourceTag !== sourceFilter) return false;
+      if (weekFilter !== "all" && m.weekNumber !== Number(weekFilter)) return false;
+      if (lowerSearch && !m.title.toLowerCase().includes(lowerSearch) && !m.conceptExplanation.toLowerCase().includes(lowerSearch) && !m.keyTerms.some((kt) => kt.term.toLowerCase().includes(lowerSearch))) return false;
+      return true;
+    });
+  }, [data.modules, sourceFilter, weekFilter, lowerSearch]);
+
+  const filteredQuestions = useMemo(() => {
+    return data.examQuestions.filter((q) => {
+      if (sourceFilter !== "all" && q.source !== sourceFilter) return false;
+      if (lowerSearch && !q.question.toLowerCase().includes(lowerSearch) && !q.topic.toLowerCase().includes(lowerSearch) && !q.tags.some((t) => t.toLowerCase().includes(lowerSearch))) return false;
+      return true;
+    });
+  }, [data.examQuestions, sourceFilter, lowerSearch]);
+
+  const filteredActivities = useMemo(() => {
+    return data.activities.filter((a) => {
+      if (weekFilter !== "all" && a.weekNumber !== Number(weekFilter)) return false;
+      if (lowerSearch && !a.title.toLowerCase().includes(lowerSearch) && !a.topic.toLowerCase().includes(lowerSearch) && !a.description.toLowerCase().includes(lowerSearch) && !a.tags.some((t) => t.toLowerCase().includes(lowerSearch))) return false;
+      return true;
+    });
+  }, [data.activities, weekFilter, lowerSearch]);
+
+  const totalContent = data.modules.length + data.examQuestions.length + data.activities.length;
+  const totalFiltered = filteredModules.length + filteredQuestions.length + filteredActivities.length;
+  const correctedCount = data.modules.filter((m) => m.correctsTextbook).length;
+
+  const sourceCounts = data.modules.reduce(
     (acc, m) => ({ ...acc, [m.sourceTag]: (acc[m.sourceTag] || 0) + 1 }),
     {} as Record<string, number>
   );
+
+  const hasFilters = search !== "" || sourceFilter !== "all" || weekFilter !== "all";
+
+  const clearFilters = () => {
+    setSearch("");
+    setSourceFilter("all");
+    setWeekFilter("all");
+  };
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
@@ -41,17 +88,15 @@ export default function ContentLibrary() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-3">
-            {(["NRS/NAC", "Pearson VUE", "CE Shop", "Lecture Notes", "Textbook"] as SourceAuthority[]).map(
-              (source, i) => (
-                <div key={source} className="flex items-center gap-2">
-                  <span className="text-sm text-muted-foreground font-mono">{i + 1}.</span>
-                  <Badge className={sourceColors[source]}>{source}</Badge>
-                  <span className="text-sm text-muted-foreground">
-                    ({sourceCounts[source] || 0})
-                  </span>
-                </div>
-              )
-            )}
+            {ALL_SOURCES.map((source, i) => (
+              <div key={source} className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground font-mono">{i + 1}.</span>
+                <Badge className={sourceColors[source]}>{source}</Badge>
+                <span className="text-sm text-muted-foreground">
+                  ({sourceCounts[source] || 0})
+                </span>
+              </div>
+            ))}
           </div>
           {correctedCount > 0 && (
             <p className="mt-3 text-sm text-destructive flex items-center gap-2">
@@ -62,8 +107,54 @@ export default function ContentLibrary() {
         </CardContent>
       </Card>
 
-      {/* Content list */}
-      {allModules.length === 0 ? (
+      {/* Search & Filters */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search by title, topic, term, or tag…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        <Select value={sourceFilter} onValueChange={setSourceFilter}>
+          <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectValue placeholder="Source" />
+          </SelectTrigger>
+          <SelectContent className="bg-popover z-50">
+            <SelectItem value="all">All Sources</SelectItem>
+            {ALL_SOURCES.map((s) => (
+              <SelectItem key={s} value={s}>{s}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={weekFilter} onValueChange={setWeekFilter}>
+          <SelectTrigger className="w-full sm:w-[150px]">
+            <SelectValue placeholder="Week" />
+          </SelectTrigger>
+          <SelectContent className="bg-popover z-50">
+            <SelectItem value="all">All Weeks</SelectItem>
+            {data.weeks.map((w) => (
+              <SelectItem key={w.number} value={String(w.number)}>Week {w.number}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {hasFilters && (
+          <Button variant="ghost" size="icon" onClick={clearFilters} className="shrink-0">
+            <X className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
+
+      {hasFilters && (
+        <p className="text-sm text-muted-foreground">
+          Showing {totalFiltered} of {totalContent} items
+        </p>
+      )}
+
+      {/* Content Tabs */}
+      {totalContent === 0 ? (
         <Card className="border-dashed">
           <CardContent className="flex flex-col items-center justify-center py-12 text-center">
             <Library className="h-8 w-8 text-muted-foreground mb-3" />
@@ -73,37 +164,126 @@ export default function ContentLibrary() {
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-3">
-          {allModules.map((module) => (
-            <Card key={module.id} className="hover:border-accent transition-colors">
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">{module.title}</CardTitle>
-                  <div className="flex gap-2">
-                    <Badge className={sourceColors[module.sourceTag]}>{module.sourceTag}</Badge>
-                    <Badge variant="outline">
-                      {module.federalVsNevada === "both"
-                        ? "Federal + NV"
-                        : module.federalVsNevada === "federal"
-                        ? "Federal"
-                        : "Nevada"}
-                    </Badge>
-                    {module.correctsTextbook && (
-                      <Badge variant="destructive" className="text-[10px]">
-                        Corrects Textbook
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <span className="text-sm text-muted-foreground">
-                  Week {module.weekNumber} · {module.keyTerms.length} terms · {module.knowledgeChecks.length} questions
-                </span>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <Tabs defaultValue="modules">
+          <TabsList className="grid grid-cols-3 w-full max-w-md">
+            <TabsTrigger value="modules">
+              Modules ({filteredModules.length})
+            </TabsTrigger>
+            <TabsTrigger value="questions">
+              Questions ({filteredQuestions.length})
+            </TabsTrigger>
+            <TabsTrigger value="activities">
+              Activities ({filteredActivities.length})
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Modules Tab */}
+          <TabsContent value="modules" className="mt-4 space-y-3">
+            {filteredModules.length === 0 ? (
+              <p className="text-muted-foreground text-center py-8">No modules match your filters</p>
+            ) : (
+              filteredModules.map((module) => (
+                <Card key={module.id} className="hover:border-accent transition-colors">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-base">{module.title}</CardTitle>
+                      <div className="flex gap-2 flex-wrap justify-end">
+                        <Badge className={sourceColors[module.sourceTag]}>{module.sourceTag}</Badge>
+                        <Badge variant="outline">
+                          {module.federalVsNevada === "both"
+                            ? "Federal + NV"
+                            : module.federalVsNevada === "federal"
+                            ? "Federal"
+                            : "Nevada"}
+                        </Badge>
+                        {module.correctsTextbook && (
+                          <Badge variant="destructive" className="text-[10px]">
+                            Corrects Textbook
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <span className="text-sm text-muted-foreground">
+                      Week {module.weekNumber} · {module.keyTerms.length} terms · {module.knowledgeChecks.length} questions · {module.examAlerts.length} alerts
+                    </span>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </TabsContent>
+
+          {/* Questions Tab */}
+          <TabsContent value="questions" className="mt-4 space-y-3">
+            {filteredQuestions.length === 0 ? (
+              <p className="text-muted-foreground text-center py-8">No questions match your filters</p>
+            ) : (
+              filteredQuestions.map((q) => (
+                <Card key={q.id} className="hover:border-accent transition-colors">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between gap-3">
+                      <CardTitle className="text-sm font-medium line-clamp-2">{q.question}</CardTitle>
+                      <div className="flex gap-2 shrink-0">
+                        <Badge variant="outline">{q.difficulty}</Badge>
+                        <Badge className={sourceColors[q.source]}>{q.source}</Badge>
+                        {q.examTrap && <Badge variant="destructive">Trap</Badge>}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <ClipboardCheck className="h-3.5 w-3.5 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">{q.topic}</span>
+                      <span className="text-muted-foreground">·</span>
+                      {q.tags.slice(0, 4).map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </TabsContent>
+
+          {/* Activities Tab */}
+          <TabsContent value="activities" className="mt-4 space-y-3">
+            {filteredActivities.length === 0 ? (
+              <p className="text-muted-foreground text-center py-8">No activities match your filters</p>
+            ) : (
+              filteredActivities.map((a) => (
+                <Card key={a.id} className="hover:border-accent transition-colors">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between gap-3">
+                      <CardTitle className="text-base">{a.title}</CardTitle>
+                      <Badge variant="outline" className="capitalize shrink-0">{a.type.replace("-", " ")}</Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-2">{a.description}</p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Gamepad2 className="h-3.5 w-3.5 text-muted-foreground" />
+                      {a.weekNumber && <span className="text-sm text-muted-foreground">Week {a.weekNumber}</span>}
+                      {a.topic && (
+                        <>
+                          <span className="text-muted-foreground">·</span>
+                          <span className="text-sm text-muted-foreground">{a.topic}</span>
+                        </>
+                      )}
+                      {a.tags.slice(0, 4).map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </TabsContent>
+        </Tabs>
       )}
     </div>
   );
