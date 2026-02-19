@@ -8,6 +8,7 @@ import { CourseProvider } from "@/contexts/CourseContext";
 import { AppLayout } from "@/components/AppLayout";
 import Index from "./pages/Index";
 import ModuleBuilder from "./pages/ModuleBuilder";
+import ModuleForm from "./pages/ModuleForm";
 import ExamPrep from "./pages/ExamPrep";
 import ActivityGenerator from "./pages/ActivityGenerator";
 import ContentLibrary from "./pages/ContentLibrary";
@@ -28,6 +29,8 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/modules" element={<ModuleBuilder />} />
+                <Route path="/modules/new/:weekNumber" element={<ModuleForm />} />
+                <Route path="/modules/edit/:moduleId" element={<ModuleForm />} />
                 <Route path="/exam-prep" element={<ExamPrep />} />
                 <Route path="/activities" element={<ActivityGenerator />} />
                 <Route path="/library" element={<ContentLibrary />} />
