@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, FileDown, Check, FileText } from "lucide-react";
+import { Copy, FileDown, Check, FileText, HardDriveDownload } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -133,6 +133,18 @@ export default function ExportPage() {
     toast({ title: `QTI ZIP downloaded with ${questions.length} question(s)` });
   };
 
+  const handleJsonBackup = () => {
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `re103-course-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast({ title: "Backup downloaded!" });
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-12">
       <div>
@@ -141,6 +153,25 @@ export default function ExportPage() {
           Select content below, then copy or download as PDF
         </p>
       </div>
+
+      {/* JSON Backup */}
+      <Card>
+        <CardContent className="flex items-center justify-between py-4">
+          <div className="flex items-center gap-3">
+            <HardDriveDownload className="h-5 w-5 text-muted-foreground" />
+            <div>
+              <p className="font-medium text-sm">Full Course Backup</p>
+              <p className="text-xs text-muted-foreground">
+                Download all course data as JSON — restore it anytime via Import
+              </p>
+            </div>
+          </div>
+          <Button variant="outline" className="gap-2" onClick={handleJsonBackup}>
+            <HardDriveDownload className="h-4 w-4" />
+            Download Backup (JSON)
+          </Button>
+        </CardContent>
+      </Card>
 
       {/* Action Bar */}
       <Card>

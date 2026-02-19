@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import type { CourseData, Module, ExamQuestion, Activity, PracticeExam } from "@/types/course";
 import { DEFAULT_WEEKS } from "@/types/course";
+import { getSeedWeeks, getSeedModules, getSeedExamQuestions, getSeedActivities } from "@/data/seed-content";
 
 const STORAGE_KEY = "re103-course-data";
 
@@ -105,6 +106,54 @@ export function useCourseStore() {
     }));
   };
 
+  const loadSeedContent = () => {
+    setData({
+      weeks: getSeedWeeks(),
+      modules: getSeedModules(),
+      examQuestions: getSeedExamQuestions(),
+      practiceExams: [],
+      activities: getSeedActivities(),
+    });
+  };
+
+  const importData = (incoming: CourseData, mode: "replace" | "merge") => {
+    if (mode === "replace") {
+      setData(incoming);
+    } else {
+      setData((prev) => {
+        const existingModuleIds = new Set(prev.modules.map((m) => m.id));
+        const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
+        const existingActivityIds = new Set(prev.activities.map((a) => a.id));
+        const existingExamIds = new Set(prev.practiceExams.map((e) => e.id));
+
+        return {
+          weeks: incoming.weeks.map((iw) => {
+            const existing = prev.weeks.find((w) => w.number === iw.number);
+            if (!existing) return iw;
+            const mergedIds = [...new Set([...existing.moduleIds, ...iw.moduleIds])];
+            return { ...existing, title: iw.title || existing.title, moduleIds: mergedIds };
+          }),
+          modules: [
+            ...prev.modules,
+            ...incoming.modules.filter((m) => !existingModuleIds.has(m.id)),
+          ],
+          examQuestions: [
+            ...prev.examQuestions,
+            ...incoming.examQuestions.filter((q) => !existingQuestionIds.has(q.id)),
+          ],
+          activities: [
+            ...prev.activities,
+            ...incoming.activities.filter((a) => !existingActivityIds.has(a.id)),
+          ],
+          practiceExams: [
+            ...prev.practiceExams,
+            ...incoming.practiceExams.filter((e) => !existingExamIds.has(e.id)),
+          ],
+        };
+      });
+    }
+  };
+
   return {
     data,
     addModule,
@@ -118,5 +167,7 @@ export function useCourseStore() {
     deleteActivity,
     addPracticeExam,
     updateWeekTitle,
+    loadSeedContent,
+    importData,
   };
 }

@@ -15,6 +15,7 @@ import ActivityGenerator from "./pages/ActivityGenerator";
 import ActivityForm from "./pages/ActivityForm";
 import ContentLibrary from "./pages/ContentLibrary";
 import ExportPage from "./pages/ExportPage";
+import ImportPage from "./pages/ImportPage";
 import PracticeExamBuilder from "./pages/PracticeExamBuilder";
 import PracticeExamTaker from "./pages/PracticeExamTaker";
 import NotFound from "./pages/NotFound";
@@ -45,6 +46,7 @@ const App = () => (
                 <Route path="/activities/edit/:activityId" element={<ActivityForm />} />
                 <Route path="/library" element={<ContentLibrary />} />
                 <Route path="/export" element={<ExportPage />} />
+                <Route path="/import" element={<ImportPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AppLayout>
