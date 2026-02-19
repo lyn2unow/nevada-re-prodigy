@@ -38,6 +38,7 @@ const App = () => (
                 <Route path="/exam-prep/edit/:questionId" element={<ExamQuestionForm />} />
                 <Route path="/activities" element={<ActivityGenerator />} />
                 <Route path="/activities/new" element={<ActivityForm />} />
+                <Route path="/activities/edit/:activityId" element={<ActivityForm />} />
                 <Route path="/library" element={<ContentLibrary />} />
                 <Route path="/export" element={<ExportPage />} />
                 <Route path="*" element={<NotFound />} />

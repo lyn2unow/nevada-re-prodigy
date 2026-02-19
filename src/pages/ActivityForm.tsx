@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,9 +40,13 @@ const emptyActivity = (): Activity => ({
 
 export default function ActivityForm() {
   const navigate = useNavigate();
-  const { addActivity, data } = useCourse();
+  const { activityId } = useParams();
+  const { addActivity, updateActivity, data } = useCourse();
 
-  const [activity, setActivity] = useState<Activity>(emptyActivity());
+  const existing = activityId ? data.activities.find((a) => a.id === activityId) : null;
+  const [activity, setActivity] = useState<Activity>(
+    existing ? { ...existing, debriefPrompts: existing.debriefPrompts.length ? [...existing.debriefPrompts] : [""] } : emptyActivity()
+  );
   const [tagInput, setTagInput] = useState("");
 
   const update = <K extends keyof Activity>(field: K, value: Activity[K]) => {
@@ -85,13 +89,17 @@ export default function ActivityForm() {
       toast({ title: "Description is required", variant: "destructive" });
       return;
     }
-    // Filter out empty debrief prompts
     const cleaned: Activity = {
       ...activity,
       debriefPrompts: activity.debriefPrompts.filter((p) => p.trim()),
     };
-    addActivity(cleaned);
-    toast({ title: "Activity created" });
+    if (existing) {
+      updateActivity(cleaned);
+      toast({ title: "Activity updated" });
+    } else {
+      addActivity(cleaned);
+      toast({ title: "Activity created" });
+    }
     navigate("/activities");
   };
 
@@ -103,10 +111,16 @@ export default function ActivityForm() {
           <ArrowLeft className="h-5 w-5" />
         </Button>
         <div className="flex-1">
-          <h1 className="text-3xl font-bold tracking-tight">New Activity</h1>
-          <p className="text-muted-foreground">Create an in-class or Canvas activity</p>
+          <h1 className="text-3xl font-bold tracking-tight">
+            {existing ? "Edit Activity" : "New Activity"}
+          </h1>
+          <p className="text-muted-foreground">
+            {existing ? "Update this activity" : "Create an in-class or Canvas activity"}
+          </p>
         </div>
-        <Button onClick={handleSave}>Save Activity</Button>
+        <Button onClick={handleSave}>
+          {existing ? "Update Activity" : "Save Activity"}
+        </Button>
       </div>
 
       {/* Basic Info */}
@@ -258,7 +272,9 @@ export default function ActivityForm() {
       <Separator />
       <div className="flex items-center justify-between">
         <Button variant="outline" onClick={() => navigate("/activities")}>Cancel</Button>
-        <Button onClick={handleSave}>Save Activity</Button>
+        <Button onClick={handleSave}>
+          {existing ? "Update Activity" : "Save Activity"}
+        </Button>
       </div>
     </div>
   );
