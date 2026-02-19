@@ -15,6 +15,8 @@ import ActivityGenerator from "./pages/ActivityGenerator";
 import ActivityForm from "./pages/ActivityForm";
 import ContentLibrary from "./pages/ContentLibrary";
 import ExportPage from "./pages/ExportPage";
+import PracticeExamBuilder from "./pages/PracticeExamBuilder";
+import PracticeExamTaker from "./pages/PracticeExamTaker";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
                 <Route path="/exam-prep" element={<ExamPrep />} />
                 <Route path="/exam-prep/new" element={<ExamQuestionForm />} />
                 <Route path="/exam-prep/edit/:questionId" element={<ExamQuestionForm />} />
+                <Route path="/exam-prep/build-exam" element={<PracticeExamBuilder />} />
+                <Route path="/exam-prep/take/:examId" element={<PracticeExamTaker />} />
                 <Route path="/activities" element={<ActivityGenerator />} />
                 <Route path="/activities/new" element={<ActivityForm />} />
                 <Route path="/activities/edit/:activityId" element={<ActivityForm />} />

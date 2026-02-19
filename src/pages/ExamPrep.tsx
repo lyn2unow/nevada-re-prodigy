@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Plus, AlertTriangle, Pencil, Trash2 } from "lucide-react";
+import { Plus, AlertTriangle, Pencil, Trash2, ListChecks, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,10 +24,16 @@ export default function ExamPrep() {
             Nevada-style multiple choice questions aligned with Pearson VUE standards
           </p>
         </div>
-        <Button className="gap-2" onClick={() => navigate("/exam-prep/new")}>
-          <Plus className="h-4 w-4" />
-          New Question
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" className="gap-2" onClick={() => navigate("/exam-prep/build-exam")}>
+            <ListChecks className="h-4 w-4" />
+            Build Practice Exam
+          </Button>
+          <Button className="gap-2" onClick={() => navigate("/exam-prep/new")}>
+            <Plus className="h-4 w-4" />
+            New Question
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -58,6 +64,29 @@ export default function ExamPrep() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Practice Exams List */}
+      {data.practiceExams.length > 0 && (
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold">Practice Exams</h2>
+          {data.practiceExams.map((pe) => (
+            <Card key={pe.id} className="hover:border-accent transition-colors">
+              <CardContent className="flex items-center justify-between py-4">
+                <div>
+                  <p className="font-medium">{pe.title}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {pe.questionIds.length} questions · {Math.ceil(pe.questionIds.length * 1.5)} min
+                  </p>
+                </div>
+                <Button variant="outline" className="gap-2" onClick={() => navigate(`/exam-prep/take/${pe.id}`)}>
+                  <Play className="h-4 w-4" />
+                  Take Exam
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
 
       {data.examQuestions.length === 0 ? (
         <Card className="border-dashed">
