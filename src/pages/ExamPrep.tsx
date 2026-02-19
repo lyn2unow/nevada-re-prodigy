@@ -1,11 +1,19 @@
-import { Plus, AlertTriangle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Plus, AlertTriangle, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCourse } from "@/contexts/CourseContext";
+import { toast } from "@/hooks/use-toast";
 
 export default function ExamPrep() {
-  const { data } = useCourse();
+  const { data, deleteExamQuestion } = useCourse();
+  const navigate = useNavigate();
+
+  const handleDelete = (id: string) => {
+    deleteExamQuestion(id);
+    toast({ title: "Question deleted" });
+  };
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
@@ -16,7 +24,7 @@ export default function ExamPrep() {
             Nevada-style multiple choice questions aligned with Pearson VUE standards
           </p>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2" onClick={() => navigate("/exam-prep/new")}>
           <Plus className="h-4 w-4" />
           New Question
         </Button>
@@ -58,7 +66,7 @@ export default function ExamPrep() {
             <p className="text-muted-foreground mb-4">
               No exam questions created yet. Generate Nevada-style MCQs to build your question bank.
             </p>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2" onClick={() => navigate("/exam-prep/new")}>
               <Plus className="h-4 w-4" />
               Create First Question
             </Button>
@@ -73,13 +81,27 @@ export default function ExamPrep() {
                   <CardTitle className="text-base font-medium leading-snug">
                     {q.question}
                   </CardTitle>
-                  <div className="flex gap-1.5 shrink-0">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     <Badge variant="outline">{q.difficulty}</Badge>
                     {q.examTrap && (
-                      <Badge variant="destructive" className="text-[10px]">
-                        Trap
-                      </Badge>
+                      <Badge variant="destructive" className="text-[10px]">Trap</Badge>
                     )}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => navigate(`/exam-prep/edit/${q.id}`)}
+                    >
+                      <Pencil className="h-3.5 w-3.5" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                      onClick={() => handleDelete(q.id)}
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </Button>
                   </div>
                 </div>
               </CardHeader>
@@ -88,6 +110,12 @@ export default function ExamPrep() {
                   <span>{q.topic}</span>
                   <span>•</span>
                   <span>{q.source}</span>
+                  {q.tags.length > 0 && (
+                    <>
+                      <span>•</span>
+                      <span>{q.tags.join(", ")}</span>
+                    </>
+                  )}
                 </div>
               </CardContent>
             </Card>
