@@ -1,4 +1,5 @@
 import { Plus, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +16,7 @@ const typeLabels: Record<string, string> = {
 
 export default function ActivityGenerator() {
   const { data } = useCourse();
+  const navigate = useNavigate();
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
@@ -25,7 +27,7 @@ export default function ActivityGenerator() {
             In-class and Canvas activities with instructor notes
           </p>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2" onClick={() => navigate("/activities/new")}>
           <Plus className="h-4 w-4" />
           New Activity
         </Button>
@@ -38,7 +40,7 @@ export default function ActivityGenerator() {
             <p className="text-muted-foreground mb-4">
               No activities yet. Create role-plays, case studies, and more.
             </p>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2" onClick={() => navigate("/activities/new")}>
               <Plus className="h-4 w-4" />
               Create First Activity
             </Button>

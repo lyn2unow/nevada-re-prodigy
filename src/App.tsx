@@ -12,6 +12,7 @@ import ModuleForm from "./pages/ModuleForm";
 import ExamPrep from "./pages/ExamPrep";
 import ExamQuestionForm from "./pages/ExamQuestionForm";
 import ActivityGenerator from "./pages/ActivityGenerator";
+import ActivityForm from "./pages/ActivityForm";
 import ContentLibrary from "./pages/ContentLibrary";
 import ExportPage from "./pages/ExportPage";
 import NotFound from "./pages/NotFound";
@@ -36,6 +37,7 @@ const App = () => (
                 <Route path="/exam-prep/new" element={<ExamQuestionForm />} />
                 <Route path="/exam-prep/edit/:questionId" element={<ExamQuestionForm />} />
                 <Route path="/activities" element={<ActivityGenerator />} />
+                <Route path="/activities/new" element={<ActivityForm />} />
                 <Route path="/library" element={<ContentLibrary />} />
                 <Route path="/export" element={<ExportPage />} />
                 <Route path="*" element={<NotFound />} />
