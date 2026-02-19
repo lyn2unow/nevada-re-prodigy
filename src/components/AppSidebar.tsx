@@ -5,6 +5,7 @@ import {
   Gamepad2,
   Library,
   Download,
+  Upload,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -28,6 +29,7 @@ const navItems = [
   { title: "Activities", url: "/activities", icon: Gamepad2 },
   { title: "Content Library", url: "/library", icon: Library },
   { title: "Export", url: "/export", icon: Download },
+  { title: "Import", url: "/import", icon: Upload },
 ];
 
 export function AppSidebar() {

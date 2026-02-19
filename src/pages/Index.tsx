@@ -1,9 +1,10 @@
-import { BookOpen, ClipboardCheck, Gamepad2, Library, Download, Plus } from "lucide-react";
+import { BookOpen, ClipboardCheck, Gamepad2, Library, Download, Plus, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCourse } from "@/contexts/CourseContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 const quickActions = [
   { label: "New Module", icon: Plus, path: "/modules", color: "bg-primary" },
@@ -13,12 +14,18 @@ const quickActions = [
 ];
 
 export default function Index() {
-  const { data } = useCourse();
+  const { data, loadSeedContent } = useCourse();
   const navigate = useNavigate();
 
   const totalModules = data.modules.length;
   const totalQuestions = data.examQuestions.length;
   const totalActivities = data.activities.length;
+  const isEmpty = totalModules === 0 && totalQuestions === 0 && totalActivities === 0;
+
+  const handleLoadSeed = () => {
+    loadSeedContent();
+    toast({ title: "Starter content loaded!", description: "7 modules, 25 exam questions, and 6 activities added." });
+  };
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
@@ -29,6 +36,27 @@ export default function Index() {
           Real Estate 103 — Instructor Course Builder
         </p>
       </div>
+
+      {/* Seed Content CTA */}
+      {isEmpty && (
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="flex items-center justify-between py-5">
+            <div className="flex items-center gap-3">
+              <Sparkles className="h-6 w-6 text-primary" />
+              <div>
+                <p className="font-medium">Get started with pre-built content</p>
+                <p className="text-sm text-muted-foreground">
+                  Load 7 modules, 25+ exam questions, and 6 activities covering all 7 weeks of RE 103
+                </p>
+              </div>
+            </div>
+            <Button onClick={handleLoadSeed} className="gap-2 shrink-0">
+              <Sparkles className="h-4 w-4" />
+              Load Starter Content
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
