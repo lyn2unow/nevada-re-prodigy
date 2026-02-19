@@ -1,4 +1,5 @@
 import type { Module, ExamQuestion, Activity } from "@/types/course";
+import JSZip from "jszip";
 
 // ─── Module formatting ───────────────────────────────────────────
 
@@ -249,4 +250,170 @@ function contentToHtml(title: string, markdown: string): string {
 </head>
 <body>${html}</body>
 </html>`;
+}
+
+// ─── QTI 1.2 Export (Canvas-compatible ZIP) ──────────────────────
+
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+function generateQuestionItemXml(q: ExamQuestion, index: number): string {
+  const ident = `q_${q.id}`;
+  const responseLabels = q.options.map((_, i) => `resp_${i}`);
+  const correctResp = responseLabels[q.correctIndex];
+
+  // Build general feedback (correct answer explanation)
+  let feedbackText = escapeXml(q.explanation);
+
+  // Build per-option response labels
+  const responseLabelsXml = q.options
+    .map(
+      (opt, i) =>
+        `          <response_label ident="${responseLabels[i]}">
+            <material>
+              <mattext texttype="text/plain">${escapeXml(opt)}</mattext>
+            </material>
+          </response_label>`
+    )
+    .join("\n");
+
+  // Build response condition for scoring
+  const respconditionXml = `
+        <respcondition continue="No">
+          <conditionvar>
+            <varequal respident="response1">${correctResp}</varequal>
+          </conditionvar>
+          <setvar action="Set" varname="SCORE">100</setvar>
+          <displayfeedback feedbacktype="Response" linkrefid="correct_fb"/>
+        </respcondition>
+        <respcondition continue="Yes">
+          <conditionvar>
+            <not>
+              <varequal respident="response1">${correctResp}</varequal>
+            </not>
+          </conditionvar>
+          <setvar action="Set" varname="SCORE">0</setvar>
+          <displayfeedback feedbacktype="Response" linkrefid="incorrect_fb"/>
+        </respcondition>`;
+
+  return `
+    <item ident="${ident}" title="${escapeXml(`Question ${index + 1}: ${q.topic}`)}">
+      <itemmetadata>
+        <qtimetadata>
+          <qtimetadatafield>
+            <fieldlabel>question_type</fieldlabel>
+            <fieldentry>multiple_choice_question</fieldentry>
+          </qtimetadatafield>
+          <qtimetadatafield>
+            <fieldlabel>points_possible</fieldlabel>
+            <fieldentry>1.0</fieldentry>
+          </qtimetadatafield>
+        </qtimetadata>
+      </itemmetadata>
+      <presentation>
+        <material>
+          <mattext texttype="text/html">&lt;p&gt;${escapeXml(q.question)}&lt;/p&gt;</mattext>
+        </material>
+        <response_lid ident="response1" rcardinality="Single">
+          <render_choice>
+${responseLabelsXml}
+          </render_choice>
+        </response_lid>
+      </presentation>
+      <resprocessing>
+        <outcomes>
+          <decvar maxvalue="100" minvalue="0" varname="SCORE" vartype="Decimal"/>
+        </outcomes>
+${respconditionXml}
+      </resprocessing>
+      <itemfeedback ident="correct_fb">
+        <flow_mat>
+          <material>
+            <mattext texttype="text/html">&lt;p&gt;${escapeXml(feedbackText)}&lt;/p&gt;</mattext>
+          </material>
+        </flow_mat>
+      </itemfeedback>
+      <itemfeedback ident="incorrect_fb">
+        <flow_mat>
+          <material>
+            <mattext texttype="text/html">&lt;p&gt;Incorrect. ${escapeXml(feedbackText)}&lt;/p&gt;</mattext>
+          </material>
+        </flow_mat>
+      </itemfeedback>
+    </item>`;
+}
+
+function generateAssessmentXml(title: string, questions: ExamQuestion[]): string {
+  const assessmentIdent = `assessment_${Date.now()}`;
+  const items = questions.map((q, i) => generateQuestionItemXml(q, i)).join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<questestinterop xmlns="http://www.imsglobal.org/xsd/ims_qtiasiv1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/ims_qtiasiv1p2 http://www.imsglobal.org/xsd/ims_qtiasiv1p2p1.xsd">
+  <assessment ident="${assessmentIdent}" title="${escapeXml(title)}">
+    <qtimetadata>
+      <qtimetadatafield>
+        <fieldlabel>cc_maxattempts</fieldlabel>
+        <fieldentry>1</fieldentry>
+      </qtimetadatafield>
+    </qtimetadata>
+    <section ident="root_section">
+${items}
+    </section>
+  </assessment>
+</questestinterop>`;
+}
+
+function generateManifestXml(assessmentFile: string, title: string): string {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="manifest_${Date.now()}"
+  xmlns="http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1"
+  xmlns:lom="http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource"
+  xmlns:imsmd="http://www.imsglobal.org/xsd/imsmd_v1p2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsccv1p1/imscp_v1p1 http://www.imsglobal.org/xsd/imscp_v1p1.xsd http://ltsc.ieee.org/xsd/imsccv1p1/LOM/resource http://www.imsglobal.org/profile/cc/ccv1p1/LOM/ccv1p1_lomresource_v1p0.xsd http://www.imsglobal.org/xsd/imsmd_v1p2 http://www.imsglobal.org/xsd/imsmd_v1p2p2.xsd">
+  <metadata>
+    <schema>IMS Content</schema>
+    <schemaversion>1.1.3</schemaversion>
+    <lom:lom>
+      <lom:general>
+        <lom:title>
+          <lom:string>${escapeXml(title)}</lom:string>
+        </lom:title>
+      </lom:general>
+    </lom:lom>
+  </metadata>
+  <organizations/>
+  <resources>
+    <resource identifier="resource_quiz" type="imsqti_xmlv1p2" href="${assessmentFile}">
+      <file href="${assessmentFile}"/>
+    </resource>
+  </resources>
+</manifest>`;
+}
+
+export async function generateQtiZip(title: string, questions: ExamQuestion[]): Promise<void> {
+  const zip = new JSZip();
+
+  const assessmentFileName = "assessment.xml";
+  const assessmentXml = generateAssessmentXml(title, questions);
+  const manifestXml = generateManifestXml(assessmentFileName, title);
+
+  zip.file(assessmentFileName, assessmentXml);
+  zip.file("imsmanifest.xml", manifestXml);
+
+  const blob = await zip.generateAsync({ type: "blob" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${title.replace(/[^a-zA-Z0-9]/g, "_")}_QTI.zip`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }

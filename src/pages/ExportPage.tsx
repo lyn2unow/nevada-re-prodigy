@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, FileDown, Check } from "lucide-react";
+import { Copy, FileDown, Check, FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +14,7 @@ import {
   formatActivityAsText,
   copyToClipboard,
   generatePdf,
+  generateQtiZip,
 } from "@/lib/export-utils";
 
 export default function ExportPage() {
@@ -122,6 +123,16 @@ export default function ExportPage() {
     toast({ title: "PDF opened in new tab" });
   };
 
+  const handleQti = async () => {
+    if (selectedQuestions.size === 0) {
+      toast({ title: "Select exam questions for QTI export", variant: "destructive" });
+      return;
+    }
+    const questions = data.examQuestions.filter((q) => selectedQuestions.has(q.id));
+    await generateQtiZip("RE103_Quiz", questions);
+    toast({ title: `QTI ZIP downloaded with ${questions.length} question(s)` });
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-12">
       <div>
@@ -144,9 +155,13 @@ export default function ExportPage() {
               <Copy className="h-4 w-4" />
               Copy to Clipboard
             </Button>
-            <Button className="gap-2" onClick={handlePdf} disabled={totalSelected === 0}>
+            <Button variant="outline" className="gap-2" onClick={handlePdf} disabled={totalSelected === 0}>
               <FileDown className="h-4 w-4" />
               Export as PDF
+            </Button>
+            <Button className="gap-2" onClick={handleQti} disabled={selectedQuestions.size === 0}>
+              <FileText className="h-4 w-4" />
+              QTI for Canvas
             </Button>
           </div>
         </CardContent>
@@ -301,9 +316,13 @@ export default function ExportPage() {
             <Copy className="h-4 w-4" />
             Copy
           </Button>
-          <Button className="gap-2" onClick={handlePdf} disabled={totalSelected === 0}>
+          <Button variant="outline" className="gap-2" onClick={handlePdf} disabled={totalSelected === 0}>
             <FileDown className="h-4 w-4" />
             PDF
+          </Button>
+          <Button className="gap-2" onClick={handleQti} disabled={selectedQuestions.size === 0}>
+            <FileText className="h-4 w-4" />
+            QTI
           </Button>
         </div>
       </div>
