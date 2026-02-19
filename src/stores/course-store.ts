@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { CourseData, DEFAULT_WEEKS, Module, ExamQuestion, Activity, PracticeExam } from "@/types/course";
 
 const STORAGE_KEY = "re103-course-data";
@@ -96,7 +96,7 @@ export function useCourseStore() {
     }));
   }, []);
 
-  return {
+  return useMemo(() => ({
     data,
     addModule,
     updateModule,
@@ -108,5 +108,5 @@ export function useCourseStore() {
     deleteActivity,
     addPracticeExam,
     updateWeekTitle,
-  };
+  }), [data, addModule, updateModule, deleteModule, addExamQuestion, updateExamQuestion, deleteExamQuestion, addActivity, deleteActivity, addPracticeExam, updateWeekTitle]);
 }
