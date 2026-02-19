@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import ModuleBuilder from "./pages/ModuleBuilder";
 import ModuleForm from "./pages/ModuleForm";
 import ExamPrep from "./pages/ExamPrep";
+import ExamQuestionForm from "./pages/ExamQuestionForm";
 import ActivityGenerator from "./pages/ActivityGenerator";
 import ContentLibrary from "./pages/ContentLibrary";
 import ExportPage from "./pages/ExportPage";
@@ -32,6 +33,8 @@ const App = () => (
                 <Route path="/modules/new/:weekNumber" element={<ModuleForm />} />
                 <Route path="/modules/edit/:moduleId" element={<ModuleForm />} />
                 <Route path="/exam-prep" element={<ExamPrep />} />
+                <Route path="/exam-prep/new" element={<ExamQuestionForm />} />
+                <Route path="/exam-prep/edit/:questionId" element={<ExamQuestionForm />} />
                 <Route path="/activities" element={<ActivityGenerator />} />
                 <Route path="/library" element={<ContentLibrary />} />
                 <Route path="/export" element={<ExportPage />} />

@@ -58,6 +58,13 @@ export function useCourseStore() {
     setData((prev) => ({ ...prev, examQuestions: [...prev.examQuestions, q] }));
   }, []);
 
+  const updateExamQuestion = useCallback((q: ExamQuestion) => {
+    setData((prev) => ({
+      ...prev,
+      examQuestions: prev.examQuestions.map((eq) => (eq.id === q.id ? q : eq)),
+    }));
+  }, []);
+
   const deleteExamQuestion = useCallback((id: string) => {
     setData((prev) => ({
       ...prev,
@@ -95,6 +102,7 @@ export function useCourseStore() {
     updateModule,
     deleteModule,
     addExamQuestion,
+    updateExamQuestion,
     deleteExamQuestion,
     addActivity,
     deleteActivity,
