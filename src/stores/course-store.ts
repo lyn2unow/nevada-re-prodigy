@@ -1,5 +1,7 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
-import { CourseData, DEFAULT_WEEKS, Module, ExamQuestion, Activity, PracticeExam } from "@/types/course";
+// Course store - v2 clean rewrite
+import { useState, useEffect } from "react";
+import type { CourseData, Module, ExamQuestion, Activity, PracticeExam } from "@/types/course";
+import { DEFAULT_WEEKS } from "@/types/course";
 
 const STORAGE_KEY = "re103-course-data";
 
@@ -24,7 +26,7 @@ export function useCourseStore() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }, [data]);
 
-  const addModule = useCallback((module: Module) => {
+  const addModule = (module: Module) => {
     setData((prev) => ({
       ...prev,
       modules: [...prev.modules, module],
@@ -34,16 +36,16 @@ export function useCourseStore() {
           : w
       ),
     }));
-  }, []);
+  };
 
-  const updateModule = useCallback((module: Module) => {
+  const updateModule = (module: Module) => {
     setData((prev) => ({
       ...prev,
       modules: prev.modules.map((m) => (m.id === module.id ? module : m)),
     }));
-  }, []);
+  };
 
-  const deleteModule = useCallback((id: string) => {
+  const deleteModule = (id: string) => {
     setData((prev) => ({
       ...prev,
       modules: prev.modules.filter((m) => m.id !== id),
@@ -52,51 +54,51 @@ export function useCourseStore() {
         moduleIds: w.moduleIds.filter((mid) => mid !== id),
       })),
     }));
-  }, []);
+  };
 
-  const addExamQuestion = useCallback((q: ExamQuestion) => {
+  const addExamQuestion = (q: ExamQuestion) => {
     setData((prev) => ({ ...prev, examQuestions: [...prev.examQuestions, q] }));
-  }, []);
+  };
 
-  const updateExamQuestion = useCallback((q: ExamQuestion) => {
+  const updateExamQuestion = (q: ExamQuestion) => {
     setData((prev) => ({
       ...prev,
       examQuestions: prev.examQuestions.map((eq) => (eq.id === q.id ? q : eq)),
     }));
-  }, []);
+  };
 
-  const deleteExamQuestion = useCallback((id: string) => {
+  const deleteExamQuestion = (id: string) => {
     setData((prev) => ({
       ...prev,
       examQuestions: prev.examQuestions.filter((q) => q.id !== id),
     }));
-  }, []);
+  };
 
-  const addActivity = useCallback((a: Activity) => {
+  const addActivity = (a: Activity) => {
     setData((prev) => ({ ...prev, activities: [...prev.activities, a] }));
-  }, []);
+  };
 
-  const deleteActivity = useCallback((id: string) => {
+  const deleteActivity = (id: string) => {
     setData((prev) => ({
       ...prev,
       activities: prev.activities.filter((a) => a.id !== id),
     }));
-  }, []);
+  };
 
-  const addPracticeExam = useCallback((pe: PracticeExam) => {
+  const addPracticeExam = (pe: PracticeExam) => {
     setData((prev) => ({ ...prev, practiceExams: [...prev.practiceExams, pe] }));
-  }, []);
+  };
 
-  const updateWeekTitle = useCallback((weekNumber: number, title: string) => {
+  const updateWeekTitle = (weekNumber: number, title: string) => {
     setData((prev) => ({
       ...prev,
       weeks: prev.weeks.map((w) =>
         w.number === weekNumber ? { ...w, title } : w
       ),
     }));
-  }, []);
+  };
 
-  return useMemo(() => ({
+  return {
     data,
     addModule,
     updateModule,
@@ -108,5 +110,5 @@ export function useCourseStore() {
     deleteActivity,
     addPracticeExam,
     updateWeekTitle,
-  }), [data, addModule, updateModule, deleteModule, addExamQuestion, updateExamQuestion, deleteExamQuestion, addActivity, deleteActivity, addPracticeExam, updateWeekTitle]);
+  };
 }
