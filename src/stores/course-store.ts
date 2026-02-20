@@ -5,6 +5,7 @@ import { DEFAULT_WEEKS } from "@/types/course";
 import { getSeedWeeks, getSeedModules, getSeedExamQuestions, getSeedActivities } from "@/data/seed-content";
 import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActivities } from "@/data/pearson-vue-content";
 import { getCEShopModules, getCEShopExamQuestions, getCEShopActivities } from "@/data/ce-shop-content";
+import { getLectureNotesModules, getLectureNotesExamQuestions, getLectureNotesActivities } from "@/data/lecture-notes-content";
 import { getDefaultSyllabusTemplate } from "@/data/syllabus-template";
 const STORAGE_KEY = "re103-course-data";
 
@@ -206,6 +207,27 @@ export function useCourseStore() {
     setData((prev) => ({ ...prev, syllabusTemplate: getDefaultSyllabusTemplate() }));
   };
 
+  const loadLectureNotesContent = () => {
+    const lnModules = getLectureNotesModules();
+    const lnQuestions = getLectureNotesExamQuestions();
+    const lnActivities = getLectureNotesActivities();
+    setData((prev) => {
+      const existingModuleIds = new Set(prev.modules.map((m) => m.id));
+      const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
+      const existingActivityIds = new Set(prev.activities.map((a) => a.id));
+      return {
+        ...prev,
+        modules: [...prev.modules, ...lnModules.filter((m) => !existingModuleIds.has(m.id))],
+        examQuestions: [...prev.examQuestions, ...lnQuestions.filter((q) => !existingQuestionIds.has(q.id))],
+        activities: [...prev.activities, ...lnActivities.filter((a) => !existingActivityIds.has(a.id))],
+        weeks: prev.weeks.map((w) => {
+          const newModIds = lnModules.filter((m) => m.weekNumber === w.number && !existingModuleIds.has(m.id)).map((m) => m.id);
+          return newModIds.length > 0 ? { ...w, moduleIds: [...w.moduleIds, ...newModIds] } : w;
+        }),
+      };
+    });
+  };
+
   return {
     data,
     addModule,
@@ -222,6 +244,7 @@ export function useCourseStore() {
     loadSeedContent,
     loadPearsonVueContent,
     loadCEShopContent,
+    loadLectureNotesContent,
     importData,
     updateSyllabus,
     loadDefaultSyllabus,
