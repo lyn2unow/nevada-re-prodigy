@@ -1,124 +1,46 @@
 
 
-# Scoped NRS 645 Reference with Automatic Cross-Referencing
+# Add Unit 3 Lecture Notes: Interests in Real Estate
 
 ## Overview
 
-Instead of ingesting all ~130 sections of NRS 645, this plan creates a targeted reference containing only the statute sections actually cited in your course content (modules, exam questions, activities). It also adds an automatic cross-reference system that flags any content where your lecture notes or textbook material may conflict with the verbatim statutory text.
+Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
 
-## Step 1: Identify All Referenced Statutes
+## New Content Summary
 
-From scanning all content files, the following NRS/NAC sections are explicitly referenced:
+### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
 
-**NRS 645 sections (~25):**
-- 645.0005 (Definitions intro)
-- 645.0045 (Agency defined)
-- 645.005 (Brokerage agreement defined)
-- 645.030 (Real-estate broker defined)
-- 645.252 (Duties of licensee acting as agent)
-- 645.253 (Duties owed by broker to each party)
-- 645.254 (Disclosure of agency relationship)
-- 645.300 (Delivery of agreements)
-- 645.320 (Exclusive agreement requirements)
-- 645.330 (Broker exam requirements)
-- 645.343 (Salesperson exam requirements)
-- 645.570 (CE requirements)
-- 645.575 (CE course content)
-- 645.580 (CE waivers)
-- 645.585 (CE reporting)
-- 645.610 (Grounds for discipline)
-- 645.630 (Additional grounds for discipline)
-- 645.633 (Disciplinary actions)
-- 645.635 (Prohibited acts, including 635(2) exclusive client interference)
-- 645.8701-645.8811 (Commercial broker lien)
+| # | Title | Key Statutes |
+|---|---|---|
+| 1 | Marital Property (Community Property) | NRS 123.220 |
+| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
+| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
+| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
+| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
+| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
 
-**Other NRS chapters (~5):**
-- NRS 40.770 (Stigmatized property)
-- NRS 118 (Fair housing)
-- NRS 148.110 (Probate sales)
-- NRS 598A (Antitrust/unfair trade practices)
+### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
 
-**NAC sections (~2):**
-- NAC 645.605 (Duties Owed form)
-- NAC 645.675 (Advance fee contracts)
+Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
 
-Total: approximately 30-35 statute entries -- far more manageable than 130+.
+### 1 Activity (ID: ln-act-u3-1)
 
-## Step 2: Create the Reference Data
-
-### New file: `src/data/nrs-reference.ts`
-
-Each entry contains:
-- Section number and title
-- Verbatim statutory text (scraped from leg.state.nv.us)
-- Category for grouping
-- List of content IDs that reference this section (for cross-referencing)
-
-## Step 3: Add Cross-Reference Detection
-
-### New file: `src/lib/cross-reference.ts`
-
-A utility that:
-1. Scans all modules, exam questions, and activities for NRS/NAC citations
-2. Compares claims made in the content against the verbatim statute text
-3. Returns a list of potential conflicts or discrepancies
-
-This is a pattern-matching system -- it identifies where content *cites* a statute and surfaces both the content claim and the actual statute text side-by-side so you can verify accuracy.
-
-## Step 4: NRS Reference Page
-
-### New file: `src/pages/NRSReference.tsx`
-
-Route: `/nrs-reference`
-
-Features:
-- Searchable list of all referenced statutes
-- Filter by category (Definitions, Agency, Licensing, Discipline, etc.)
-- Each statute card shows the verbatim text plus a "Referenced by" list showing which modules/questions cite it
-- A "Cross-Reference Report" tab that highlights potential conflicts between content sources and the statute text
-
-## Step 5: Integration Updates
-
-### Modified files:
-- `src/types/course.ts` -- add `StatuteSection` type and `statuteSections` to `CourseData`
-- `src/stores/course-store.ts` -- add `loadNRS645()` method
-- `src/App.tsx` -- add `/nrs-reference` route
-- `src/components/AppSidebar.tsx` -- add "NRS Reference" nav link with Scale icon
-- `src/pages/Index.tsx` -- add "Load NRS 645 Reference" CTA card
+"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
 
 ## Technical Details
 
-### StatuteSection type
+### File modified
+- `src/data/lecture-notes-content.ts`
 
-```text
-StatuteSection {
-  id: string                    // e.g., "nrs-645-252"
-  sectionNumber: string         // e.g., "NRS 645.252"
-  title: string                 // e.g., "Duties of licensee acting as agent"
-  text: string                  // Verbatim statutory text
-  category: string              // Definitions, Agency, Licensing, etc.
-  referencedBy: string[]        // Module/question IDs that cite this section
-}
-```
+### Changes
+1. Update file comment to include Unit 3
+2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
+3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
+4. Append 1 activity to `getLectureNotesActivities()` return array
 
-### Cross-reference output
+### Pattern
+Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
 
-```text
-CrossReferenceResult {
-  statuteId: string
-  contentId: string
-  contentType: "module" | "exam-question" | "activity"
-  contentTitle: string
-  contentClaim: string          // The text in the content that references this statute
-  statuteText: string           // The actual verbatim statute text
-  status: "verified" | "review" // Whether the claim aligns with statute
-}
-```
+### NRS Reference impact
+New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
 
-### Data sourcing
-
-The verbatim statute text will be extracted from https://www.leg.state.nv.us/nrs/nrs-645.html for all identified sections. For non-645 statutes (NRS 40.770, NRS 118, NRS 148.110, NRS 598A), abbreviated summaries will be included with links to the full text since those are outside the primary chapter.
-
-## Sequencing
-
-This is planned as the last content source to add (per your instruction). It will be implemented after all lecture note units are ingested, ensuring the cross-reference captures the complete content library.
