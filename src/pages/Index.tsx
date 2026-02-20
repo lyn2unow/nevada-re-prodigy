@@ -38,7 +38,7 @@ export default function Index() {
 
   const handleLoadLectureNotes = () => {
     loadLectureNotesContent();
-    toast({ title: "Lecture Notes loaded!", description: "8 modules, 10 exam questions, and 3 activities added from Unit 1 lecture notes." });
+    toast({ title: "Lecture Notes loaded!", description: "21 modules, 20 exam questions, and 4 activities added from Units 1–2 lecture notes." });
   };
 
   const handleLoadSeed = () => {
@@ -131,9 +131,9 @@ export default function Index() {
             <div className="flex items-center gap-3">
               <FileText className="h-6 w-6 text-accent" />
               <div>
-                <p className="font-medium">Instructor Lecture Notes — Unit 1</p>
+                <p className="font-medium">Instructor Lecture Notes — Units 1 & 2</p>
                 <p className="text-sm text-muted-foreground">
-                  Add 8 modules, 10 exam questions, and 3 activities from your Unit 1 lecture script
+                  Add 21 modules, 20 exam questions, and 4 activities from your lecture scripts
                 </p>
               </div>
             </div>
