@@ -56,13 +56,42 @@ function normalizeSection(s: string): string {
 
 // Extract the sentence(s) containing a citation from the content text
 function extractClaim(text: string, citation: string): string {
-  const lines = text.split(/[.\n]/);
-  const matching = lines.filter((line) =>
-    line.toUpperCase().includes(citation.toUpperCase().replace("NRS ", "").replace("NAC ", ""))
-  );
-  if (matching.length > 0) {
-    return matching.slice(0, 2).map((l) => l.trim()).join(". ").substring(0, 500);
+  // Build flexible search terms: "NRS 645.252", "645.252", "NRS645.252"
+  const sectionNum = citation.replace(/^(NRS|NAC)\s*/i, "");
+  const searchTerms = [
+    citation.toUpperCase(),
+    sectionNum,
+    citation.replace(/\s+/g, ""),
+  ];
+
+  // Split into sentences (period followed by space/newline, or newline)
+  const sentences = text.split(/(?<=[.!?])\s+|\n+/).filter((s) => s.trim().length > 10);
+
+  const matching: string[] = [];
+  for (const sentence of sentences) {
+    const upper = sentence.toUpperCase();
+    if (searchTerms.some((term) => upper.includes(term.toUpperCase()))) {
+      const cleaned = sentence.trim().replace(/\s+/g, " ");
+      if (cleaned.length > 0 && !matching.includes(cleaned)) {
+        matching.push(cleaned);
+      }
+      if (matching.length >= 3) break;
+    }
   }
+
+  if (matching.length > 0) {
+    return matching.join(" … ").substring(0, 600);
+  }
+
+  // Fallback: search for the section number anywhere and grab surrounding context
+  const idx = text.toUpperCase().indexOf(sectionNum.toUpperCase());
+  if (idx >= 0) {
+    const start = Math.max(0, text.lastIndexOf(" ", idx - 80));
+    const end = Math.min(text.length, text.indexOf(".", idx + sectionNum.length) + 1 || idx + 200);
+    const snippet = text.substring(start, end).trim().replace(/\s+/g, " ");
+    if (snippet.length > 15) return snippet.substring(0, 600);
+  }
+
   return `References ${citation}`;
 }
 
