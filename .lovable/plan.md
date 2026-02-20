@@ -1,57 +1,124 @@
 
 
-# Add Lecture Notes Content Source (Starting with Unit 1)
+# Scoped NRS 645 Reference with Automatic Cross-Referencing
 
 ## Overview
 
-Create a new "Lecture Notes" content source that converts your instructor lecture scripts into structured modules, exam questions, and activities. Unit 1 (Real Estate Brokerage & Agency) contains 8 lecture modules -- these will be added as individual modules tagged with `sourceTag: "Lecture Notes"`, all mapped to **Week 1**.
+Instead of ingesting all ~130 sections of NRS 645, this plan creates a targeted reference containing only the statute sections actually cited in your course content (modules, exam questions, activities). It also adds an automatic cross-reference system that flags any content where your lecture notes or textbook material may conflict with the verbatim statutory text.
 
-This establishes the pattern for Units 2-7 as you provide them.
+## Step 1: Identify All Referenced Statutes
 
-## Content Mapping from Unit 1
+From scanning all content files, the following NRS/NAC sections are explicitly referenced:
 
-The lecture script contains 8 distinct modules. Each maps to a `Module` with key terms, knowledge checks, exam alerts, and discussion prompts extracted directly from your script:
+**NRS 645 sections (~25):**
+- 645.0005 (Definitions intro)
+- 645.0045 (Agency defined)
+- 645.005 (Brokerage agreement defined)
+- 645.030 (Real-estate broker defined)
+- 645.252 (Duties of licensee acting as agent)
+- 645.253 (Duties owed by broker to each party)
+- 645.254 (Disclosure of agency relationship)
+- 645.300 (Delivery of agreements)
+- 645.320 (Exclusive agreement requirements)
+- 645.330 (Broker exam requirements)
+- 645.343 (Salesperson exam requirements)
+- 645.570 (CE requirements)
+- 645.575 (CE course content)
+- 645.580 (CE waivers)
+- 645.585 (CE reporting)
+- 645.610 (Grounds for discipline)
+- 645.630 (Additional grounds for discipline)
+- 645.633 (Disciplinary actions)
+- 645.635 (Prohibited acts, including 635(2) exclusive client interference)
+- 645.8701-645.8811 (Commercial broker lien)
 
-| Module | ID | Title | Key Terms | Knowledge Checks |
-|---|---|---|---|---|
-| Module 1 | `ln-u1-mod-1` | Introduction & Licensing Landscape | 4 terms (Broker, Salesperson, NRS 645, NAC 645) | 0 (intro module) |
-| Module 2 | `ln-u1-mod-2` | Definition & Scope of a Real-Estate Broker | 5 terms (NRS 645.030, five activity categories, entity types, designated broker, Jory v Bennight) | 2 |
-| Module 3 | `ln-u1-mod-3` | Business Licenses & Place of Business | 4 terms (state business license, place of business, branch office, signage requirement) | 2 |
-| Module 4 | `ln-u1-mod-4` | Supervision, Records & Trust Accounts | 5 terms (supervision, trust account, commingling, 5-year retention, compensation flow) | 3 |
-| Module 5 | `ln-u1-mod-5` | Agency Relationships in Nevada | 5 terms (NRS 645.0045, single agency, dual/multiple representation, assigned agency, Consent to Act) | 2 |
-| Module 6 | `ln-u1-mod-6` | Duties Owed by Nevada Licensees | 4 terms (NRS 645.252, NRS 645.254, material property facts, transaction facts) | 2 |
-| Module 7 | `ln-u1-mod-7` | Other Brokerage Topics | 5 terms (stigmatized property NRS 40.770, personal assistant, team advertising, antitrust NRS 598A, fair housing NRS 118) | 2 |
-| Module 8 | `ln-u1-mod-8` | Unit 1 Recap & Exam-Prep Focus | 0 (recap) | 5 (the mini-quiz) |
+**Other NRS chapters (~5):**
+- NRS 40.770 (Stigmatized property)
+- NRS 118 (Fair housing)
+- NRS 148.110 (Probate sales)
+- NRS 598A (Antitrust/unfair trade practices)
 
-## Exam Questions (~10 questions from Unit 1)
+**NAC sections (~2):**
+- NAC 645.605 (Duties Owed form)
+- NAC 645.675 (Advance fee contracts)
 
-Drawn from the mini-quiz and key discussion prompts in the lecture. All tagged `source: "Lecture Notes"` with appropriate difficulty and exam-trap flags. Examples:
+Total: approximately 30-35 statute entries -- far more manageable than 130+.
 
-- Broker liability for associated licensees
-- 5-year record retention requirement
-- 5 calendar days paperwork delivery
-- Salesperson acting on behalf of broker
-- Consent to Act form not required in assigned agency
+## Step 2: Create the Reference Data
 
-## Activities (3 activities from Unit 1)
+### New file: `src/data/nrs-reference.ts`
 
-Extracted directly from the in-class activities described in the lecture:
+Each entry contains:
+- Section number and title
+- Verbatim statutory text (scraped from leg.state.nv.us)
+- Category for grouping
+- List of content IDs that reference this section (for cross-referencing)
 
-1. **Brokerage Violation Identification** (case-study) -- the pairs exercise from Module 4 (earnest money delay, unlicensed posting, record retention)
-2. **Material Facts Classification** (contract-drill) -- the property vs transaction fact exercise from Module 6
-3. **Unlicensed Brokerage Activity Analysis** (ethical-debate) -- the discussion prompt from Module 2
+## Step 3: Add Cross-Reference Detection
 
-## Technical Changes
+### New file: `src/lib/cross-reference.ts`
 
-### New file
-- `src/data/lecture-notes-content.ts` -- exports `getLectureNotesModules()`, `getLectureNotesExamQuestions()`, `getLectureNotesActivities()`
-- Only Unit 1 content for now; future units will be appended to this file
+A utility that:
+1. Scans all modules, exam questions, and activities for NRS/NAC citations
+2. Compares claims made in the content against the verbatim statute text
+3. Returns a list of potential conflicts or discrepancies
 
-### Modified files
-- `src/stores/course-store.ts` -- add `loadLectureNotesContent()` method (same merge/dedup pattern as CE Shop and Pearson VUE)
-- `src/pages/Index.tsx` -- add "Load Lecture Notes" CTA card on Dashboard (conditional on whether any "Lecture Notes" modules exist)
+This is a pattern-matching system -- it identifies where content *cites* a statute and surfaces both the content claim and the actual statute text side-by-side so you can verify accuracy.
 
-## Future Units
+## Step 4: NRS Reference Page
 
-When you provide Units 2-7, each unit's modules will be appended to the same `lecture-notes-content.ts` file following the same `ln-u{X}-mod-{Y}` ID pattern, mapped to their respective weeks. The store's merge logic ensures no duplicates if content is reloaded.
+### New file: `src/pages/NRSReference.tsx`
 
+Route: `/nrs-reference`
+
+Features:
+- Searchable list of all referenced statutes
+- Filter by category (Definitions, Agency, Licensing, Discipline, etc.)
+- Each statute card shows the verbatim text plus a "Referenced by" list showing which modules/questions cite it
+- A "Cross-Reference Report" tab that highlights potential conflicts between content sources and the statute text
+
+## Step 5: Integration Updates
+
+### Modified files:
+- `src/types/course.ts` -- add `StatuteSection` type and `statuteSections` to `CourseData`
+- `src/stores/course-store.ts` -- add `loadNRS645()` method
+- `src/App.tsx` -- add `/nrs-reference` route
+- `src/components/AppSidebar.tsx` -- add "NRS Reference" nav link with Scale icon
+- `src/pages/Index.tsx` -- add "Load NRS 645 Reference" CTA card
+
+## Technical Details
+
+### StatuteSection type
+
+```text
+StatuteSection {
+  id: string                    // e.g., "nrs-645-252"
+  sectionNumber: string         // e.g., "NRS 645.252"
+  title: string                 // e.g., "Duties of licensee acting as agent"
+  text: string                  // Verbatim statutory text
+  category: string              // Definitions, Agency, Licensing, etc.
+  referencedBy: string[]        // Module/question IDs that cite this section
+}
+```
+
+### Cross-reference output
+
+```text
+CrossReferenceResult {
+  statuteId: string
+  contentId: string
+  contentType: "module" | "exam-question" | "activity"
+  contentTitle: string
+  contentClaim: string          // The text in the content that references this statute
+  statuteText: string           // The actual verbatim statute text
+  status: "verified" | "review" // Whether the claim aligns with statute
+}
+```
+
+### Data sourcing
+
+The verbatim statute text will be extracted from https://www.leg.state.nv.us/nrs/nrs-645.html for all identified sections. For non-645 statutes (NRS 40.770, NRS 118, NRS 148.110, NRS 598A), abbreviated summaries will be included with links to the full text since those are outside the primary chapter.
+
+## Sequencing
+
+This is planned as the last content source to add (per your instruction). It will be implemented after all lecture note units are ingested, ensuring the cross-reference captures the complete content library.
