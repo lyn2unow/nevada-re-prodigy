@@ -14,7 +14,7 @@ const quickActions = [
 ];
 
 export default function Index() {
-  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadDefaultSyllabus } = useCourse();
+  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadLectureNotesContent, loadDefaultSyllabus } = useCourse();
   const navigate = useNavigate();
 
   const totalModules = data.modules.length;
@@ -23,6 +23,7 @@ export default function Index() {
   const isEmpty = totalModules === 0 && totalQuestions === 0 && totalActivities === 0;
   const hasPearsonVue = data.modules.some((m) => m.sourceTag === "Pearson VUE");
   const hasCEShop = data.modules.some((m) => m.sourceTag === "CE Shop");
+  const hasLectureNotes = data.modules.some((m) => m.sourceTag === "Lecture Notes");
   const hasSyllabus = !!data.syllabusTemplate;
 
   const handleLoadSyllabus = () => {
@@ -33,6 +34,11 @@ export default function Index() {
   const handleLoadCEShop = () => {
     loadCEShopContent();
     toast({ title: "CE Shop content loaded!", description: "8 modules, 40 exam questions, and 3 activities added from CE Shop study sheets." });
+  };
+
+  const handleLoadLectureNotes = () => {
+    loadLectureNotesContent();
+    toast({ title: "Lecture Notes loaded!", description: "8 modules, 10 exam questions, and 3 activities added from Unit 1 lecture notes." });
   };
 
   const handleLoadSeed = () => {
@@ -113,6 +119,27 @@ export default function Index() {
             <Button variant="outline" onClick={handleLoadCEShop} className="gap-2 shrink-0">
               <FileText className="h-4 w-4" />
               Load CE Shop Content
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Lecture Notes CTA */}
+      {!isEmpty && !hasLectureNotes && (
+        <Card className="border-accent/30 bg-accent/5">
+          <CardContent className="flex items-center justify-between py-5">
+            <div className="flex items-center gap-3">
+              <FileText className="h-6 w-6 text-accent" />
+              <div>
+                <p className="font-medium">Instructor Lecture Notes — Unit 1</p>
+                <p className="text-sm text-muted-foreground">
+                  Add 8 modules, 10 exam questions, and 3 activities from your Unit 1 lecture script
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" onClick={handleLoadLectureNotes} className="gap-2 shrink-0">
+              <FileText className="h-4 w-4" />
+              Load Lecture Notes
             </Button>
           </CardContent>
         </Card>
