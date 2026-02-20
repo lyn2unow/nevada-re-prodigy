@@ -6,6 +6,7 @@ import {
   Library,
   Download,
   Upload,
+  FileText,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -24,6 +25,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Syllabus", url: "/syllabus", icon: FileText },
   { title: "Module Builder", url: "/modules", icon: BookOpen },
   { title: "Exam Prep", url: "/exam-prep", icon: ClipboardCheck },
   { title: "Activities", url: "/activities", icon: Gamepad2 },

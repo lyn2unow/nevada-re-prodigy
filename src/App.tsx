@@ -18,6 +18,7 @@ import ExportPage from "./pages/ExportPage";
 import ImportPage from "./pages/ImportPage";
 import PracticeExamBuilder from "./pages/PracticeExamBuilder";
 import PracticeExamTaker from "./pages/PracticeExamTaker";
+import SyllabusPage from "./pages/SyllabusPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
             <AppLayout>
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/syllabus" element={<SyllabusPage />} />
                 <Route path="/modules" element={<ModuleBuilder />} />
                 <Route path="/modules/new/:weekNumber" element={<ModuleForm />} />
                 <Route path="/modules/edit/:moduleId" element={<ModuleForm />} />

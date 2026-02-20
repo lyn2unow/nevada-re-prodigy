@@ -14,7 +14,7 @@ const quickActions = [
 ];
 
 export default function Index() {
-  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent } = useCourse();
+  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadDefaultSyllabus } = useCourse();
   const navigate = useNavigate();
 
   const totalModules = data.modules.length;
@@ -23,6 +23,12 @@ export default function Index() {
   const isEmpty = totalModules === 0 && totalQuestions === 0 && totalActivities === 0;
   const hasPearsonVue = data.modules.some((m) => m.sourceTag === "Pearson VUE");
   const hasCEShop = data.modules.some((m) => m.sourceTag === "CE Shop");
+  const hasSyllabus = !!data.syllabusTemplate;
+
+  const handleLoadSyllabus = () => {
+    loadDefaultSyllabus();
+    toast({ title: "Syllabus loaded!", description: "Fall 2025 template with weekly schedule, grading, and policies." });
+  };
 
   const handleLoadCEShop = () => {
     loadCEShopContent();
@@ -107,6 +113,27 @@ export default function Index() {
             <Button variant="outline" onClick={handleLoadCEShop} className="gap-2 shrink-0">
               <FileText className="h-4 w-4" />
               Load CE Shop Content
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Syllabus CTA */}
+      {!hasSyllabus && (
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="flex items-center justify-between py-5">
+            <div className="flex items-center gap-3">
+              <FileText className="h-6 w-6 text-primary" />
+              <div>
+                <p className="font-medium">Load Syllabus Template</p>
+                <p className="text-sm text-muted-foreground">
+                  Initialize the Fall 2025 syllabus with weekly schedule, grading breakdown, and policies
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" onClick={handleLoadSyllabus} className="gap-2 shrink-0">
+              <FileText className="h-4 w-4" />
+              Load Syllabus
             </Button>
           </CardContent>
         </Card>

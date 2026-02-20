@@ -71,6 +71,53 @@ export interface PracticeExam {
   createdAt: string;
 }
 
+export interface SyllabusWeekEntry {
+  week: number;
+  day: string;
+  unitTopic: string;
+  examAlignment: string;
+  assignmentQuiz: string;
+}
+
+export interface GradingCategory {
+  category: string;
+  points: number;
+}
+
+export interface GradeScaleEntry {
+  letter: string;
+  range: string;
+}
+
+export interface PolicySection {
+  title: string;
+  content: string;
+}
+
+export interface SyllabusTemplate {
+  courseCode: string;
+  courseTitle: string;
+  semester: string;
+  instructorName: string;
+  instructorCredentials: string;
+  meetingDays: string;
+  meetingTime: string;
+  location: string;
+  dateRange: string;
+  textbook: string;
+  platform: string;
+  contactInfo: string;
+  courseObjectives: string[];
+  readingRequirement: string;
+  courseFlow: string;
+  weeklySchedule: SyllabusWeekEntry[];
+  gradingCategories: GradingCategory[];
+  totalPoints: number;
+  gradeScale: GradeScaleEntry[];
+  instructorPolicies: string[];
+  institutionalPolicies: PolicySection[];
+}
+
 export type ActivityType = 
   | "role-play"
   | "case-study"
@@ -103,6 +150,7 @@ export interface CourseData {
   examQuestions: ExamQuestion[];
   practiceExams: PracticeExam[];
   activities: Activity[];
+  syllabusTemplate?: SyllabusTemplate;
 }
 
 export const DEFAULT_WEEKS: Week[] = [
