@@ -7,6 +7,7 @@ import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActiviti
 import { getCEShopModules, getCEShopExamQuestions, getCEShopActivities } from "@/data/ce-shop-content";
 import { getLectureNotesModules, getLectureNotesExamQuestions, getLectureNotesActivities } from "@/data/lecture-notes-content";
 import { getDefaultSyllabusTemplate } from "@/data/syllabus-template";
+import { getNRS645Sections } from "@/data/nrs-reference";
 const STORAGE_KEY = "re103-course-data";
 
 function getInitialData(): CourseData {
@@ -228,6 +229,11 @@ export function useCourseStore() {
     });
   };
 
+  const loadNRS645 = () => {
+    const sections = getNRS645Sections();
+    setData((prev) => ({ ...prev, statuteSections: sections }));
+  };
+
   return {
     data,
     addModule,
@@ -245,6 +251,7 @@ export function useCourseStore() {
     loadPearsonVueContent,
     loadCEShopContent,
     loadLectureNotesContent,
+    loadNRS645,
     importData,
     updateSyllabus,
     loadDefaultSyllabus,

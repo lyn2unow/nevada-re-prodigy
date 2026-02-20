@@ -1,4 +1,4 @@
-import { BookOpen, ClipboardCheck, Gamepad2, Library, Download, Plus, Sparkles, FileText } from "lucide-react";
+import { BookOpen, ClipboardCheck, Gamepad2, Library, Download, Plus, Sparkles, FileText, Scale } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +14,7 @@ const quickActions = [
 ];
 
 export default function Index() {
-  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadLectureNotesContent, loadDefaultSyllabus } = useCourse();
+  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadLectureNotesContent, loadDefaultSyllabus, loadNRS645 } = useCourse();
   const navigate = useNavigate();
 
   const totalModules = data.modules.length;
@@ -24,7 +24,7 @@ export default function Index() {
   const hasPearsonVue = data.modules.some((m) => m.sourceTag === "Pearson VUE");
   const hasCEShop = data.modules.some((m) => m.sourceTag === "CE Shop");
   const hasLectureNotes = data.modules.some((m) => m.sourceTag === "Lecture Notes");
-  const hasSyllabus = !!data.syllabusTemplate;
+  const hasNRS = !!data.statuteSections && data.statuteSections.length > 0;
 
   const handleLoadSyllabus = () => {
     loadDefaultSyllabus();
@@ -40,6 +40,13 @@ export default function Index() {
     loadLectureNotesContent();
     toast({ title: "Lecture Notes loaded!", description: "21 modules, 20 exam questions, and 4 activities added from Units 1–2 lecture notes." });
   };
+
+  const handleLoadNRS645 = () => {
+    loadNRS645();
+    toast({ title: "NRS 645 Reference loaded!", description: `${28} statute sections loaded for cross-referencing.` });
+  };
+
+  const hasSyllabus = !!data.syllabusTemplate;
 
   const handleLoadSeed = () => {
     loadSeedContent();
@@ -161,6 +168,27 @@ export default function Index() {
             <Button variant="outline" onClick={handleLoadSyllabus} className="gap-2 shrink-0">
               <FileText className="h-4 w-4" />
               Load Syllabus
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* NRS 645 Reference CTA */}
+      {!isEmpty && !hasNRS && (
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="flex items-center justify-between py-5">
+            <div className="flex items-center gap-3">
+              <Scale className="h-6 w-6 text-primary" />
+              <div>
+                <p className="font-medium">NRS 645 Statute Reference</p>
+                <p className="text-sm text-muted-foreground">
+                  Load 28 referenced statute sections with automatic cross-referencing against your content
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" onClick={handleLoadNRS645} className="gap-2 shrink-0">
+              <Scale className="h-4 w-4" />
+              Load NRS 645 Reference
             </Button>
           </CardContent>
         </Card>

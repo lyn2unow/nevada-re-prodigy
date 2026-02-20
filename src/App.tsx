@@ -19,6 +19,7 @@ import ImportPage from "./pages/ImportPage";
 import PracticeExamBuilder from "./pages/PracticeExamBuilder";
 import PracticeExamTaker from "./pages/PracticeExamTaker";
 import SyllabusPage from "./pages/SyllabusPage";
+import NRSReference from "./pages/NRSReference";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ const App = () => (
                 <Route path="/activities/new" element={<ActivityForm />} />
                 <Route path="/activities/edit/:activityId" element={<ActivityForm />} />
                 <Route path="/library" element={<ContentLibrary />} />
+                <Route path="/nrs-reference" element={<NRSReference />} />
                 <Route path="/export" element={<ExportPage />} />
                 <Route path="/import" element={<ImportPage />} />
                 <Route path="*" element={<NotFound />} />

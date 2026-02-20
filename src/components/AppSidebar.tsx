@@ -7,6 +7,7 @@ import {
   Download,
   Upload,
   FileText,
+  Scale,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -30,6 +31,7 @@ const navItems = [
   { title: "Exam Prep", url: "/exam-prep", icon: ClipboardCheck },
   { title: "Activities", url: "/activities", icon: Gamepad2 },
   { title: "Content Library", url: "/library", icon: Library },
+  { title: "NRS Reference", url: "/nrs-reference", icon: Scale },
   { title: "Export", url: "/export", icon: Download },
   { title: "Import", url: "/import", icon: Upload },
 ];

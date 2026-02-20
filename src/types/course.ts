@@ -138,6 +138,15 @@ export interface Activity {
   tags: string[];
 }
 
+export interface StatuteSection {
+  id: string;
+  sectionNumber: string;
+  title: string;
+  text: string;
+  category: "Definitions" | "Administration" | "Regulation" | "Advance Fees" | "Licensing" | "Continuing Education" | "Property Management" | "Discipline" | "Recovery Fund" | "Commercial Brokerage" | "Other NRS" | "NAC";
+  referencedBy: string[];
+}
+
 export interface Week {
   number: number;
   title: string;
@@ -151,6 +160,7 @@ export interface CourseData {
   practiceExams: PracticeExam[];
   activities: Activity[];
   syllabusTemplate?: SyllabusTemplate;
+  statuteSections?: StatuteSection[];
 }
 
 export const DEFAULT_WEEKS: Week[] = [
