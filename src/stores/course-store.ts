@@ -4,6 +4,7 @@ import type { CourseData, Module, ExamQuestion, Activity, PracticeExam } from "@
 import { DEFAULT_WEEKS } from "@/types/course";
 import { getSeedWeeks, getSeedModules, getSeedExamQuestions, getSeedActivities } from "@/data/seed-content";
 import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActivities } from "@/data/pearson-vue-content";
+import { getCEShopModules, getCEShopExamQuestions, getCEShopActivities } from "@/data/ce-shop-content";
 
 const STORAGE_KEY = "re103-course-data";
 
@@ -138,6 +139,27 @@ export function useCourseStore() {
     });
   };
 
+  const loadCEShopContent = () => {
+    const ceModules = getCEShopModules();
+    const ceQuestions = getCEShopExamQuestions();
+    const ceActivities = getCEShopActivities();
+    setData((prev) => {
+      const existingModuleIds = new Set(prev.modules.map((m) => m.id));
+      const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
+      const existingActivityIds = new Set(prev.activities.map((a) => a.id));
+      return {
+        ...prev,
+        modules: [...prev.modules, ...ceModules.filter((m) => !existingModuleIds.has(m.id))],
+        examQuestions: [...prev.examQuestions, ...ceQuestions.filter((q) => !existingQuestionIds.has(q.id))],
+        activities: [...prev.activities, ...ceActivities.filter((a) => !existingActivityIds.has(a.id))],
+        weeks: prev.weeks.map((w) => {
+          const newModIds = ceModules.filter((m) => m.weekNumber === w.number && !existingModuleIds.has(m.id)).map((m) => m.id);
+          return newModIds.length > 0 ? { ...w, moduleIds: [...w.moduleIds, ...newModIds] } : w;
+        }),
+      };
+    });
+  };
+
   const importData = (incoming: CourseData, mode: "replace" | "merge") => {
     if (mode === "replace") {
       setData(incoming);
@@ -191,6 +213,7 @@ export function useCourseStore() {
     updateWeekTitle,
     loadSeedContent,
     loadPearsonVueContent,
+    loadCEShopContent,
     importData,
   };
 }
