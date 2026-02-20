@@ -1,51 +1,72 @@
 
 
-# Add CE Shop Study Sheets to Content Library
+# Add Syllabus Template Section
 
 ## Overview
 
-Create a new data file (`src/data/ce-shop-content.ts`) containing all 8 CE Shop Nevada Exam Prep study sheets as modules, exam questions, and activities tagged with `sourceTag: "CE Shop"`. Add a "Load CE Shop Content" button to the Dashboard, following the same pattern used for Pearson VUE content.
+Add a dedicated **Syllabus** section to the app (separate from the Content Library) that stores the syllabus as a structured, editable template. This gives you a place to view the current syllabus, edit fields like dates and semester info, and eventually regenerate it for new semesters.
 
-## Content Mapping
+## What Gets Built
 
-Each of the 8 CE Shop study sheets becomes a module, mapped to the appropriate course week based on topic alignment:
+### 1. Syllabus Data Type (`src/types/course.ts`)
 
-| Study Sheet | Module ID | Week | Key Topics |
-|---|---|---|---|
-| Agency | `ce-mod-agency` | 1 | Statutory agency, dual agency, Form 525/524, assigned agency, duties owed, consent to act |
-| Contracts | `ce-mod-contracts` | 3 | Brokerage agreements, listing types, earnest money, closing statements, advance fees, timelines |
-| Disclosures | `ce-mod-disclosures` | 3 | Residential Disclosure Guide, Seller's Real Property Disclosure, CIC disclosures, licensee as principal |
-| Duties & Powers of the Commission | `ce-mod-commission` | 2 | NRED, REC structure, investigations, hearings, sanctions, Recovery Fund |
-| License Practice | `ce-mod-practice` | 6 | Licensee responsibilities, activities requiring license, broker supervision, advertising, trust funds, BPOs |
-| Licensing Requirements | `ce-mod-licensing` | 2 | License types, education requirements, renewal, CE hours, reciprocity, status changes |
-| Record Keeping | `ce-mod-records` | 4 | 5-year retention, broker records, trust fund records, confidential info protection |
-| Special Topics | `ce-mod-special` | 7 | Subdivisions, timeshares, water rights, solar, environmental issues |
+A new `SyllabusTemplate` interface to store the syllabus as structured data:
 
-## Exam Questions (~40 questions across all 8 topics)
+- **Course info**: course code, title, semester, instructor name/credentials, meeting days/times, location, date range, textbook, platform, contact info
+- **Weekly schedule**: array of weekly entries, each with week number, day, unit/topic, exam alignment, and assignment/quiz info
+- **Grading breakdown**: assignment categories with point values, plus the letter-grade scale
+- **Policies**: array of policy sections (no late work, attendance, ADA, etc.)
+- **Course objectives**: the 8 learning objectives as an array of strings
 
-Drawn directly from the study sheet content, covering key facts, NRS citations, and common exam traps identified in each sheet. Mix of basic, intermediate, and advanced difficulty. Examples:
+### 2. Seed Data (`src/data/syllabus-template.ts`)
 
-- Agency: Form 524 vs 525, assigned agency vs dual agency, confidentiality duration (1 year)
-- Contracts: Exclusive right-to-sell vs exclusive agency, net listings, earnest money deposit timing
-- Disclosures: 10-day delivery rule, treble damages, 4-business-day rescission for new defects
-- Commission: REC composition (5 members), $10,000 fine cap, Recovery Fund ($25,000/$100,000 caps)
-- License Practice: Trust fund rules, $150 commingling exception, BPO requirements
-- Licensing: 120 hours for salesperson, 36 hours CE renewal, 12-month exam validity
-- Record Keeping: 5-year retention, monthly trust account balancing
-- Special Topics: Prior appropriation, timeshare 5-day rescission, subdivision 35+ lots
+A new file that exports `getDefaultSyllabusTemplate()` pre-populated with the Fall 2025 data from your uploaded document:
 
-## Activities (2-3 activities)
+- All 7 weeks of the schedule with unit-to-exam-section mappings
+- Grading: Assignments 150 pts, Quizzes 100 pts, Final Exam 150 pts = 400 total
+- All institutional policies (withdrawal, ADA, Canvas, etc.)
+- Reading requirement and course flow descriptions
 
-- Contract drill: Identifying listing agreement types from scenarios
-- Case study: Trust fund handling and commingling scenarios
-- Study exercise: Disclosure timeline mapping
+### 3. Syllabus Page (`src/pages/SyllabusPage.tsx`)
 
-## Technical Changes
+A new page at `/syllabus` with:
 
-### New file
-- `src/data/ce-shop-content.ts` -- exports `getCEShopModules()`, `getCEShopExamQuestions()`, `getCEShopActivities()`
+- **Header card** showing course title, semester, instructor, meeting times, location, and textbook
+- **Course Objectives** section listing all 8 objectives
+- **Weekly Schedule** displayed as a styled table (Week, Day, Unit/Topic, Exam Alignment, Assignment)
+- **Grading Breakdown** table with point values and letter-grade scale
+- **Policies** section with collapsible panels for each policy
+- **Edit button** that opens an edit view where you can update dates, semester name, instructor info, and any other field
+- **Save** persists changes to localStorage alongside the rest of the course data
 
-### Modified files
-- `src/stores/course-store.ts` -- add `loadCEShopContent()` method (same merge/dedup pattern as `loadPearsonVueContent`)
-- `src/pages/Index.tsx` -- add "Load CE Shop Content" card on Dashboard (conditional, like Pearson VUE)
+### 4. Store Updates (`src/stores/course-store.ts`)
+
+- Add `syllabusTemplate` to the persisted `CourseData`
+- Add `updateSyllabus()` method
+- Add `loadDefaultSyllabus()` to initialize from the seed data
+
+### 5. Navigation and Routing
+
+- Add "Syllabus" nav item to the sidebar (using `FileText` icon from Lucide), positioned after Dashboard
+- Add `/syllabus` route in `App.tsx`
+
+### 6. Dashboard Integration (`src/pages/Index.tsx`)
+
+- Add a "Load Syllabus Template" CTA card (same pattern as Pearson VUE and CE Shop) that initializes the syllabus from the seed data
+
+## File Changes Summary
+
+| File | Action |
+|---|---|
+| `src/types/course.ts` | Add `SyllabusTemplate` and related interfaces; add `syllabusTemplate` to `CourseData` |
+| `src/data/syllabus-template.ts` | New -- seed data from Fall 2025 document |
+| `src/pages/SyllabusPage.tsx` | New -- view and edit the syllabus |
+| `src/stores/course-store.ts` | Add `updateSyllabus`, `loadDefaultSyllabus` |
+| `src/components/AppSidebar.tsx` | Add "Syllabus" nav link |
+| `src/App.tsx` | Add `/syllabus` route |
+| `src/pages/Index.tsx` | Add "Load Syllabus" CTA card |
+
+## Future: Template Regeneration
+
+This structure is specifically designed so that in a future iteration, you can tell the AI "regenerate my syllabus for Spring 2026 starting January 12" and it can update the dates, semester label, and any other changes while keeping the weekly topic structure intact. The structured data format makes this straightforward.
 
