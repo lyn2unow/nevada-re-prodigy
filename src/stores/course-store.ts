@@ -1,11 +1,11 @@
 // Course store - v2 clean rewrite
 import { useState, useEffect } from "react";
-import type { CourseData, Module, ExamQuestion, Activity, PracticeExam } from "@/types/course";
+import type { CourseData, Module, ExamQuestion, Activity, PracticeExam, SyllabusTemplate } from "@/types/course";
 import { DEFAULT_WEEKS } from "@/types/course";
 import { getSeedWeeks, getSeedModules, getSeedExamQuestions, getSeedActivities } from "@/data/seed-content";
 import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActivities } from "@/data/pearson-vue-content";
 import { getCEShopModules, getCEShopExamQuestions, getCEShopActivities } from "@/data/ce-shop-content";
-
+import { getDefaultSyllabusTemplate } from "@/data/syllabus-template";
 const STORAGE_KEY = "re103-course-data";
 
 function getInitialData(): CourseData {
@@ -198,6 +198,14 @@ export function useCourseStore() {
     }
   };
 
+  const updateSyllabus = (template: SyllabusTemplate) => {
+    setData((prev) => ({ ...prev, syllabusTemplate: template }));
+  };
+
+  const loadDefaultSyllabus = () => {
+    setData((prev) => ({ ...prev, syllabusTemplate: getDefaultSyllabusTemplate() }));
+  };
+
   return {
     data,
     addModule,
@@ -215,5 +223,7 @@ export function useCourseStore() {
     loadPearsonVueContent,
     loadCEShopContent,
     importData,
+    updateSyllabus,
+    loadDefaultSyllabus,
   };
 }
