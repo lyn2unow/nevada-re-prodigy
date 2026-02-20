@@ -14,7 +14,7 @@ const quickActions = [
 ];
 
 export default function Index() {
-  const { data, loadSeedContent, loadPearsonVueContent } = useCourse();
+  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent } = useCourse();
   const navigate = useNavigate();
 
   const totalModules = data.modules.length;
@@ -22,6 +22,12 @@ export default function Index() {
   const totalActivities = data.activities.length;
   const isEmpty = totalModules === 0 && totalQuestions === 0 && totalActivities === 0;
   const hasPearsonVue = data.modules.some((m) => m.sourceTag === "Pearson VUE");
+  const hasCEShop = data.modules.some((m) => m.sourceTag === "CE Shop");
+
+  const handleLoadCEShop = () => {
+    loadCEShopContent();
+    toast({ title: "CE Shop content loaded!", description: "8 modules, 40 exam questions, and 3 activities added from CE Shop study sheets." });
+  };
 
   const handleLoadSeed = () => {
     loadSeedContent();
@@ -80,6 +86,27 @@ export default function Index() {
             <Button variant="outline" onClick={handleLoadPearsonVue} className="gap-2 shrink-0">
               <FileText className="h-4 w-4" />
               Load Pearson VUE Content
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* CE Shop Content CTA */}
+      {!isEmpty && !hasCEShop && (
+        <Card className="border-accent/30 bg-accent/5">
+          <CardContent className="flex items-center justify-between py-5">
+            <div className="flex items-center gap-3">
+              <FileText className="h-6 w-6 text-accent" />
+              <div>
+                <p className="font-medium">CE Shop Nevada Exam Prep</p>
+                <p className="text-sm text-muted-foreground">
+                  Add 8 modules, 40 exam questions, and 3 activities from CE Shop study sheets
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" onClick={handleLoadCEShop} className="gap-2 shrink-0">
+              <FileText className="h-4 w-4" />
+              Load CE Shop Content
             </Button>
           </CardContent>
         </Card>
