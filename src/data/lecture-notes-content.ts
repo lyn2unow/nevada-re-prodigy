@@ -1784,6 +1784,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       tags: ["lot-and-block", "urban", "subdivision", "unit-5"],
       source: "Lecture Notes",
     },
+    ...getUnits6to17ExamQuestions(),
   ];
 }
 
