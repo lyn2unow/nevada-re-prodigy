@@ -29,7 +29,17 @@ export function useCourseStore() {
   const [data, setData] = useState<CourseData>(getInitialData);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      if (e instanceof DOMException && e.name === "QuotaExceededError") {
+        toast({
+          title: "Storage full",
+          description: "Changes could not be saved. Export a backup now.",
+          variant: "destructive",
+        });
+      }
+    }
   }, [data]);
 
   const addModule = (module: Module) => {
