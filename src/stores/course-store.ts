@@ -1,6 +1,7 @@
 // Course store - v2 clean rewrite
 import { useState, useEffect } from "react";
 import type { CourseData, Module, ExamQuestion, Activity, PracticeExam, SyllabusTemplate } from "@/types/course";
+import { toast } from "@/hooks/use-toast";
 import { DEFAULT_WEEKS } from "@/types/course";
 import { getSeedWeeks, getSeedModules, getSeedExamQuestions, getSeedActivities } from "@/data/seed-content";
 import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActivities } from "@/data/pearson-vue-content";
