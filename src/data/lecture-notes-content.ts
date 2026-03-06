@@ -1622,5 +1622,21 @@ export function getLectureNotesActivities(): Activity[] {
       weekNumber: 3,
       tags: ["easements", "appurtenant", "in-gross", "solar", "conservation", "NRS-111.370", "NRS-111.390", "unit-3", "lecture-notes"],
     },
+    // ===== UNIT 4 ACTIVITIES =====
+    {
+      id: "ln-act-u4-1",
+      title: "Match the Scenario to the Ownership Type",
+      type: "case-study",
+      description: "In groups of 3-4, students receive five ownership scenarios and must identify the correct form of ownership for each: (1) A married couple buys a home together → Community property; (2) Two investors purchase a vacation duplex with a 60/40 split → Tenancy in common; (3) A parent places their house in a living trust → Trust ownership; (4) Three friends buy a rental property and want survivorship → Joint tenancy; (5) A company purchases an office building → Corporate severalty. After matching, each group presents their reasoning to the class.",
+      instructorNotes: "Allow 10 minutes for matching and discussion. Emphasize that the key differentiators are: survivorship (joint tenancy), default status (TIC), marital presumption (community property), probate avoidance (trust), and entity ownership (severalty). Challenge students to explain WHY each answer is correct, not just identify it. Use incorrect matches as teaching moments.",
+      debriefPrompts: [
+        "Which scenario was the most difficult to classify, and why?",
+        "What would change if the married couple in Scenario 1 wanted survivorship rights?",
+        "Could Scenario 4 (friends wanting survivorship) also be structured as community property? Why or why not?",
+      ],
+      topic: "Forms of Ownership in Nevada",
+      weekNumber: 4,
+      tags: ["ownership-types", "severalty", "joint-tenancy", "TIC", "community-property", "trust", "unit-4", "lecture-notes"],
+    },
   ];
 }
