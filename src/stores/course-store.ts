@@ -1,6 +1,7 @@
 // Course store - v2 clean rewrite
 import { useState, useEffect } from "react";
 import type { CourseData, Module, ExamQuestion, Activity, PracticeExam, SyllabusTemplate } from "@/types/course";
+import { toast } from "@/hooks/use-toast";
 import { DEFAULT_WEEKS } from "@/types/course";
 import { getSeedWeeks, getSeedModules, getSeedExamQuestions, getSeedActivities } from "@/data/seed-content";
 import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActivities } from "@/data/pearson-vue-content";
@@ -28,7 +29,17 @@ export function useCourseStore() {
   const [data, setData] = useState<CourseData>(getInitialData);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      if (e instanceof DOMException && e.name === "QuotaExceededError") {
+        toast({
+          title: "Storage full",
+          description: "Changes could not be saved. Export a backup now.",
+          variant: "destructive",
+        });
+      }
+    }
   }, [data]);
 
   const addModule = (module: Module) => {

@@ -132,9 +132,10 @@ export default function ImportPage() {
               summary: `${d.modules.length} modules, ${d.examQuestions.length} exam questions, ${d.activities.length} activities, ${d.practiceExams.length} practice exams`,
             });
           } else {
+            console.error("Import validation errors:", result.error.issues);
             setValidationResult({
               valid: false,
-              error: result.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).slice(0, 5).join("\n"),
+              error: "Invalid file format. Please use a JSON file exported from this app.",
             });
           }
         } catch {
