@@ -1127,6 +1127,7 @@ export function getLectureNotesModules(): Module[] {
       federalVsNevada: "nevada",
     },
   ];
+}
 
 export function getLectureNotesExamQuestions(): ExamQuestion[] {
   return [
