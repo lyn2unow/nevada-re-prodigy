@@ -1,46 +1,59 @@
 
 
-# Add Unit 3 Lecture Notes: Interests in Real Estate
+# Add Units 6-17 Lecture Notes to Course Library
 
 ## Overview
 
-Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
+Append 12 units of lecture content (Units 6-17) from the uploaded RTF document into `src/data/lecture-notes-content.ts`. This is the largest content addition yet, covering taxes, contracts, title transfer, recording, license law, financing, leases, appraisal, land use, fair housing, closing procedures, and environmental issues.
 
-## New Content Summary
+## Week Mapping
 
-### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
+| Week | Units | Topics |
+|------|-------|--------|
+| 5 | 6-7 | Taxes & Liens, Contracts & Purchase Agreements |
+| 6 | 8-12 | Transfer of Title, Title Records, License Law, Financing, Leases |
+| 7 | 13-17 | Appraisal, Land Use, Fair Housing, Closing, Environmental |
 
-| # | Title | Key Statutes |
-|---|---|---|
-| 1 | Marital Property (Community Property) | NRS 123.220 |
-| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
-| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
-| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
-| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
-| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
+(Unit 5 already occupies Week 5; Units 6-7 join it there.)
 
-### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
+## Content Summary Per Unit
 
-Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
+| Unit | Modules | Exam Qs | Activity | Key Statutes |
+|------|---------|---------|----------|--------------|
+| 6 - Taxes & Liens | 4 | 5 | 1 | NRS 361.225, NRS 108, NRS 116 (HOA super-priority), SFR v. U.S. Bank |
+| 7 - Contracts | 5 | 5 | 1 | NRS 111.210 (Statute of Frauds), NRS 645.254, NRS 129.010, NRS 719 |
+| 8 - Transfer of Title | 5 | 5 | 1 | NRS 111.170, NRS 111.060, NRS 111.070, NRS 11.150, NRS 40.090, NRS 134 |
+| 9 - Title Records | 3 | 5 | 1 | NRS 719 (electronic recording), UCC-1 filings |
+| 10 - License Law | 5 | 5 | 1 | NRS 645.030, 645.630-635, Loomis v. Lang |
+| 11 - Financing | 5 | 5 | 1 | NRS 40.050, NRS 107.080, NRS 107.077, NRS 40.433 |
+| 12 - Leases | 5 | 5 | 1 | NRS 118A (full suite), NRS 645.019, NAC 645.655 |
+| 13 - Appraisal | 3 | 5 | 1 | NRS 645C, NAC 645C, NRS 645.2515 |
+| 14 - Land Use | 4 | 5 | 1 | NRS 119, NAC 119, NRS/NAC 119A, NRS 278 |
+| 15 - Fair Housing | 4 | 5 | 1 | NRS 118.100, NRS 645.321, Civil Rights Act 1866, FHA 1968 |
+| 16 - Closing | 4 | 5 | 1 | NRS 645A, NAC 645A, NAC 692A, TRID |
+| 17 - Environmental | 3 | 5 | 1 | NRS 645.254(3)(d), NRS 445D, lead-based paint federal law |
 
-### 1 Activity (ID: ln-act-u3-1)
-
-"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
+**Totals: ~50 modules, ~60 exam questions, 12 activities**
 
 ## Technical Details
 
 ### File modified
 - `src/data/lecture-notes-content.ts`
 
-### Changes
-1. Update file comment to include Unit 3
-2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
-3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
-4. Append 1 activity to `getLectureNotesActivities()` return array
+### ID scheme
+- Modules: `ln-u{N}-mod-{X}` (continues existing pattern)
+- Exam questions: `ln-eq-u{N}-{X}`
+- Activities: `ln-act-u{N}-1`
+- Key terms: `ln-u{N}-kt-{X}`
+- Exam alerts: `ln-u{N}-ea-{X}`
+- Knowledge checks: `ln-u{N}-kc-{X}`
+
+### Module order numbering
+Continues from Unit 5's order 57. Unit 6 starts at order 58.
+
+### Implementation approach
+Due to the massive size (~3000+ new lines), the content will be appended in sections to the three existing return arrays. The file header comment will be updated to reflect Units 1-17.
 
 ### Pattern
-Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
-
-### NRS Reference impact
-New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
+Same structure as Units 1-5: source tag "Lecture Notes", key terms with source attribution, exam alerts with type classification, knowledge checks with 4 options, discussion prompts, and real-world scenarios drawn directly from instructor teaching notes.
 
