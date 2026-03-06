@@ -1,5 +1,5 @@
-// Lecture Notes — Unit 1: Real Estate Brokerage & Agency + Unit 2: Listing & Buyer Representation + Unit 3: Interests in Real Estate
-// Unit 1: 8 modules, ~10 exam questions, 3 activities | Unit 2: 13 modules, ~10 exam questions, 1 activity | Unit 3: 6 modules, 5 exam questions, 1 activity
+// Lecture Notes — Unit 1: Real Estate Brokerage & Agency + Unit 2: Listing & Buyer Representation + Unit 3: Interests in Real Estate + Unit 4: Forms of Ownership in Nevada
+// Unit 1: 8 modules, ~10 exam questions, 3 activities | Unit 2: 13 modules, ~10 exam questions, 1 activity | Unit 3: 6 modules, 5 exam questions, 1 activity | Unit 4: 7 modules, 7 exam questions, 1 activity
 import type { Module, ExamQuestion, Activity } from "@/types/course";
 
 export function getLectureNotesModules(): Module[] {
