@@ -1899,5 +1899,6 @@ export function getLectureNotesActivities(): Activity[] {
       weekNumber: 5,
       tags: ["legal-descriptions", "rectangular-survey", "township", "Mount-Diablo", "unit-5", "lecture-notes"],
     },
+    ...getUnits6to17Activities(),
   ];
 }
