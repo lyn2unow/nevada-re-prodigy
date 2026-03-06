@@ -1784,6 +1784,8 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
     },
   ];
 }
+
+export function getLectureNotesActivities(): Activity[] {
   return [
     {
       id: "ln-act-1",
