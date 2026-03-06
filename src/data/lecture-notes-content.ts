@@ -1880,5 +1880,21 @@ export function getLectureNotesActivities(): Activity[] {
       weekNumber: 4,
       tags: ["ownership-types", "severalty", "joint-tenancy", "TIC", "community-property", "trust", "unit-4", "lecture-notes"],
     },
+    // ── Unit 5: Legal Descriptions of Property ──────────────────────────
+    {
+      id: "ln-act-u5-1",
+      title: "Find Your Township",
+      type: "other",
+      description: "Using a projected Nevada township map, students locate the township and range designations for two major cities: Reno (approximately T19N R20E) and Las Vegas (approximately T21S R61E). Students then identify their own location's township/range using online tools or county maps. Finally, each student explains how the rectangular survey system divides land from meridian → township → section → quarter section.",
+      instructorNotes: "Project a Nevada township map on screen. Walk students through reading T/R designations: T = Township (north or south of base line), R = Range (east of Mount Diablo Meridian). Let students work in pairs to locate the two cities. Then have each pair find their own location. Wrap up by connecting this to how legal descriptions on deeds reference these grid coordinates for rural land.",
+      debriefPrompts: [
+        "Why are both Reno and Las Vegas 'east' of the Mount Diablo Meridian?",
+        "How would you describe a 160-acre parcel using the rectangular survey system?",
+        "When would a metes-and-bounds description be used instead of the rectangular survey?",
+      ],
+      topic: "Legal Descriptions of Property",
+      weekNumber: 5,
+      tags: ["legal-descriptions", "rectangular-survey", "township", "Mount-Diablo", "unit-5", "lecture-notes"],
+    },
   ];
 }
