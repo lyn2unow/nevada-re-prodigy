@@ -204,9 +204,22 @@ export function generatePdf(title: string, content: string) {
   };
 }
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function contentToHtml(title: string, markdown: string): string {
-  // Simple markdown-to-HTML conversion for our structured content
-  let html = markdown
+  // Escape all user content first to prevent XSS
+  const safeTitle = escapeHtml(title);
+  const safeMarkdown = escapeHtml(markdown);
+
+  // Apply markdown formatting on escaped content
+  let html = safeMarkdown
     // Headers
     .replace(/^## (.+)$/gm, '<h2 style="color:#1a365d;margin-top:1.5em;margin-bottom:0.5em;font-size:1.1em;border-bottom:1px solid #e2e8f0;padding-bottom:4px;">$1</h2>')
     .replace(/^# (.+)$/gm, '<h1 style="color:#1a365d;margin-bottom:0.3em;font-size:1.4em;">$1</h1>')
@@ -217,7 +230,7 @@ function contentToHtml(title: string, markdown: string): string {
     // Numbered list items (simple)
     .replace(/^(\d+)\. (.+)$/gm, '<li style="margin-bottom:4px;">$2</li>')
     // Paragraphs (non-empty lines that aren't already wrapped)
-    .replace(/^(?!<[hl])((?!<li).+)$/gm, '<p style="margin:0.4em 0;line-height:1.6;">$1</p>')
+    .replace(/^(?!&lt;[hl])((?!&lt;li).+)$/gm, '<p style="margin:0.4em 0;line-height:1.6;">$1</p>')
     // Empty lines
     .replace(/^\s*$/gm, "");
 
@@ -229,7 +242,8 @@ function contentToHtml(title: string, markdown: string): string {
   return `<!DOCTYPE html>
 <html>
 <head>
-  <title>${title}</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline';">
+  <title>${safeTitle}</title>
   <style>
     @media print {
       body { margin: 0.75in; }
