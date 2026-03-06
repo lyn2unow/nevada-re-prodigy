@@ -1127,6 +1127,7 @@ export function getLectureNotesModules(): Module[] {
       correctsTextbook: false,
       federalVsNevada: "nevada",
     },
+    ...getUnits6to17Modules(),
   ];
 }
 
