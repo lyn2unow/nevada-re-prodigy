@@ -1,38 +1,31 @@
 
 
-# Add Unit 4 Lecture Notes: Forms of Ownership in Nevada
+# Add Unit 3 Lecture Notes: Interests in Real Estate
 
 ## Overview
 
-Append 7 modules, 7 exam questions, and 1 activity for Unit 4 (Week 4) covering ownership in severalty, co-ownership types, community property, trusts, business entities, and condos/co-ops/time-shares.
+Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
 
-## New Content
+## New Content Summary
 
-### 7 Modules (weekNumber: 4, IDs: ln-u4-mod-1 through ln-u4-mod-7, order: 46-52)
+### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
 
-| # | Title | Key Statutes/Concepts |
+| # | Title | Key Statutes |
 |---|---|---|
-| 1 | Ownership in Severalty | Solo ownership, entity ownership |
-| 2 | Joint Tenancy | NRS 111.060, four unities, right of survivorship |
-| 3 | Tenancy in Common | Default co-ownership, partition lawsuits |
-| 4 | Community Property | NRS 123.020, no dower/curtesy, both spouses must sign |
-| 5 | Ownership in Trust | Living trusts, REITs, trustor/trustee/beneficiary |
-| 6 | Business Entity Ownership | Corporations, partnerships, LLCs, syndicates |
-| 7 | Condos, Co-Ops & Time-Shares | NRS 117, NRS/NAC 119A, HOA, CC&Rs |
+| 1 | Marital Property (Community Property) | NRS 123.220 |
+| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
+| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
+| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
+| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
+| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
 
-### 7 Exam Questions (IDs: ln-eq-u4-1 through ln-eq-u4-7)
+### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
 
-1. Default co-ownership type (TIC)
-2. Joint tenancy key feature (survivorship)
-3. Community property creation (during marriage)
-4. Trust title holder (trustee)
-5. Condo common-area ownership (TIC)
-6. LLC benefit (liability + pass-through)
-7. Time-share estate vs use distinction
+Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
 
-### 1 Activity (ID: ln-act-u4-1)
+### 1 Activity (ID: ln-act-u3-1)
 
-"Match the Scenario to the Ownership Type" group exercise with 5 scenarios.
+"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
 
 ## Technical Details
 
@@ -40,14 +33,14 @@ Append 7 modules, 7 exam questions, and 1 activity for Unit 4 (Week 4) covering 
 - `src/data/lecture-notes-content.ts`
 
 ### Changes
-1. Update file comment header to include Unit 4
-2. Append 7 modules to `getLectureNotesModules()` (before closing bracket)
-3. Append 7 exam questions to `getLectureNotesExamQuestions()`
-4. Append 1 activity to `getLectureNotesActivities()`
+1. Update file comment to include Unit 3
+2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
+3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
+4. Append 1 activity to `getLectureNotesActivities()` return array
 
 ### Pattern
-Same structure as Units 1-3: source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts. Orders start at 46 to follow Unit 3's 40-45 range.
+Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
 
-### Cross-reference impact
-NRS 111.060, NRS 123.020, NRS 117, and NRS/NAC 119A will be picked up by the cross-reference system if those sections are added to `nrs-reference.ts`.
+### NRS Reference impact
+New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
 
