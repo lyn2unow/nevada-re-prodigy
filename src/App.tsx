@@ -54,6 +54,7 @@ const App = () => (
                 <Route path="/nrs-reference" element={<NRSReference />} />
                 <Route path="/export" element={<ExportPage />} />
                 <Route path="/import" element={<ImportPage />} />
+                <Route path="/source-viewer" element={<SourceViewer />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AppLayout>

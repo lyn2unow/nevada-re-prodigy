@@ -35,6 +35,7 @@ const navItems = [
   { title: "NRS Reference", url: "/nrs-reference", icon: Scale },
   { title: "Export", url: "/export", icon: Download },
   { title: "Import", url: "/import", icon: Upload },
+  { title: "Source Viewer", url: "/source-viewer", icon: Eye },
 ];
 
 export function AppSidebar() {
