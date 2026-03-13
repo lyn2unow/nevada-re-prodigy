@@ -281,11 +281,10 @@ function generateQuestionItemXml(q: ExamQuestion, index: number): string {
   const ident = `q_${q.id}`;
   const responseLabels = q.options.map((_, i) => `resp_${i}`);
   const correctResp = responseLabels[q.correctIndex];
+  const wrongResps = responseLabels.filter((_, i) => i !== q.correctIndex);
 
-  // Build general feedback (correct answer explanation)
-  let feedbackText = escapeXml(q.explanation);
+  const feedbackText = escapeXml(q.explanation);
 
-  // Build per-option response labels
   const responseLabelsXml = q.options
     .map(
       (opt, i) =>
@@ -297,20 +296,24 @@ function generateQuestionItemXml(q: ExamQuestion, index: number): string {
     )
     .join("\n");
 
-  // Build response condition for scoring
+  // Incorrect condition uses <or> listing each wrong ident explicitly
+  const wrongVarequals = wrongResps
+    .map((r) => `              <varequal respident="response1">${r}</varequal>`)
+    .join("\n");
+
   const respconditionXml = `
         <respcondition continue="No">
           <conditionvar>
             <varequal respident="response1">${correctResp}</varequal>
           </conditionvar>
-          <setvar action="Set" varname="SCORE">100</setvar>
+          <setvar action="Set" varname="SCORE">1</setvar>
           <displayfeedback feedbacktype="Response" linkrefid="correct_fb"/>
         </respcondition>
-        <respcondition continue="Yes">
+        <respcondition continue="No">
           <conditionvar>
-            <not>
-              <varequal respident="response1">${correctResp}</varequal>
-            </not>
+            <or>
+${wrongVarequals}
+            </or>
           </conditionvar>
           <setvar action="Set" varname="SCORE">0</setvar>
           <displayfeedback feedbacktype="Response" linkrefid="incorrect_fb"/>
@@ -342,23 +345,19 @@ ${responseLabelsXml}
       </presentation>
       <resprocessing>
         <outcomes>
-          <decvar maxvalue="100" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
         </outcomes>
 ${respconditionXml}
       </resprocessing>
       <itemfeedback ident="correct_fb">
-        <flow_mat>
-          <material>
-            <mattext texttype="text/html">&lt;p&gt;${escapeXml(feedbackText)}&lt;/p&gt;</mattext>
-          </material>
-        </flow_mat>
+        <material>
+          <mattext texttype="text/html">&lt;p&gt;${escapeXml(feedbackText)}&lt;/p&gt;</mattext>
+        </material>
       </itemfeedback>
       <itemfeedback ident="incorrect_fb">
-        <flow_mat>
-          <material>
-            <mattext texttype="text/html">&lt;p&gt;Incorrect. ${escapeXml(feedbackText)}&lt;/p&gt;</mattext>
-          </material>
-        </flow_mat>
+        <material>
+          <mattext texttype="text/html">&lt;p&gt;Incorrect. ${escapeXml(feedbackText)}&lt;/p&gt;</mattext>
+        </material>
       </itemfeedback>
     </item>`;
 }
