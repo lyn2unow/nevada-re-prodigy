@@ -47,6 +47,7 @@ const App = () => (
                 <Route path="/exam-prep/take/:examId" element={<PracticeExamTaker />} />
                 <Route path="/activities" element={<ActivityGenerator />} />
                 <Route path="/activities/new" element={<ActivityForm />} />
+                <Route path="/activities/view/:activityId" element={<ActivityDetail />} />
                 <Route path="/activities/edit/:activityId" element={<ActivityForm />} />
                 <Route path="/library" element={<ContentLibrary />} />
                 <Route path="/nrs-reference" element={<NRSReference />} />

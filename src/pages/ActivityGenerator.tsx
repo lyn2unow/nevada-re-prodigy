@@ -55,7 +55,7 @@ export default function ActivityGenerator() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {data.activities.map((activity) => (
-            <Card key={activity.id} className="hover:border-accent transition-colors">
+            <Card key={activity.id} className="hover:border-accent transition-colors cursor-pointer" onClick={() => navigate(`/activities/view/${activity.id}`)}>
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between gap-3">
                   <CardTitle className="text-lg">{activity.title}</CardTitle>
