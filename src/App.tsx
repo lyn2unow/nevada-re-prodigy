@@ -13,6 +13,7 @@ import ExamPrep from "./pages/ExamPrep";
 import ExamQuestionForm from "./pages/ExamQuestionForm";
 import ActivityGenerator from "./pages/ActivityGenerator";
 import ActivityForm from "./pages/ActivityForm";
+import ActivityDetail from "./pages/ActivityDetail";
 import ContentLibrary from "./pages/ContentLibrary";
 import ExportPage from "./pages/ExportPage";
 import ImportPage from "./pages/ImportPage";
