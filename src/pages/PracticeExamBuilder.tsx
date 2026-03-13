@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, CheckSquare, Square } from "lucide-react";
+import { ArrowLeft, CheckSquare, Square, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCourse } from "@/contexts/CourseContext";
 import { toast } from "@/hooks/use-toast";
 
@@ -15,6 +16,40 @@ export default function PracticeExamBuilder() {
   const { data, addPracticeExam } = useCourse();
   const [title, setTitle] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [search, setSearch] = useState("");
+  const [topicFilter, setTopicFilter] = useState("all");
+  const [difficultyFilter, setDifficultyFilter] = useState("all");
+  const [sourceFilter, setSourceFilter] = useState("all");
+
+  const topicOptions = useMemo(() => {
+    const topics = new Set<string>();
+    data.examQuestions.forEach((q) => {
+      if (q.topic) topics.add(q.topic);
+    });
+    return Array.from(topics).sort();
+  }, [data.examQuestions]);
+
+  const sourceOptions = useMemo(() => {
+    const sources = new Set<string>();
+    data.examQuestions.forEach((q) => {
+      if (q.source) sources.add(q.source);
+    });
+    return Array.from(sources).sort();
+  }, [data.examQuestions]);
+
+  const filtered = useMemo(() => {
+    return data.examQuestions.filter((q) => {
+      const matchesSearch =
+        !search ||
+        q.question.toLowerCase().includes(search.toLowerCase()) ||
+        q.topic.toLowerCase().includes(search.toLowerCase()) ||
+        q.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+      const matchesTopic = topicFilter === "all" || q.topic === topicFilter;
+      const matchesDifficulty = difficultyFilter === "all" || q.difficulty === difficultyFilter;
+      const matchesSource = sourceFilter === "all" || q.source === sourceFilter;
+      return matchesSearch && matchesTopic && matchesDifficulty && matchesSource;
+    });
+  }, [data.examQuestions, search, topicFilter, difficultyFilter, sourceFilter]);
 
   const toggle = (id: string) => {
     setSelected((prev) => {
@@ -24,8 +59,21 @@ export default function PracticeExamBuilder() {
     });
   };
 
-  const selectAll = () => setSelected(new Set(data.examQuestions.map((q) => q.id)));
-  const deselectAll = () => setSelected(new Set());
+  const selectFiltered = () => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      filtered.forEach((q) => next.add(q.id));
+      return next;
+    });
+  };
+
+  const deselectFiltered = () => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      filtered.forEach((q) => next.delete(q.id));
+      return next;
+    });
+  };
 
   const handleCreate = () => {
     if (!title.trim()) {
@@ -83,26 +131,84 @@ export default function PracticeExamBuilder() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg">
-              Select Questions ({selected.size} of {data.examQuestions.length})
+              Select Questions ({selected.size} of {data.examQuestions.length} selected)
             </CardTitle>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={selectAll}>
-                <CheckSquare className="h-3.5 w-3.5 mr-1" /> All
+              <Button variant="outline" size="sm" onClick={selectFiltered}>
+                <CheckSquare className="h-3.5 w-3.5 mr-1" /> Select Filtered
               </Button>
-              <Button variant="outline" size="sm" onClick={deselectAll}>
-                <Square className="h-3.5 w-3.5 mr-1" /> None
+              <Button variant="outline" size="sm" onClick={deselectFiltered}>
+                <Square className="h-3.5 w-3.5 mr-1" /> Deselect Filtered
               </Button>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
+          {/* Filters */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search by title, topic, term, or tag..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <Select value={topicFilter} onValueChange={setTopicFilter}>
+              <SelectTrigger className="w-full sm:w-44">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Topics</SelectItem>
+                {topicOptions.map((t) => (
+                  <SelectItem key={t} value={t}>
+                    {t}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={difficultyFilter} onValueChange={setDifficultyFilter}>
+              <SelectTrigger className="w-full sm:w-40">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Difficulty</SelectItem>
+                <SelectItem value="basic">Basic</SelectItem>
+                <SelectItem value="intermediate">Intermediate</SelectItem>
+                <SelectItem value="advanced">Advanced</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={sourceFilter} onValueChange={setSourceFilter}>
+              <SelectTrigger className="w-full sm:w-40">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Sources</SelectItem>
+                {sourceOptions.map((s) => (
+                  <SelectItem key={s} value={s}>
+                    {s}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <p className="text-xs text-muted-foreground">
+            Showing {filtered.length} of {data.examQuestions.length} questions
+          </p>
+
           {data.examQuestions.length === 0 ? (
             <p className="text-muted-foreground text-center py-8">
               No questions available. Create exam questions first.
             </p>
+          ) : filtered.length === 0 ? (
+            <p className="text-muted-foreground text-center py-8">
+              No questions match your filters.
+            </p>
           ) : (
             <div className="space-y-2">
-              {data.examQuestions.map((q) => (
+              {filtered.map((q) => (
                 <div
                   key={q.id}
                   className="flex items-start gap-3 p-3 rounded-md border hover:bg-muted/50 cursor-pointer transition-colors"
@@ -115,9 +221,10 @@ export default function PracticeExamBuilder() {
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium leading-snug">{q.question}</p>
-                    <div className="flex gap-2 mt-1">
+                    <div className="flex gap-2 mt-1 flex-wrap">
                       <Badge variant="outline" className="text-[10px]">{q.topic}</Badge>
                       <Badge variant="outline" className="text-[10px]">{q.difficulty}</Badge>
+                      <Badge variant="secondary" className="text-[10px]">{q.source}</Badge>
                       {q.examTrap && <Badge variant="destructive" className="text-[10px]">Trap</Badge>}
                     </div>
                   </div>
