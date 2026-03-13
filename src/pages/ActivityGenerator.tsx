@@ -55,7 +55,7 @@ export default function ActivityGenerator() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {data.activities.map((activity) => (
-            <Card key={activity.id} className="hover:border-accent transition-colors">
+            <Card key={activity.id} className="hover:border-accent transition-colors cursor-pointer" onClick={() => navigate(`/activities/view/${activity.id}`)}>
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between gap-3">
                   <CardTitle className="text-lg">{activity.title}</CardTitle>
@@ -86,7 +86,7 @@ export default function ActivityGenerator() {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8"
-                      onClick={() => navigate(`/activities/edit/${activity.id}`)}
+                                      onClick={(e) => { e.stopPropagation(); navigate(`/activities/edit/${activity.id}`); }}
                     >
                       <Pencil className="h-3.5 w-3.5" />
                     </Button>
@@ -94,7 +94,7 @@ export default function ActivityGenerator() {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 text-destructive hover:text-destructive"
-                      onClick={() => handleDelete(activity.id, activity.title)}
+                      onClick={(e) => { e.stopPropagation(); handleDelete(activity.id, activity.title); }}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </Button>
