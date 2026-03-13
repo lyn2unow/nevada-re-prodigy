@@ -94,7 +94,7 @@ export default function ActivityGenerator() {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 text-destructive hover:text-destructive"
-                      onClick={() => handleDelete(activity.id, activity.title)}
+                      onClick={(e) => { e.stopPropagation(); handleDelete(activity.id, activity.title); }}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </Button>
