@@ -21,6 +21,7 @@ import PracticeExamBuilder from "./pages/PracticeExamBuilder";
 import PracticeExamTaker from "./pages/PracticeExamTaker";
 import SyllabusPage from "./pages/SyllabusPage";
 import NRSReference from "./pages/NRSReference";
+import SourceViewer from "./pages/SourceViewer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
                 <Route path="/nrs-reference" element={<NRSReference />} />
                 <Route path="/export" element={<ExportPage />} />
                 <Route path="/import" element={<ImportPage />} />
+                <Route path="/source-viewer" element={<SourceViewer />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AppLayout>
