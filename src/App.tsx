@@ -21,6 +21,7 @@ import PracticeExamBuilder from "./pages/PracticeExamBuilder";
 import PracticeExamTaker from "./pages/PracticeExamTaker";
 import SyllabusPage from "./pages/SyllabusPage";
 import NRSReference from "./pages/NRSReference";
+import SourceViewer from "./pages/SourceViewer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
