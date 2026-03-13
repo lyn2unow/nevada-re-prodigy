@@ -86,7 +86,7 @@ export default function ActivityGenerator() {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8"
-                      onClick={() => navigate(`/activities/edit/${activity.id}`)}
+                                      onClick={(e) => { e.stopPropagation(); navigate(`/activities/edit/${activity.id}`); }}
                     >
                       <Pencil className="h-3.5 w-3.5" />
                     </Button>
