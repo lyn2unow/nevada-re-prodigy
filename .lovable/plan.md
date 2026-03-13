@@ -1,46 +1,43 @@
 
 
-# Add Unit 3 Lecture Notes: Interests in Real Estate
+# Activity Detail View with Copy-to-Clipboard
 
-## Overview
+## What changes
 
-Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
+1. **New page: `src/pages/ActivityDetail.tsx`** — Read-only view of a single activity showing all fields: title, type badge, description, topic, week, tags, instructor notes, and debrief prompts. Includes a "Copy to Clipboard" button that formats the activity as clean plain text (title, type, description, instructor notes, debrief prompts) so instructors can paste it into Word, Google Docs, email, etc.
 
-## New Content Summary
+2. **New route in `src/App.tsx`** — Add `/activities/view/:activityId` route pointing to the new detail page.
 
-### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
+3. **Update `src/pages/ActivityGenerator.tsx`** — Make each activity card clickable (clicking the card body navigates to `/activities/view/:activityId`). The edit and delete icon buttons remain in-place with `stopPropagation`.
 
-| # | Title | Key Statutes |
-|---|---|---|
-| 1 | Marital Property (Community Property) | NRS 123.220 |
-| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
-| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
-| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
-| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
-| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
+## Detail page layout
 
-### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
+- Back arrow + title + type badge header
+- "Copy Activity" button (top right, uses `navigator.clipboard.writeText`) and "Edit" button
+- Full description (no truncation)
+- Week and tags row
+- Instructor Notes section (card)
+- Debrief Prompts section (numbered list)
+- Toast confirmation on copy
 
-Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
+## Copy format (plain text)
 
-### 1 Activity (ID: ln-act-u3-1)
+```
+ACTIVITY: [Title]
+Type: [Role-Play]
+Week: [3]
+Topic: [Contracts]
 
-"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
+DESCRIPTION:
+[full description]
 
-## Technical Details
+INSTRUCTOR NOTES:
+[full notes]
 
-### File modified
-- `src/data/lecture-notes-content.ts`
+DEBRIEF PROMPTS:
+1. [prompt]
+2. [prompt]
 
-### Changes
-1. Update file comment to include Unit 3
-2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
-3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
-4. Append 1 activity to `getLectureNotesActivities()` return array
-
-### Pattern
-Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
-
-### NRS Reference impact
-New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
+Tags: [tag1, tag2]
+```
 
