@@ -8,6 +8,7 @@ import {
   Upload,
   FileText,
   Scale,
+  Eye,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
