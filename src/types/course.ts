@@ -67,6 +67,7 @@ export interface Module {
   sourceTag: SourceAuthority;
   correctsTextbook: boolean;
   federalVsNevada: "federal" | "nevada" | "both";
+  pearsonVueArea?: PearsonVueArea;
 }
 
 export interface ExamQuestion {
@@ -80,6 +81,8 @@ export interface ExamQuestion {
   difficulty: DifficultyLevel;
   examTrap: boolean;
   examTrapNote?: string;
+  cognitiveLevel?: CognitiveLevel;
+  pearsonVueArea?: PearsonVueArea;
   tags: string[];
   source: SourceAuthority;
 }
