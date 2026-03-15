@@ -24,6 +24,7 @@ export default function Index() {
   const hasPearsonVue = data.modules.some((m) => m.sourceTag === "Pearson VUE");
   const hasCEShop = data.modules.some((m) => m.sourceTag === "CE Shop");
   const hasLectureNotes = data.modules.some((m) => m.sourceTag === "Lecture Notes");
+  const hasTextbook = data.modules.some((m) => m.sourceTag === "Textbook");
   const hasNRS = !!data.statuteSections && data.statuteSections.length > 0;
 
   const handleLoadSyllabus = () => {
