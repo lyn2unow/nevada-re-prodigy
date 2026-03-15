@@ -39,6 +39,7 @@ export interface KnowledgeCheckQuestion {
   question: string;
   options: string[];
   correctIndex: number;
+  cognitiveLevel?: CognitiveLevel;
   explanation: string;
 }
 

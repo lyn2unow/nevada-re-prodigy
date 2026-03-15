@@ -56,6 +56,7 @@ const App = () => (
                 <Route path="/export" element={<ExportPage />} />
                 <Route path="/import" element={<ImportPage />} />
                 <Route path="/source-viewer" element={<SourceViewer />} />
+                <Route path="/lecture-generator" element={<LectureGenerator />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AppLayout>
