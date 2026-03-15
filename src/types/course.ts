@@ -7,6 +7,26 @@ export type SourceAuthority =
 
 export type DifficultyLevel = "basic" | "intermediate" | "advanced";
 
+export type PearsonVueArea =
+  | "National I - Property Ownership"
+  | "National II - Land Use Controls & Regulations"
+  | "National III - Valuation & Market Analysis"
+  | "National IV - Financing"
+  | "National V - General Principles of Agency"
+  | "National VI - Property Disclosures"
+  | "National VII - Contracts"
+  | "National VIII - Leasing & Property Management"
+  | "State I - Duties & Powers of the Real Estate Commission"
+  | "State II - Licensing Requirements"
+  | "State III - Nevada Agency Relationships"
+  | "State IV - Nevada Disclosures"
+  | "State V - Nevada Contracts"
+  | "State VI - Nevada Property Management"
+  | "State VII - Nevada Brokerage Operations"
+  | "State VIII - Nevada Disciplinary Actions & Recovery Fund";
+
+export type CognitiveLevel = "knowledge" | "application" | "analysis";
+
 export interface KeyTerm {
   id: string;
   term: string;
@@ -19,6 +39,7 @@ export interface KnowledgeCheckQuestion {
   question: string;
   options: string[];
   correctIndex: number;
+  cognitiveLevel?: CognitiveLevel;
   explanation: string;
 }
 
@@ -47,6 +68,7 @@ export interface Module {
   sourceTag: SourceAuthority;
   correctsTextbook: boolean;
   federalVsNevada: "federal" | "nevada" | "both";
+  pearsonVueArea?: PearsonVueArea;
 }
 
 export interface ExamQuestion {
@@ -60,6 +82,8 @@ export interface ExamQuestion {
   difficulty: DifficultyLevel;
   examTrap: boolean;
   examTrapNote?: string;
+  cognitiveLevel?: CognitiveLevel;
+  pearsonVueArea?: PearsonVueArea;
   tags: string[];
   source: SourceAuthority;
 }

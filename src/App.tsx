@@ -22,6 +22,7 @@ import PracticeExamTaker from "./pages/PracticeExamTaker";
 import SyllabusPage from "./pages/SyllabusPage";
 import NRSReference from "./pages/NRSReference";
 import SourceViewer from "./pages/SourceViewer";
+import LectureGenerator from "./pages/LectureGenerator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const App = () => (
                 <Route path="/export" element={<ExportPage />} />
                 <Route path="/import" element={<ImportPage />} />
                 <Route path="/source-viewer" element={<SourceViewer />} />
+                <Route path="/lecture-generator" element={<LectureGenerator />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AppLayout>
