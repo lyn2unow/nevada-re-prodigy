@@ -266,6 +266,12 @@ export default function SourceViewer() {
     activities: getLectureNotesActivities(),
   }, search), [search]);
 
+  const textbook = useMemo(() => filterSource({
+    modules: getTextbookModules(),
+    examQuestions: getTextbookExamQuestions(),
+    activities: getTextbookActivities(),
+  }, search), [search]);
+
   const nrsSections = useMemo(() => {
     const all = getNRS645Sections();
     if (!search) return all;
