@@ -11,6 +11,7 @@ import type { Module, ExamQuestion, Activity, StatuteSection } from "@/types/cou
 import { getCEShopModules, getCEShopExamQuestions, getCEShopActivities } from "@/data/ce-shop-content";
 import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActivities } from "@/data/pearson-vue-content";
 import { getLectureNotesModules, getLectureNotesExamQuestions, getLectureNotesActivities } from "@/data/lecture-notes-content";
+import { getTextbookModules, getTextbookExamQuestions, getTextbookActivities } from "@/data/textbook-content";
 import { getNRS645Sections } from "@/data/nrs-reference";
 
 interface SourceData {
@@ -265,6 +266,12 @@ export default function SourceViewer() {
     activities: getLectureNotesActivities(),
   }, search), [search]);
 
+  const textbook = useMemo(() => filterSource({
+    modules: getTextbookModules(),
+    examQuestions: getTextbookExamQuestions(),
+    activities: getTextbookActivities(),
+  }, search), [search]);
+
   const nrsSections = useMemo(() => {
     const all = getNRS645Sections();
     if (!search) return all;
@@ -304,6 +311,7 @@ export default function SourceViewer() {
           <TabsTrigger value="ce-shop">CE Shop</TabsTrigger>
           <TabsTrigger value="pearson-vue">Pearson VUE</TabsTrigger>
           <TabsTrigger value="lecture-notes">Lecture Notes</TabsTrigger>
+          <TabsTrigger value="textbook">Textbook</TabsTrigger>
           <TabsTrigger value="nrs-645">NRS 645</TabsTrigger>
         </TabsList>
 
@@ -315,6 +323,9 @@ export default function SourceViewer() {
         </TabsContent>
         <TabsContent value="lecture-notes">
           <SourceTab data={lectureNotes} label="Lecture Notes" />
+        </TabsContent>
+        <TabsContent value="textbook">
+          <SourceTab data={textbook} label="Textbook" />
         </TabsContent>
         <TabsContent value="nrs-645">
           <div className="space-y-4">

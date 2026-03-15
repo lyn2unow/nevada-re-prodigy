@@ -1,40 +1,46 @@
 
 
-# Textbook Content Integration — Unit 1 (Chapter 1)
+# Add Unit 3 Lecture Notes: Interests in Real Estate
 
 ## Overview
-Create the textbook data file with Unit 1 structured into modules, exam questions, and activities following the existing source pattern. Integrate into the Source Viewer and dashboard loader.
 
-## Content Extraction from Unit 1: Real Estate Brokerage and Agency
+Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
 
-The chapter covers these major topic areas, which will become **modules**:
+## New Content Summary
 
-1. **Definition of Real Estate Broker** — NRS 645.030, five categories of broker activities, salesperson limitations, broker entities, designated broker, financial institutions
-2. **Business Licenses & Place of Business** — State/local business licenses, office requirements, branch offices, license display
-3. **Broker Supervision** — Legal duties, duty to monitor, recordkeeping (5 years), trust accounts, compensation rules
-4. **Agency Relationships in Nevada** — Statutory definition (NRS 645.0045), single agency, dual agency, assigned agency, representing multiple buyers, IC vs employee
-5. **Duties Owed by a Licensee** — NRS 645.252 (all parties), NRS 645.253 (assigned agency), NRS 645.254 (client duties), material facts, confidentiality (1 year)
-6. **Disclosure Forms & Stigmatized Property** — Duties Owed form (5 sections), Consent to Act form (8 sections), NRS 40.770 stigmatized property, Residential Disclosure Guide
-7. **Personal Assistants, Advertising & Termination** — Licensed/unlicensed assistants, team advertising rules, termination methods (performance, expiration, revocation, mutual agreement)
+### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
 
-**Exam questions**: The chapter includes a 15-question quiz with full answer key and explanations — these will be converted directly into `ExamQuestion` objects.
+| # | Title | Key Statutes |
+|---|---|---|
+| 1 | Marital Property (Community Property) | NRS 123.220 |
+| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
+| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
+| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
+| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
+| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
 
-**Activities**: Will generate 2-3 activities (case study on agency scenarios, role-play on form presentation).
+### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
 
-## Changes
+Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
 
-| File | Action |
-|------|--------|
-| `src/data/textbook-content.ts` | New file — Unit 1 modules (7), exam questions (15 from quiz), activities (2-3), all tagged `source: "Textbook"` |
-| `src/pages/SourceViewer.tsx` | Add "Textbook" tab importing from textbook data |
-| `src/pages/Index.tsx` | Add "Load Textbook Content" button to dashboard source loader (if pattern exists) |
+### 1 Activity (ID: ln-act-u3-1)
 
-## Technical Notes
-- All IDs prefixed with `tb-` (e.g., `tb-mod-u1-broker-def`, `tb-eq-u1-01`)
-- `sourceTag: "Textbook"` on all items
-- Quiz questions from the document already have 4 options + correct answer + explanation — direct mapping to `ExamQuestion` type
-- Key terms extracted from bold/defined terms throughout the chapter
-- Nevada legal references preserved verbatim (NRS/NAC citations)
-- File structured with `getTextbookModules()`, `getTextbookExamQuestions()`, `getTextbookActivities()` export functions matching existing pattern
-- Will accommodate future units (2-17) being added to same file or split file
+"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
+
+## Technical Details
+
+### File modified
+- `src/data/lecture-notes-content.ts`
+
+### Changes
+1. Update file comment to include Unit 3
+2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
+3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
+4. Append 1 activity to `getLectureNotesActivities()` return array
+
+### Pattern
+Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
+
+### NRS Reference impact
+New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
 

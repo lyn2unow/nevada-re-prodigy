@@ -14,7 +14,7 @@ const quickActions = [
 ];
 
 export default function Index() {
-  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadLectureNotesContent, loadDefaultSyllabus, loadNRS645 } = useCourse();
+  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadLectureNotesContent, loadTextbookContent, loadDefaultSyllabus, loadNRS645 } = useCourse();
   const navigate = useNavigate();
 
   const totalModules = data.modules.length;
@@ -24,6 +24,7 @@ export default function Index() {
   const hasPearsonVue = data.modules.some((m) => m.sourceTag === "Pearson VUE");
   const hasCEShop = data.modules.some((m) => m.sourceTag === "CE Shop");
   const hasLectureNotes = data.modules.some((m) => m.sourceTag === "Lecture Notes");
+  const hasTextbook = data.modules.some((m) => m.sourceTag === "Textbook");
   const hasNRS = !!data.statuteSections && data.statuteSections.length > 0;
 
   const handleLoadSyllabus = () => {
@@ -39,6 +40,11 @@ export default function Index() {
   const handleLoadLectureNotes = () => {
     loadLectureNotesContent();
     toast({ title: "Lecture Notes loaded!", description: "21 modules, 20 exam questions, and 4 activities added from Units 1–2 lecture notes." });
+  };
+
+  const handleLoadTextbook = () => {
+    loadTextbookContent();
+    toast({ title: "Textbook content loaded!", description: "7 modules, 15 exam questions, and 3 activities added from Unit 1: Real Estate Brokerage and Agency." });
   };
 
   const handleLoadNRS645 = () => {
@@ -147,6 +153,27 @@ export default function Index() {
             <Button variant="outline" onClick={handleLoadLectureNotes} className="gap-2 shrink-0">
               <FileText className="h-4 w-4" />
               Load Lecture Notes
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Textbook CTA */}
+      {!isEmpty && !hasTextbook && (
+        <Card className="border-accent/30 bg-accent/5">
+          <CardContent className="flex items-center justify-between py-5">
+            <div className="flex items-center gap-3">
+              <BookOpen className="h-6 w-6 text-accent" />
+              <div>
+                <p className="font-medium">Textbook — Unit 1: Real Estate Brokerage & Agency</p>
+                <p className="text-sm text-muted-foreground">
+                  Add 7 modules, 15 exam questions, and 3 activities from the Scheible textbook
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" onClick={handleLoadTextbook} className="gap-2 shrink-0">
+              <BookOpen className="h-4 w-4" />
+              Load Textbook Content
             </Button>
           </CardContent>
         </Card>
