@@ -943,5 +943,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 1,
       tags: ["material facts", "disclosure", "NRS 645.252", "NRS 645.254", "NRS 40.770"],
     },
+    // ===== UNIT 2 ACTIVITIES =====
+    {
+      id: "tb-act-u2-1",
+      title: "Listing Agreement Comparison Workshop",
+      type: "case-study",
+      description: "Students receive four scenarios involving different sellers with different needs: (1) a seller who has already found a buyer but wants help with paperwork, (2) a rural property owner who wants maximum exposure, (3) a seller who wants to net exactly $200,000, and (4) a standard residential seller. For each scenario, students must recommend the most appropriate listing type (exclusive right-to-sell, exclusive agency, open, or net), justify their choice, and identify the key contract provisions that must be included.",
+      instructorNotes: "Emphasize that net listings, while legal in Nevada, are rarely accepted by MLS services. Use the Shell Oil Co. v. Ed Hoppe Realty case to show why they are enforceable. Have students identify the NRS 645.320 requirements that apply to each exclusive agreement.",
+      debriefPrompts: [
+        "Which listing type would you NEVER recommend, and why?",
+        "How does the broker protection clause change the risk calculation for each listing type?",
+        "What happens if a salesperson enters an exclusive listing agreement without including a termination date?",
+      ],
+      topic: "Listing Agreements",
+      weekNumber: 2,
+      tags: ["listing agreement", "exclusive right-to-sell", "net listing", "NRS 645.320", "Shell Oil Co."],
+    },
+    {
+      id: "tb-act-u2-2",
+      title: "Procuring Cause Arbitration Simulation",
+      type: "role-play",
+      description: "Students participate in a mock arbitration hearing. Two broker teams each present their case for being the procuring cause of a sale: Broker A showed the property first and provided initial information; Broker B helped the buyer negotiate terms and reach final agreement. A panel of 3 student-arbitrators must apply the Carrigan v. Ryan 'uninterrupted chain of events' standard to determine which broker is entitled to the commission.",
+      instructorNotes: "Provide detailed fact patterns with timeline of events. Each team gets 5 minutes to present and 2 minutes for rebuttal. Arbitrators must cite specific facts supporting their decision. Discuss how Morrow v. Barger's requirement of employment contract + procuring cause applies.",
+      debriefPrompts: [
+        "Was simply showing the property enough to establish procuring cause? Why or why not?",
+        "How would the result change if Broker A had an exclusive buyer representation agreement?",
+        "What documentation should brokers maintain to support a procuring cause claim?",
+      ],
+      topic: "Procuring Cause & Broker Compensation",
+      weekNumber: 2,
+      tags: ["procuring cause", "Carrigan v. Ryan", "Morrow v. Barger", "arbitration", "MLS"],
+    },
   ];
 }
