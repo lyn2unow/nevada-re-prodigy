@@ -42,6 +42,11 @@ export default function Index() {
     toast({ title: "Lecture Notes loaded!", description: "21 modules, 20 exam questions, and 4 activities added from Units 1–2 lecture notes." });
   };
 
+  const handleLoadTextbook = () => {
+    loadTextbookContent();
+    toast({ title: "Textbook content loaded!", description: "7 modules, 15 exam questions, and 3 activities added from Unit 1: Real Estate Brokerage and Agency." });
+  };
+
   const handleLoadNRS645 = () => {
     loadNRS645();
     toast({ title: "NRS 645 Reference loaded!", description: `${28} statute sections loaded for cross-referencing.` });
