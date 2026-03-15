@@ -9,6 +9,7 @@ import { getCEShopModules, getCEShopExamQuestions, getCEShopActivities } from "@
 import { getLectureNotesModules, getLectureNotesExamQuestions, getLectureNotesActivities } from "@/data/lecture-notes-content";
 import { getDefaultSyllabusTemplate } from "@/data/syllabus-template";
 import { getNRS645Sections } from "@/data/nrs-reference";
+import { getTextbookModules, getTextbookExamQuestions, getTextbookActivities } from "@/data/textbook-content";
 const STORAGE_KEY = "re103-course-data";
 
 function getInitialData(): CourseData {
