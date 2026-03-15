@@ -285,6 +285,7 @@ export function useCourseStore() {
     loadCEShopContent,
     loadLectureNotesContent,
     loadNRS645,
+    loadTextbookContent,
     importData,
     updateSyllabus,
     loadDefaultSyllabus,

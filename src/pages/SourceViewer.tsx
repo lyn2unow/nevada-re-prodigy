@@ -324,6 +324,9 @@ export default function SourceViewer() {
         <TabsContent value="lecture-notes">
           <SourceTab data={lectureNotes} label="Lecture Notes" />
         </TabsContent>
+        <TabsContent value="textbook">
+          <SourceTab data={textbook} label="Textbook" />
+        </TabsContent>
         <TabsContent value="nrs-645">
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">{nrsSections.length} Statute Sections</p>

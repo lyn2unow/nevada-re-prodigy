@@ -158,6 +158,27 @@ export default function Index() {
         </Card>
       )}
 
+      {/* Textbook CTA */}
+      {!isEmpty && !hasTextbook && (
+        <Card className="border-accent/30 bg-accent/5">
+          <CardContent className="flex items-center justify-between py-5">
+            <div className="flex items-center gap-3">
+              <BookOpen className="h-6 w-6 text-accent" />
+              <div>
+                <p className="font-medium">Textbook — Unit 1: Real Estate Brokerage & Agency</p>
+                <p className="text-sm text-muted-foreground">
+                  Add 7 modules, 15 exam questions, and 3 activities from the Scheible textbook
+                </p>
+              </div>
+            </div>
+            <Button variant="outline" onClick={handleLoadTextbook} className="gap-2 shrink-0">
+              <BookOpen className="h-4 w-4" />
+              Load Textbook Content
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Syllabus CTA */}
       {!hasSyllabus && (
         <Card className="border-primary/30 bg-primary/5">
