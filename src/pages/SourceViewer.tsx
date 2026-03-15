@@ -311,6 +311,7 @@ export default function SourceViewer() {
           <TabsTrigger value="ce-shop">CE Shop</TabsTrigger>
           <TabsTrigger value="pearson-vue">Pearson VUE</TabsTrigger>
           <TabsTrigger value="lecture-notes">Lecture Notes</TabsTrigger>
+          <TabsTrigger value="textbook">Textbook</TabsTrigger>
           <TabsTrigger value="nrs-645">NRS 645</TabsTrigger>
         </TabsList>
 
