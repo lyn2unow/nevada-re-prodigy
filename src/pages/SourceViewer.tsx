@@ -11,6 +11,7 @@ import type { Module, ExamQuestion, Activity, StatuteSection } from "@/types/cou
 import { getCEShopModules, getCEShopExamQuestions, getCEShopActivities } from "@/data/ce-shop-content";
 import { getPearsonVueModules, getPearsonVueExamQuestions, getPearsonVueActivities } from "@/data/pearson-vue-content";
 import { getLectureNotesModules, getLectureNotesExamQuestions, getLectureNotesActivities } from "@/data/lecture-notes-content";
+import { getTextbookModules, getTextbookExamQuestions, getTextbookActivities } from "@/data/textbook-content";
 import { getNRS645Sections } from "@/data/nrs-reference";
 
 interface SourceData {
