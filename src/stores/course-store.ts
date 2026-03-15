@@ -246,6 +246,27 @@ export function useCourseStore() {
     setData((prev) => ({ ...prev, statuteSections: sections }));
   };
 
+  const loadTextbookContent = () => {
+    const tbModules = getTextbookModules();
+    const tbQuestions = getTextbookExamQuestions();
+    const tbActivities = getTextbookActivities();
+    setData((prev) => {
+      const existingModuleIds = new Set(prev.modules.map((m) => m.id));
+      const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
+      const existingActivityIds = new Set(prev.activities.map((a) => a.id));
+      return {
+        ...prev,
+        modules: [...prev.modules, ...tbModules.filter((m) => !existingModuleIds.has(m.id))],
+        examQuestions: [...prev.examQuestions, ...tbQuestions.filter((q) => !existingQuestionIds.has(q.id))],
+        activities: [...prev.activities, ...tbActivities.filter((a) => !existingActivityIds.has(a.id))],
+        weeks: prev.weeks.map((w) => {
+          const newModIds = tbModules.filter((m) => m.weekNumber === w.number && !existingModuleIds.has(m.id)).map((m) => m.id);
+          return newModIds.length > 0 ? { ...w, moduleIds: [...w.moduleIds, ...newModIds] } : w;
+        }),
+      };
+    });
+  };
+
   return {
     data,
     addModule,
