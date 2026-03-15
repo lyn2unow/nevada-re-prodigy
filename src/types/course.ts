@@ -7,6 +7,26 @@ export type SourceAuthority =
 
 export type DifficultyLevel = "basic" | "intermediate" | "advanced";
 
+export type PearsonVueArea =
+  | "National I - Property Ownership"
+  | "National II - Land Use Controls & Regulations"
+  | "National III - Valuation & Market Analysis"
+  | "National IV - Financing"
+  | "National V - General Principles of Agency"
+  | "National VI - Property Disclosures"
+  | "National VII - Contracts"
+  | "National VIII - Leasing & Property Management"
+  | "State I - Duties & Powers of the Real Estate Commission"
+  | "State II - Licensing Requirements"
+  | "State III - Nevada Agency Relationships"
+  | "State IV - Nevada Disclosures"
+  | "State V - Nevada Contracts"
+  | "State VI - Nevada Property Management"
+  | "State VII - Nevada Brokerage Operations"
+  | "State VIII - Nevada Disciplinary Actions & Recovery Fund";
+
+export type CognitiveLevel = "knowledge" | "application" | "analysis";
+
 export interface KeyTerm {
   id: string;
   term: string;
