@@ -9,6 +9,7 @@ import {
   FileText,
   Scale,
   Eye,
+  Presentation,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
