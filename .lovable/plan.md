@@ -1,46 +1,65 @@
 
 
-# Add Unit 3 Lecture Notes: Interests in Real Estate
+# Combined Plan: Schema Updates + AI Lecture Generator
 
 ## Overview
 
-Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
+Two workstreams delivered together:
+1. **Schema updates** — Add `pearsonVueArea` and `cognitiveLevel` fields to Module and ExamQuestion types
+2. **AI Lecture Generator** — New page where the instructor selects a topic, chooses a lecture duration (15-minute increments), and gets AI-generated lecture notes they can copy
 
-## New Content Summary
+## Key Requirement: TMCC Objectives + Authority Hierarchy
 
-### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
+The AI Lecture Generator must produce lecture notes that:
+- **Align with TMCC course objectives** — the system prompt will reference the 13 TMCC catalog objectives so generated lectures map to specific learning outcomes
+- **Follow the established content authority hierarchy** when citing sources and resolving conflicts:
+  1. NRS/NAC (ground truth)
+  2. Pearson VUE
+  3. CE Shop
+  4. Lecture Notes
+  5. Textbook (supplemental)
+- The system prompt will instruct the AI to prioritize NRS/NAC citations first, note Pearson VUE exam relevance, and treat textbook references as supplemental only
+- Generated notes will include a "Source Priority" section indicating which authority level supports each key claim
 
-| # | Title | Key Statutes |
-|---|---|---|
-| 1 | Marital Property (Community Property) | NRS 123.220 |
-| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
-| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
-| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
-| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
-| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
+## Part 1: Schema Updates
 
-### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
+**File: `src/types/course.ts`**
+- Add `PearsonVueArea` type (16 National/State areas)
+- Add `CognitiveLevel` type: `"knowledge" | "application" | "analysis"`
+- Add optional fields to `Module`, `ExamQuestion`, `KnowledgeCheckQuestion`
 
-Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
+## Part 2: AI Lecture Generator
 
-### 1 Activity (ID: ln-act-u3-1)
+**Edge function: `supabase/functions/generate-lecture/index.ts`**
+- Accepts `{ topic, durationMinutes }`
+- System prompt includes:
+  - TMCC RE 103 course objectives (all 13)
+  - Authority hierarchy instructions: "Always cite NRS/NAC as primary authority. Reference Pearson VUE exam content areas and weights. Note CE Shop and lecture note alignment. Treat textbook as supplemental only. Flag any known conflicts between sources."
+  - Duration-based section timing
+- Uses `google/gemini-3-flash-preview` via AI Gateway
+- Streams response as SSE
+- Handles 429/402 errors
 
-"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
+**New page: `src/pages/LectureGenerator.tsx`**
+- Topic selector dropdown (major RE 103 topics + custom)
+- Duration selector (15–120 min in 15-min increments)
+- Generate button with streaming markdown output
+- Copy to Clipboard button
+- Generated output will include: learning objectives mapped to TMCC catalog, NRS/NAC citations, Pearson VUE exam weight relevance, time allocations per section
 
-## Technical Details
+**Navigation updates:**
+- `src/components/AppSidebar.tsx` — add nav item
+- `src/App.tsx` — add route
 
-### File modified
-- `src/data/lecture-notes-content.ts`
+**Infrastructure:**
+- Enable Lovable Cloud
+- `supabase/config.toml` — add function entry
 
-### Changes
-1. Update file comment to include Unit 3
-2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
-3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
-4. Append 1 activity to `getLectureNotesActivities()` return array
+## Build Order
 
-### Pattern
-Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
-
-### NRS Reference impact
-New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
+1. Enable Lovable Cloud
+2. Schema updates to `src/types/course.ts`
+3. Edge function with TMCC-aligned, hierarchy-aware system prompt
+4. Lecture Generator page with streaming UI
+5. Sidebar and router updates
 
