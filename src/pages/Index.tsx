@@ -14,7 +14,7 @@ const quickActions = [
 ];
 
 export default function Index() {
-  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadLectureNotesContent, loadDefaultSyllabus, loadNRS645 } = useCourse();
+  const { data, loadSeedContent, loadPearsonVueContent, loadCEShopContent, loadLectureNotesContent, loadTextbookContent, loadDefaultSyllabus, loadNRS645 } = useCourse();
   const navigate = useNavigate();
 
   const totalModules = data.modules.length;
