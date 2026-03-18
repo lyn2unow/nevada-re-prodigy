@@ -1982,5 +1982,67 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 4,
       tags: ["legal description", "metes and bounds", "rectangular survey", "subdivision plat", "Mount Diablo"],
     },
+    // ===== UNIT 6 ACTIVITIES =====
+    {
+      id: "tb-act-u6-1",
+      title: "Property Tax Calculation Workshop",
+      type: "case-study",
+      description: "Students receive 4 property profiles with different taxable values and tax rates. For each, they must calculate the assessed value (using the 35% rate), determine the tax owed, and then apply the abatement caps (3% owner-occupied, 8% commercial) to determine if the tax would be abated compared to the prior year.",
+      instructorNotes: "Include a scenario where improvements cause a tax increase that is NOT subject to abatement. Emphasize the formula: Taxable Value × 0.35 = Assessed Value × Tax Rate = Tax Owed. Have students verify against the $3.64 max rate.",
+      debriefPrompts: [
+        "How does the 35% assessment rate effectively lower a homeowner's tax bill compared to full-value assessment?",
+        "Why are improvements excluded from the abatement program?",
+        "What would happen if the abatement caps were removed?",
+      ],
+      topic: "Property Taxes",
+      weekNumber: 4,
+      tags: ["property tax", "assessment rate", "abatement", "NRS 361"],
+    },
+    {
+      id: "tb-act-u6-2",
+      title: "Lien Priority Ranking Exercise",
+      type: "case-study",
+      description: "Students receive a scenario involving a property with multiple liens: property tax lien, first mortgage, mechanics' lien (filed after construction started during the mortgage period), HOA super-priority lien, and a judgment lien. Students must rank the liens by priority, determine which survive an HOA super-priority foreclosure, and calculate the distribution of sale proceeds.",
+      instructorNotes: "Use the SFR Investments v. U.S. Bank holding to show that the first mortgage is extinguished by HOA super-priority foreclosure. Discuss the 60-day redemption right. Include a Fannie Mae wrinkle where the federal court protected the GSE's lien.",
+      debriefPrompts: [
+        "Were you surprised that an HOA lien can extinguish a first mortgage?",
+        "How does the direct lien concept affect a homeowner who paid the general contractor in full?",
+        "What steps can a lender take to protect against HOA super-priority liens?",
+      ],
+      topic: "Lien Priority",
+      weekNumber: 4,
+      tags: ["lien priority", "HOA", "super-priority", "mechanics lien", "SFR Investments"],
+    },
+    // ===== UNIT 7 ACTIVITIES =====
+    {
+      id: "tb-act-u7-1",
+      title: "Contract Requirements Diagnosis",
+      type: "case-study",
+      description: "Students receive 6 contract scenarios, each with a potential deficiency (oral agreement, minor party, no consideration, illegal purpose, missing signatures, electronic-only). Students must identify which contract requirement is missing or at issue, determine if the contract is void or voidable (or valid), and cite the relevant Nevada statute.",
+      instructorNotes: "Emphasize that oral real estate contracts are VOID in Nevada (not voidable)—this is unique and heavily tested. Include an electronic signature scenario to test understanding of NRS 719. Discuss why earnest money is not consideration.",
+      debriefPrompts: [
+        "Why is the void vs. voidable distinction so important in Nevada?",
+        "How does the Electronic Transactions Act change traditional contract formation?",
+        "Could a 17-year-old's contract ever be enforced in Nevada?",
+      ],
+      topic: "Contract Requirements",
+      weekNumber: 4,
+      tags: ["contract requirements", "statute of frauds", "NRS 111.210", "void", "NRS 719"],
+    },
+    {
+      id: "tb-act-u7-2",
+      title: "Disclosure Timeline Mapping",
+      type: "case-study",
+      description: "Students create a comprehensive timeline for a residential sale in a common-interest community, mapping all disclosure deadlines: SRPD delivery (10 days before close), buyer's SRPD rescission (4 working days), resale package request and delivery (10 days), buyer's CIC cancellation (5 calendar days), and open range disclosure (before signing). Students then receive a scenario where deadlines are missed and must identify the buyer's remedies.",
+      instructorNotes: "Stress the difference between 'working days' (SRPD) and 'calendar days' (resale package). Include a scenario where the SRPD is never delivered to test understanding that the buyer can rescind any time before closing. Discuss treble damages for post-closing nondisclosure.",
+      debriefPrompts: [
+        "What happens if the SRPD is never delivered and the sale closes anyway?",
+        "Why does the resale package cancellation use calendar days while the SRPD uses working days?",
+        "How would you advise a seller who discovers a new defect after delivering the SRPD?",
+      ],
+      topic: "Seller Disclosures",
+      weekNumber: 5,
+      tags: ["SRPD", "resale package", "disclosure", "CIC", "rescission", "treble damages"],
+    },
   ];
 }
