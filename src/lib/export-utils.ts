@@ -1,4 +1,4 @@
-import type { Module, ExamQuestion, Activity } from "@/types/course";
+import type { Module, ExamQuestion, Activity, SyllabusTemplate } from "@/types/course";
 import JSZip from "jszip";
 
 // ─── Module formatting ───────────────────────────────────────────
