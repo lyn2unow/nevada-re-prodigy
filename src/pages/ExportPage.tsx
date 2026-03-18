@@ -133,7 +133,29 @@ export default function ExportPage() {
     }
     const questions = data.examQuestions.filter((q) => selectedQuestions.has(q.id));
     await generateQtiZip("RE103_Quiz", questions);
-    toast({ title: `QTI ZIP downloaded with ${questions.length} question(s)` });
+    toast({ title: `QTI ZIP downloaded with ${questions.length} question(s) — per-answer feedback included` });
+  };
+
+  const handleCanvasDiscussion = async () => {
+    if (selectedModules.size === 0) {
+      toast({ title: "Select modules to export as Canvas Discussions", variant: "destructive" });
+      return;
+    }
+    const modules = data.modules.filter((m) => selectedModules.has(m.id));
+    const html = formatDiscussionsAsHtml(modules);
+    const ok = await copyHtmlToClipboard(html);
+    toast({ title: ok ? `${modules.length} discussion(s) copied as rich HTML — paste into Canvas` : "Copy failed", variant: ok ? "default" : "destructive" });
+  };
+
+  const handleCanvasAssignment = async () => {
+    if (selectedActivities.size === 0) {
+      toast({ title: "Select activities to export as Canvas Assignments", variant: "destructive" });
+      return;
+    }
+    const activities = data.activities.filter((a) => selectedActivities.has(a.id));
+    const html = formatAssignmentsAsHtml(activities);
+    const ok = await copyHtmlToClipboard(html);
+    toast({ title: ok ? `${activities.length} assignment(s) copied as rich HTML — paste into Canvas` : "Copy failed", variant: ok ? "default" : "destructive" });
   };
 
   const handleJsonBackup = () => {
