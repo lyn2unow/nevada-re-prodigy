@@ -136,10 +136,10 @@ export default function ExamPrep() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="flex gap-3 text-sm text-muted-foreground">
+                <div className="flex gap-3 text-sm text-muted-foreground items-center">
                   <span>{q.topic}</span>
                   <span>•</span>
-                  <span>{q.source}</span>
+                  <AuthorityBadge source={q.source} compact />
                   {q.tags.length > 0 && (
                     <>
                       <span>•</span>
