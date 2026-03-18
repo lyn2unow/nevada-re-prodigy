@@ -23,6 +23,7 @@ import SyllabusPage from "./pages/SyllabusPage";
 import NRSReference from "./pages/NRSReference";
 import SourceViewer from "./pages/SourceViewer";
 import LectureGenerator from "./pages/LectureGenerator";
+import ExamCoverageDashboard from "./pages/ExamCoverageDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -57,6 +58,7 @@ const App = () => (
                 <Route path="/import" element={<ImportPage />} />
                 <Route path="/source-viewer" element={<SourceViewer />} />
                 <Route path="/lecture-generator" element={<LectureGenerator />} />
+                <Route path="/exam-coverage" element={<ExamCoverageDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AppLayout>
