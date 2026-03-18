@@ -1,4 +1,4 @@
-import type { Module, ExamQuestion, Activity } from "@/types/course";
+import type { Module, ExamQuestion, Activity, SyllabusTemplate } from "@/types/course";
 import JSZip from "jszip";
 
 // ─── Module formatting ───────────────────────────────────────────
@@ -525,4 +525,75 @@ export async function copyHtmlToClipboard(html: string): Promise<boolean> {
     // Fallback to plain text copy
     return copyToClipboard(html.replace(/<[^>]*>/g, ""));
   }
+}
+
+// ─── Syllabus Export ─────────────────────────────────────────────
+
+export function formatSyllabusAsText(s: SyllabusTemplate): string {
+  const lines: string[] = [];
+
+  lines.push(`${s.courseCode} — ${s.courseTitle}`);
+  lines.push(`${s.semester}`);
+  lines.push("=".repeat(60));
+  lines.push("");
+
+  lines.push("COURSE INFORMATION");
+  lines.push(`Instructor: ${s.instructorName}, ${s.instructorCredentials}`);
+  lines.push(`Schedule: ${s.meetingDays}, ${s.meetingTime}`);
+  lines.push(`Location: ${s.location}`);
+  lines.push(`Dates: ${s.dateRange}`);
+  lines.push(`Textbook: ${s.textbook}`);
+  lines.push(`Platform: ${s.platform}`);
+  lines.push("");
+  if (s.contactInfo) { lines.push(`Contact: ${s.contactInfo}`); lines.push(""); }
+
+  lines.push("COURSE OBJECTIVES");
+  s.courseObjectives.forEach((obj, i) => lines.push(`  ${i + 1}. ${obj}`));
+  lines.push("");
+
+  if (s.readingRequirement) { lines.push("READING REQUIREMENT"); lines.push(s.readingRequirement); lines.push(""); }
+  if (s.courseFlow) { lines.push("COURSE FLOW"); lines.push(s.courseFlow); lines.push(""); }
+
+  lines.push("WEEKLY SCHEDULE");
+  lines.push("-".repeat(60));
+  const colW = [6, 12, 40, 40, 30];
+  lines.push(
+    "Week".padEnd(colW[0]) + "Day".padEnd(colW[1]) + "Unit / Topic".padEnd(colW[2]) + "Exam Alignment".padEnd(colW[3]) + "Assignment/Quiz"
+  );
+  lines.push("-".repeat(60));
+  s.weeklySchedule.forEach((e) => {
+    lines.push(
+      String(e.week).padEnd(colW[0]) + e.day.padEnd(colW[1]) + e.unitTopic.substring(0, 80)
+    );
+    if (e.examAlignment) lines.push("      Alignment: " + e.examAlignment);
+    if (e.assignmentQuiz) lines.push("      Assignment: " + e.assignmentQuiz);
+  });
+  lines.push("");
+
+  lines.push("GRADING BREAKDOWN");
+  s.gradingCategories.forEach((c) => lines.push(`  ${c.category}: ${c.points} pts`));
+  lines.push(`  Total: ${s.totalPoints} pts`);
+  lines.push("");
+
+  lines.push("GRADE SCALE");
+  s.gradeScale.forEach((g) => lines.push(`  ${g.letter}: ${g.range}`));
+  lines.push("");
+
+  lines.push("INSTRUCTOR EXPECTATIONS & POLICIES");
+  s.instructorPolicies.forEach((p) => lines.push(`  • ${p}`));
+  lines.push("");
+
+  lines.push("INSTITUTIONAL POLICIES");
+  s.institutionalPolicies.forEach((p) => {
+    lines.push(`  ${p.title}`);
+    lines.push(`    ${p.content}`);
+    lines.push("");
+  });
+
+  return lines.join("\n");
+}
+
+export function generateSyllabusPdf(s: SyllabusTemplate) {
+  const text = formatSyllabusAsText(s);
+  generatePdf(`${s.courseCode} Syllabus — ${s.semester}`, text);
 }
