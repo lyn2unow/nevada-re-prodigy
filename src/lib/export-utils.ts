@@ -529,8 +529,6 @@ export async function copyHtmlToClipboard(html: string): Promise<boolean> {
 
 // ─── Syllabus Export ─────────────────────────────────────────────
 
-import type { SyllabusTemplate } from "@/types/course";
-
 export function formatSyllabusAsText(s: SyllabusTemplate): string {
   const lines: string[] = [];
 
