@@ -4,14 +4,14 @@ export function getDefaultSyllabusTemplate(): SyllabusTemplate {
   return {
     courseCode: "RE 103",
     courseTitle: "Real Estate Principles",
-    semester: "Fall 2025",
+    semester: "Spring 2026",
     instructorName: "Nathanial (Nate) Miller",
     instructorCredentials: "MM, Realtor, S.193995",
     meetingDays: "Tuesdays & Thursdays",
     meetingTime: "5:30–8:20 PM",
     location: "Meadowood Center",
-    dateRange: "October 28, 2025 – December 11, 2025",
-    textbook: "Nevada Real Estate Principles, 3rd Edition; Ben C. Scheible Esq.",
+    dateRange: "January 20, 2026 – March 12, 2026",
+    textbook: "Nevada Real Estate Principles, 3rd Edition; Ben C. Scheible Esq. (supplemental reference only)",
     platform: "In-Person/Canvas",
     contactInfo: "Please use Canvas to contact me, I'll usually reply within 24 hours. I will also use Canvas to make announcements and post grades.",
     courseObjectives: [
@@ -25,27 +25,44 @@ export function getDefaultSyllabusTemplate(): SyllabusTemplate {
       "Reference and apply relevant NRS and NAC codes governing real-estate professionals.",
     ],
     readingRequirement: "Students should complete assigned reading prior to each class session to fully benefit from each session's lecture. Additionally, to ensure the greatest possibility of passing the Nevada Real Estate Exam, students should dedicate at least 7 hours per week outside of class to adequately prepare for the Nevada Real Estate Exam.",
-    courseFlow: "1. Review of the assigned textbook units via lecture and classroom discussion.\n2. Alignment of textbook unit to state exam requirements.\n3. Graded Canvas quiz/assignment (due by the following Sunday).",
+    courseFlow: "1. Exam-weighted topic lecture aligned to Pearson VUE content areas.\n2. Cognitive-level exercises (Knowledge → Application → Analysis).\n3. Graded Canvas quiz due by the following Sunday.",
     weeklySchedule: [
-      { week: 1, day: "Tues 10/28", unitTopic: "Unit 1 – Real Estate Brokerage & Agency", examAlignment: "Exam Sections III & IV – Agency, Duties Owed, License Practice", assignmentQuiz: "" },
-      { week: 1, day: "Thurs 10/30", unitTopic: "Unit 2 – Listing & Selling", examAlignment: "Exam Sections III & VI", assignmentQuiz: "Quiz #1 – Agency" },
-      { week: 2, day: "Tues 11/4", unitTopic: "Unit 3 – Interests in Real Estate", examAlignment: "Exam Section IV – License Practice", assignmentQuiz: "" },
-      { week: 2, day: "Thurs 11/6", unitTopic: "Units 4 & 5 – Forms of Ownership & Legal Descriptions", examAlignment: "Exam Section V – Disclosures; Section VI – Contract Prep", assignmentQuiz: "Assignment #1 – Ownership, Legal Description & Disclosure Review" },
-      { week: 3, day: "Tues 11/11", unitTopic: "Unit 6 – Real Estate Taxes & Liens", examAlignment: "Exam Section VI – Handling of Monies, Timelines", assignmentQuiz: "" },
-      { week: 3, day: "Thurs 11/13", unitTopic: "Unit 7 – Real Estate Contracts", examAlignment: "Exam Section VI – Brokerage Agreements & Contract Law", assignmentQuiz: "Quiz #2 – Contracts, Liens & Timelines (20 questions)" },
-      { week: 4, day: "Tues 11/18", unitTopic: "Unit 8 – Transfer of Title", examAlignment: "Exam Section VI – Settlement Statements, Earnest Money", assignmentQuiz: "" },
-      { week: 4, day: "Thurs 11/20", unitTopic: "Unit 9 – Title Records & Title Insurance", examAlignment: "Exam Section VII – Record Keeping & Trust Accounts", assignmentQuiz: "Assignment #2 – Title & Trust Account Review Worksheet" },
-      { week: 5, day: "Tues 11/25", unitTopic: "Unit 10 – Nevada Real Estate License Law", examAlignment: "Exam Sections I & II – Commission Powers, Licensing Requirements", assignmentQuiz: "Quiz #3 – Nevada License Law & Commission Powers (25 questions)" },
-      { week: 5, day: "Thurs 11/27", unitTopic: "🦃 No Class – Thanksgiving Break", examAlignment: "", assignmentQuiz: "" },
-      { week: 6, day: "Tues 12/2", unitTopic: "Unit 11 – Financing the Transaction", examAlignment: "Exam Section IV – Handling of Monies, Loan Knowledge", assignmentQuiz: "" },
-      { week: 6, day: "Thurs 12/4", unitTopic: "Units 12 & 13 – Leases & Appraisal Management, Valuation Concepts", examAlignment: "Exam Section IV & VIII – Property", assignmentQuiz: "Assignment #3 – Financing, Leasing & Appraisal Exam Review" },
-      { week: 7, day: "Tues 12/9", unitTopic: "Units 14 & 15 – Land Use Controls & Fair Housing", examAlignment: "Exam Sections IV, V & VIII – Ethics", assignmentQuiz: "Quiz #4 – Fair Housing, Ethics & Land Use (20 questions)" },
-      { week: 7, day: "Thurs 12/11", unitTopic: "Units 16 & 17 – Closing & Environmental Issues / Final Exam Simulation", examAlignment: "Exam Sections V & VI – Disclosures & Closing Procedures", assignmentQuiz: "60-question cumulative practice test" },
+      // Week 1 — Contracts (23%) & Agency (20%)
+      { week: 1, day: "Tues 1/20", unitTopic: "Session 1 – Contracts I: Formation, Validity & Nevada Requirements (Knowledge/Application)", examAlignment: "National VII – Contracts (13.3%); State V – Nevada Contracts (4.2%)", assignmentQuiz: "" },
+      { week: 1, day: "Thurs 1/22", unitTopic: "Session 2 – Agency: Duties, Disclosure & Nevada Relationships (Knowledge/Application)", examAlignment: "National V – General Principles of Agency (8.3%); State III – Nevada Agency (4.2%)", assignmentQuiz: "Quiz #1 – Contracts & Agency Fundamentals" },
+
+      // Week 2 — Disclosures (12%) & Property Ownership (9%)
+      { week: 2, day: "Tues 1/27", unitTopic: "Session 3 – Disclosures: Property, Seller & Environmental (Knowledge/Application)", examAlignment: "National VI – Property Disclosures (7.5%); State IV – Nevada Disclosures (4.2%)", assignmentQuiz: "" },
+      { week: 2, day: "Thurs 1/29", unitTopic: "Session 4 – Property Ownership: Estates, Interests & Title (Knowledge)", examAlignment: "National I – Property Ownership (9.2%)", assignmentQuiz: "Quiz #2 – Disclosures & Ownership" },
+
+      // Week 3 — Valuation (9%) & Land Use (8%)
+      { week: 3, day: "Tues 2/3", unitTopic: "Session 5 – Valuation & Market Analysis: Appraisal Approaches (Application/Analysis)", examAlignment: "National III – Valuation & Market Analysis (9.2%)", assignmentQuiz: "" },
+      { week: 3, day: "Thurs 2/5", unitTopic: "Session 6 – Land Use Controls: Zoning, Planning & Environmental Regs (Knowledge/Application)", examAlignment: "National II – Land Use Controls & Regulations (7.5%)", assignmentQuiz: "Quiz #3 – Valuation & Land Use" },
+
+      // Week 4 — Financing (6%) & Brokerage Operations (8%)
+      { week: 4, day: "Tues 2/10", unitTopic: "Session 7 – Financing: Loan Types, Mortgage Law & Settlement (Application/Analysis)", examAlignment: "National IV – Financing (5.8%)", assignmentQuiz: "" },
+      { week: 4, day: "Thurs 2/12", unitTopic: "Session 8 – Nevada Brokerage Operations: Trust Accounts, Records & Compliance (Knowledge/Application)", examAlignment: "State VII – Nevada Brokerage Operations (4.2%)", assignmentQuiz: "Quiz #4 – Financing & Brokerage Ops" },
+
+      // Week 5 — Leasing/PM (6%) & Licensing/Commission (9%)
+      { week: 5, day: "Tues 2/17", unitTopic: "Session 9 – Leasing & Property Management: Landlord-Tenant, PM Agreements (Knowledge/Application)", examAlignment: "National VIII – Leasing & PM (5.8%); State VI – Nevada PM (4.2%)", assignmentQuiz: "" },
+      { week: 5, day: "Thurs 2/19", unitTopic: "Session 10 – Nevada Commission & Licensing: Powers, Requirements & Education (Knowledge)", examAlignment: "State I – Commission Powers (4.2%); State II – Licensing (5.0%)", assignmentQuiz: "Quiz #5 – Leasing, PM & Licensing" },
+
+      // Week 6 — Midterm & Contracts II
+      { week: 6, day: "Tues 2/24", unitTopic: "⭐ MIDTERM EXAM – 60 Questions (Sessions 1–10 cumulative)", examAlignment: "All areas covered through Session 10", assignmentQuiz: "Midterm Exam" },
+      { week: 6, day: "Thurs 2/26", unitTopic: "Session 11 – Contracts II: Purchase Agreements, Earnest Money & Closing (Application/Analysis)", examAlignment: "National VII – Contracts; State V – Nevada Contracts", assignmentQuiz: "Quiz #6 – Contracts II" },
+
+      // Week 7 — Disciplinary + Comprehensive Review
+      { week: 7, day: "Tues 3/3", unitTopic: "Session 12 – Nevada Disciplinary Actions & Recovery Fund (Knowledge/Application)", examAlignment: "State VIII – Disciplinary Actions & Recovery Fund (3.3%)", assignmentQuiz: "Quiz #7 – Disciplinary & Recovery Fund" },
+      { week: 7, day: "Thurs 3/5", unitTopic: "Session 13 – Comprehensive Review: High-Weight Areas & Exam Traps (Analysis)", examAlignment: "All 16 Pearson VUE areas – weighted review", assignmentQuiz: "Quiz #8 – Comprehensive Review" },
+
+      // Week 8 — Final Exam Simulations (extra sessions if schedule allows)
+      { week: 7, day: "Tues 3/10", unitTopic: "Session 14 – Practice Exam Simulation I: National Portion (80 questions)", examAlignment: "National portions I–VIII", assignmentQuiz: "Quiz #9 – National Simulation Debrief" },
+      { week: 7, day: "Thurs 3/12", unitTopic: "⭐ FINAL EXAM – 120 Questions (Full Pearson VUE Weighted)", examAlignment: "All 16 Pearson VUE areas – exam-weighted", assignmentQuiz: "Final Exam" },
     ],
     gradingCategories: [
-      { category: "Assignments", points: 150 },
-      { category: "Quizzes", points: 100 },
-      { category: "Final Exam", points: 150 },
+      { category: "Quizzes (9 × 15 pts)", points: 135 },
+      { category: "Midterm Exam", points: 100 },
+      { category: "Final Exam", points: 165 },
     ],
     totalPoints: 400,
     gradeScale: [

@@ -1,56 +1,46 @@
 
 
-# Refreshed Gap Analysis — March 18, 2026
+# Add Unit 3 Lecture Notes: Interests in Real Estate
 
-## Completed
+## Overview
 
-| Item | Status |
-|---|---|
-| Schema: `PearsonVueArea` (16 areas) + `CognitiveLevel` types | Done |
-| Optional fields on `Module`, `ExamQuestion`, `KnowledgeCheckQuestion` | Done |
-| Lovable Cloud enabled | Done |
-| AI Lecture Generator (edge function + streaming UI + copy) | Done |
-| Content: Lecture Notes Units 1–17 (~89 modules, ~92 questions, ~18 activities) | Done |
-| Content: CE Shop (8 modules, 40 questions, 3 activities) | Done |
-| Content: Pearson VUE (modules + questions) | Done |
-| Content: Textbook content | Done |
-| Content: NRS 645 statute reference | Done |
-| Cross-reference system (NRS citation scanner) | Done |
-| Practice Exam Builder (manual selection with filters) | Done |
-| Export system (text, PDF, QTI) | Done |
-| Syllabus page (renders template) | Done |
-| **Pearson VUE content tagging** (~150 modules, ~130 questions mapped) | **Done — NEW** |
-| **Exam Coverage Dashboard** (16-area breakdown, progress bars, drill-down) | **Done — NEW** |
+Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
 
-## Remaining Gaps (Prioritized)
+## New Content Summary
 
-### 1. Weighted Practice Exam Mode — HIGH
-The Practice Exam Builder only supports manual question selection with topic/difficulty/source filters. No "Pearson VUE Weighted" mode exists.
+### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
 
-**What it needs:**
-- A "Generate Weighted Exam" button alongside the current manual builder
-- Input: desired total question count (e.g., 80 national + 40 state = 120)
-- Auto-select questions proportionally to Pearson VUE area weights
-- Tagged content (now complete) makes this fully achievable
+| # | Title | Key Statutes |
+|---|---|---|
+| 1 | Marital Property (Community Property) | NRS 123.220 |
+| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
+| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
+| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
+| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
+| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
 
-### 2. Syllabus Template Update to Spring 2026 — HIGH
-`syllabus-template.ts` still shows **Fall 2025** (Oct 28–Dec 11, 2025), textbook-ordered sessions. Needs updating to the exam-weighted Spring 2026 format.
+### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
 
-**What it needs:**
-- Update semester, dates, schedule
-- Restructure `weeklySchedule` to exam-weighted sessions instead of textbook chapter order
-- Update grading to 11 quizzes + midterm + final structure
-- Add cognitive level indicators per session
+Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
 
-### 3. Canvas-Compatible Export Formats — MEDIUM
-Export supports text, PDF, and QTI. No Canvas-native Discussion or Assignment formats. Useful for direct LMS integration.
+### 1 Activity (ID: ln-act-u3-1)
 
-### 4. Textbook as Supplemental Cross-Reference — LOW
-Textbook content exists but is not explicitly flagged as supplemental or cross-referenced against higher-authority sources. The authority hierarchy is established in the Lecture Generator prompt but not surfaced in the content library or module views.
+"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
 
-### 5. Database Persistence — LOW
-All course data lives in local state / static data files. No backend persistence to Lovable Cloud tables. Content resets on page reload (except what's hardcoded). This only matters if the instructor wants to save custom modules, exams, or activities across sessions.
+## Technical Details
 
-## Recommended Next Step
-Gaps 1 and 2 are independent and can be tackled in either order. The Weighted Practice Exam mode leverages the tagging work just completed and delivers immediate exam-prep value.
+### File modified
+- `src/data/lecture-notes-content.ts`
+
+### Changes
+1. Update file comment to include Unit 3
+2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
+3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
+4. Append 1 activity to `getLectureNotesActivities()` return array
+
+### Pattern
+Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
+
+### NRS Reference impact
+New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
 
