@@ -134,7 +134,7 @@ async function upsertPracticeExam(pe: PracticeExam) {
 }
 
 async function dbDelete(table: string, id: string) {
-  const { error } = await supabase.from(table).delete().eq("id", id);
+  const { error } = await (supabase as any).from(table).delete().eq("id", id);
   if (error) console.error(`delete ${table}:`, error);
   return error;
 }
