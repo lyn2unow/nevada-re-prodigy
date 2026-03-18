@@ -14,7 +14,117 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      custom_activities: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          data: Json
+          id: string
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      custom_exam_questions: {
+        Row: {
+          created_at: string
+          data: Json
+          difficulty: string
+          id: string
+          source: string
+          topic: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          data: Json
+          difficulty?: string
+          id: string
+          source?: string
+          topic?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          difficulty?: string
+          id?: string
+          source?: string
+          topic?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      custom_modules: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          source_tag: string
+          title: string
+          updated_at: string
+          week_number: number
+        }
+        Insert: {
+          created_at?: string
+          data: Json
+          id: string
+          source_tag?: string
+          title: string
+          updated_at?: string
+          week_number: number
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          source_tag?: string
+          title?: string
+          updated_at?: string
+          week_number?: number
+        }
+        Relationships: []
+      }
+      custom_practice_exams: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          question_ids: Json
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          data: Json
+          id: string
+          question_ids?: Json
+          title?: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          question_ids?: Json
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
