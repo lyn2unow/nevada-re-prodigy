@@ -3,6 +3,7 @@ import { Plus, AlertTriangle, Pencil, Trash2, ListChecks, Play } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { AuthorityBadge } from "@/components/AuthorityBadge";
 import { useCourse } from "@/contexts/CourseContext";
 import { toast } from "@/hooks/use-toast";
 
@@ -135,10 +136,10 @@ export default function ExamPrep() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="flex gap-3 text-sm text-muted-foreground">
+                <div className="flex gap-3 text-sm text-muted-foreground items-center">
                   <span>{q.topic}</span>
                   <span>•</span>
-                  <span>{q.source}</span>
+                  <AuthorityBadge source={q.source} compact />
                   {q.tags.length > 0 && (
                     <>
                       <span>•</span>

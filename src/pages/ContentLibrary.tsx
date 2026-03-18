@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Library, BookOpen, Scale, Search, ClipboardCheck, Gamepad2, X } from "lucide-react";
+import { Library, BookOpen, Scale, Search, ClipboardCheck, Gamepad2, X, AlertTriangle, ArrowUpDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -8,14 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { useCourse } from "@/contexts/CourseContext";
 import { SourceAuthority } from "@/types/course";
-
-const sourceColors: Record<SourceAuthority, string> = {
-  "NRS/NAC": "bg-primary text-primary-foreground",
-  "Pearson VUE": "bg-accent text-accent-foreground",
-  "CE Shop": "bg-secondary text-secondary-foreground",
-  "Lecture Notes": "bg-muted text-muted-foreground",
-  Textbook: "bg-destructive/10 text-destructive",
-};
+import { AuthorityBadge } from "@/components/AuthorityBadge";
+import { detectConflicts, getAuthorityRank, AUTHORITY_COLORS } from "@/lib/authority-utils";
 
 const ALL_SOURCES: SourceAuthority[] = ["NRS/NAC", "Pearson VUE", "CE Shop", "Lecture Notes", "Textbook"];
 
@@ -24,25 +18,36 @@ export default function ContentLibrary() {
   const [search, setSearch] = useState("");
   const [sourceFilter, setSourceFilter] = useState<string>("all");
   const [weekFilter, setWeekFilter] = useState<string>("all");
+  const [sortByAuth, setSortByAuth] = useState(false);
 
   const lowerSearch = search.toLowerCase();
 
+  const conflicts = useMemo(() => detectConflicts(data.modules), [data.modules]);
+
   const filteredModules = useMemo(() => {
-    return data.modules.filter((m) => {
+    let result = data.modules.filter((m) => {
       if (sourceFilter !== "all" && m.sourceTag !== sourceFilter) return false;
       if (weekFilter !== "all" && m.weekNumber !== Number(weekFilter)) return false;
       if (lowerSearch && !m.title.toLowerCase().includes(lowerSearch) && !m.conceptExplanation.toLowerCase().includes(lowerSearch) && !m.keyTerms.some((kt) => kt.term.toLowerCase().includes(lowerSearch))) return false;
       return true;
     });
-  }, [data.modules, sourceFilter, weekFilter, lowerSearch]);
+    if (sortByAuth) {
+      result = [...result].sort((a, b) => getAuthorityRank(a.sourceTag) - getAuthorityRank(b.sourceTag));
+    }
+    return result;
+  }, [data.modules, sourceFilter, weekFilter, lowerSearch, sortByAuth]);
 
   const filteredQuestions = useMemo(() => {
-    return data.examQuestions.filter((q) => {
+    let result = data.examQuestions.filter((q) => {
       if (sourceFilter !== "all" && q.source !== sourceFilter) return false;
       if (lowerSearch && !q.question.toLowerCase().includes(lowerSearch) && !q.topic.toLowerCase().includes(lowerSearch) && !q.tags.some((t) => t.toLowerCase().includes(lowerSearch))) return false;
       return true;
     });
-  }, [data.examQuestions, sourceFilter, lowerSearch]);
+    if (sortByAuth) {
+      result = [...result].sort((a, b) => getAuthorityRank(a.source) - getAuthorityRank(b.source));
+    }
+    return result;
+  }, [data.examQuestions, sourceFilter, lowerSearch, sortByAuth]);
 
   const filteredActivities = useMemo(() => {
     return data.activities.filter((a) => {
@@ -88,15 +93,21 @@ export default function ContentLibrary() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-3">
-            {ALL_SOURCES.map((source, i) => (
-              <div key={source} className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground font-mono">{i + 1}.</span>
-                <Badge className={sourceColors[source]}>{source}</Badge>
-                <span className="text-sm text-muted-foreground">
-                  ({sourceCounts[source] || 0})
-                </span>
-              </div>
-            ))}
+            {ALL_SOURCES.map((source, i) => {
+              const style = AUTHORITY_COLORS[source];
+              return (
+                <div key={source} className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground font-mono">{i + 1}.</span>
+                  <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${style.bg} ${style.text}`}>
+                    {source}
+                    {source === "Textbook" && <span className="opacity-70 ml-0.5">· Supplemental</span>}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    ({sourceCounts[source] || 0})
+                  </span>
+                </div>
+              );
+            })}
           </div>
           {correctedCount > 0 && (
             <p className="mt-3 text-sm text-destructive flex items-center gap-2">
@@ -106,6 +117,34 @@ export default function ContentLibrary() {
           )}
         </CardContent>
       </Card>
+
+      {/* Conflict Banner */}
+      {conflicts.length > 0 && (
+        <Card className="border-destructive/30 bg-destructive/5">
+          <CardContent className="py-4">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+              <div>
+                <p className="font-medium text-sm text-destructive">
+                  {conflicts.length} topic{conflicts.length !== 1 ? "s" : ""} with supplemental textbook content alongside higher-authority sources
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {conflicts.slice(0, 5).map((c) => (
+                    <li key={c.textbookModule.id} className="text-xs text-muted-foreground">
+                      <span className="font-medium">{c.topic}</span>: textbook module "{c.textbookModule.title}" overlaps with {c.higherAuthorityModules.length} higher-authority module(s)
+                    </li>
+                  ))}
+                  {conflicts.length > 5 && (
+                    <li className="text-xs text-muted-foreground italic">
+                      …and {conflicts.length - 5} more
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Search & Filters */}
       <div className="flex flex-col sm:flex-row gap-3">
@@ -140,6 +179,15 @@ export default function ContentLibrary() {
             ))}
           </SelectContent>
         </Select>
+        <Button
+          variant={sortByAuth ? "default" : "outline"}
+          size="icon"
+          onClick={() => setSortByAuth(!sortByAuth)}
+          title="Sort by authority level"
+          className="shrink-0"
+        >
+          <ArrowUpDown className="h-4 w-4" />
+        </Button>
         {hasFilters && (
           <Button variant="ghost" size="icon" onClick={clearFilters} className="shrink-0">
             <X className="h-4 w-4" />
@@ -187,8 +235,8 @@ export default function ContentLibrary() {
                   <CardHeader className="pb-2">
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-base">{module.title}</CardTitle>
-                      <div className="flex gap-2 flex-wrap justify-end">
-                        <Badge className={sourceColors[module.sourceTag]}>{module.sourceTag}</Badge>
+                      <div className="flex gap-2 flex-wrap justify-end items-center">
+                        <AuthorityBadge source={module.sourceTag} correctsTextbook={module.correctsTextbook} />
                         <Badge variant="outline">
                           {module.federalVsNevada === "both"
                             ? "Federal + NV"
@@ -196,11 +244,6 @@ export default function ContentLibrary() {
                             ? "Federal"
                             : "Nevada"}
                         </Badge>
-                        {module.correctsTextbook && (
-                          <Badge variant="destructive" className="text-[10px]">
-                            Corrects Textbook
-                          </Badge>
-                        )}
                       </div>
                     </div>
                   </CardHeader>
@@ -224,9 +267,9 @@ export default function ContentLibrary() {
                   <CardHeader className="pb-2">
                     <div className="flex items-center justify-between gap-3">
                       <CardTitle className="text-sm font-medium line-clamp-2">{q.question}</CardTitle>
-                      <div className="flex gap-2 shrink-0">
+                      <div className="flex gap-2 shrink-0 items-center">
                         <Badge variant="outline">{q.difficulty}</Badge>
-                        <Badge className={sourceColors[q.source]}>{q.source}</Badge>
+                        <AuthorityBadge source={q.source} compact />
                         {q.examTrap && <Badge variant="destructive">Trap</Badge>}
                       </div>
                     </div>

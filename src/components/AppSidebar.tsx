@@ -11,6 +11,8 @@ import {
   Eye,
   Presentation,
   PieChart,
+  LogIn,
+  LogOut,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -26,6 +28,9 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
@@ -43,6 +48,9 @@ const navItems = [
 ];
 
 export function AppSidebar() {
+  const { isAuthenticated, user, signOut } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <Sidebar className="border-r-0">
       <SidebarHeader className="p-5 border-b border-sidebar-border">
@@ -88,7 +96,33 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4 border-t border-sidebar-border">
+      <SidebarFooter className="p-4 border-t border-sidebar-border space-y-2">
+        {isAuthenticated ? (
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] text-sidebar-foreground/60 truncate max-w-[140px]">
+              {user?.email}
+            </span>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 gap-1 text-[11px] text-sidebar-foreground/60"
+              onClick={() => signOut()}
+            >
+              <LogOut className="h-3 w-3" />
+              Sign Out
+            </Button>
+          </div>
+        ) : (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start gap-2 text-[11px] text-sidebar-foreground/60"
+            onClick={() => navigate("/auth")}
+          >
+            <LogIn className="h-3.5 w-3.5" />
+            Sign In to Save Content
+          </Button>
+        )}
         <div className="flex items-center justify-between">
           <span className="text-[11px] text-sidebar-foreground/40">TMCC · Nathanial Miller</span>
           <ThemeToggle />

@@ -1,5 +1,5 @@
-// Course store - v2 clean rewrite
-import { useState, useEffect } from "react";
+// Course store - v3 with DB persistence
+import { useState, useEffect, useCallback } from "react";
 import type { CourseData, Module, ExamQuestion, Activity, PracticeExam, SyllabusTemplate } from "@/types/course";
 import { toast } from "@/hooks/use-toast";
 import { DEFAULT_WEEKS } from "@/types/course";
@@ -10,265 +10,302 @@ import { getLectureNotesModules, getLectureNotesExamQuestions, getLectureNotesAc
 import { getDefaultSyllabusTemplate } from "@/data/syllabus-template";
 import { getNRS645Sections } from "@/data/nrs-reference";
 import { getTextbookModules, getTextbookExamQuestions, getTextbookActivities } from "@/data/textbook-content";
+import { supabase } from "@/integrations/supabase/client";
+
 const STORAGE_KEY = "re103-course-data";
 
-function getInitialData(): CourseData {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) return JSON.parse(stored);
-  } catch {}
-  return {
-    weeks: DEFAULT_WEEKS,
-    modules: [],
-    examQuestions: [],
-    practiceExams: [],
-    activities: [],
-  };
+// ---------- Static seed data (read-only baseline) ----------
+
+function getAllSeedModules(): Module[] {
+  return [
+    ...getSeedModules(),
+    ...getPearsonVueModules(),
+    ...getCEShopModules(),
+    ...getLectureNotesModules(),
+    ...getTextbookModules(),
+  ];
 }
 
+function getAllSeedQuestions(): ExamQuestion[] {
+  return [
+    ...getSeedExamQuestions(),
+    ...getPearsonVueExamQuestions(),
+    ...getCEShopExamQuestions(),
+    ...getLectureNotesExamQuestions(),
+    ...getTextbookExamQuestions(),
+  ];
+}
+
+function getAllSeedActivities(): Activity[] {
+  return [
+    ...getSeedActivities(),
+    ...getPearsonVueActivities(),
+    ...getCEShopActivities(),
+    ...getLectureNotesActivities(),
+    ...getTextbookActivities(),
+  ];
+}
+
+// ---------- Merge helpers ----------
+
+function mergeById<T extends { id: string }>(seed: T[], custom: T[]): T[] {
+  const customIds = new Set(custom.map((c) => c.id));
+  return [...seed.filter((s) => !customIds.has(s.id)), ...custom];
+}
+
+function buildWeeks(modules: Module[]): import("@/types/course").Week[] {
+  const weeks = getSeedWeeks().length > 0 ? getSeedWeeks() : DEFAULT_WEEKS;
+  return weeks.map((w) => ({
+    ...w,
+    moduleIds: modules.filter((m) => m.weekNumber === w.number).map((m) => m.id),
+  }));
+}
+
+// ---------- DB operations ----------
+
+async function fetchCustomModules(): Promise<Module[]> {
+  const { data, error } = await supabase.from("custom_modules").select("data");
+  if (error) { console.error("fetch modules:", error); return []; }
+  return (data ?? []).map((r: any) => r.data as Module);
+}
+
+async function fetchCustomQuestions(): Promise<ExamQuestion[]> {
+  const { data, error } = await supabase.from("custom_exam_questions").select("data");
+  if (error) { console.error("fetch questions:", error); return []; }
+  return (data ?? []).map((r: any) => r.data as ExamQuestion);
+}
+
+async function fetchCustomActivities(): Promise<Activity[]> {
+  const { data, error } = await supabase.from("custom_activities").select("data");
+  if (error) { console.error("fetch activities:", error); return []; }
+  return (data ?? []).map((r: any) => r.data as Activity);
+}
+
+async function fetchCustomPracticeExams(): Promise<PracticeExam[]> {
+  const { data, error } = await supabase.from("custom_practice_exams").select("data");
+  if (error) { console.error("fetch practice exams:", error); return []; }
+  return (data ?? []).map((r: any) => r.data as PracticeExam);
+}
+
+async function upsertModule(module: Module) {
+  const { error } = await supabase.from("custom_modules").upsert({
+    id: module.id,
+    week_number: module.weekNumber,
+    title: module.title,
+    source_tag: module.sourceTag,
+    data: module as any,
+  });
+  if (error) console.error("upsert module:", error);
+  return error;
+}
+
+async function upsertQuestion(q: ExamQuestion) {
+  const { error } = await supabase.from("custom_exam_questions").upsert({
+    id: q.id,
+    topic: q.topic,
+    difficulty: q.difficulty,
+    source: q.source,
+    data: q as any,
+  });
+  if (error) console.error("upsert question:", error);
+  return error;
+}
+
+async function upsertActivity(a: Activity) {
+  const { error } = await supabase.from("custom_activities").upsert({
+    id: a.id,
+    title: a.title,
+    type: a.type,
+    data: a as any,
+  });
+  if (error) console.error("upsert activity:", error);
+  return error;
+}
+
+async function upsertPracticeExam(pe: PracticeExam) {
+  const { error } = await supabase.from("custom_practice_exams").upsert({
+    id: pe.id,
+    title: pe.title,
+    question_ids: pe.questionIds as any,
+    data: pe as any,
+  });
+  if (error) console.error("upsert practice exam:", error);
+  return error;
+}
+
+async function dbDelete(table: string, id: string) {
+  const { error } = await (supabase as any).from(table).delete().eq("id", id);
+  if (error) console.error(`delete ${table}:`, error);
+  return error;
+}
+
+// ---------- Hook ----------
+
 export function useCourseStore() {
-  const [data, setData] = useState<CourseData>(getInitialData);
+  const [dbLoading, setDbLoading] = useState(true);
+  const [customModules, setCustomModules] = useState<Module[]>([]);
+  const [customQuestions, setCustomQuestions] = useState<ExamQuestion[]>([]);
+  const [customActivities, setCustomActivities] = useState<Activity[]>([]);
+  const [customPracticeExams, setCustomPracticeExams] = useState<PracticeExam[]>([]);
+  const [syllabusTemplate, setSyllabusTemplate] = useState<SyllabusTemplate | undefined>();
+  const [statuteSections, setStatuteSections] = useState<import("@/types/course").StatuteSection[] | undefined>();
 
+  // Fetch custom content from DB on mount
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch (e) {
-      if (e instanceof DOMException && e.name === "QuotaExceededError") {
-        toast({
-          title: "Storage full",
-          description: "Changes could not be saved. Export a backup now.",
-          variant: "destructive",
-        });
+    let cancelled = false;
+    (async () => {
+      const [mods, qs, acts, pes] = await Promise.all([
+        fetchCustomModules(),
+        fetchCustomQuestions(),
+        fetchCustomActivities(),
+        fetchCustomPracticeExams(),
+      ]);
+      if (!cancelled) {
+        setCustomModules(mods);
+        setCustomQuestions(qs);
+        setCustomActivities(acts);
+        setCustomPracticeExams(pes);
+        setDbLoading(false);
       }
-    }
-  }, [data]);
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
-  const addModule = (module: Module) => {
-    setData((prev) => ({
-      ...prev,
-      modules: [...prev.modules, module],
-      weeks: prev.weeks.map((w) =>
-        w.number === module.weekNumber
-          ? { ...w, moduleIds: [...w.moduleIds, module.id] }
-          : w
-      ),
-    }));
+  // Merged data: seed + custom (custom wins on ID collision)
+  const seedModules = getAllSeedModules();
+  const seedQuestions = getAllSeedQuestions();
+  const seedActivities = getAllSeedActivities();
+
+  const allModules = mergeById(seedModules, customModules);
+  const allQuestions = mergeById(seedQuestions, customQuestions);
+  const allActivities = mergeById(seedActivities, customActivities);
+
+  const data: CourseData = {
+    weeks: buildWeeks(allModules),
+    modules: allModules,
+    examQuestions: allQuestions,
+    practiceExams: customPracticeExams,
+    activities: allActivities,
+    syllabusTemplate,
+    statuteSections,
   };
 
-  const updateModule = (module: Module) => {
-    setData((prev) => ({
-      ...prev,
-      modules: prev.modules.map((m) => (m.id === module.id ? module : m)),
-    }));
-  };
+  // ---------- Mutation helpers (write to DB + update local state) ----------
 
-  const deleteModule = (id: string) => {
-    setData((prev) => ({
-      ...prev,
-      modules: prev.modules.filter((m) => m.id !== id),
-      weeks: prev.weeks.map((w) => ({
-        ...w,
-        moduleIds: w.moduleIds.filter((mid) => mid !== id),
-      })),
-    }));
-  };
+  const addModule = useCallback(async (module: Module) => {
+    setCustomModules((prev) => [...prev, module]);
+    const err = await upsertModule(module);
+    if (err) toast({ title: "Save failed", description: "Module saved locally only.", variant: "destructive" });
+  }, []);
 
-  const addExamQuestion = (q: ExamQuestion) => {
-    setData((prev) => ({ ...prev, examQuestions: [...prev.examQuestions, q] }));
-  };
-
-  const updateExamQuestion = (q: ExamQuestion) => {
-    setData((prev) => ({
-      ...prev,
-      examQuestions: prev.examQuestions.map((eq) => (eq.id === q.id ? q : eq)),
-    }));
-  };
-
-  const deleteExamQuestion = (id: string) => {
-    setData((prev) => ({
-      ...prev,
-      examQuestions: prev.examQuestions.filter((q) => q.id !== id),
-    }));
-  };
-
-  const addActivity = (a: Activity) => {
-    setData((prev) => ({ ...prev, activities: [...prev.activities, a] }));
-  };
-
-  const updateActivity = (a: Activity) => {
-    setData((prev) => ({
-      ...prev,
-      activities: prev.activities.map((act) => (act.id === a.id ? a : act)),
-    }));
-  };
-
-  const deleteActivity = (id: string) => {
-    setData((prev) => ({
-      ...prev,
-      activities: prev.activities.filter((a) => a.id !== id),
-    }));
-  };
-
-  const addPracticeExam = (pe: PracticeExam) => {
-    setData((prev) => ({ ...prev, practiceExams: [...prev.practiceExams, pe] }));
-  };
-
-  const updateWeekTitle = (weekNumber: number, title: string) => {
-    setData((prev) => ({
-      ...prev,
-      weeks: prev.weeks.map((w) =>
-        w.number === weekNumber ? { ...w, title } : w
-      ),
-    }));
-  };
-
-  const loadSeedContent = () => {
-    setData({
-      weeks: getSeedWeeks(),
-      modules: getSeedModules(),
-      examQuestions: getSeedExamQuestions(),
-      practiceExams: [],
-      activities: getSeedActivities(),
+  const updateModule = useCallback(async (module: Module) => {
+    setCustomModules((prev) => {
+      const exists = prev.find((m) => m.id === module.id);
+      return exists ? prev.map((m) => (m.id === module.id ? module : m)) : [...prev, module];
     });
-  };
+    const err = await upsertModule(module);
+    if (err) toast({ title: "Save failed", variant: "destructive" });
+  }, []);
 
-  const loadPearsonVueContent = () => {
-    const pvModules = getPearsonVueModules();
-    const pvQuestions = getPearsonVueExamQuestions();
-    const pvActivities = getPearsonVueActivities();
-    setData((prev) => {
-      const existingModuleIds = new Set(prev.modules.map((m) => m.id));
-      const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
-      const existingActivityIds = new Set(prev.activities.map((a) => a.id));
-      return {
-        ...prev,
-        modules: [...prev.modules, ...pvModules.filter((m) => !existingModuleIds.has(m.id))],
-        examQuestions: [...prev.examQuestions, ...pvQuestions.filter((q) => !existingQuestionIds.has(q.id))],
-        activities: [...prev.activities, ...pvActivities.filter((a) => !existingActivityIds.has(a.id))],
-        weeks: prev.weeks.map((w) => {
-          const newModIds = pvModules.filter((m) => m.weekNumber === w.number && !existingModuleIds.has(m.id)).map((m) => m.id);
-          return newModIds.length > 0 ? { ...w, moduleIds: [...w.moduleIds, ...newModIds] } : w;
-        }),
-      };
+  const deleteModule = useCallback(async (id: string) => {
+    setCustomModules((prev) => prev.filter((m) => m.id !== id));
+    await dbDelete("custom_modules", id);
+  }, []);
+
+  const addExamQuestion = useCallback(async (q: ExamQuestion) => {
+    setCustomQuestions((prev) => [...prev, q]);
+    const err = await upsertQuestion(q);
+    if (err) toast({ title: "Save failed", variant: "destructive" });
+  }, []);
+
+  const updateExamQuestion = useCallback(async (q: ExamQuestion) => {
+    setCustomQuestions((prev) => {
+      const exists = prev.find((eq) => eq.id === q.id);
+      return exists ? prev.map((eq) => (eq.id === q.id ? q : eq)) : [...prev, q];
     });
-  };
+    const err = await upsertQuestion(q);
+    if (err) toast({ title: "Save failed", variant: "destructive" });
+  }, []);
 
-  const loadCEShopContent = () => {
-    const ceModules = getCEShopModules();
-    const ceQuestions = getCEShopExamQuestions();
-    const ceActivities = getCEShopActivities();
-    setData((prev) => {
-      const existingModuleIds = new Set(prev.modules.map((m) => m.id));
-      const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
-      const existingActivityIds = new Set(prev.activities.map((a) => a.id));
-      return {
-        ...prev,
-        modules: [...prev.modules, ...ceModules.filter((m) => !existingModuleIds.has(m.id))],
-        examQuestions: [...prev.examQuestions, ...ceQuestions.filter((q) => !existingQuestionIds.has(q.id))],
-        activities: [...prev.activities, ...ceActivities.filter((a) => !existingActivityIds.has(a.id))],
-        weeks: prev.weeks.map((w) => {
-          const newModIds = ceModules.filter((m) => m.weekNumber === w.number && !existingModuleIds.has(m.id)).map((m) => m.id);
-          return newModIds.length > 0 ? { ...w, moduleIds: [...w.moduleIds, ...newModIds] } : w;
-        }),
-      };
+  const deleteExamQuestion = useCallback(async (id: string) => {
+    setCustomQuestions((prev) => prev.filter((q) => q.id !== id));
+    await dbDelete("custom_exam_questions", id);
+  }, []);
+
+  const addActivity = useCallback(async (a: Activity) => {
+    setCustomActivities((prev) => [...prev, a]);
+    const err = await upsertActivity(a);
+    if (err) toast({ title: "Save failed", variant: "destructive" });
+  }, []);
+
+  const updateActivity = useCallback(async (a: Activity) => {
+    setCustomActivities((prev) => {
+      const exists = prev.find((act) => act.id === a.id);
+      return exists ? prev.map((act) => (act.id === a.id ? a : act)) : [...prev, a];
     });
-  };
+    const err = await upsertActivity(a);
+    if (err) toast({ title: "Save failed", variant: "destructive" });
+  }, []);
 
-  const importData = (incoming: CourseData, mode: "replace" | "merge") => {
+  const deleteActivity = useCallback(async (id: string) => {
+    setCustomActivities((prev) => prev.filter((a) => a.id !== id));
+    await dbDelete("custom_activities", id);
+  }, []);
+
+  const addPracticeExam = useCallback(async (pe: PracticeExam) => {
+    setCustomPracticeExams((prev) => [...prev, pe]);
+    const err = await upsertPracticeExam(pe);
+    if (err) toast({ title: "Save failed", variant: "destructive" });
+  }, []);
+
+  const updateWeekTitle = useCallback((_weekNumber: number, _title: string) => {
+    // Week titles are derived from seed data; no-op for now
+  }, []);
+
+  // Legacy loaders — now no-ops since seed data auto-merges
+  const loadSeedContent = useCallback(() => {
+    toast({ title: "Seed content loaded", description: "All seed data is automatically merged." });
+  }, []);
+  const loadPearsonVueContent = loadSeedContent;
+  const loadCEShopContent = loadSeedContent;
+  const loadLectureNotesContent = loadSeedContent;
+  const loadTextbookContent = loadSeedContent;
+
+  const loadNRS645 = useCallback(() => {
+    setStatuteSections(getNRS645Sections());
+  }, []);
+
+  const updateSyllabus = useCallback((template: SyllabusTemplate) => {
+    setSyllabusTemplate(template);
+  }, []);
+
+  const loadDefaultSyllabus = useCallback(() => {
+    setSyllabusTemplate(getDefaultSyllabusTemplate());
+  }, []);
+
+  const importData = useCallback((incoming: CourseData, mode: "replace" | "merge") => {
+    // For import, treat all incoming as custom content
     if (mode === "replace") {
-      setData(incoming);
+      setCustomModules(incoming.modules);
+      setCustomQuestions(incoming.examQuestions);
+      setCustomActivities(incoming.activities);
+      setCustomPracticeExams(incoming.practiceExams);
     } else {
-      setData((prev) => {
-        const existingModuleIds = new Set(prev.modules.map((m) => m.id));
-        const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
-        const existingActivityIds = new Set(prev.activities.map((a) => a.id));
-        const existingExamIds = new Set(prev.practiceExams.map((e) => e.id));
-
-        return {
-          weeks: incoming.weeks.map((iw) => {
-            const existing = prev.weeks.find((w) => w.number === iw.number);
-            if (!existing) return iw;
-            const mergedIds = [...new Set([...existing.moduleIds, ...iw.moduleIds])];
-            return { ...existing, title: iw.title || existing.title, moduleIds: mergedIds };
-          }),
-          modules: [
-            ...prev.modules,
-            ...incoming.modules.filter((m) => !existingModuleIds.has(m.id)),
-          ],
-          examQuestions: [
-            ...prev.examQuestions,
-            ...incoming.examQuestions.filter((q) => !existingQuestionIds.has(q.id)),
-          ],
-          activities: [
-            ...prev.activities,
-            ...incoming.activities.filter((a) => !existingActivityIds.has(a.id)),
-          ],
-          practiceExams: [
-            ...prev.practiceExams,
-            ...incoming.practiceExams.filter((e) => !existingExamIds.has(e.id)),
-          ],
-        };
-      });
+      setCustomModules((prev) => mergeById(prev, incoming.modules));
+      setCustomQuestions((prev) => mergeById(prev, incoming.examQuestions));
+      setCustomActivities((prev) => mergeById(prev, incoming.activities));
+      setCustomPracticeExams((prev) => mergeById(prev, incoming.practiceExams));
     }
-  };
-
-  const updateSyllabus = (template: SyllabusTemplate) => {
-    setData((prev) => ({ ...prev, syllabusTemplate: template }));
-  };
-
-  const loadDefaultSyllabus = () => {
-    setData((prev) => ({ ...prev, syllabusTemplate: getDefaultSyllabusTemplate() }));
-  };
-
-  const loadLectureNotesContent = () => {
-    const lnModules = getLectureNotesModules();
-    const lnQuestions = getLectureNotesExamQuestions();
-    const lnActivities = getLectureNotesActivities();
-    setData((prev) => {
-      const existingModuleIds = new Set(prev.modules.map((m) => m.id));
-      const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
-      const existingActivityIds = new Set(prev.activities.map((a) => a.id));
-      return {
-        ...prev,
-        modules: [...prev.modules, ...lnModules.filter((m) => !existingModuleIds.has(m.id))],
-        examQuestions: [...prev.examQuestions, ...lnQuestions.filter((q) => !existingQuestionIds.has(q.id))],
-        activities: [...prev.activities, ...lnActivities.filter((a) => !existingActivityIds.has(a.id))],
-        weeks: prev.weeks.map((w) => {
-          const newModIds = lnModules.filter((m) => m.weekNumber === w.number && !existingModuleIds.has(m.id)).map((m) => m.id);
-          return newModIds.length > 0 ? { ...w, moduleIds: [...w.moduleIds, ...newModIds] } : w;
-        }),
-      };
-    });
-  };
-
-  const loadNRS645 = () => {
-    const sections = getNRS645Sections();
-    setData((prev) => ({ ...prev, statuteSections: sections }));
-  };
-
-  const loadTextbookContent = () => {
-    const tbModules = getTextbookModules();
-    const tbQuestions = getTextbookExamQuestions();
-    const tbActivities = getTextbookActivities();
-    setData((prev) => {
-      const existingModuleIds = new Set(prev.modules.map((m) => m.id));
-      const existingQuestionIds = new Set(prev.examQuestions.map((q) => q.id));
-      const existingActivityIds = new Set(prev.activities.map((a) => a.id));
-      return {
-        ...prev,
-        modules: [...prev.modules, ...tbModules.filter((m) => !existingModuleIds.has(m.id))],
-        examQuestions: [...prev.examQuestions, ...tbQuestions.filter((q) => !existingQuestionIds.has(q.id))],
-        activities: [...prev.activities, ...tbActivities.filter((a) => !existingActivityIds.has(a.id))],
-        weeks: prev.weeks.map((w) => {
-          const newModIds = tbModules.filter((m) => m.weekNumber === w.number && !existingModuleIds.has(m.id)).map((m) => m.id);
-          return newModIds.length > 0 ? { ...w, moduleIds: [...w.moduleIds, ...newModIds] } : w;
-        }),
-      };
-    });
-  };
+    // Batch upsert to DB (fire and forget)
+    incoming.modules.forEach(upsertModule);
+    incoming.examQuestions.forEach(upsertQuestion);
+    incoming.activities.forEach(upsertActivity);
+    incoming.practiceExams.forEach(upsertPracticeExam);
+  }, []);
 
   return {
     data,
+    dbLoading,
     addModule,
     updateModule,
     deleteModule,

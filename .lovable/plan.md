@@ -1,109 +1,46 @@
 
 
-# Plan: Database Persistence + Source Authority Indicators
+# Add Unit 3 Lecture Notes: Interests in Real Estate
 
 ## Overview
 
-Two features in one pass: (1) persist instructor-created content to Lovable Cloud while keeping static seed data as a read-only baseline, and (2) surface the content authority hierarchy visually across the app.
+Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
 
----
+## New Content Summary
 
-## Part 1: Database Persistence
+### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
 
-### Architecture
+| # | Title | Key Statutes |
+|---|---|---|
+| 1 | Marital Property (Community Property) | NRS 123.220 |
+| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
+| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
+| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
+| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
+| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
 
-Static files remain the read-only baseline. The database stores only instructor-created or instructor-modified content. At runtime, the course store merges both sources (DB content wins on ID collision).
+### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
 
-Single instructor — no user_id columns on content tables. Simple email/password auth gates access; no profile table needed.
+Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
 
-### Database Tables
+### 1 Activity (ID: ln-act-u3-1)
 
-Four tables, all with RLS requiring `auth.uid() IS NOT NULL`:
+"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
 
-**`custom_modules`** — mirrors the `Module` TypeScript type. Key columns: `id text PK`, `week_number int`, `title text`, `source_tag text`, `data jsonb` (stores the full module object). RLS: authenticated users can CRUD.
+## Technical Details
 
-**`custom_exam_questions`** — mirrors `ExamQuestion`. Key columns: `id text PK`, `topic text`, `difficulty text`, `source text`, `data jsonb`. RLS: authenticated users can CRUD.
+### File modified
+- `src/data/lecture-notes-content.ts`
 
-**`custom_activities`** — mirrors `Activity`. Key columns: `id text PK`, `title text`, `type text`, `data jsonb`. RLS: authenticated users can CRUD.
+### Changes
+1. Update file comment to include Unit 3
+2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
+3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
+4. Append 1 activity to `getLectureNotesActivities()` return array
 
-**`custom_practice_exams`** — mirrors `PracticeExam`. Key columns: `id text PK`, `title text`, `question_ids jsonb`, `created_at timestamptz`. RLS: authenticated users can CRUD.
+### Pattern
+Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
 
-Using `data jsonb` for the full object avoids needing 20+ columns per table and makes schema evolution painless. Indexed columns (topic, difficulty, source_tag) enable server-side filtering later if needed.
-
-### Auth
-
-- Simple login/signup page at `/auth` with email + password
-- Email confirmation required (no auto-confirm)
-- Auth guard: if not logged in, the app works in read-only mode with seed data only. Creating/editing content prompts login.
-- Password reset flow with `/reset-password` route
-
-### Course Store Changes
-
-Update `useCourseStore` to:
-1. On mount, fetch all four `custom_*` tables from the database
-2. Merge DB results with static seed data (DB wins on ID collision)
-3. On add/update/delete operations, write to the database AND update local state
-4. Keep localStorage as a fallback cache for offline resilience
-5. Show loading state while DB fetch is in progress
-
-### Files to Create/Modify
-
-| File | Action |
-|---|---|
-| Migration SQL | Create 4 tables + RLS policies |
-| `src/pages/AuthPage.tsx` | New — login/signup form |
-| `src/pages/ResetPassword.tsx` | New — password reset form |
-| `src/hooks/useAuth.ts` | New — auth state hook |
-| `src/components/AuthGuard.tsx` | New — wrap mutation actions |
-| `src/stores/course-store.ts` | Modify — add DB fetch/merge/write |
-| `src/App.tsx` | Modify — add auth routes |
-| `src/components/AppSidebar.tsx` | Modify — add login/logout link |
-
----
-
-## Part 2: Source Authority Indicators
-
-### Authority Ranking
-
-Numeric rank for sorting/display:
-1. NRS/NAC (highest)
-2. Pearson VUE
-3. CE Shop
-4. Lecture Notes
-5. Textbook (lowest — supplemental)
-
-### Visual Indicators
-
-- **Authority badge with rank icon** on module and question cards in Content Library, Module Builder, and Exam Prep pages
-- Color-coded shield icon: gold for NRS/NAC, blue for Pearson VUE, green for CE Shop, gray for Lecture Notes, orange-red for Textbook
-- Textbook items get a subtle "Supplemental" label
-- Items with `correctsTextbook: true` get a warning icon indicating they override textbook content
-
-### Conflict Detection
-
-- Add a utility function `detectConflicts(modules)` that groups modules by topic/Pearson VUE area and flags when a textbook-sourced module exists alongside a higher-authority module on the same topic
-- Surface conflicts as a warning banner in the Content Library
-
-### Authority Filter
-
-- Add "Authority Level" filter dropdown to Content Library (already has source filter — enhance it with sort-by-authority option)
-
-### Files to Create/Modify
-
-| File | Action |
-|---|---|
-| `src/lib/authority-utils.ts` | New — rank map, conflict detection |
-| `src/pages/ContentLibrary.tsx` | Modify — add authority badges, conflict banner, authority sort |
-| `src/pages/ModuleBuilder.tsx` | Modify — add authority badge to module cards |
-| `src/pages/ExamPrep.tsx` | Modify — add authority badge to question cards |
-
----
-
-## Implementation Order
-
-1. Database migration (4 tables + RLS)
-2. Auth page + auth hook
-3. Course store DB integration
-4. Authority utility + visual indicators
-5. Content Library enhancements
+### NRS Reference impact
+New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
 

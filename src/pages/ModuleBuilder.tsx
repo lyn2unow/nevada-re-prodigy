@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AuthorityBadge } from "@/components/AuthorityBadge";
 import { useCourse } from "@/contexts/CourseContext";
 import { toast } from "@/hooks/use-toast";
 
@@ -81,13 +82,8 @@ export default function ModuleBuilder() {
                       <CardHeader className="pb-2">
                         <div className="flex items-center justify-between">
                           <CardTitle className="text-lg">{module.title}</CardTitle>
-                          <div className="flex items-center gap-2">
-                            <Badge variant="outline">{module.sourceTag}</Badge>
-                            {module.correctsTextbook && (
-                              <Badge variant="destructive" className="text-[10px]">
-                                Updates Textbook
-                              </Badge>
-                            )}
+                            <div className="flex items-center gap-2">
+                             <AuthorityBadge source={module.sourceTag} correctsTextbook={module.correctsTextbook} />
                             <Button
                               variant="ghost"
                               size="icon"

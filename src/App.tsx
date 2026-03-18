@@ -24,6 +24,8 @@ import NRSReference from "./pages/NRSReference";
 import SourceViewer from "./pages/SourceViewer";
 import LectureGenerator from "./pages/LectureGenerator";
 import ExamCoverageDashboard from "./pages/ExamCoverageDashboard";
+import AuthPage from "./pages/AuthPage";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +41,8 @@ const App = () => (
             <AppLayout>
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/auth" element={<AuthPage />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/syllabus" element={<SyllabusPage />} />
                 <Route path="/modules" element={<ModuleBuilder />} />
                 <Route path="/modules/new/:weekNumber" element={<ModuleForm />} />
