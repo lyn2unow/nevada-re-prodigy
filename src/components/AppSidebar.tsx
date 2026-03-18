@@ -39,6 +39,7 @@ const navItems = [
   { title: "Import", url: "/import", icon: Upload },
   { title: "Source Viewer", url: "/source-viewer", icon: Eye },
   { title: "Lecture Generator", url: "/lecture-generator", icon: Presentation },
+  { title: "Exam Coverage", url: "/exam-coverage", icon: PieChart },
 ];
 
 export function AppSidebar() {
