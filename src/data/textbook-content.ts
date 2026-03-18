@@ -1,4 +1,4 @@
-// Textbook Content — Units 1-2: Real Estate Brokerage and Agency; Listing and Buyer Representation Agreements
+// Textbook Content — Units 1-5: Real Estate Brokerage and Agency; Listing and Buyer Representation Agreements; Interests in Real Estate; Forms of Ownership; Legal Descriptions
 // Source: Scheible, Nevada Real Estate textbook
 import type { Module, ExamQuestion, Activity } from "@/types/course";
 
