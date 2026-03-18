@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, FileDown, Check, FileText, HardDriveDownload } from "lucide-react";
+import { Copy, FileDown, Check, FileText, HardDriveDownload, MessageSquare, ClipboardList } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,8 +13,11 @@ import {
   formatExamQuestionsAsText,
   formatActivityAsText,
   copyToClipboard,
+  copyHtmlToClipboard,
   generatePdf,
   generateQtiZip,
+  formatDiscussionsAsHtml,
+  formatAssignmentsAsHtml,
 } from "@/lib/export-utils";
 
 export default function ExportPage() {

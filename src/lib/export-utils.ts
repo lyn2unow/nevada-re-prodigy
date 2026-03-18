@@ -439,3 +439,90 @@ export async function generateQtiZip(title: string, questions: ExamQuestion[]): 
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+// ─── Canvas Discussion Topic (HTML for paste) ────────────────────
+
+export function formatDiscussionHtml(module: Module): string {
+  const lines: string[] = [];
+  lines.push(`<h2>${escapeHtml(module.title)}</h2>`);
+  lines.push(`<p><strong>Week ${module.weekNumber}</strong> | Source: ${escapeHtml(module.sourceTag)} | ${escapeHtml(module.estimatedTime || "")}</p>`);
+
+  if (module.conceptExplanation) {
+    lines.push(`<h3>Overview</h3>`);
+    lines.push(`<p>${escapeHtml(module.conceptExplanation)}</p>`);
+  }
+
+  if (module.realWorldScenario) {
+    lines.push(`<h3>Real-World Scenario</h3>`);
+    lines.push(`<p>${escapeHtml(module.realWorldScenario)}</p>`);
+  }
+
+  if (module.discussionPrompt) {
+    lines.push(`<hr/>`);
+    lines.push(`<h3>Discussion Prompt</h3>`);
+    lines.push(`<p>${escapeHtml(module.discussionPrompt)}</p>`);
+    lines.push(`<p><em>Reply to at least two classmates with substantive responses that reference the course material.</em></p>`);
+  }
+
+  if (module.examAlerts.length > 0) {
+    lines.push(`<h3>⚠️ Exam Alerts</h3><ul>`);
+    module.examAlerts.forEach((a) => {
+      lines.push(`<li><strong>[${escapeHtml(a.type)}]</strong> ${escapeHtml(a.text)}</li>`);
+    });
+    lines.push(`</ul>`);
+  }
+
+  return lines.join("\n");
+}
+
+export function formatDiscussionsAsHtml(modules: Module[]): string {
+  return modules.map((m) => formatDiscussionHtml(m)).join("\n<hr style='border:2px solid #ccc;margin:2em 0;'/>\n");
+}
+
+// ─── Canvas Assignment (HTML for paste) ──────────────────────────
+
+export function formatAssignmentHtml(activity: Activity): string {
+  const lines: string[] = [];
+  lines.push(`<h2>${escapeHtml(activity.title)}</h2>`);
+  lines.push(`<p><strong>Type:</strong> ${escapeHtml(activity.type)}${activity.weekNumber ? ` | <strong>Week ${activity.weekNumber}</strong>` : ""}${activity.topic ? ` | <strong>Topic:</strong> ${escapeHtml(activity.topic)}` : ""}</p>`);
+
+  lines.push(`<h3>Instructions</h3>`);
+  lines.push(`<p>${escapeHtml(activity.description).replace(/\n/g, "<br/>")}</p>`);
+
+  if (activity.debriefPrompts.length > 0) {
+    lines.push(`<h3>Debrief / Reflection Questions</h3><ol>`);
+    activity.debriefPrompts.forEach((p) => {
+      lines.push(`<li>${escapeHtml(p)}</li>`);
+    });
+    lines.push(`</ol>`);
+  }
+
+  if (activity.tags.length > 0) {
+    lines.push(`<p><em>Tags: ${escapeHtml(activity.tags.join(", "))}</em></p>`);
+  }
+
+  return lines.join("\n");
+}
+
+export function formatAssignmentsAsHtml(activities: Activity[]): string {
+  return activities.map((a) => formatAssignmentHtml(a)).join("\n<hr style='border:2px solid #ccc;margin:2em 0;'/>\n");
+}
+
+// ─── Copy HTML to clipboard (rich text) ──────────────────────────
+
+export async function copyHtmlToClipboard(html: string): Promise<boolean> {
+  try {
+    const blob = new Blob([html], { type: "text/html" });
+    const plainBlob = new Blob([html.replace(/<[^>]*>/g, "")], { type: "text/plain" });
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        "text/html": blob,
+        "text/plain": plainBlob,
+      }),
+    ]);
+    return true;
+  } catch {
+    // Fallback to plain text copy
+    return copyToClipboard(html.replace(/<[^>]*>/g, ""));
+  }
+}
