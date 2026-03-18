@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, FileDown, Check, FileText, HardDriveDownload } from "lucide-react";
+import { Copy, FileDown, Check, FileText, HardDriveDownload, MessageSquare, ClipboardList } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,8 +13,11 @@ import {
   formatExamQuestionsAsText,
   formatActivityAsText,
   copyToClipboard,
+  copyHtmlToClipboard,
   generatePdf,
   generateQtiZip,
+  formatDiscussionsAsHtml,
+  formatAssignmentsAsHtml,
 } from "@/lib/export-utils";
 
 export default function ExportPage() {
@@ -130,7 +133,29 @@ export default function ExportPage() {
     }
     const questions = data.examQuestions.filter((q) => selectedQuestions.has(q.id));
     await generateQtiZip("RE103_Quiz", questions);
-    toast({ title: `QTI ZIP downloaded with ${questions.length} question(s)` });
+    toast({ title: `QTI ZIP downloaded with ${questions.length} question(s) — per-answer feedback included` });
+  };
+
+  const handleCanvasDiscussion = async () => {
+    if (selectedModules.size === 0) {
+      toast({ title: "Select modules to export as Canvas Discussions", variant: "destructive" });
+      return;
+    }
+    const modules = data.modules.filter((m) => selectedModules.has(m.id));
+    const html = formatDiscussionsAsHtml(modules);
+    const ok = await copyHtmlToClipboard(html);
+    toast({ title: ok ? `${modules.length} discussion(s) copied as rich HTML — paste into Canvas` : "Copy failed", variant: ok ? "default" : "destructive" });
+  };
+
+  const handleCanvasAssignment = async () => {
+    if (selectedActivities.size === 0) {
+      toast({ title: "Select activities to export as Canvas Assignments", variant: "destructive" });
+      return;
+    }
+    const activities = data.activities.filter((a) => selectedActivities.has(a.id));
+    const html = formatAssignmentsAsHtml(activities);
+    const ok = await copyHtmlToClipboard(html);
+    toast({ title: ok ? `${activities.length} assignment(s) copied as rich HTML — paste into Canvas` : "Copy failed", variant: ok ? "default" : "destructive" });
   };
 
   const handleJsonBackup = () => {
@@ -181,14 +206,22 @@ export default function ExportPage() {
               {totalSelected} item{totalSelected !== 1 ? "s" : ""} selected
             </Badge>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Button variant="outline" className="gap-2" onClick={handleCopy} disabled={totalSelected === 0}>
               <Copy className="h-4 w-4" />
-              Copy to Clipboard
+              Copy Text
             </Button>
             <Button variant="outline" className="gap-2" onClick={handlePdf} disabled={totalSelected === 0}>
               <FileDown className="h-4 w-4" />
-              Export as PDF
+              PDF
+            </Button>
+            <Button variant="outline" className="gap-2" onClick={handleCanvasDiscussion} disabled={selectedModules.size === 0}>
+              <MessageSquare className="h-4 w-4" />
+              Canvas Discussion
+            </Button>
+            <Button variant="outline" className="gap-2" onClick={handleCanvasAssignment} disabled={selectedActivities.size === 0}>
+              <ClipboardList className="h-4 w-4" />
+              Canvas Assignment
             </Button>
             <Button className="gap-2" onClick={handleQti} disabled={selectedQuestions.size === 0}>
               <FileText className="h-4 w-4" />
@@ -336,13 +369,13 @@ export default function ExportPage() {
 
       {/* Bottom action bar */}
       <Separator />
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <p className="text-sm text-muted-foreground">
           {totalSelected > 0
             ? `${totalSelected} item${totalSelected !== 1 ? "s" : ""} ready to export`
             : "Select items above to export"}
         </p>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <Button variant="outline" className="gap-2" onClick={handleCopy} disabled={totalSelected === 0}>
             <Copy className="h-4 w-4" />
             Copy
@@ -350,6 +383,14 @@ export default function ExportPage() {
           <Button variant="outline" className="gap-2" onClick={handlePdf} disabled={totalSelected === 0}>
             <FileDown className="h-4 w-4" />
             PDF
+          </Button>
+          <Button variant="outline" className="gap-2" onClick={handleCanvasDiscussion} disabled={selectedModules.size === 0}>
+            <MessageSquare className="h-4 w-4" />
+            Discussion
+          </Button>
+          <Button variant="outline" className="gap-2" onClick={handleCanvasAssignment} disabled={selectedActivities.size === 0}>
+            <ClipboardList className="h-4 w-4" />
+            Assignment
           </Button>
           <Button className="gap-2" onClick={handleQti} disabled={selectedQuestions.size === 0}>
             <FileText className="h-4 w-4" />

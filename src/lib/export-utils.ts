@@ -281,9 +281,6 @@ function generateQuestionItemXml(q: ExamQuestion, index: number): string {
   const ident = `q_${q.id}`;
   const responseLabels = q.options.map((_, i) => `resp_${i}`);
   const correctResp = responseLabels[q.correctIndex];
-  const wrongResps = responseLabels.filter((_, i) => i !== q.correctIndex);
-
-  const feedbackText = escapeXml(q.explanation);
 
   const responseLabelsXml = q.options
     .map(
@@ -296,28 +293,47 @@ function generateQuestionItemXml(q: ExamQuestion, index: number): string {
     )
     .join("\n");
 
-  // Incorrect condition uses <or> listing each wrong ident explicitly
-  const wrongVarequals = wrongResps
-    .map((r) => `              <varequal respident="response1">${r}</varequal>`)
-    .join("\n");
-
-  const respconditionXml = `
+  // Build per-answer response conditions with individual feedback refs
+  const respconditions = q.options.map((_, i) => {
+    const isCorrect = i === q.correctIndex;
+    return `
         <respcondition continue="No">
           <conditionvar>
-            <varequal respident="response1">${correctResp}</varequal>
+            <varequal respident="response1">${responseLabels[i]}</varequal>
           </conditionvar>
-          <setvar action="Set" varname="SCORE">1</setvar>
-          <displayfeedback feedbacktype="Response" linkrefid="correct_fb"/>
-        </respcondition>
-        <respcondition continue="No">
-          <conditionvar>
-            <or>
-${wrongVarequals}
-            </or>
-          </conditionvar>
-          <setvar action="Set" varname="SCORE">0</setvar>
-          <displayfeedback feedbacktype="Response" linkrefid="incorrect_fb"/>
+          <setvar action="Set" varname="SCORE">${isCorrect ? "1" : "0"}</setvar>
+          <displayfeedback feedbacktype="Response" linkrefid="${isCorrect ? "correct_fb" : `wrong_fb_${i}`}"/>
         </respcondition>`;
+  }).join("");
+
+  // Build per-answer feedback blocks
+  const correctFeedback = `
+      <itemfeedback ident="correct_fb">
+        <material>
+          <mattext texttype="text/html">&lt;p&gt;&lt;strong&gt;Correct!&lt;/strong&gt; ${escapeXml(q.explanation)}&lt;/p&gt;</mattext>
+        </material>
+      </itemfeedback>`;
+
+  let wrongIdx = 0;
+  const wrongFeedbacks = q.options.map((opt, i) => {
+    if (i === q.correctIndex) return "";
+    const specificFeedback = q.wrongExplanations[wrongIdx] || q.explanation;
+    wrongIdx++;
+    return `
+      <itemfeedback ident="wrong_fb_${i}">
+        <material>
+          <mattext texttype="text/html">&lt;p&gt;&lt;strong&gt;Incorrect.&lt;/strong&gt; You chose &amp;quot;${escapeXml(opt)}&amp;quot; — ${escapeXml(specificFeedback)} The correct answer is ${String.fromCharCode(65 + q.correctIndex)}: ${escapeXml(q.options[q.correctIndex])}.&lt;/p&gt;</mattext>
+        </material>
+      </itemfeedback>`;
+  }).filter(Boolean).join("");
+
+  // General feedback shown after submission
+  const generalFeedback = `
+      <itemfeedback ident="general_fb">
+        <material>
+          <mattext texttype="text/html">&lt;p&gt;${escapeXml(q.explanation)}${q.examTrap && q.examTrapNote ? ` &lt;br/&gt;&lt;em&gt;⚠️ Exam Trap: ${escapeXml(q.examTrapNote)}&lt;/em&gt;` : ""}&lt;/p&gt;</mattext>
+        </material>
+      </itemfeedback>`;
 
   return `
     <item ident="${ident}" title="${escapeXml(`Question ${index + 1}: ${q.topic}`)}">
@@ -347,18 +363,11 @@ ${responseLabelsXml}
         <outcomes>
           <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
         </outcomes>
-${respconditionXml}
+${respconditions}
       </resprocessing>
-      <itemfeedback ident="correct_fb">
-        <material>
-          <mattext texttype="text/html">&lt;p&gt;${escapeXml(feedbackText)}&lt;/p&gt;</mattext>
-        </material>
-      </itemfeedback>
-      <itemfeedback ident="incorrect_fb">
-        <material>
-          <mattext texttype="text/html">&lt;p&gt;Incorrect. ${escapeXml(feedbackText)}&lt;/p&gt;</mattext>
-        </material>
-      </itemfeedback>
+${correctFeedback}
+${wrongFeedbacks}
+${generalFeedback}
     </item>`;
 }
 
@@ -429,4 +438,91 @@ export async function generateQtiZip(title: string, questions: ExamQuestion[]): 
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+// ─── Canvas Discussion Topic (HTML for paste) ────────────────────
+
+export function formatDiscussionHtml(module: Module): string {
+  const lines: string[] = [];
+  lines.push(`<h2>${escapeHtml(module.title)}</h2>`);
+  lines.push(`<p><strong>Week ${module.weekNumber}</strong> | Source: ${escapeHtml(module.sourceTag)} | ${escapeHtml(module.estimatedTime || "")}</p>`);
+
+  if (module.conceptExplanation) {
+    lines.push(`<h3>Overview</h3>`);
+    lines.push(`<p>${escapeHtml(module.conceptExplanation)}</p>`);
+  }
+
+  if (module.realWorldScenario) {
+    lines.push(`<h3>Real-World Scenario</h3>`);
+    lines.push(`<p>${escapeHtml(module.realWorldScenario)}</p>`);
+  }
+
+  if (module.discussionPrompt) {
+    lines.push(`<hr/>`);
+    lines.push(`<h3>Discussion Prompt</h3>`);
+    lines.push(`<p>${escapeHtml(module.discussionPrompt)}</p>`);
+    lines.push(`<p><em>Reply to at least two classmates with substantive responses that reference the course material.</em></p>`);
+  }
+
+  if (module.examAlerts.length > 0) {
+    lines.push(`<h3>⚠️ Exam Alerts</h3><ul>`);
+    module.examAlerts.forEach((a) => {
+      lines.push(`<li><strong>[${escapeHtml(a.type)}]</strong> ${escapeHtml(a.text)}</li>`);
+    });
+    lines.push(`</ul>`);
+  }
+
+  return lines.join("\n");
+}
+
+export function formatDiscussionsAsHtml(modules: Module[]): string {
+  return modules.map((m) => formatDiscussionHtml(m)).join("\n<hr style='border:2px solid #ccc;margin:2em 0;'/>\n");
+}
+
+// ─── Canvas Assignment (HTML for paste) ──────────────────────────
+
+export function formatAssignmentHtml(activity: Activity): string {
+  const lines: string[] = [];
+  lines.push(`<h2>${escapeHtml(activity.title)}</h2>`);
+  lines.push(`<p><strong>Type:</strong> ${escapeHtml(activity.type)}${activity.weekNumber ? ` | <strong>Week ${activity.weekNumber}</strong>` : ""}${activity.topic ? ` | <strong>Topic:</strong> ${escapeHtml(activity.topic)}` : ""}</p>`);
+
+  lines.push(`<h3>Instructions</h3>`);
+  lines.push(`<p>${escapeHtml(activity.description).replace(/\n/g, "<br/>")}</p>`);
+
+  if (activity.debriefPrompts.length > 0) {
+    lines.push(`<h3>Debrief / Reflection Questions</h3><ol>`);
+    activity.debriefPrompts.forEach((p) => {
+      lines.push(`<li>${escapeHtml(p)}</li>`);
+    });
+    lines.push(`</ol>`);
+  }
+
+  if (activity.tags.length > 0) {
+    lines.push(`<p><em>Tags: ${escapeHtml(activity.tags.join(", "))}</em></p>`);
+  }
+
+  return lines.join("\n");
+}
+
+export function formatAssignmentsAsHtml(activities: Activity[]): string {
+  return activities.map((a) => formatAssignmentHtml(a)).join("\n<hr style='border:2px solid #ccc;margin:2em 0;'/>\n");
+}
+
+// ─── Copy HTML to clipboard (rich text) ──────────────────────────
+
+export async function copyHtmlToClipboard(html: string): Promise<boolean> {
+  try {
+    const blob = new Blob([html], { type: "text/html" });
+    const plainBlob = new Blob([html.replace(/<[^>]*>/g, "")], { type: "text/plain" });
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        "text/html": blob,
+        "text/plain": plainBlob,
+      }),
+    ]);
+    return true;
+  } catch {
+    // Fallback to plain text copy
+    return copyToClipboard(html.replace(/<[^>]*>/g, ""));
+  }
 }
