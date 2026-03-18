@@ -369,13 +369,13 @@ export default function ExportPage() {
 
       {/* Bottom action bar */}
       <Separator />
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <p className="text-sm text-muted-foreground">
           {totalSelected > 0
             ? `${totalSelected} item${totalSelected !== 1 ? "s" : ""} ready to export`
             : "Select items above to export"}
         </p>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <Button variant="outline" className="gap-2" onClick={handleCopy} disabled={totalSelected === 0}>
             <Copy className="h-4 w-4" />
             Copy
@@ -383,6 +383,14 @@ export default function ExportPage() {
           <Button variant="outline" className="gap-2" onClick={handlePdf} disabled={totalSelected === 0}>
             <FileDown className="h-4 w-4" />
             PDF
+          </Button>
+          <Button variant="outline" className="gap-2" onClick={handleCanvasDiscussion} disabled={selectedModules.size === 0}>
+            <MessageSquare className="h-4 w-4" />
+            Discussion
+          </Button>
+          <Button variant="outline" className="gap-2" onClick={handleCanvasAssignment} disabled={selectedActivities.size === 0}>
+            <ClipboardList className="h-4 w-4" />
+            Assignment
           </Button>
           <Button className="gap-2" onClick={handleQti} disabled={selectedQuestions.size === 0}>
             <FileText className="h-4 w-4" />
