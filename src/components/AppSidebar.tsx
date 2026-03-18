@@ -10,6 +10,7 @@ import {
   Scale,
   Eye,
   Presentation,
+  PieChart,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
