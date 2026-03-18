@@ -206,14 +206,22 @@ export default function ExportPage() {
               {totalSelected} item{totalSelected !== 1 ? "s" : ""} selected
             </Badge>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Button variant="outline" className="gap-2" onClick={handleCopy} disabled={totalSelected === 0}>
               <Copy className="h-4 w-4" />
-              Copy to Clipboard
+              Copy Text
             </Button>
             <Button variant="outline" className="gap-2" onClick={handlePdf} disabled={totalSelected === 0}>
               <FileDown className="h-4 w-4" />
-              Export as PDF
+              PDF
+            </Button>
+            <Button variant="outline" className="gap-2" onClick={handleCanvasDiscussion} disabled={selectedModules.size === 0}>
+              <MessageSquare className="h-4 w-4" />
+              Canvas Discussion
+            </Button>
+            <Button variant="outline" className="gap-2" onClick={handleCanvasAssignment} disabled={selectedActivities.size === 0}>
+              <ClipboardList className="h-4 w-4" />
+              Canvas Assignment
             </Button>
             <Button className="gap-2" onClick={handleQti} disabled={selectedQuestions.size === 0}>
               <FileText className="h-4 w-4" />
