@@ -23,6 +23,7 @@ import SyllabusPage from "./pages/SyllabusPage";
 import NRSReference from "./pages/NRSReference";
 import SourceViewer from "./pages/SourceViewer";
 import LectureGenerator from "./pages/LectureGenerator";
+import ExamCoverageDashboard from "./pages/ExamCoverageDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
