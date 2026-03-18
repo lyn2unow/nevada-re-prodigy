@@ -599,18 +599,3 @@ export function generateSyllabusPdf(s: SyllabusTemplate) {
   const text = formatSyllabusAsText(s);
   generatePdf(`${s.courseCode} Syllabus — ${s.semester}`, text);
 }
-  try {
-    const blob = new Blob([html], { type: "text/html" });
-    const plainBlob = new Blob([html.replace(/<[^>]*>/g, "")], { type: "text/plain" });
-    await navigator.clipboard.write([
-      new ClipboardItem({
-        "text/html": blob,
-        "text/plain": plainBlob,
-      }),
-    ]);
-    return true;
-  } catch {
-    // Fallback to plain text copy
-    return copyToClipboard(html.replace(/<[^>]*>/g, ""));
-  }
-}
