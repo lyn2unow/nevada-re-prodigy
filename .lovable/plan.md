@@ -1,46 +1,78 @@
 
 
-# Add Unit 3 Lecture Notes: Interests in Real Estate
+# Revised Gap Analysis — Current State
 
-## Overview
+## What's Been Completed
 
-Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
+| Item | Status |
+|---|---|
+| Schema: `PearsonVueArea` type (16 areas) | Done |
+| Schema: `CognitiveLevel` type | Done |
+| Schema: optional fields on `Module`, `ExamQuestion`, `KnowledgeCheckQuestion` | Done |
+| Lovable Cloud enabled | Done |
+| AI Lecture Generator (edge function + UI + streaming + copy) | Done |
+| Content: Lecture Notes Units 1–17 (~89 modules, ~92 exam questions, ~18 activities) | Done |
+| Content: CE Shop (8 modules, 40 questions, 3 activities) | Done |
+| Content: Pearson VUE (modules + questions) | Done |
+| Content: Textbook content | Done |
+| Content: NRS 645 statute reference | Done |
+| Cross-reference system (NRS citation scanner) | Done |
+| Practice Exam Builder (manual selection with filters) | Done |
+| Export system (text, PDF, QTI) | Done |
+| Syllabus page (renders template) | Done |
 
-## New Content Summary
+## Remaining Gaps (Prioritized)
 
-### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
+### 1. Exam Coverage Dashboard — HIGH
 
-| # | Title | Key Statutes |
-|---|---|---|
-| 1 | Marital Property (Community Property) | NRS 123.220 |
-| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
-| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
-| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
-| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
-| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
+No visualization exists showing how content maps to Pearson VUE exam area weights. This is the core value of the exam-weighted approach: seeing at a glance that you have 40 questions on Contracts (23% weight) but only 2 on Record Keeping (3% weight). Currently there is no page, component, or logic for this.
 
-### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
+**What it needs:**
+- A page showing each of the 16 Pearson VUE areas with their exam weight percentages
+- Count of modules and exam questions tagged to each area
+- Visual coverage indicator (bar chart or progress bars) showing actual vs. expected proportions
+- Ability to click into an area to see which content is tagged there
 
-Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
+**Prerequisite:** Existing content needs `pearsonVueArea` values populated. The fields exist in the schema but no data files currently set them.
 
-### 1 Activity (ID: ln-act-u3-1)
+### 2. Tag Existing Content with PearsonVueArea + CognitiveLevel — HIGH
 
-"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
+The schema fields exist but **zero content** currently uses them. All modules and exam questions across all data files (`lecture-notes-content.ts`, `ce-shop-content.ts`, `pearson-vue-content.ts`, `textbook-content.ts`) have `pearsonVueArea` and `cognitiveLevel` either undefined or missing. Without tagging, the Exam Coverage Dashboard and weighted practice exams are empty.
 
-## Technical Details
+**What it needs:**
+- Map each existing module to its appropriate Pearson VUE area
+- Tag each exam question with `pearsonVueArea` and `cognitiveLevel`
+- This is a large data task across ~150+ modules and ~130+ questions
 
-### File modified
-- `src/data/lecture-notes-content.ts`
+### 3. Weighted Practice Exam Mode — MEDIUM
 
-### Changes
-1. Update file comment to include Unit 3
-2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
-3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
-4. Append 1 activity to `getLectureNotesActivities()` return array
+The Practice Exam Builder currently supports manual question selection with topic/difficulty/source filters. It does not support a "Pearson VUE Weighted" mode that auto-selects questions proportionally to exam area weights (e.g., 23% Contracts, 20% Disclosures).
 
-### Pattern
-Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
+**What it needs:**
+- A "Generate Weighted Exam" option alongside the current manual builder
+- Input: total question count desired
+- Logic: distribute questions across areas proportional to Pearson VUE weights
+- Requires tagged content (Gap #2) to function
 
-### NRS Reference impact
-New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
+### 4. Syllabus Template Update to Spring 2026 — MEDIUM
+
+`syllabus-template.ts` still reflects the **Fall 2025** textbook-ordered structure. The Spring 2026 syllabus uses exam-weighted sessions, 11 topic-aligned quizzes, a midterm, and cognitive level tags per session.
+
+**What it needs:**
+- Update dates, schedule, grading categories
+- Restructure `weeklySchedule` to match exam-weighted sessions
+- Add cognitive level indicators per session
+- Update grading to 11 quizzes + midterm + final structure
+
+### 5. Canvas-Compatible Export Formats — LOW
+
+The export system supports text, PDF, and QTI. It does not produce Canvas-native Discussion or Assignment formats. Useful for LMS integration but not blocking the exam-weighted workflow.
+
+### 6. Textbook Content as Supplemental Cross-Reference — LOW
+
+Textbook content exists but is not explicitly marked as supplemental or cross-referenced against higher-authority sources. Lower priority given the exam-weighted approach demotes it.
+
+## Recommended Next Steps
+
+Pick from the top of the list. Gaps 1 and 2 are tightly coupled — tagging content (Gap 2) makes the dashboard (Gap 1) useful. They could be done together or sequentially (tag first, then dashboard).
 
