@@ -1538,5 +1538,83 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 2,
       tags: ["procuring cause", "Carrigan v. Ryan", "Morrow v. Barger", "arbitration", "MLS"],
     },
+    // ===== UNIT 3 ACTIVITIES =====
+    {
+      id: "tb-act-u3-1",
+      title: "Homestead & Lien Priority Analysis",
+      type: "case-study",
+      description: "Students receive 6 scenarios involving a homeowner with various debts (credit card judgment, mortgage, IRS lien, mechanics' lien, child support, CC&R violation). For each, students must determine whether the homestead exemption protects the homeowner's equity and explain why or why not, citing the specific exception that applies.",
+      instructorNotes: "Emphasize that the homestead exemption is NOT automatic and only protects against unsecured debts. Include a scenario where the declaration was filed after collection proceedings started to test understanding of timing rules.",
+      debriefPrompts: [
+        "Which scenarios surprised you the most regarding homestead protection?",
+        "Why doesn't the homestead exemption protect against voluntary liens like mortgages?",
+        "Would you advise a client to file a homestead declaration? When?",
+      ],
+      topic: "Homestead Exemption & Liens",
+      weekNumber: 3,
+      tags: ["homestead", "NRS 115.050", "liens", "exemption", "unsecured debt"],
+    },
+    {
+      id: "tb-act-u3-2",
+      title: "Easement Classification Exercise",
+      type: "case-study",
+      description: "Students receive 8 easement scenarios and must classify each as: prescriptive, solar, conservation, easement by necessity, or easement by grant. For prescriptive easements, students must identify whether all required elements are met. For solar easements, students must identify what the written grant must include.",
+      instructorNotes: "Include at least one scenario where a prescriptive easement fails because the use was with permission. Include a solar easement scenario where the grant was not recorded. Discuss Jordan v. Bailey (exclusivity not required) as a potential exam trap.",
+      debriefPrompts: [
+        "What element most commonly prevents a prescriptive easement from being established?",
+        "How do solar easements balance individual property rights with energy policy goals?",
+        "Why is exclusivity NOT required for prescriptive easements in Nevada?",
+      ],
+      topic: "Easements",
+      weekNumber: 3,
+      tags: ["easement", "prescriptive", "solar", "conservation", "Jordan v. Bailey", "Stix v. La Rue"],
+    },
+    // ===== UNIT 4 ACTIVITIES =====
+    {
+      id: "tb-act-u4-1",
+      title: "Ownership Form Selection Workshop",
+      type: "case-study",
+      description: "Students receive 5 client profiles (unmarried couple buying together, married couple, three investors pooling funds, a corporation expanding, a trust beneficiary). For each, students must recommend the most appropriate form of ownership (severalty, joint tenancy, tenancy in common, community property, LLC, limited partnership, trust) and justify their choice considering liability, tax implications, survivorship, and management.",
+      instructorNotes: "Stress that the default in Nevada is tenancy in common, not joint tenancy. Include a scenario where students must distinguish between community property and joint tenancy for a married couple. Discuss the straw-man conveyance exception.",
+      debriefPrompts: [
+        "When would you recommend joint tenancy over tenancy in common for an unmarried couple?",
+        "Why might a married couple choose community property with right of survivorship over joint tenancy?",
+        "What are the key factors in choosing between an LLC and a limited partnership for investment property?",
+      ],
+      topic: "Forms of Ownership",
+      weekNumber: 3,
+      tags: ["ownership", "joint tenancy", "tenancy in common", "community property", "LLC", "NRS 111.060"],
+    },
+    {
+      id: "tb-act-u4-2",
+      title: "Condo vs. Cooperative vs. Time-Share Debate",
+      type: "ethical-debate",
+      description: "Three student teams each advocate for a different ownership form (condominium, cooperative, time-share estate) as the best option for a hypothetical resort development in Las Vegas. Each team must present advantages, disadvantages, legal requirements (NRS 117, NRS 119A), risk factors, and target buyer profiles. The class votes on the most compelling presentation.",
+      instructorNotes: "Have the cooperative team address the single-mortgage risk that was exposed during the Depression. The time-share team should explain the difference between estate and use. The condo team should address CC&Rs and owners' association governance. Judge presentations on accuracy of legal citations.",
+      debriefPrompts: [
+        "What was the strongest argument for each ownership form?",
+        "Why are cooperatives so rare in Nevada compared to condominiums?",
+        "How does NRS 119A protect time-share purchasers?",
+      ],
+      topic: "Condominiums, Cooperatives & Time-Shares",
+      weekNumber: 3,
+      tags: ["condominium", "cooperative", "time-share", "NRS 117", "NRS 119A"],
+    },
+    // ===== UNIT 5 ACTIVITIES =====
+    {
+      id: "tb-act-u5-1",
+      title: "Legal Description Identification & Mapping",
+      type: "case-study",
+      description: "Students receive 6 legal descriptions (2 metes and bounds, 2 rectangular survey, 2 subdivision lot and block) and must: (1) identify the method used, (2) sketch the parcel for metes and bounds descriptions, (3) locate the approximate area on a map for rectangular survey descriptions, and (4) explain why each method is appropriate for its context (rural vs. urban, regular vs. irregular parcel).",
+      instructorNotes: "Use actual Clark County and Washoe County examples if possible. Include an older description using poles and chains to illustrate historical measuring units. Emphasize that all Nevada land is east of the Mount Diablo Meridian.",
+      debriefPrompts: [
+        "Which legal description method was easiest to understand? Which was most precise?",
+        "Why does Nevada use the Mount Diablo Meridian located in California?",
+        "When would a metes-and-bounds description be preferred over a subdivision plat?",
+      ],
+      topic: "Legal Descriptions",
+      weekNumber: 4,
+      tags: ["legal description", "metes and bounds", "rectangular survey", "subdivision plat", "Mount Diablo"],
+    },
   ];
 }
