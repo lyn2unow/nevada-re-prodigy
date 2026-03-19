@@ -757,7 +757,7 @@ export function getSeedActivities(): Activity[] {
         "What are the seller's obligations regarding property disclosures under NRS 113?",
       ],
       topic: "Contracts",
-      weekNumber: 3,
+      weekNumber: 5,
       tags: ["contracts", "purchase agreement", "hands-on", "forms"],
     },
     {
