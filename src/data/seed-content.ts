@@ -742,7 +742,7 @@ export function getSeedActivities(): Activity[] {
         "How should the buyer's agent have advised them to avoid this situation?",
       ],
       topic: "Contracts",
-      weekNumber: 3,
+      weekNumber: 5,
       tags: ["contracts", "case study", "counter-offer", "contingencies"],
     },
     {
