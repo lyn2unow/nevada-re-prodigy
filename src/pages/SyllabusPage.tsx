@@ -231,7 +231,6 @@ export default function SyllabusPage() {
                 <TableHead className="w-16">Week</TableHead>
                 <TableHead className="w-28">Day</TableHead>
                 <TableHead>Unit / Topic</TableHead>
-                <TableHead>State Exam Alignment</TableHead>
                 <TableHead>Assignment / Quiz</TableHead>
                 {editing && <TableHead className="w-10" />}
               </TableRow>
