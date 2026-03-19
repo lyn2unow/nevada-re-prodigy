@@ -1,46 +1,65 @@
 
 
-# Add Unit 3 Lecture Notes: Interests in Real Estate
+## NRS Update Checker — Revised Plan
 
-## Overview
+### Overview
+Add a third tab "NRS Update Checker" to `src/pages/NRSReference.tsx` and create a new edge function that calls the Perplexity Sonar API to check for recent legislative changes to NRS 645 & NAC 645.
 
-Add 6 modules, 5 exam questions, and 1 activity for Unit 3 (Week 3) covering marital property, homestead protections, easements, water rights, landowner liability, and eviction procedures.
+### Step 1: New Edge Function — `supabase/functions/check-nrs-updates/index.ts`
 
-## New Content Summary
+Mirror the CORS headers and authorization pattern from the existing `generate-lecture` edge function exactly.
 
-### 6 Modules (weekNumber: 3, IDs: ln-u3-mod-1 through ln-u3-mod-6)
+- Accept POST with `{ sections: string[] }`
+- Call Perplexity Sonar API (`https://api.perplexity.ai/chat/completions`) with model `sonar`
+- Auth: `Bearer ${Deno.env.get("PERPLEXITY_API_KEY")}` (already in secrets)
+- Set `search_recency_filter: "year"` and `return_citations: true`
+- Build prompt requesting JSON array of `{ section, status, summary, billNumber, sourceUrl, checkedAt }`
+- Parse the AI response content, extract JSON, return to client
+- Standard CORS headers, error handling matching `generate-lecture` pattern
 
-| # | Title | Key Statutes |
-|---|---|---|
-| 1 | Marital Property (Community Property) | NRS 123.220 |
-| 2 | Homestead Protections | NRS 115.050, Massey-Ferguson v. Childress |
-| 3 | Easements (Prescriptive, Solar, Conservation) | NRS 111.370-111.440, Stix v. La Rue, Jordan v. Bailey |
-| 4 | Water Rights (Prior Appropriation) | U.S. v. State Engineer (2001) |
-| 5 | Landowner & Lessee Liability | SB 160 (2015), Moody v. Manny's Auto Repair |
-| 6 | Eviction of Unlawful Occupants | NRS 40 (Summary Eviction) |
+### Step 2: Update `src/pages/NRSReference.tsx`
 
-### 5 Exam Questions (IDs: ln-eq-u3-1 through ln-eq-u3-5)
+Add third tab "NRS Update Checker" to existing `<Tabs>`.
 
-Covering homestead equity limit, prescriptive easement period, prior appropriation doctrine, SB 160 no-duty rule, and summary eviction timeline.
+**New type (inline):**
+```ts
+interface NRSUpdateResult {
+  section: string;
+  status: "changed" | "no_change" | "unknown";
+  summary?: string;
+  billNumber?: string;
+  sourceUrl?: string;
+  checkedAt: string;
+}
+```
 
-### 1 Activity (ID: ln-act-u3-1)
+**New state:**
+- `checkerSections: string[]` — pre-populated with first 10 statutes
+- `checkerResults: NRSUpdateResult[]`
+- `isChecking: boolean`
+- `lastChecked: string | null`
 
-"Easement Scenarios" group activity -- students sketch and classify driveway, solar, and conservation easements.
+**Tab UI:**
+- Scrollable checkbox list of all statutes (section number + title)
+- Select All / Clear buttons + count badge
+- "Check for Updates" button (disabled when no sections selected, shows Loader2 spinner)
+- Last checked timestamp display
 
-## Technical Details
+**Results area:**
+- Card per result with colored badge (amber=changed, green=no_change, gray=unknown)
+- Summary text, bill number, external link (using existing `getLegUrl()` as fallback)
+- Footer note about PERPLEXITY_API_KEY requirement
 
-### File modified
-- `src/data/lecture-notes-content.ts`
+**New imports:** `Checkbox`, `ScrollArea`, `Loader2`
 
-### Changes
-1. Update file comment to include Unit 3
-2. Append 6 modules to `getLectureNotesModules()` return array (order: 40-45, weekNumber: 3)
-3. Append 5 exam questions to `getLectureNotesExamQuestions()` return array
-4. Append 1 activity to `getLectureNotesActivities()` return array
+### Files Modified
+1. `supabase/functions/check-nrs-updates/index.ts` — new file
+2. `src/pages/NRSReference.tsx` — add third tab with all UI/logic
 
-### Pattern
-Follows the exact same structure as Unit 1 and Unit 2 entries -- same field shapes, source tag "Lecture Notes", key terms with source attribution, exam alerts, knowledge checks, and discussion prompts.
-
-### NRS Reference impact
-New statutes referenced (NRS 115.050, NRS 123.220, NRS 111.370-440, NRS 40) will be picked up by the cross-reference system if/when those sections are added to `nrs-reference.ts`. NRS 40 is already partially covered.
+### Not Changed
+- Existing Statute Reference and Cross-Reference tabs
+- `nrs-reference.ts` data file
+- `getLegUrl()` helper (reused as-is)
+- Any other pages or components
+- `supabase/config.toml`
 
