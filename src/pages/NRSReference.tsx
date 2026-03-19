@@ -5,9 +5,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Scale, Search, AlertTriangle, CheckCircle, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Scale, Search, AlertTriangle, CheckCircle, ChevronDown, ChevronUp, ExternalLink, Loader2, RefreshCw } from "lucide-react";
 import { useCourse } from "@/contexts/CourseContext";
 import { runCrossReference, type CrossReferenceResult } from "@/lib/cross-reference";
+import { supabase } from "@/integrations/supabase/client";
+
+interface NRSUpdateResult {
+  section: string;
+  status: "changed" | "no_change" | "unknown";
+  summary?: string;
+  billNumber?: string;
+  sourceUrl?: string;
+  checkedAt: string;
+}
 
 const CATEGORIES = [
   "All",
@@ -32,7 +44,22 @@ export default function NRSReference() {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
+  // NRS Update Checker state
+  const [checkerSections, setCheckerSections] = useState<string[]>([]);
+  const [checkerResults, setCheckerResults] = useState<NRSUpdateResult[]>([]);
+  const [isChecking, setIsChecking] = useState(false);
+  const [lastChecked, setLastChecked] = useState<string | null>(null);
+  const [checkerInitialized, setCheckerInitialized] = useState(false);
+
   const statutes = data.statuteSections ?? [];
+
+  // Pre-populate checker sections with first 10 on first tab visit
+  const initializeChecker = () => {
+    if (!checkerInitialized && statutes.length > 0) {
+      setCheckerSections(statutes.slice(0, 10).map((s) => s.sectionNumber));
+      setCheckerInitialized(true);
+    }
+  };
 
   const filtered = useMemo(() => {
     return statutes.filter((s) => {
@@ -75,6 +102,32 @@ export default function NRSReference() {
     const match = sectionNumber.match(/NRS\s+(\d+)\.(\d+[A-Za-z]*)/);
     if (match) return `https://www.leg.state.nv.us/nrs/nrs-${match[1]}.html#NRS${match[1]}Sec${match[2]}`;
     return "https://www.leg.state.nv.us/nrs/nrs-645.html";
+  };
+
+  const toggleCheckerSection = (sectionNumber: string) => {
+    setCheckerSections((prev) =>
+      prev.includes(sectionNumber)
+        ? prev.filter((s) => s !== sectionNumber)
+        : [...prev, sectionNumber]
+    );
+  };
+
+  const handleCheckUpdates = async () => {
+    if (checkerSections.length === 0) return;
+    setIsChecking(true);
+    setCheckerResults([]);
+    try {
+      const { data: responseData, error } = await supabase.functions.invoke("check-nrs-updates", {
+        body: { sections: checkerSections },
+      });
+      if (error) throw error;
+      setCheckerResults(responseData?.results ?? []);
+      setLastChecked(new Date().toLocaleString());
+    } catch (err) {
+      console.error("Check NRS updates error:", err);
+    } finally {
+      setIsChecking(false);
+    }
   };
 
   if (statutes.length === 0) {
@@ -154,6 +207,9 @@ export default function NRSReference() {
             {reviewCount > 0 && (
               <Badge variant="destructive" className="ml-2 text-xs">{reviewCount}</Badge>
             )}
+          </TabsTrigger>
+          <TabsTrigger value="checker" onClick={initializeChecker}>
+            NRS Update Checker
           </TabsTrigger>
         </TabsList>
 
@@ -346,6 +402,136 @@ export default function NRSReference() {
               </Card>
             )}
           </div>
+        </TabsContent>
+
+        {/* === NRS UPDATE CHECKER TAB === */}
+        <TabsContent value="checker" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <RefreshCw className="h-5 w-5 text-primary" />
+                    NRS Update Checker
+                  </CardTitle>
+                  <CardDescription>
+                    Powered by Perplexity Sonar — checks Nevada Legislature for amendments to NRS 645 &amp; NAC 645 in the last 2 years
+                  </CardDescription>
+                </div>
+                <div className="flex flex-col items-end gap-1">
+                  <Button
+                    onClick={handleCheckUpdates}
+                    disabled={isChecking || checkerSections.length === 0}
+                  >
+                    {isChecking ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <Search className="h-4 w-4 mr-2" />
+                    )}
+                    Check for Updates
+                  </Button>
+                  {lastChecked && (
+                    <span className="text-xs text-muted-foreground">Last checked: {lastChecked}</span>
+                  )}
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">Sections to check:</span>
+                  <Badge variant="secondary">{checkerSections.length} selected</Badge>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCheckerSections(statutes.map((s) => s.sectionNumber))}
+                  >
+                    Select All
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCheckerSections([])}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </div>
+              <ScrollArea className="h-[220px] border rounded-md p-3">
+                <div className="space-y-2">
+                  {statutes.map((statute) => (
+                    <label
+                      key={statute.id}
+                      className="flex items-center gap-2 cursor-pointer hover:bg-muted/50 rounded px-2 py-1"
+                    >
+                      <Checkbox
+                        checked={checkerSections.includes(statute.sectionNumber)}
+                        onCheckedChange={() => toggleCheckerSection(statute.sectionNumber)}
+                      />
+                      <span className="text-sm font-mono">{statute.sectionNumber}</span>
+                      <span className="text-sm text-muted-foreground truncate">— {statute.title}</span>
+                    </label>
+                  ))}
+                </div>
+              </ScrollArea>
+            </CardContent>
+          </Card>
+
+          {/* Results */}
+          {checkerResults.length > 0 && (
+            <div className="space-y-3">
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Results</h3>
+              {checkerResults.map((result, i) => {
+                const statute = statutes.find((s) => s.sectionNumber === result.section);
+                const badgeVariant = result.status === "changed" ? "destructive" : result.status === "no_change" ? "default" : "secondary";
+                const badgeLabel = result.status === "changed" ? "Change Found" : result.status === "no_change" ? "No Changes" : "Uncertain";
+                const linkUrl = result.sourceUrl || getLegUrl(result.section);
+
+                return (
+                  <Card key={`${result.section}-${i}`} className={result.status === "changed" ? "border-amber-500/30" : ""}>
+                    <CardContent className="py-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 space-y-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-mono text-sm font-semibold">{result.section}</span>
+                            <Badge variant={badgeVariant} className={
+                              result.status === "changed" ? "bg-amber-500 hover:bg-amber-600" :
+                              result.status === "no_change" ? "bg-green-600 hover:bg-green-700 text-white" : ""
+                            }>
+                              {badgeLabel}
+                            </Badge>
+                            {result.billNumber && (
+                              <Badge variant="outline" className="text-xs">{result.billNumber}</Badge>
+                            )}
+                          </div>
+                          {statute && (
+                            <div className="text-sm text-muted-foreground">{statute.title}</div>
+                          )}
+                          {result.status === "changed" && result.summary && (
+                            <p className="text-sm mt-2">{result.summary}</p>
+                          )}
+                        </div>
+                        <a
+                          href={linkUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-primary shrink-0"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+
+          <p className="text-xs text-muted-foreground">
+            Requires PERPLEXITY_API_KEY set in backend function secrets.
+          </p>
         </TabsContent>
       </Tabs>
     </div>
