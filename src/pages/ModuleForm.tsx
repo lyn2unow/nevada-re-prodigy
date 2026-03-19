@@ -142,7 +142,7 @@ export default function ModuleForm() {
           <h1 className="text-3xl font-bold tracking-tight">
             {existingModule ? "Edit Module" : "New Module"}
           </h1>
-          <p className="text-muted-foreground">Week {week}</p>
+          <p className="text-muted-foreground">Week {module.weekNumber}</p>
         </div>
         <Button onClick={handleSave}>Save Module</Button>
       </div>
@@ -161,7 +161,22 @@ export default function ModuleForm() {
               onChange={(e) => update("title", e.target.value)}
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="space-y-2">
+              <Label>Week</Label>
+              <Select value={String(module.weekNumber)} onValueChange={(v) => update("weekNumber", Number(v))}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 – Licensing, Commission & Agency Foundations</SelectItem>
+                  <SelectItem value="2">2 – Agency Deep Dive</SelectItem>
+                  <SelectItem value="3">3 – NV Disclosures + National Appraisal & Disclosures</SelectItem>
+                  <SelectItem value="4">4 – Property Mgmt + Financing & Math</SelectItem>
+                  <SelectItem value="5">5 – Nevada Contracts Part I & II</SelectItem>
+                  <SelectItem value="6">6 – Record Keeping + National Practice + Special Topics</SelectItem>
+                  <SelectItem value="7">7 – Final Exam</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <div className="space-y-2">
               <Label>Source Authority</Label>
               <Select value={module.sourceTag} onValueChange={(v) => update("sourceTag", v as SourceAuthority)}>
