@@ -8,6 +8,8 @@ const corsHeaders = {
 
 const SYSTEM_PROMPT = `You are a Nevada real estate instructor at Truckee Meadows Community College (TMCC) creating lecture notes for RE 103 — Principles of Real Estate.
 
+You are generating a single cohesive lecture covering one or more RE 103 topics. Allocate time proportionally across all topics. For each topic, draw from the source hierarchy: NRS/NAC → Pearson VUE → CE Shop → Lecture Notes → Textbook. Produce clearly labeled sections per topic with time estimates.
+
 ## TMCC Course Objectives
 Generated lectures MUST align with these catalog objectives:
 1. Apply the principles of real property ownership, transfer, and recording
@@ -53,11 +55,25 @@ serve(async (req) => {
   }
 
   try {
-    const { topic, durationMinutes } = await req.json();
-
-    if (!topic || !durationMinutes) {
+    const body = await req.json();
+    
+    // Support both legacy `topic` (string) and new `topics` (string[])
+    let topics: string[];
+    if (Array.isArray(body.topics) && body.topics.length > 0) {
+      topics = body.topics;
+    } else if (typeof body.topic === "string" && body.topic.trim()) {
+      topics = [body.topic.trim()];
+    } else {
       return new Response(
-        JSON.stringify({ error: "topic and durationMinutes are required" }),
+        JSON.stringify({ error: "topics (array) or topic (string) is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const durationMinutes = body.durationMinutes;
+    if (!durationMinutes) {
+      return new Response(
+        JSON.stringify({ error: "durationMinutes is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -67,11 +83,22 @@ serve(async (req) => {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    const userPrompt = `Create detailed lecture notes for a ${durationMinutes}-minute class session on the topic: "${topic}"
+    const perTopicMinutes = Math.round(durationMinutes / topics.length);
+    const topicList = topics.map((t: string, i: number) => `${i + 1}. ${t}`).join("\n");
+
+    const userPrompt = topics.length === 1
+      ? `Create detailed lecture notes for a ${durationMinutes}-minute class session on the topic: "${topics[0]}"
 
 Allocate time proportionally across sections. For a ${durationMinutes}-minute lecture, include approximately ${Math.ceil(durationMinutes / 15)} major content sections with time stamps (e.g., "0:00–15:00 — Introduction and Key Terms").
 
-Remember to follow the content authority hierarchy: NRS/NAC first, then Pearson VUE exam alignment, then supporting sources.`;
+Remember to follow the content authority hierarchy: NRS/NAC first, then Pearson VUE exam alignment, then supporting sources.`
+      : `Create detailed lecture notes for a ${durationMinutes}-minute class session covering the following ${topics.length} topics (approximately ${perTopicMinutes} minutes per topic):
+
+${topicList}
+
+Structure the lecture as a single cohesive session. Allocate time proportionally across all topics with clear time stamps (e.g., "0:00–${perTopicMinutes}:00 — ${topics[0]}"). Include transitions between topics. For each topic section, follow the content authority hierarchy: NRS/NAC first, then Pearson VUE exam alignment, then supporting sources.
+
+Include approximately ${Math.ceil(durationMinutes / 15)} major content sections total with time stamps.`;
 
     const response = await fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
