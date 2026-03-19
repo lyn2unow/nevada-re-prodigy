@@ -231,7 +231,6 @@ export default function SyllabusPage() {
                 <TableHead className="w-16">Week</TableHead>
                 <TableHead className="w-28">Day</TableHead>
                 <TableHead>Unit / Topic</TableHead>
-                <TableHead>State Exam Alignment</TableHead>
                 <TableHead>Assignment / Quiz</TableHead>
                 {editing && <TableHead className="w-10" />}
               </TableRow>
@@ -244,7 +243,6 @@ export default function SyllabusPage() {
                       <TableCell><Input type="number" className="w-14 h-8 text-sm" value={entry.week} onChange={(e) => updateArrayItem<SyllabusWeekEntry>("weeklySchedule", i, { ...entry, week: Number(e.target.value) })} /></TableCell>
                       <TableCell><Input className="w-24 h-8 text-sm" value={entry.day} onChange={(e) => updateArrayItem<SyllabusWeekEntry>("weeklySchedule", i, { ...entry, day: e.target.value })} /></TableCell>
                       <TableCell><Input className="h-8 text-sm" value={entry.unitTopic} onChange={(e) => updateArrayItem<SyllabusWeekEntry>("weeklySchedule", i, { ...entry, unitTopic: e.target.value })} /></TableCell>
-                      <TableCell><Input className="h-8 text-sm" value={entry.examAlignment} onChange={(e) => updateArrayItem<SyllabusWeekEntry>("weeklySchedule", i, { ...entry, examAlignment: e.target.value })} /></TableCell>
                       <TableCell><Input className="h-8 text-sm" value={entry.assignmentQuiz} onChange={(e) => updateArrayItem<SyllabusWeekEntry>("weeklySchedule", i, { ...entry, assignmentQuiz: e.target.value })} /></TableCell>
                       <TableCell><Button variant="ghost" size="icon" className="h-8 w-8 text-destructive" onClick={() => removeArrayItem("weeklySchedule", i)}><Trash2 className="h-3.5 w-3.5" /></Button></TableCell>
                     </>
@@ -253,7 +251,6 @@ export default function SyllabusPage() {
                       <TableCell><Badge variant="secondary">{entry.week}</Badge></TableCell>
                       <TableCell className="text-sm">{entry.day}</TableCell>
                       <TableCell className="text-sm font-medium">{entry.unitTopic}</TableCell>
-                      <TableCell className="text-sm text-muted-foreground">{entry.examAlignment}</TableCell>
                       <TableCell className="text-sm">{entry.assignmentQuiz || "—"}</TableCell>
                     </>
                   )}
