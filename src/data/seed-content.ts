@@ -727,7 +727,7 @@ export function getSeedActivities(): Activity[] {
         "How would the scenario change if the buyer asked the listing agent to represent them?",
       ],
       topic: "Law of Agency",
-      weekNumber: 1,
+      weekNumber: 2,
       tags: ["agency", "disclosure", "role-play", "interactive"],
     },
     {
@@ -742,7 +742,7 @@ export function getSeedActivities(): Activity[] {
         "How should the buyer's agent have advised them to avoid this situation?",
       ],
       topic: "Contracts",
-      weekNumber: 3,
+      weekNumber: 5,
       tags: ["contracts", "case study", "counter-offer", "contingencies"],
     },
     {
@@ -757,7 +757,7 @@ export function getSeedActivities(): Activity[] {
         "What are the seller's obligations regarding property disclosures under NRS 113?",
       ],
       topic: "Contracts",
-      weekNumber: 3,
+      weekNumber: 5,
       tags: ["contracts", "purchase agreement", "hands-on", "forms"],
     },
     {
@@ -772,7 +772,7 @@ export function getSeedActivities(): Activity[] {
         "If you were advising a client, would you recommend they consent to dual agency? Why or why not?",
       ],
       topic: "Agency & Ethics",
-      weekNumber: 1,
+      weekNumber: 2,
       tags: ["agency", "dual agency", "ethics", "debate"],
     },
     {
