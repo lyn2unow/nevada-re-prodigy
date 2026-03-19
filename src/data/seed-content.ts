@@ -727,7 +727,7 @@ export function getSeedActivities(): Activity[] {
         "How would the scenario change if the buyer asked the listing agent to represent them?",
       ],
       topic: "Law of Agency",
-      weekNumber: 1,
+      weekNumber: 2,
       tags: ["agency", "disclosure", "role-play", "interactive"],
     },
     {
