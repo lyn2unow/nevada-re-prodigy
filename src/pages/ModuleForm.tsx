@@ -142,7 +142,7 @@ export default function ModuleForm() {
           <h1 className="text-3xl font-bold tracking-tight">
             {existingModule ? "Edit Module" : "New Module"}
           </h1>
-          <p className="text-muted-foreground">Week {week}</p>
+          <p className="text-muted-foreground">Week {module.weekNumber}</p>
         </div>
         <Button onClick={handleSave}>Save Module</Button>
       </div>
