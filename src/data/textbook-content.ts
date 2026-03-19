@@ -94,7 +94,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u1-4",
-      weekNumber: 1,
+      weekNumber: 2,
       title: "Agency Relationships in Nevada",
       order: 53,
       keyTerms: [
@@ -125,7 +125,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u1-5",
-      weekNumber: 1,
+      weekNumber: 2,
       title: "Duties Owed by a Nevada Real Estate Licensee",
       order: 54,
       keyTerms: [
@@ -157,7 +157,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u1-6",
-      weekNumber: 1,
+      weekNumber: 2,
       title: "Disclosure Forms & Stigmatized Property",
       order: 55,
       keyTerms: [
@@ -187,7 +187,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u1-7",
-      weekNumber: 1,
+      weekNumber: 2,
       title: "Personal Assistants, Advertising & Termination of Agency",
       order: 56,
       keyTerms: [
@@ -218,7 +218,7 @@ export function getTextbookModules(): Module[] {
     // ===== UNIT 2: Listing and Buyer Representation Agreements =====
     {
       id: "tb-mod-u2-1",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Brokerage Agreement Definition & Legal Elements",
       order: 57,
       keyTerms: [
@@ -247,7 +247,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u2-2",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Exclusive Brokerage Agreement Requirements (NRS 645.320)",
       order: 58,
       keyTerms: [
@@ -276,7 +276,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u2-3",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Listing Agreements: Types and Features",
       order: 59,
       keyTerms: [
@@ -307,7 +307,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u2-4",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Buyer Representation Agreements",
       order: 60,
       keyTerms: [
@@ -335,7 +335,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u2-5",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "MLS, Procuring Cause & Broker Compensation",
       order: 61,
       keyTerms: [
@@ -365,7 +365,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u2-6",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Advance Fee Contracts, Probate Sales & Termination",
       order: 62,
       keyTerms: [
@@ -395,7 +395,7 @@ export function getTextbookModules(): Module[] {
     // ===== UNIT 3 MODULES: Interests in Real Estate =====
     {
       id: "tb-mod-u3-1",
-      weekNumber: 3,
+      weekNumber: 6,
       title: "Marital Property & Homestead Protection",
       order: 63,
       keyTerms: [
@@ -424,7 +424,7 @@ export function getTextbookModules(): Module[] {
     },
     {
       id: "tb-mod-u3-2",
-      weekNumber: 3,
+      weekNumber: 6,
       title: "Easements: Prescriptive, Solar & Conservation",
       order: 64,
       keyTerms: [

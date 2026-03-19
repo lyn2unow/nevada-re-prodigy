@@ -6,13 +6,13 @@ const seedId = (prefix: string) => `seed-${prefix}-${++counter}`;
 
 export function getSeedWeeks(): Week[] {
   return [
-    { number: 1, title: "Week 1: Law of Agency", moduleIds: ["seed-mod-1"] },
-    { number: 2, title: "Week 2: Nevada License Law", moduleIds: ["seed-mod-2"] },
-    { number: 3, title: "Week 3: Contracts", moduleIds: ["seed-mod-3"] },
-    { number: 4, title: "Week 4: Property Ownership & Transfer", moduleIds: ["seed-mod-4"] },
-    { number: 5, title: "Week 5: Fair Housing & Ethics", moduleIds: ["seed-mod-5"] },
-    { number: 6, title: "Week 6: Real Estate Finance", moduleIds: ["seed-mod-6"] },
-    { number: 7, title: "Week 7: Closing & Settlement", moduleIds: ["seed-mod-7"] },
+    { number: 1, title: "Week 1: Licensing, Commission & Agency Foundations", moduleIds: [] },
+    { number: 2, title: "Week 2: Agency Deep Dive", moduleIds: [] },
+    { number: 3, title: "Week 3: Nevada Disclosures + National Appraisal & Disclosures", moduleIds: [] },
+    { number: 4, title: "Week 4: Property Management + Guest Speaker + Financing & Math", moduleIds: [] },
+    { number: 5, title: "Week 5: Nevada Contracts Part I & II", moduleIds: [] },
+    { number: 6, title: "Week 6: Record Keeping + National Practice + Special Topics", moduleIds: [] },
+    { number: 7, title: "Week 7: Final Exam", moduleIds: [] },
   ];
 }
 
@@ -20,7 +20,7 @@ export function getSeedModules(): Module[] {
   return [
     {
       id: "seed-mod-1",
-      weekNumber: 1,
+      weekNumber: 2,
       title: "Law of Agency",
       order: 1,
       keyTerms: [
@@ -71,7 +71,7 @@ export function getSeedModules(): Module[] {
     },
     {
       id: "seed-mod-2",
-      weekNumber: 2,
+      weekNumber: 1,
       title: "Nevada License Law",
       order: 1,
       keyTerms: [
@@ -120,7 +120,7 @@ export function getSeedModules(): Module[] {
     },
     {
       id: "seed-mod-3",
-      weekNumber: 3,
+      weekNumber: 5,
       title: "Contracts in Nevada Real Estate",
       order: 1,
       keyTerms: [
@@ -170,7 +170,7 @@ export function getSeedModules(): Module[] {
     },
     {
       id: "seed-mod-4",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Property Ownership & Transfer",
       order: 1,
       keyTerms: [
@@ -220,7 +220,7 @@ export function getSeedModules(): Module[] {
     },
     {
       id: "seed-mod-5",
-      weekNumber: 5,
+      weekNumber: 6,
       title: "Fair Housing & Ethics",
       order: 1,
       keyTerms: [
@@ -270,7 +270,7 @@ export function getSeedModules(): Module[] {
     },
     {
       id: "seed-mod-6",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Real Estate Finance",
       order: 1,
       keyTerms: [

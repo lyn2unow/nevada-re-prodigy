@@ -13,7 +13,7 @@ export function getUnits6to17Modules(): Module[] {
     // ===== UNIT 6: REAL ESTATE TAXES & LIENS (Week 5) =====
     {
       id: "ln-u6-mod-1",
-      weekNumber: 5,
+      weekNumber: 4,
       title: "Property Tax Calculation in Nevada",
       order: 58,
       keyTerms: [
@@ -42,7 +42,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u6-mod-2",
-      weekNumber: 5,
+      weekNumber: 4,
       title: "Tax Liens & Tax Sale Process",
       order: 59,
       keyTerms: [
@@ -71,7 +71,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u6-mod-3",
-      weekNumber: 5,
+      weekNumber: 4,
       title: "Mechanics' Liens (NRS 108)",
       order: 60,
       keyTerms: [
@@ -99,7 +99,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u6-mod-4",
-      weekNumber: 5,
+      weekNumber: 4,
       title: "HOA Super-Priority Lien (NRS 116)",
       order: 61,
       keyTerms: [
@@ -489,7 +489,7 @@ export function getUnits6to17Modules(): Module[] {
     // ===== UNIT 10: REAL ESTATE LICENSE LAW (Week 6) =====
     {
       id: "ln-u10-mod-1",
-      weekNumber: 6,
+      weekNumber: 1,
       title: "Nevada's Regulatory Structure",
       order: 75,
       keyTerms: [
@@ -518,7 +518,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u10-mod-2",
-      weekNumber: 6,
+      weekNumber: 1,
       title: "License Types & Requirements",
       order: 76,
       keyTerms: [
@@ -546,7 +546,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u10-mod-3",
-      weekNumber: 6,
+      weekNumber: 1,
       title: "Post-License & Continuing Education",
       order: 77,
       keyTerms: [
@@ -573,7 +573,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u10-mod-4",
-      weekNumber: 6,
+      weekNumber: 1,
       title: "Grounds for Discipline & Process",
       order: 78,
       keyTerms: [
@@ -600,7 +600,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u10-mod-5",
-      weekNumber: 6,
+      weekNumber: 1,
       title: "Education, Research & Recovery Fund (ERRF)",
       order: 79,
       keyTerms: [
@@ -628,7 +628,7 @@ export function getUnits6to17Modules(): Module[] {
     // ===== UNIT 11: REAL ESTATE FINANCING (Week 6) =====
     {
       id: "ln-u11-mod-1",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Promissory Notes & Security Instruments",
       order: 80,
       keyTerms: [
@@ -656,7 +656,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u11-mod-2",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Reconveyance & Escrow Accounts",
       order: 81,
       keyTerms: [
@@ -683,7 +683,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u11-mod-3",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Nonjudicial Foreclosure (NRS 107.080)",
       order: 82,
       keyTerms: [
@@ -711,7 +711,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u11-mod-4",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Borrower Rights & Deficiency Protections",
       order: 83,
       keyTerms: [
@@ -739,7 +739,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u11-mod-5",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Short Sales & REO Properties",
       order: 84,
       keyTerms: [
@@ -768,7 +768,7 @@ export function getUnits6to17Modules(): Module[] {
     // ===== UNIT 12: LEASES (Week 6) =====
     {
       id: "ln-u12-mod-1",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Leasehold Estates in Nevada",
       order: 85,
       keyTerms: [
@@ -796,7 +796,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u12-mod-2",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Required Lease Provisions & Disclosures (NRS 118A)",
       order: 86,
       keyTerms: [
@@ -824,7 +824,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u12-mod-3",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Security Deposits & Habitability",
       order: 87,
       keyTerms: [
@@ -851,7 +851,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u12-mod-4",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Eviction Procedures & Notice Requirements",
       order: 88,
       keyTerms: [
@@ -877,7 +877,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u12-mod-5",
-      weekNumber: 6,
+      weekNumber: 4,
       title: "Property Management Permits & Requirements",
       order: 89,
       keyTerms: [
@@ -1019,7 +1019,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u14-mod-2",
-      weekNumber: 7,
+      weekNumber: 6,
       title: "Nevada Subdivision & Common-Interest Community Laws",
       order: 94,
       keyTerms: [
@@ -1046,7 +1046,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u14-mod-3",
-      weekNumber: 7,
+      weekNumber: 6,
       title: "Private Land Use Controls",
       order: 95,
       keyTerms: [
@@ -1073,7 +1073,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u14-mod-4",
-      weekNumber: 7,
+      weekNumber: 6,
       title: "Eminent Domain & Inverse Condemnation",
       order: 96,
       keyTerms: [
@@ -1102,7 +1102,7 @@ export function getUnits6to17Modules(): Module[] {
     // ===== UNIT 15: FAIR HOUSING (Week 7) =====
     {
       id: "ln-u15-mod-1",
-      weekNumber: 7,
+      weekNumber: 6,
       title: "Federal Fair Housing Laws",
       order: 97,
       keyTerms: [
@@ -1130,7 +1130,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u15-mod-2",
-      weekNumber: 7,
+      weekNumber: 6,
       title: "Nevada Fair Housing Additions",
       order: 98,
       keyTerms: [
@@ -1157,7 +1157,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u15-mod-3",
-      weekNumber: 7,
+      weekNumber: 6,
       title: "Prohibited Practices & Enforcement",
       order: 99,
       keyTerms: [
@@ -1185,7 +1185,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u15-mod-4",
-      weekNumber: 7,
+      weekNumber: 6,
       title: "Disability Accommodations & Familial Status",
       order: 100,
       keyTerms: [
@@ -1321,7 +1321,7 @@ export function getUnits6to17Modules(): Module[] {
     // ===== UNIT 17: ENVIRONMENTAL ISSUES (Week 7) =====
     {
       id: "ln-u17-mod-1",
-      weekNumber: 7,
+      weekNumber: 3,
       title: "Environmental Hazards & Disclosure Requirements",
       order: 105,
       keyTerms: [
@@ -1349,7 +1349,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u17-mod-2",
-      weekNumber: 7,
+      weekNumber: 3,
       title: "Nevada Environmental Regulations",
       order: 106,
       keyTerms: [
@@ -1376,7 +1376,7 @@ export function getUnits6to17Modules(): Module[] {
     },
     {
       id: "ln-u17-mod-3",
-      weekNumber: 7,
+      weekNumber: 3,
       title: "Practical Environmental Due Diligence",
       order: 107,
       keyTerms: [
@@ -1513,18 +1513,18 @@ export function getUnits6to17Activities(): Activity[] {
     // Unit 10
     { id: "ln-act-u10-1", title: "Disciplinary Scenario Analysis", type: "ethical-debate", description: "Students analyze three disciplinary scenarios: (1) An agent commingles a client's $5,000 earnest money deposit with personal funds; (2) A broker fails to supervise an agent who makes fraudulent property claims; (3) A licensee interferes with another broker's exclusive listing. For each scenario, students identify the NRS violation, the likely penalty, and whether the Division or Commission would handle it.", instructorNotes: "Allow 10 minutes. Key statutes: NRS 645.630-635. Emphasize Administrator can fine up to $2,000 but cannot suspend. Commission can fine up to $10,000 and suspend/revoke. Use the closing line: 'Never lie. Never mess with money.'", debriefPrompts: ["What is the difference between a Division fine and a Commission penalty?", "Which violation do you think is most common for new agents?", "Why is commingling treated so seriously?"], topic: "License Law", weekNumber: 6, tags: ["discipline", "NRS-645.630", "ethics", "unit-10", "lecture-notes"] },
     // Unit 11
-    { id: "ln-act-u11-1", title: "Foreclosure Timeline Construction", type: "case-study", description: "Students construct a complete NRS 107.080 nonjudicial foreclosure timeline from default to trustee's sale. Starting with a borrower who misses a payment on January 1, students map out: pre-foreclosure notice (30 days), NOD recording, 3-month waiting period, Notice of Sale, 3-week publication, and sale date. Include reinstatement cutoff (5 days before sale) and identify when equitable redemption ends.", instructorNotes: "Allow 10 minutes. Provide a blank timeline template. Key dates: NOD → +3 months → Notice of Sale → +3 weeks → sale. Reinstatement available until 5 days before sale. Equitable redemption ends at moment of sale. Statutory redemption only in judicial foreclosure.", debriefPrompts: ["What is the earliest possible date for a trustee's sale?", "When does the right of reinstatement end?", "Why does Nevada require pre-foreclosure contact attempts?"], topic: "Foreclosure", weekNumber: 6, tags: ["foreclosure", "NRS-107.080", "timeline", "unit-11", "lecture-notes"] },
+    { id: "ln-act-u11-1", title: "Foreclosure Timeline Construction", type: "case-study", description: "Students construct a complete NRS 107.080 nonjudicial foreclosure timeline from default to trustee's sale. Starting with a borrower who misses a payment on January 1, students map out: pre-foreclosure notice (30 days), NOD recording, 3-month waiting period, Notice of Sale, 3-week publication, and sale date. Include reinstatement cutoff (5 days before sale) and identify when equitable redemption ends.", instructorNotes: "Allow 10 minutes. Provide a blank timeline template. Key dates: NOD → +3 months → Notice of Sale → +3 weeks → sale. Reinstatement available until 5 days before sale. Equitable redemption ends at moment of sale. Statutory redemption only in judicial foreclosure.", debriefPrompts: ["What is the earliest possible date for a trustee's sale?", "When does the right of reinstatement end?", "Why does Nevada require pre-foreclosure contact attempts?"], topic: "Foreclosure", weekNumber: 4, tags: ["foreclosure", "NRS-107.080", "timeline", "unit-11", "lecture-notes"] },
     // Unit 12
-    { id: "ln-act-u12-1", title: "Nevada Lease Compliance Audit", type: "case-study", description: "Students receive a sample Nevada residential lease and audit it against NRS 118A requirements. They identify: missing required provisions (duration, pet policy, nuisance summary, flag display info, mandatory disclaimer), check pre-lease disclosures (manager contact, emergency contact within 60 miles), verify security deposit terms (3-month max, 30-day return), and flag any provisions that attempt to waive tenant rights.", instructorNotes: "Allow 10 minutes. Provide a lease with intentional errors/omissions. Students should catch at least 5 deficiencies. Emphasize NRS 118A.240 (required provisions), NRS 118A.260 (disclosures), and the mandatory statement that tenant rights cannot be waived.", debriefPrompts: ["What happens if a lease tries to waive tenant rights?", "Why is the 60-mile emergency contact requirement important?", "What is the penalty for failing to disclose foreclosure status?"], topic: "Nevada Leases", weekNumber: 6, tags: ["lease-audit", "NRS-118A", "compliance", "unit-12", "lecture-notes"] },
+    { id: "ln-act-u12-1", title: "Nevada Lease Compliance Audit", type: "case-study", description: "Students receive a sample Nevada residential lease and audit it against NRS 118A requirements. They identify: missing required provisions (duration, pet policy, nuisance summary, flag display info, mandatory disclaimer), check pre-lease disclosures (manager contact, emergency contact within 60 miles), verify security deposit terms (3-month max, 30-day return), and flag any provisions that attempt to waive tenant rights.", instructorNotes: "Allow 10 minutes. Provide a lease with intentional errors/omissions. Students should catch at least 5 deficiencies. Emphasize NRS 118A.240 (required provisions), NRS 118A.260 (disclosures), and the mandatory statement that tenant rights cannot be waived.", debriefPrompts: ["What happens if a lease tries to waive tenant rights?", "Why is the 60-mile emergency contact requirement important?", "What is the penalty for failing to disclose foreclosure status?"], topic: "Nevada Leases", weekNumber: 4, tags: ["lease-audit", "NRS-118A", "compliance", "unit-12", "lecture-notes"] },
     // Unit 13
     { id: "ln-act-u13-1", title: "Comparable Sales Adjustment Practice", type: "other", description: "Students receive a subject property description and three comparable sales. They apply the CBS rule (Comparable Better, Subtract) to adjust each comparable for differences: pool (+/-$15,000), garage (+/-$20,000), extra bathroom (+/-$8,000), and lot size. Calculate the adjusted price for each comparable and determine a value estimate for the subject.", instructorNotes: "Allow 10 minutes. Emphasize: always adjust the COMPARABLE, never the subject. CBS = Comparable Better, Subtract. Walk through one adjustment together, then let students complete the rest. Debrief by comparing final estimates.", debriefPrompts: ["Why do we adjust the comparable and not the subject?", "How do you determine the value of each adjustment?", "What if comparables give very different adjusted values?"], topic: "Appraisal Adjustments", weekNumber: 7, tags: ["appraisal", "adjustments", "CBS", "unit-13", "lecture-notes"] },
     // Unit 14
     { id: "ln-act-u14-1", title: "Zoning vs. Private Restrictions Case Study", type: "case-study", description: "Students analyze a property subject to both zoning regulations and CC&Rs. The zoning allows commercial and residential use, but the CC&Rs restrict to residential only. Students determine which restriction controls (more restrictive = CC&Rs), then discuss a scenario where a homeowner wants to operate a home business. They identify whether a variance, rezoning, or CC&R amendment would be needed.", instructorNotes: "Allow 10 minutes. Key rule: more restrictive controls. The homeowner would need a CC&R amendment from the HOA, not a variance from the city, because the CC&Rs are more restrictive than zoning. Discuss the difference between changing zoning (government) and amending CC&Rs (private/HOA).", debriefPrompts: ["Which is more restrictive — zoning or the CC&Rs?", "What process would the homeowner need to follow?", "Can discriminatory CC&Rs be enforced?"], topic: "Land Use Controls", weekNumber: 7, tags: ["zoning", "CC&Rs", "land-use", "unit-14", "lecture-notes"] },
     // Unit 15
-    { id: "ln-act-u15-1", title: "Fair Housing Violation Identification", type: "ethical-debate", description: "Students receive five real-world scenarios and identify: (1) whether a fair housing violation occurred, (2) which protected class is involved, (3) which law applies (1866 Act, FHA, NRS 118.100), and (4) whether any exemption applies. Scenarios include: steering based on race, denying service animal accommodation, familial status discrimination at a 55+ community, advertising 'no children,' and refusing to rent based on sexual orientation.", instructorNotes: "Allow 10 minutes. Key teaching points: 1866 Act has NO exceptions for race (even Mrs. Murphy). NRS 118.100 adds sexual orientation and gender identity. Service animals must be accommodated (no pet deposit). 55+ communities must meet the 80% threshold under HOPA.", debriefPrompts: ["Which scenario was most surprising to you?", "Why does the 1866 Act override FHA exemptions for race?", "How would you handle a situation where a client makes a discriminatory request?"], topic: "Fair Housing", weekNumber: 7, tags: ["fair-housing", "discrimination", "protected-classes", "unit-15", "lecture-notes"] },
+    { id: "ln-act-u15-1", title: "Fair Housing Violation Identification", type: "ethical-debate", description: "Students receive five real-world scenarios and identify: (1) whether a fair housing violation occurred, (2) which protected class is involved, (3) which law applies (1866 Act, FHA, NRS 118.100), and (4) whether any exemption applies. Scenarios include: steering based on race, denying service animal accommodation, familial status discrimination at a 55+ community, advertising 'no children,' and refusing to rent based on sexual orientation.", instructorNotes: "Allow 10 minutes. Key teaching points: 1866 Act has NO exceptions for race (even Mrs. Murphy). NRS 118.100 adds sexual orientation and gender identity. Service animals must be accommodated (no pet deposit). 55+ communities must meet the 80% threshold under HOPA.", debriefPrompts: ["Which scenario was most surprising to you?", "Why does the 1866 Act override FHA exemptions for race?", "How would you handle a situation where a client makes a discriminatory request?"], topic: "Fair Housing", weekNumber: 6, tags: ["fair-housing", "discrimination", "protected-classes", "unit-15", "lecture-notes"] },
     // Unit 16
     { id: "ln-act-u16-1", title: "Settlement Statement & Proration Calculation", type: "closing-simulation", description: "Students complete a simplified settlement statement for a $400,000 home sale closing on April 15. They calculate: property tax proration (annual taxes $4,200, fiscal year July 1-June 30), transfer tax (per $500 at local rate), title insurance allocation (seller pays owner's policy, buyer pays lender's policy), and earnest money credit. Students identify who pays what and verify the final numbers.", instructorNotes: "Allow 15 minutes. Provide a template settlement statement. Walk through tax proration step by step: daily rate = $4,200 ÷ 365, seller owes from July 1 to April 15, buyer owes April 16 to June 30. Emphasize per-$500 transfer tax calculation.", debriefPrompts: ["How did you calculate the daily tax rate?", "Why does the seller get credit for prepaid taxes?", "What would change if closing moved to May 1?"], topic: "Closing Procedures", weekNumber: 7, tags: ["closing", "proration", "settlement", "unit-16", "lecture-notes"] },
     // Unit 17
-    { id: "ln-act-u17-1", title: "Environmental Due Diligence Decision Tree", type: "case-study", description: "Students build a decision tree for environmental due diligence in different transaction types: (1) Residential pre-1978 home → lead-based paint disclosure required; (2) Commercial gas station purchase → Phase I ESA recommended → Phase II if concerns found; (3) Vacant land near industrial site → environmental assessment prudent. For each scenario, students identify required disclosures, recommended assessments, and liability risks under CERCLA and NRS 645.254(3)(d).", instructorNotes: "Allow 10 minutes. Emphasize: lead paint = pre-1978 federal requirement. Phase I = no testing (records + inspection). Phase II = physical testing. CERCLA = strict, joint and several, retroactive liability. NRS 645.254(3)(d) = licensee must disclose known environmental hazards.", debriefPrompts: ["When is a Phase I assessment recommended vs. required?", "What is the innocent landowner defense and how is it established?", "What environmental disclosures must a licensee make?"], topic: "Environmental Issues", weekNumber: 7, tags: ["environmental", "CERCLA", "lead-paint", "Phase-I", "unit-17", "lecture-notes"] },
+    { id: "ln-act-u17-1", title: "Environmental Due Diligence Decision Tree", type: "case-study", description: "Students build a decision tree for environmental due diligence in different transaction types: (1) Residential pre-1978 home → lead-based paint disclosure required; (2) Commercial gas station purchase → Phase I ESA recommended → Phase II if concerns found; (3) Vacant land near industrial site → environmental assessment prudent. For each scenario, students identify required disclosures, recommended assessments, and liability risks under CERCLA and NRS 645.254(3)(d).", instructorNotes: "Allow 10 minutes. Emphasize: lead paint = pre-1978 federal requirement. Phase I = no testing (records + inspection). Phase II = physical testing. CERCLA = strict, joint and several, retroactive liability. NRS 645.254(3)(d) = licensee must disclose known environmental hazards.", debriefPrompts: ["When is a Phase I assessment recommended vs. required?", "What is the innocent landowner defense and how is it established?", "What environmental disclosures must a licensee make?"], topic: "Environmental Issues", weekNumber: 3, tags: ["environmental", "CERCLA", "lead-paint", "Phase-I", "unit-17", "lecture-notes"] },
   ];
 }
