@@ -5,7 +5,7 @@ export function getPearsonVueModules(): Module[] {
   return [
     {
       id: "pv-mod-1",
-      weekNumber: 2,
+      weekNumber: 1,
       title: "Nevada Exam Structure & Procedures (Pearson VUE)",
       order: 2,
       keyTerms: [
@@ -56,7 +56,7 @@ export function getPearsonVueModules(): Module[] {
     },
     {
       id: "pv-mod-2",
-      weekNumber: 2,
+      weekNumber: 1,
       title: "National Exam Content Outline — Salesperson (Pearson VUE)",
       order: 3,
       keyTerms: [
@@ -107,7 +107,7 @@ export function getPearsonVueModules(): Module[] {
     },
     {
       id: "pv-mod-3",
-      weekNumber: 2,
+      weekNumber: 1,
       title: "Nevada State Exam Content Outline (Pearson VUE)",
       order: 4,
       keyTerms: [

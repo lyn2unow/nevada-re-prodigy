@@ -131,7 +131,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u1-mod-5",
-      weekNumber: 1,
+      weekNumber: 2,
       title: "Agency Relationships in Nevada",
       order: 24,
       keyTerms: [
@@ -163,7 +163,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u1-mod-6",
-      weekNumber: 1,
+      weekNumber: 2,
       title: "Duties Owed by Nevada Licensees",
       order: 25,
       keyTerms: [
@@ -253,7 +253,7 @@ export function getLectureNotesModules(): Module[] {
     // ===== UNIT 2: Listing & Buyer Representation Agreements =====
     {
       id: "ln-u2-mod-1",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "What is a Brokerage Agreement?",
       order: 20,
       keyTerms: [
@@ -280,7 +280,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-2",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Three Legal Elements of a Brokerage Agreement",
       order: 21,
       keyTerms: [
@@ -310,7 +310,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-3",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Requirements for Exclusive Brokerage Agreements",
       order: 22,
       keyTerms: [
@@ -340,7 +340,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-4",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Listing Agreements",
       order: 23,
       keyTerms: [
@@ -368,7 +368,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-5",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Net Listings",
       order: 24,
       keyTerms: [
@@ -392,7 +392,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-6",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Broker Protection Clauses",
       order: 25,
       keyTerms: [
@@ -416,7 +416,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-7",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Buyer Representation Agreements",
       order: 26,
       keyTerms: [
@@ -443,7 +443,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-8",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "MLS Cooperation & Procuring Cause",
       order: 27,
       keyTerms: [
@@ -495,7 +495,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-10",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Commercial Brokerage",
       order: 29,
       keyTerms: [
@@ -519,7 +519,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-11",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Advance Fee Contracts",
       order: 30,
       keyTerms: [
@@ -543,7 +543,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-12",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Probate Sales",
       order: 31,
       keyTerms: [
@@ -569,7 +569,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u2-mod-13",
-      weekNumber: 2,
+      weekNumber: 5,
       title: "Unit 2 Recap & Exam-Prep Focus",
       order: 32,
       keyTerms: [],
@@ -596,7 +596,7 @@ export function getLectureNotesModules(): Module[] {
     // ===== UNIT 3 MODULES: Interests in Real Estate =====
     {
       id: "ln-u3-mod-1",
-      weekNumber: 3,
+      weekNumber: 6,
       title: "Marital Property (Community Property)",
       order: 40,
       keyTerms: [
@@ -624,7 +624,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u3-mod-2",
-      weekNumber: 3,
+      weekNumber: 6,
       title: "Homestead Protections",
       order: 41,
       keyTerms: [
@@ -654,7 +654,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u3-mod-3",
-      weekNumber: 3,
+      weekNumber: 6,
       title: "Easements (Prescriptive, Solar, Conservation)",
       order: 42,
       keyTerms: [
@@ -686,7 +686,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u3-mod-4",
-      weekNumber: 3,
+      weekNumber: 6,
       title: "Water Rights (Prior Appropriation)",
       order: 43,
       keyTerms: [
@@ -714,7 +714,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u3-mod-5",
-      weekNumber: 3,
+      weekNumber: 6,
       title: "Landowner & Lessee Liability",
       order: 44,
       keyTerms: [
@@ -743,7 +743,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u3-mod-6",
-      weekNumber: 3,
+      weekNumber: 4,
       title: "Eviction of Unlawful Occupants",
       order: 45,
       keyTerms: [
@@ -773,7 +773,7 @@ export function getLectureNotesModules(): Module[] {
     // ===== UNIT 4 MODULES: Forms of Ownership in Nevada =====
     {
       id: "ln-u4-mod-1",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Ownership in Severalty",
       order: 46,
       keyTerms: [
@@ -800,7 +800,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u4-mod-2",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Joint Tenancy",
       order: 47,
       keyTerms: [
@@ -829,7 +829,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u4-mod-3",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Tenancy in Common",
       order: 48,
       keyTerms: [
@@ -856,7 +856,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u4-mod-4",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Community Property",
       order: 49,
       keyTerms: [
@@ -884,7 +884,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u4-mod-5",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Ownership in Trust",
       order: 50,
       keyTerms: [
@@ -914,7 +914,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u4-mod-6",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Business Entity Ownership",
       order: 51,
       keyTerms: [
@@ -944,7 +944,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u4-mod-7",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Condominiums, Cooperatives & Time-Shares",
       order: 52,
       keyTerms: [
@@ -983,7 +983,7 @@ export function getLectureNotesModules(): Module[] {
     // ── Unit 5: Legal Descriptions of Property ──────────────────────────
     {
       id: "ln-u5-mod-1",
-      weekNumber: 5,
+      weekNumber: 6,
       title: "What Is a Legal Description?",
       order: 53,
       keyTerms: [
@@ -1010,7 +1010,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u5-mod-2",
-      weekNumber: 5,
+      weekNumber: 6,
       title: "Metes and Bounds Descriptions",
       order: 54,
       keyTerms: [
@@ -1042,7 +1042,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u5-mod-3",
-      weekNumber: 5,
+      weekNumber: 6,
       title: "Rectangular (Government) Survey System",
       order: 55,
       keyTerms: [
@@ -1074,7 +1074,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u5-mod-4",
-      weekNumber: 5,
+      weekNumber: 6,
       title: "Recorded Subdivision (Lot and Block) Method",
       order: 56,
       keyTerms: [
@@ -1102,7 +1102,7 @@ export function getLectureNotesModules(): Module[] {
     },
     {
       id: "ln-u5-mod-5",
-      weekNumber: 5,
+      weekNumber: 6,
       title: "Boundary Disputes & Real-World Applications",
       order: 57,
       keyTerms: [

@@ -5,7 +5,7 @@ export function getCEShopModules(): Module[] {
   return [
     {
       id: "ce-mod-agency",
-      weekNumber: 1,
+      weekNumber: 2,
       title: "Agency Relationships (CE Shop)",
       order: 10,
       keyTerms: [
@@ -38,7 +38,7 @@ export function getCEShopModules(): Module[] {
     },
     {
       id: "ce-mod-contracts",
-      weekNumber: 3,
+      weekNumber: 5,
       title: "Contracts & Agreements (CE Shop)",
       order: 10,
       keyTerms: [
@@ -103,7 +103,7 @@ export function getCEShopModules(): Module[] {
     },
     {
       id: "ce-mod-commission",
-      weekNumber: 2,
+      weekNumber: 1,
       title: "Duties & Powers of the Real Estate Commission (CE Shop)",
       order: 10,
       keyTerms: [
@@ -135,7 +135,7 @@ export function getCEShopModules(): Module[] {
     },
     {
       id: "ce-mod-practice",
-      weekNumber: 6,
+      weekNumber: 1,
       title: "License Practice & Responsibilities (CE Shop)",
       order: 10,
       keyTerms: [
@@ -168,7 +168,7 @@ export function getCEShopModules(): Module[] {
     },
     {
       id: "ce-mod-licensing",
-      weekNumber: 2,
+      weekNumber: 1,
       title: "Licensing Requirements (CE Shop)",
       order: 11,
       keyTerms: [
@@ -200,7 +200,7 @@ export function getCEShopModules(): Module[] {
     },
     {
       id: "ce-mod-records",
-      weekNumber: 4,
+      weekNumber: 6,
       title: "Record Keeping Requirements (CE Shop)",
       order: 10,
       keyTerms: [
@@ -231,7 +231,7 @@ export function getCEShopModules(): Module[] {
     },
     {
       id: "ce-mod-special",
-      weekNumber: 7,
+      weekNumber: 6,
       title: "Special Topics in Nevada Real Estate (CE Shop)",
       order: 10,
       keyTerms: [
