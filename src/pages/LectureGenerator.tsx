@@ -5,6 +5,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Presentation, Copy, Loader2, Sparkles } from "lucide-react";
 
@@ -31,18 +33,31 @@ const DURATIONS = [15, 30, 45, 60, 75, 90, 105, 120];
 const STREAM_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-lecture`;
 
 export default function LectureGenerator() {
-  const [selectedTopic, setSelectedTopic] = useState("");
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [customTopic, setCustomTopic] = useState("");
+  const [customTopicEnabled, setCustomTopicEnabled] = useState(false);
   const [duration, setDuration] = useState("60");
   const [output, setOutput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
 
-  const effectiveTopic = selectedTopic === "custom" ? customTopic : selectedTopic;
+  const allTopics = [
+    ...selectedTopics,
+    ...(customTopic.trim() ? [customTopic.trim()] : []),
+  ];
+
+  const durationNum = parseInt(duration);
+  const perTopicMinutes = allTopics.length > 0 ? Math.round(durationNum / allTopics.length) : 0;
+
+  const toggleTopic = (topic: string) => {
+    setSelectedTopics((prev) =>
+      prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]
+    );
+  };
 
   const handleGenerate = useCallback(async () => {
-    if (!effectiveTopic.trim()) {
-      toast({ title: "Select a topic", description: "Choose a topic or enter a custom one.", variant: "destructive" });
+    if (allTopics.length === 0) {
+      toast({ title: "Select at least one topic", description: "Choose topics or enter a custom one.", variant: "destructive" });
       return;
     }
 
@@ -56,7 +71,7 @@ export default function LectureGenerator() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ topic: effectiveTopic, durationMinutes: parseInt(duration) }),
+        body: JSON.stringify({ topics: allTopics, durationMinutes: durationNum }),
       });
 
       if (!resp.ok) {
@@ -127,7 +142,7 @@ export default function LectureGenerator() {
     } finally {
       setIsGenerating(false);
     }
-  }, [effectiveTopic, duration, toast]);
+  }, [allTopics, durationNum, toast]);
 
   const handleCopy = useCallback(async () => {
     if (!output) return;
@@ -158,29 +173,59 @@ export default function LectureGenerator() {
               <Sparkles className="h-5 w-5 text-accent" />
               Configuration
             </CardTitle>
-            <CardDescription>Select topic and lecture duration</CardDescription>
+            <CardDescription>Select topics and lecture duration</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label>Topic</Label>
-              <Select value={selectedTopic} onValueChange={setSelectedTopic}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose a topic..." />
-                </SelectTrigger>
-                <SelectContent>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>Topics</Label>
+                  <p className="text-xs text-muted-foreground">Select one or more — time is divided proportionally</p>
+                </div>
+                {allTopics.length > 0 && (
+                  <Badge variant="secondary">{allTopics.length} selected</Badge>
+                )}
+              </div>
+              <ScrollArea className="h-[220px] w-full rounded-md border border-border p-2">
+                <div className="space-y-1">
                   {TOPICS.map((t) => (
-                    <SelectItem key={t} value={t}>{t}</SelectItem>
+                    <label
+                      key={t}
+                      className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm cursor-pointer hover:bg-muted/50 transition-colors"
+                    >
+                      <Checkbox
+                        checked={selectedTopics.includes(t)}
+                        onCheckedChange={() => toggleTopic(t)}
+                      />
+                      <span className="leading-tight">{t}</span>
+                    </label>
                   ))}
-                  <SelectItem value="custom">Custom Topic...</SelectItem>
-                </SelectContent>
-              </Select>
-              {selectedTopic === "custom" && (
-                <Input
-                  placeholder="Enter your custom topic..."
-                  value={customTopic}
-                  onChange={(e) => setCustomTopic(e.target.value)}
-                  className="mt-2"
-                />
+                  <div className="border-t border-border mt-1 pt-1">
+                    <label className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm cursor-pointer hover:bg-muted/50 transition-colors">
+                      <Checkbox
+                        checked={customTopicEnabled}
+                        onCheckedChange={(checked) => {
+                          setCustomTopicEnabled(!!checked);
+                          if (!checked) setCustomTopic("");
+                        }}
+                      />
+                      <span className="leading-tight">Custom Topic…</span>
+                    </label>
+                    {customTopicEnabled && (
+                      <Input
+                        placeholder="Enter your custom topic..."
+                        value={customTopic}
+                        onChange={(e) => setCustomTopic(e.target.value)}
+                        className="mt-1 ml-6 w-[calc(100%-1.5rem)]"
+                      />
+                    )}
+                  </div>
+                </div>
+              </ScrollArea>
+              {allTopics.length > 1 && (
+                <p className="text-xs text-muted-foreground">
+                  {allTopics.length} topics × {durationNum} min ≈ {perTopicMinutes} min each
+                </p>
               )}
             </div>
 
@@ -203,7 +248,7 @@ export default function LectureGenerator() {
             <Button
               className="w-full"
               onClick={handleGenerate}
-              disabled={isGenerating || !effectiveTopic.trim()}
+              disabled={isGenerating || allTopics.length === 0}
             >
               {isGenerating ? (
                 <>
@@ -237,7 +282,13 @@ export default function LectureGenerator() {
             <div>
               <CardTitle className="text-lg">Generated Lecture Notes</CardTitle>
               <CardDescription>
-                {isGenerating ? "Streaming..." : output ? "Ready — copy and use" : "Notes will appear here"}
+                {isGenerating
+                  ? "Streaming..."
+                  : output
+                    ? allTopics.length > 1
+                      ? `Covering: ${allTopics.join(", ")}`
+                      : "Ready — copy and use"
+                    : "Notes will appear here"}
               </CardDescription>
             </div>
             {output && !isGenerating && (
@@ -256,7 +307,7 @@ export default function LectureGenerator() {
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-muted-foreground py-20">
                   <Presentation className="h-12 w-12 mb-4 opacity-30" />
-                  <p className="text-sm">Select a topic and duration, then click Generate</p>
+                  <p className="text-sm">Select topics and duration, then click Generate</p>
                 </div>
               )}
             </ScrollArea>
