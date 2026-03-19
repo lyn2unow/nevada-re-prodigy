@@ -772,7 +772,7 @@ export function getSeedActivities(): Activity[] {
         "If you were advising a client, would you recommend they consent to dual agency? Why or why not?",
       ],
       topic: "Agency & Ethics",
-      weekNumber: 1,
+      weekNumber: 2,
       tags: ["agency", "dual agency", "ethics", "debate"],
     },
     {
