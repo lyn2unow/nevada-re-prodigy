@@ -2417,7 +2417,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
         "Using agents does not exempt the investor; however, buying/selling one's own property generally doesn't require a license—this answer describes using agents on behalf of others.",
         "A retired broker helping others list properties for any compensation or expectation of compensation requires an active license."
       ],
-      difficulty: "application",
+      difficulty: "intermediate",
       examTrap: false,
       cognitiveLevel: "application",
       pearsonVueArea: "State II - Licensing Requirements",
