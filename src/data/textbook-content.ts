@@ -1366,6 +1366,67 @@ export function getTextbookModules(): Module[] {
       federalVsNevada: "nevada",
       pearsonVueArea: "State VI - Nevada Property Management",
     },
+    // ===== UNIT 13 MODULES: Real Estate Appraisal =====
+    {
+      id: "tb-mod-u13-1",
+      weekNumber: 3,
+      title: "Nevada Appraiser Licensing & Certification (NRS 645C)",
+      order: 50,
+      keyTerms: [
+        { id: "tb-kt-u13-1-1", term: "Appraisal (NRS 645C.030)", definition: "An analysis, opinion, or conclusion—written or oral—relating to the nature, quality, value, or use of a specified interest in identified real estate, performed for or with the expectation of receiving compensation.", source: "Textbook" },
+        { id: "tb-kt-u13-1-2", term: "Three Appraiser Levels", definition: "Nevada issues credentials at three levels: Licensed Residential Appraiser, Certified Residential Appraiser, and Certified General Appraiser. Each level has different education, experience, and scope-of-work limitations.", source: "Textbook" },
+        { id: "tb-kt-u13-1-3", term: "Complex Property (NRS 645C.055)", definition: "Property atypical for its marketplace based on architectural style, special improvements, lot size, use, environmental factors, partial interest ownership, or need for techniques beyond simple comparison, cost, or income analysis.", source: "Textbook" },
+        { id: "tb-kt-u13-1-4", term: "Commission on Appraisers of Real Estate", definition: "Operates similarly to the Real Estate Commission; administers NRS 645C through the Real Estate Division. Purpose: carry out FIRREA policy, license/certify appraisers, and protect appraisal users.", source: "Textbook" },
+      ],
+      conceptExplanation: "Nevada requires any appraisal performed for compensation or the expectation of compensation to be completed by a licensed or certified appraiser. Nevada does NOT take advantage of federal exemptions that might allow unlicensed appraisals. The state issues three credential levels: Licensed Residential, Certified Residential, and Certified General. A Licensed Residential appraiser CANNOT appraise complex property (NRS 645C.055). Licenses are valid for 2 years and require 30 hours of continuing education for renewal. The law is governed by NRS 645C and NAC 645C, administered by the Real Estate Division, with oversight by the Commission on Appraisers of Real Estate.",
+      nevadaLegalRefs: "NRS 645C (Appraisers of Real Estate); NRS 645C.030 (appraisal defined); NRS 645C.055 (complex property defined); NRS 645C.150 (exemptions); FIRREA (12 U.S.C. §§ 3331–3351)",
+      realWorldScenario: "A Licensed Residential Appraiser is asked to appraise a 10-acre estate with geothermal features and mixed-use zoning. This property meets multiple 'complex property' factors under NRS 645C.055 (lot size, use, special improvements, environmental factors). The appraiser must decline—only a Certified Residential or Certified General appraiser may handle complex property.",
+      commonMistakes: "1. Thinking federal exemptions allow unlicensed appraisals in Nevada—they do not\n2. Confusing Licensed Residential with Certified Residential scope of authority\n3. Not recognizing that 'complex property' is defined by market atypicality, not just price\n4. Forgetting that a CMA by a real estate licensee is exempt from appraiser licensing",
+      examKeyPoints: "• NRS 645C.030 defines appraisal—compensation OR expectation of compensation triggers licensing\n• Three levels: Licensed Residential, Certified Residential, Certified General\n• Licensed Residential CANNOT appraise complex property\n• License valid 2 years; 30 hours CE required for renewal\n• Nevada does NOT use federal exemptions for unlicensed appraisals\n• Real estate licensees may do CMAs (exempt from appraiser licensing)",
+      examAlerts: [
+        { id: "tb-ea-u13-1-1", text: "Licensed Residential appraisers CANNOT appraise complex property—only Certified Residential or Certified General can.", type: "exam-alert" },
+        { id: "tb-ea-u13-1-2", text: "Nevada does NOT take advantage of any federal exemptions that allow unlicensed persons to appraise.", type: "exam-trap" },
+      ],
+      knowledgeChecks: [
+        { id: "tb-kc-u13-1-1", question: "Which level of appraiser credential is prohibited from appraising complex property in Nevada?", options: ["Certified General Appraiser", "Certified Residential Appraiser", "Licensed Residential Appraiser", "All levels may appraise complex property"], correctIndex: 2, explanation: "Under NRS 645C.055, a Licensed Residential Appraiser cannot prepare an appraisal on complex property. Only Certified Residential or Certified General appraisers may do so." },
+      ],
+      discussionPrompt: "Why does Nevada refuse to use federal exemptions that might allow unlicensed persons to conduct appraisals? What consumer protection goals does this serve?",
+      assignmentSuggestion: "Create a chart comparing the three appraiser credential levels: education requirements, experience requirements, and scope-of-work limitations.",
+      estimatedTime: "20 minutes",
+      sourceTag: "Textbook",
+      correctsTextbook: false,
+      federalVsNevada: "nevada",
+      pearsonVueArea: "National III - Valuation & Market Analysis",
+    },
+    {
+      id: "tb-mod-u13-2",
+      weekNumber: 3,
+      title: "Appraiser Exemptions & Broker Price Opinions (NRS 645.2515)",
+      order: 51,
+      keyTerms: [
+        { id: "tb-kt-u13-2-1", term: "BPO (Broker Price Opinion)", definition: "A written analysis, opinion, or conclusion prepared by a real estate licensee for a seller, purchaser, or third party regarding property disposition, including listing, sale, exchange, option, or lease of the property (NRS 645.2515).", source: "Textbook" },
+        { id: "tb-kt-u13-2-2", term: "BPO Disclaimer Requirement", definition: "Every BPO must include a disclaimer that clearly states the BPO is NOT an appraisal. NRS 645.2515 sets forth eight specific requirements for a valid BPO.", source: "Textbook" },
+        { id: "tb-kt-u13-2-3", term: "Competitive Market Analysis (CMA)", definition: "An analysis by a real estate licensee to help determine a listing or offering price. CMAs are exempt from appraiser licensing requirements as they fall within the scope of a real estate license.", source: "Textbook" },
+      ],
+      conceptExplanation: "Several exemptions exist to appraiser licensing: federal/state/local government employees performing appraisals as part of official duties (unless license required by their employment), court-appointed evaluators in partition actions, real estate licensees performing acts within their license scope (including CMAs), employees making internal evaluations without special compensation, and persons assessing value in eminent domain proceedings. After the housing crash created a large volume of REO properties, banks began requesting Broker Price Opinions (BPOs). NRS 645.2515 (passed 2009) legalized BPOs and imposed eight specific requirements, most importantly that every BPO must include a disclaimer that it is NOT an appraisal.",
+      nevadaLegalRefs: "NRS 645C.150 (exemptions from appraiser licensing); NRS 645.2515 (Broker Price Opinions authorized and regulated)",
+      realWorldScenario: "A bank holding 50 REO properties asks a real estate broker to provide BPOs on each. The broker may legally do this under NRS 645.2515, but each BPO must include a clear disclaimer stating it is not an appraisal and must meet all eight statutory requirements.",
+      commonMistakes: "1. Thinking a BPO is the same as an appraisal—it is NOT\n2. Omitting the required disclaimer from a BPO\n3. Believing only appraisers can provide property valuations—licensees can do CMAs and BPOs\n4. Confusing the partition action exemption with a general exemption for court proceedings",
+      examKeyPoints: "• BPO legalized by NRS 645.2515 (2009)—must include disclaimer that it is NOT an appraisal\n• Eight specific statutory requirements for BPOs\n• CMA exempt from appraiser licensing—within scope of real estate license\n• Government employees may be exempt unless license required by employment\n• Eminent domain property assessments are exempt\n• Court-appointed partition evaluators are exempt",
+      examAlerts: [
+        { id: "tb-ea-u13-2-1", text: "A BPO must include a disclaimer clearly stating it is NOT an appraisal—this is the most tested BPO requirement.", type: "high-probability" },
+      ],
+      knowledgeChecks: [
+        { id: "tb-kc-u13-2-1", question: "What is the most critical requirement for a Broker Price Opinion under NRS 645.2515?", options: ["It must be signed by a certified appraiser", "It must include a disclaimer that it is not an appraisal", "It must be filed with the Real Estate Division", "It must include three comparable sales"], correctIndex: 1, explanation: "NRS 645.2515 requires every BPO to include a disclaimer clearly stating it is not an appraisal. A BPO is prepared by a real estate licensee, not an appraiser." },
+      ],
+      discussionPrompt: "How did the 2007 housing crash and the resulting REO inventory lead to the legalization of BPOs in Nevada?",
+      assignmentSuggestion: "Draft a sample BPO disclaimer that meets NRS 645.2515 requirements, and explain why each element is necessary.",
+      estimatedTime: "15 minutes",
+      sourceTag: "Textbook",
+      correctsTextbook: false,
+      federalVsNevada: "nevada",
+      pearsonVueArea: "National III - Valuation & Market Analysis",
+    },
   ];
 }
 
