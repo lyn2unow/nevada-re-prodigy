@@ -200,8 +200,10 @@ export function useCourseStore() {
       if (!cancelled) loadData(session);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!cancelled) loadData(session);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!cancelled && ['SIGNED_IN', 'SIGNED_OUT', 'TOKEN_REFRESHED'].includes(event)) {
+        loadData(session);
+      }
     });
 
     return () => {
