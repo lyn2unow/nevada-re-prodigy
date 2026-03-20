@@ -139,6 +139,27 @@ async function dbDelete(table: string, id: string) {
   return error;
 }
 
+// ---------- Settings persistence ----------
+
+async function fetchSetting(key: string): Promise<any | undefined> {
+  const { data, error } = await (supabase as any)
+    .from("user_settings")
+    .select("data")
+    .eq("key", key)
+    .maybeSingle();
+  if (error) { console.error(`fetchSetting(${key}):`, error); return undefined; }
+  return data?.data;
+}
+
+async function upsertSetting(key: string, value: any) {
+  const { error } = await (supabase as any).from("user_settings").upsert(
+    { key, data: value, updated_at: new Date().toISOString() },
+    { onConflict: "key" }
+  );
+  if (error) console.error(`upsertSetting(${key}):`, error);
+  return error;
+}
+
 // ---------- Hook ----------
 
 export function useCourseStore() {
@@ -150,21 +171,25 @@ export function useCourseStore() {
   const [syllabusTemplate, setSyllabusTemplate] = useState<SyllabusTemplate | undefined>();
   const [statuteSections, setStatuteSections] = useState<import("@/types/course").StatuteSection[] | undefined>();
 
-  // Fetch custom content from DB on mount
+  // Fetch custom content + settings from DB on mount
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [mods, qs, acts, pes] = await Promise.all([
+      const [mods, qs, acts, pes, syllabusSetting, nrs645Setting] = await Promise.all([
         fetchCustomModules(),
         fetchCustomQuestions(),
         fetchCustomActivities(),
         fetchCustomPracticeExams(),
+        fetchSetting("syllabus"),
+        fetchSetting("nrs645"),
       ]);
       if (!cancelled) {
         setCustomModules(mods);
         setCustomQuestions(qs);
         setCustomActivities(acts);
         setCustomPracticeExams(pes);
+        if (syllabusSetting) setSyllabusTemplate(syllabusSetting as SyllabusTemplate);
+        if (nrs645Setting) setStatuteSections(nrs645Setting as import("@/types/course").StatuteSection[]);
         setDbLoading(false);
       }
     })();
@@ -271,16 +296,24 @@ export function useCourseStore() {
   const loadLectureNotesContent = loadSeedContent;
   const loadTextbookContent = loadSeedContent;
 
-  const loadNRS645 = useCallback(() => {
-    setStatuteSections(getNRS645Sections());
+  const loadNRS645 = useCallback(async () => {
+    const sections = getNRS645Sections();
+    setStatuteSections(sections);
+    const err = await upsertSetting("nrs645", sections);
+    if (err) toast({ title: "NRS save failed", variant: "destructive" });
   }, []);
 
-  const updateSyllabus = useCallback((template: SyllabusTemplate) => {
+  const updateSyllabus = useCallback(async (template: SyllabusTemplate) => {
     setSyllabusTemplate(template);
+    const err = await upsertSetting("syllabus", template);
+    if (err) toast({ title: "Syllabus save failed", variant: "destructive" });
   }, []);
 
-  const loadDefaultSyllabus = useCallback(() => {
-    setSyllabusTemplate(getDefaultSyllabusTemplate());
+  const loadDefaultSyllabus = useCallback(async () => {
+    const template = getDefaultSyllabusTemplate();
+    setSyllabusTemplate(template);
+    const err = await upsertSetting("syllabus", template);
+    if (err) toast({ title: "Syllabus save failed", variant: "destructive" });
   }, []);
 
   const importData = useCallback((incoming: CourseData, mode: "replace" | "merge") => {
