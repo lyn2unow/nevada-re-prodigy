@@ -1919,6 +1919,130 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       tags: ["treble damages", "SRPD", "nondisclosure", "defects"],
       source: "Textbook",
     },
+    // ===== UNIT 8 EXAM QUESTIONS =====
+    {
+      id: "tb-eq-u8-01",
+      topic: "Grant, Bargain, and Sale Deed",
+      question: "Nevada's grant, bargain, and sale deed warrants that the grantor:",
+      options: ["Has the right to convey the property", "Has not previously conveyed the property to another party", "Will defend the title against all claims", "Guarantees the property is free of all encumbrances"],
+      correctIndex: 1,
+      explanation: "Under NRS 111.170, the grant, bargain, and sale deed warrants only that the grantor has not transferred the property to anyone else and has not encumbered the title except as specified. It does NOT warrant the right to convey.",
+      wrongExplanations: [
+        "The right to convey is a general warranty deed covenant, not included in Nevada's standard deed.",
+        "Defense against all claims is covenant of warranty, found only in general warranty deeds.",
+        "The deed only warrants against encumbrances placed by the grantor, not ALL encumbrances."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Students confuse the limited warranties of Nevada's standard deed with the broader warranties of a general warranty deed.",
+      tags: ["grant bargain sale", "NRS 111.170", "deed warranties"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u8-02",
+      topic: "Deed Validity",
+      question: "Which of the following is required for a deed to be VALID in Nevada?",
+      options: ["Acknowledgment (notarization)", "Delivery to and acceptance by the grantee", "Recording with the county recorder", "Payment of the transfer tax"],
+      correctIndex: 1,
+      explanation: "Delivery to and acceptance by the grantee is required for a valid deed. Acknowledgment is required only for recording, not validity. Recording and transfer tax are separate requirements.",
+      wrongExplanations: [
+        "Acknowledgment is required for recording, not for the deed itself to be valid.",
+        "Recording is a means of providing constructive notice, not a validity requirement.",
+        "Transfer tax relates to the recording process, not deed validity."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Students commonly confuse recording requirements with validity requirements.",
+      tags: ["deed validity", "delivery", "acknowledgment", "recording"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u8-03",
+      topic: "Transfer Tax Calculation",
+      question: "A property in Clark County sells for $475,000. What is the real property transfer tax at $2.55 per $500?",
+      options: ["$2,422.50", "$2,423.50", "$1,211.25", "$2,425.00"],
+      correctIndex: 0,
+      explanation: "$475,000 ÷ 500 = 950 × $2.55 = $2,422.50. Always calculate using the per-$500 method as stated in statute.",
+      wrongExplanations: [
+        "This would result from a rounding error in the calculation.",
+        "This would result from dividing the price by 1,000 instead of 500 first.",
+        "This does not match the per-$500 statutory calculation method."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["transfer tax", "Clark County", "math", "per $500"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u8-04",
+      topic: "Adverse Possession",
+      question: "Under Nevada's 5-year adverse possession statute (NRS 11.150), property taxes must be paid:",
+      options: ["During the last 5 years", "For the entire 5-year period", "During any 3 of the 5 years", "Taxes are not required"],
+      correctIndex: 1,
+      explanation: "Under NRS 11.150, the 5-year adverse possession period requires taxes to be paid for the ENTIRE period and applies only against a known claimant.",
+      wrongExplanations: [
+        "The 'last 5 years' tax requirement applies to the 15-year statute (NRS 40.090), not the 5-year statute.",
+        "Both adverse possession statutes require tax payments; there is no partial payment option.",
+        "Both Nevada adverse possession statutes require property tax payments."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Students confuse the tax requirements of the 5-year and 15-year adverse possession periods.",
+      tags: ["adverse possession", "NRS 11.150", "taxes", "5-year"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u8-05",
+      topic: "Holographic Will",
+      question: "A holographic will in Nevada requires:",
+      options: ["The testator's signature and two witnesses", "The testator to handwrite, sign, and date the will", "Notarization and one witness", "The testator's signature and electronic filing"],
+      correctIndex: 1,
+      explanation: "Under NRS 133.090, a holographic will must be written, signed, and dated entirely by the testator. No witnesses are required.",
+      wrongExplanations: [
+        "Witnesses are required for a standard will, not a holographic will.",
+        "Neither notarization nor witnesses are required for a holographic will.",
+        "Electronic filing is not required; electronic wills are a separate category under NRS 133.085."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["holographic will", "NRS 133.090", "estate"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u8-06",
+      topic: "Escheat",
+      question: "When a person dies intestate without heirs in Nevada, the property:",
+      options: ["Goes to the county government", "Escheats to the state for educational purposes", "Is held in trust for 10 years", "Is sold at public auction"],
+      correctIndex: 1,
+      explanation: "Under NRS 154.010, property that escheats to the state must be used for educational purposes.",
+      wrongExplanations: [
+        "Escheat goes to the state, not the county.",
+        "There is no 10-year holding period for escheated property.",
+        "The property escheats to the state by operation of law; it is not automatically sold at auction."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["escheat", "intestate", "NRS 154.010", "education"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u8-07",
+      topic: "Joint Tenancy Creation",
+      question: "In Nevada, a conveyance of property to two or more persons creates:",
+      options: ["A joint tenancy", "A tenancy in common", "Community property", "A tenancy by the entirety"],
+      correctIndex: 1,
+      explanation: "Under NRS 111.060, a conveyance to two or more persons creates a tenancy in common unless the deed or will expressly creates a joint tenancy.",
+      wrongExplanations: [
+        "Joint tenancy must be expressly created in the deed or will; it is not the default.",
+        "Community property arises from marriage, not from the form of the conveyance.",
+        "Nevada does not recognize tenancy by the entirety."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Students may assume joint tenancy is the default when property is conveyed to multiple parties.",
+      tags: ["joint tenancy", "tenancy in common", "NRS 111.060", "default"],
+      source: "Textbook",
+    },
   ];
 }
 
