@@ -171,21 +171,25 @@ export function useCourseStore() {
   const [syllabusTemplate, setSyllabusTemplate] = useState<SyllabusTemplate | undefined>();
   const [statuteSections, setStatuteSections] = useState<import("@/types/course").StatuteSection[] | undefined>();
 
-  // Fetch custom content from DB on mount
+  // Fetch custom content + settings from DB on mount
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const [mods, qs, acts, pes] = await Promise.all([
+      const [mods, qs, acts, pes, syllabusSetting, nrs645Setting] = await Promise.all([
         fetchCustomModules(),
         fetchCustomQuestions(),
         fetchCustomActivities(),
         fetchCustomPracticeExams(),
+        fetchSetting("syllabus"),
+        fetchSetting("nrs645"),
       ]);
       if (!cancelled) {
         setCustomModules(mods);
         setCustomQuestions(qs);
         setCustomActivities(acts);
         setCustomPracticeExams(pes);
+        if (syllabusSetting) setSyllabusTemplate(syllabusSetting as SyllabusTemplate);
+        if (nrs645Setting) setStatuteSections(nrs645Setting as import("@/types/course").StatuteSection[]);
         setDbLoading(false);
       }
     })();
