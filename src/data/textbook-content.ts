@@ -2044,5 +2044,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 5,
       tags: ["SRPD", "resale package", "disclosure", "CIC", "rescission", "treble damages"],
     },
+    // ===== UNIT 8 ACTIVITIES =====
+    {
+      id: "tb-act-u8-1",
+      title: "Deed Warranty Analysis",
+      type: "case-study",
+      description: "Students receive four scenarios involving deed issues: (1) a grantor who previously conveyed the same property to another party, (2) an undisclosed lien placed by a predecessor in interest, (3) a deed lacking a habendum clause, and (4) a deed signed but never delivered. For each, students identify which warranty (if any) was breached, whether Nevada's grant, bargain, and sale deed protects the buyer, and what remedy (if any) is available.",
+      instructorNotes: "Emphasize the two limited warranties in NRS 111.170 and their gaps. Stress that title insurance fills the gap—this connects to Unit 9. Remind students that delivery and acceptance are required for a valid deed, and acceptance is presumed upon delivery.",
+      debriefPrompts: [
+        "Why does Nevada use a deed with such limited warranties instead of a general warranty deed?",
+        "How does title insurance compensate for the weaknesses in the grant, bargain, and sale deed?",
+        "What is the legal effect of a deed that is signed but never delivered?",
+      ],
+      topic: "Transfer of Title",
+      weekNumber: 6,
+      tags: ["deeds", "NRS 111.170", "grant bargain sale", "warranties", "delivery"],
+    },
+    {
+      id: "tb-act-u8-2",
+      title: "Transfer Tax & Involuntary Alienation Scenarios",
+      type: "case-study",
+      description: "Part 1: Students calculate the real property transfer tax for properties sold in Churchill County ($2.05/$500), Clark County ($2.55/$500), and Washoe County ($2.05/$500) at various price points. Part 2: Students analyze three scenarios—a neighbor who has maintained a strip of adjoining land for 12 years paying taxes for the last 5, a city condemning a warehouse for a public park, and a family whose relative died intestate with a surviving spouse and two children—and identify the transfer method and applicable Nevada statute.",
+      instructorNotes: "For transfer tax, insist on the per-$500 method (not per-$1,000) to match the statute. For adverse possession, distinguish the 5-year (NRS 11.150, known claimant, taxes paid entire period) from the 15-year period (NRS 40.090, all claimants, taxes paid last 5 years). For intestate succession, use NRS 134.",
+      debriefPrompts: [
+        "Why does the statute express the transfer tax per $500 rather than per $1,000?",
+        "What distinguishes the 5-year from the 15-year adverse possession period?",
+        "What happens to property when someone dies intestate with no heirs?",
+      ],
+      topic: "Transfer Tax & Involuntary Alienation",
+      weekNumber: 6,
+      tags: ["transfer tax", "adverse possession", "eminent domain", "intestate", "NRS 11.150", "NRS 40.090"],
+    },
   ];
 }
