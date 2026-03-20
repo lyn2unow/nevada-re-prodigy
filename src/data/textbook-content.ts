@@ -1623,6 +1623,68 @@ export function getTextbookModules(): Module[] {
       federalVsNevada: "federal",
       pearsonVueArea: "National IV - Financing",
     },
+    // ===== UNIT 17 MODULES: Environmental Issues and the Real Estate Transaction =====
+    {
+      id: "tb-mod-u17-1",
+      weekNumber: 3,
+      title: "Environmental Disclosures & Lead-Based Paint (NRS 645.254)",
+      order: 86,
+      keyTerms: [
+        { id: "tb-kt-u17-1-1", term: "NRS 645.254(3)(d) Expert Referral Duty", definition: "Requires licensees to advise clients to obtain advice from an expert relating to matters beyond the licensee's expertise. Environmental issues nearly always trigger this duty.", source: "Textbook" },
+        { id: "tb-kt-u17-1-2", term: "Lead-Based Paint Disclosure", definition: "Federal requirement for sellers and landlords of residences built before 1978. Must provide the EPA pamphlet 'Protect Your Family From Lead in Your Home,' disclose known lead hazards, and provide available records/reports.", source: "Textbook" },
+        { id: "tb-kt-u17-1-3", term: "10-Day Paint Inspection Period", definition: "Buyers (not tenants) have a 10-day period to conduct a paint inspection. Parties may agree in writing to waive or change the timeframe.", source: "Textbook" },
+        { id: "tb-kt-u17-1-4", term: "Environmental Contact List", definition: "A form from the Reno Sparks Association of REALTORS® providing contact information for agencies regarding environmental matters. Recommended but not mandatory.", source: "Textbook" },
+      ],
+      conceptExplanation: "Environmental issues often involve scientific and legal matters beyond a licensee's expertise. NRS 645.254(3)(d) requires licensees to advise clients to seek expert advice on such matters. For residential transactions, the most common environmental disclosure involves lead-based paint. Federal law requires that sellers/landlords of pre-1978 residences: (1) provide the EPA pamphlet 'Protect Your Family From Lead in Your Home,' (2) disclose known lead-based paint hazards, (3) provide available records and reports, and (4) include an attachment to the contract with a lead warning statement signed by buyers/tenants. Buyers get a 10-day paint inspection period (waivable in writing); tenants do not. Both sellers and licensees are responsible for ensuring compliance. The Environmental Contact List form provides agency contacts for environmental matters but is recommended, not mandatory.",
+      nevadaLegalRefs: "NRS 645.254(3)(d) (expert referral duty); 42 U.S.C. 4852d (lead-based paint disclosure); 24 CFR Part 35 (HUD lead paint regulations)",
+      realWorldScenario: "A licensee is helping a buyer purchase a 1965 ranch home. The seller claims no knowledge of lead paint. The licensee must ensure the seller completes the lead disclosure form, provides the EPA pamphlet, and gives the buyer the 10-day inspection opportunity. The licensee should also recommend the buyer consult an environmental specialist per NRS 645.254(3)(d).",
+      commonMistakes: "1. Thinking the lead disclosure only applies to sales—it applies to rentals too\n2. Forgetting the 1978 cutoff year for lead-based paint disclosure\n3. Assuming the Environmental Contact List is mandatory—it's recommended only\n4. Believing tenants get the same 10-day inspection period as buyers—they don't",
+      examKeyPoints: "• NRS 645.254(3)(d): licensee must refer clients to experts for environmental matters\n• Lead-based paint disclosure: pre-1978 residences, sales AND rentals\n• EPA pamphlet required in same language as contract\n• Buyers: 10-day paint inspection period (waivable in writing)\n• Tenants: NO paint inspection period\n• Both seller AND licensee responsible for compliance\n• Environmental Contact List: recommended, not mandatory",
+      examAlerts: [
+        { id: "tb-ea-u17-1-1", text: "Lead-based paint disclosure applies to residences built BEFORE 1978. The 10-day inspection period is for BUYERS only, not tenants.", type: "exam-alert" },
+        { id: "tb-ea-u17-1-2", text: "NRS 645.254(3)(d) requires licensees to refer clients to experts for environmental matters—this is a DUTY, not optional advice.", type: "high-probability" },
+      ],
+      knowledgeChecks: [
+        { id: "tb-kc-u17-1-1", question: "Who has the right to a 10-day lead-based paint inspection period?", options: ["Buyers and tenants", "Buyers only", "Tenants only", "Neither—inspections are optional"], correctIndex: 1, explanation: "Only buyers have the 10-day paint inspection period. Tenants do not receive this right, though they must still receive the EPA pamphlet and lead disclosures." },
+      ],
+      discussionPrompt: "Why does federal law give buyers but not tenants a 10-day lead paint inspection period? Is this distinction fair?",
+      assignmentSuggestion: "Download the EPA 'Protect Your Family From Lead in Your Home' pamphlet and identify 5 key facts a licensee should be prepared to explain to a buyer of a pre-1978 home.",
+      estimatedTime: "15 minutes",
+      sourceTag: "Textbook",
+      correctsTextbook: false,
+      federalVsNevada: "both",
+      pearsonVueArea: "National VI - Property Disclosures",
+    },
+    {
+      id: "tb-mod-u17-2",
+      weekNumber: 3,
+      title: "Nevada Environmental Regulation & Uniform Environmental Covenants (NRS 445D)",
+      order: 87,
+      keyTerms: [
+        { id: "tb-kt-u17-2-1", term: "State Environmental Commission (SEC)", definition: "An 11-member quasi-judicial and quasi-legislative board that adopts environmental regulations, hears contested enforcement cases, and hears variance requests. Members include governor appointees and ex officio members (e.g., the state engineer).", source: "Textbook" },
+        { id: "tb-kt-u17-2-2", term: "Division of Environmental Protection", definition: "Part of the Department of Conservation and Natural Resources. Administers most environmental protection laws and SEC regulations. Contains bureaus for air pollution, water quality, waste management, and other environmental issues.", source: "Textbook" },
+        { id: "tb-kt-u17-2-3", term: "Environmental Covenant (NRS 445D)", definition: "A restriction on activities and use of real property subject to an environmental response project. Created by the Division of Environmental Protection or the U.S. EPA under the Uniform Environmental Covenants Act (effective October 1, 2005).", source: "Textbook" },
+        { id: "tb-kt-u17-2-4", term: "Brownfields", definition: "Previously contaminated properties that require environmental remediation before redevelopment. The Uniform Environmental Covenants Act reduces legal impediments and liability concerns for sellers and lenders associated with brownfield sales.", source: "Textbook" },
+      ],
+      conceptExplanation: "Nevada's environmental regulatory framework has two main components: the State Environmental Commission (SEC) and the Division of Environmental Protection. The SEC is an 11-member board that adopts regulations, hears contested cases, and grants variances. The Division of Environmental Protection (within the Department of Conservation and Natural Resources) administers environmental laws day-to-day through bureaus covering air, water, and waste. The Uniform Environmental Covenants Act (NRS 445D, effective October 1, 2005) enables environmental covenants—restrictions on contaminated property use tied to remediation plans. These covenants are created by the Division of Environmental Protection or the U.S. EPA and facilitate brownfield redevelopment by reducing liability concerns for sellers and lenders while requiring state-approved remediation, notice to surrounding landowners, and local government notification.",
+      nevadaLegalRefs: "NRS 445D (Uniform Environmental Covenants Act); NRS 445A-445C (environmental protection statutes); Department of Conservation and Natural Resources (Division of Environmental Protection)",
+      realWorldScenario: "A developer wants to purchase a former gas station site for mixed-use development. The Division of Environmental Protection has created an environmental covenant restricting certain activities until soil remediation is complete. The developer must comply with the covenant's terms, and surrounding landowners and the local government have been notified of the remediation plan.",
+      commonMistakes: "1. Confusing the State Environmental Commission (adopts regulations) with the Division of Environmental Protection (administers them)\n2. Thinking environmental covenants are voluntary agreements—they are governmental restrictions tied to remediation\n3. Not recognizing that NRS 445D specifically addresses brownfield liability concerns\n4. Assuming environmental issues are only relevant to commercial transactions—residential properties can also be affected",
+      examKeyPoints: "• State Environmental Commission: 11 members, quasi-judicial/quasi-legislative, adopts regulations\n• Division of Environmental Protection: administers laws, part of Dept. of Conservation and Natural Resources\n• Environmental covenant (NRS 445D): restricts use of contaminated property during/after remediation\n• Effective October 1, 2005\n• Created by Division of Environmental Protection or U.S. EPA\n• Purpose: facilitate brownfield redevelopment, reduce seller/lender liability\n• Requires: state-approved remediation plan, notice to surrounding landowners and local government",
+      examAlerts: [
+        { id: "tb-ea-u17-2-1", text: "The SEC ADOPTS regulations; the Division of Environmental Protection ADMINISTERS them. Different roles!", type: "exam-trap" },
+      ],
+      knowledgeChecks: [
+        { id: "tb-kc-u17-2-1", question: "What is the primary purpose of the Uniform Environmental Covenants Act (NRS 445D)?", options: ["To ban development on contaminated sites", "To facilitate brownfield redevelopment by reducing liability concerns", "To require environmental impact statements for all developments", "To impose fines on polluters"], correctIndex: 1, explanation: "NRS 445D removes legal impediments and lessens liability concerns for sellers and lenders associated with brownfield redevelopment, while requiring state-approved remediation plans." },
+      ],
+      discussionPrompt: "How do environmental covenants balance the competing interests of environmental protection, property rights, and economic development?",
+      assignmentSuggestion: "Research a brownfield redevelopment project in Nevada and identify how environmental covenants affected the transaction timeline and property value.",
+      estimatedTime: "15 minutes",
+      sourceTag: "Textbook",
+      correctsTextbook: false,
+      federalVsNevada: "both",
+      pearsonVueArea: "National II - Land Use Controls & Regulations",
+    },
   ];
 }
 
