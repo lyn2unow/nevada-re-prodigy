@@ -3597,5 +3597,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 3,
       tags: ["BPO", "appraisal", "NRS 645.2515", "disclaimer", "REO"],
     },
+    // ===== UNIT 14 ACTIVITIES =====
+    {
+      id: "tb-act-u14-1",
+      title: "Subdivided Land vs. Time-Share Terminology Matching",
+      type: "case-study",
+      description: "Students receive a two-column table with subdivided land terms on one side and blank spaces on the other. They must fill in the equivalent time-share term for each: developer/developer, statement of record/application, property report/public offering statement, broker of record/project broker, registered representative/representative, promotional meetings/promotional meetings. Then students identify the ONE critical difference in who prepares the disclosure document.",
+      instructorNotes: "Emphasize the structural parallel between the two regulatory frameworks. The key takeaway is that the property report is Division-prepared while the public offering statement is developer-prepared. This distinction is heavily tested.",
+      debriefPrompts: [
+        "Why would the legislature create nearly identical but separately named regulatory frameworks?",
+        "What is the practical significance of having the developer prepare the public offering statement instead of the Division?",
+        "How does the 5-calendar-day rescission period protect consumers in both frameworks?",
+      ],
+      topic: "Land Use Controls",
+      weekNumber: 6,
+      tags: ["NRS 119", "NRS 119A", "subdivided land", "time-shares", "terminology", "property report", "public offering statement"],
+    },
+    {
+      id: "tb-act-u14-2",
+      title: "Subdivided Land Exemption Analysis Workshop",
+      type: "case-study",
+      description: "Students receive 8 developer scenarios and must determine whether each qualifies for a full exemption, partial exemption, or no exemption under NRS 119. Scenarios include: a contractor building homes on 50 lots in Reno, a California developer selling 40-acre parcels through Nevada ads, a government agency auctioning surplus land, and a developer selling 30 parcels (below threshold). Students must cite the specific exemption category and any conditions.",
+      instructorNotes: "Focus on the nuances: the owner-developer exemption requires Nevada location AND contractor license AND residential buildings. The 40-80 acre range is only a partial exemption. Below 35 parcels doesn't trigger the law at all (not an exemption—it simply doesn't apply).",
+      debriefPrompts: [
+        "Which exemption has the most conditions that must ALL be met?",
+        "Why is the midsize parcel (40-80 acres) only a partial exemption?",
+        "A developer has 34 parcels. Is this an exemption or something else entirely?",
+      ],
+      topic: "Subdivided Land Exemptions",
+      weekNumber: 6,
+      tags: ["NRS 119", "exemptions", "owner-developer", "80 acres", "40 acres", "partial exemption"],
+    },
   ];
 }
