@@ -3241,5 +3241,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 4,
       tags: ["short sale", "deficiency", "REO", "anti-deficiency", "foreclosure"],
     },
+    // ===== UNIT 12 ACTIVITIES =====
+    {
+      id: "tb-act-u12-1",
+      title: "Eviction Notice & Timeline Workshop",
+      type: "case-study",
+      description: "Students receive 5 tenant scenarios and must determine: (1) the correct type of eviction, (2) the required notice period, (3) the proper procedure to follow, and (4) any tenant defenses available. Scenarios include: tenant 2 days late on rent, tenant's guest causing repeated noise disturbances, month-to-month tenant the owner wants to replace, tenant who filed an affidavit claiming rent was tendered, and tenant who withheld rent due to broken heating (essential service failure).",
+      instructorNotes: "Key notice periods: nuisance = 3 days, nonpayment = 5 days, month-to-month = 30 days. For the affidavit scenario, emphasize that excuses for nonpayment are NOT legal defenses—only proof that rent was tendered or no default exists. For the essential services scenario, the tenant has a valid defense if they escrowed the withheld rent.",
+      debriefPrompts: [
+        "Why is the nuisance notice period (3 days) shorter than nonpayment (5 days)?",
+        "What makes an affidavit a valid defense vs. just an excuse?",
+        "Under what circumstances can a tenant withhold rent without facing eviction?",
+      ],
+      topic: "Eviction Procedures",
+      weekNumber: 4,
+      tags: ["eviction", "notice periods", "nonpayment", "nuisance", "essential services", "NRS 118A"],
+    },
+    {
+      id: "tb-act-u12-2",
+      title: "Security Deposit Disposition Analysis",
+      type: "case-study",
+      description: "Students receive 4 security deposit scenarios with different amounts, deduction types, and timelines. For each, students must determine: (1) whether each deduction is valid under NRS 118A, (2) whether the owner met the 30-day deadline, (3) what the tenant is entitled to receive, and (4) the owner's potential liability. Include a scenario where valid deductions are made but the 30-day deadline is missed, and one where the owner charges for 'normal wear and tear.'",
+      instructorNotes: "Hammer the 30-day rule: even valid deductions don't save the owner if the accounting is late. Normal wear and tear is NOT a valid deduction. Only three uses: default in rent, tenant-caused damage beyond normal wear, or cleaning. Connect to the PM trust account requirement (two separate accounts).",
+      debriefPrompts: [
+        "Why does Nevada penalize late deposit returns even when deductions are valid?",
+        "How do you distinguish 'normal wear and tear' from tenant-caused damage?",
+        "Why must property managers use two separate trust accounts?",
+      ],
+      topic: "Security Deposits",
+      weekNumber: 4,
+      tags: ["security deposit", "30-day deadline", "normal wear", "NRS 118A.242", "trust accounts"],
+    },
   ];
 }
