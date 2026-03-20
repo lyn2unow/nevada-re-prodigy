@@ -1,4 +1,4 @@
-// Textbook Content — Units 1-8: Real Estate Brokerage and Agency; Listing and Buyer Representation Agreements; Interests in Real Estate; Forms of Ownership; Legal Descriptions; Real Estate Taxes and Other Liens; Real Estate Contracts; Transfer of Title
+// Textbook Content — Units 1-9: Real Estate Brokerage and Agency; Listing and Buyer Representation Agreements; Interests in Real Estate; Forms of Ownership; Legal Descriptions; Real Estate Taxes and Other Liens; Real Estate Contracts; Transfer of Title; Title Records
 // Source: Scheible, Nevada Real Estate textbook
 import type { Module, ExamQuestion, Activity } from "@/types/course";
 
@@ -971,6 +971,70 @@ export function getTextbookModules(): Module[] {
       discussionPrompt: "Should Nevada's escheat statute direct property to education specifically, or would a general government fund be more appropriate?",
       assignmentSuggestion: "Create a comparison chart of the 5-year vs. 15-year adverse possession requirements, including case law references.",
       estimatedTime: "30 minutes",
+      sourceTag: "Textbook",
+      correctsTextbook: false,
+      federalVsNevada: "nevada",
+    },
+    // ===== UNIT 9 MODULES: Title Records =====
+    {
+      id: "tb-mod-u9-1",
+      weekNumber: 6,
+      title: "Purpose & Requirements of Recording in Nevada",
+      order: 61,
+      keyTerms: [
+        { id: "tb-kt-u9-1-1", term: "Recording", definition: "The act of placing a document affecting title to property in the public records. Its purpose is to give constructive notice to the world of that interest. Recording is not required for a document (such as a deed) to be effective between the parties.", source: "Textbook" },
+        { id: "tb-kt-u9-1-2", term: "Constructive Notice", definition: "Notice that is implied by law because a document has been recorded in the public records. Once recorded, all subsequent parties are presumed to have knowledge of the document's contents.", source: "Textbook" },
+        { id: "tb-kt-u9-1-3", term: "Actual Notice", definition: "Direct knowledge of a fact, such as personally knowing about a prior conveyance. An unrecorded document is effective between the parties but not against a subsequent purchaser without actual knowledge (Moore v. De Bernardi, 47 Nev. 33 [1923]).", source: "Textbook" },
+        { id: "tb-kt-u9-1-4", term: "Acknowledgment (Notarization)", definition: "Required for a document to be recorded in Nevada. State or U.S. contracts or patents for land are exempt from this requirement.", source: "Textbook" },
+        { id: "tb-kt-u9-1-5", term: "Assessor's Parcel Number", definition: "Must be included at the top left corner of the first page of a document to be recorded. However, the assessor's parcel number alone is NOT a sufficient legal description of the property.", source: "Textbook" },
+      ],
+      conceptExplanation: "Recording laws in Nevada are found mainly in NRS 111. Recording gives constructive notice to the world of an interest in property. Most documents (including deeds) are effective between the parties without recording, but an unrecorded document cannot protect against a subsequent good-faith purchaser without actual knowledge (Moore v. De Bernardi). Recording requirements include: signatures must be acknowledged (notarized); grantee's mailing address included; assessor's parcel number at top left of first page (though it is NOT a sufficient legal description); deed must include the name and address for tax statement mailing; metes-and-bounds descriptions require the preparer's name and address (unless previously recorded, in which case the prior recording info suffices). Nevada's Electronic Transactions Act (NRS 719) allows electronic recording, available in Clark and Washoe counties.",
+      nevadaLegalRefs: "NRS 111 (recording laws); Moore v. De Bernardi, 47 Nev. 33 (1923) (unrecorded deed vs. subsequent purchaser); NRS 719 (Electronic Transactions Act)",
+      realWorldScenario: "Yuri transfers property to Noreen by deed, but Noreen does not record it. Later, Yuri transfers the same property to Juan, who has no knowledge of the deed to Noreen. Juan prevails because he is a subsequent purchaser without actual notice. Had Noreen recorded, Juan would have had constructive notice and Noreen would prevail.",
+      commonMistakes: "1. Thinking recording is required for a deed to be valid—it is not\n2. Confusing the assessor's parcel number with a legal description—APN alone is insufficient\n3. Believing an unrecorded deed is void—it is valid between the parties\n4. Forgetting that acknowledgment (notarization) is required for recording but not for deed validity",
+      examKeyPoints: "• Recording gives constructive notice to the world\n• Not required for deed validity—effective between parties without recording\n• Unrecorded deed loses to subsequent good-faith purchaser without actual notice\n• Recording requires: acknowledgment, grantee address, APN (top left, first page), tax mailing address\n• APN is NOT a sufficient legal description\n• Metes-and-bounds: preparer's name/address required (unless previously recorded)\n• Electronic recording available in Clark and Washoe counties (NRS 719)",
+      examAlerts: [
+        { id: "tb-ea-u9-1-1", text: "The assessor's parcel number is required for RECORDING but is NOT a sufficient legal description.", type: "exam-trap" },
+        { id: "tb-ea-u9-1-2", text: "An unrecorded deed is VALID between the parties—recording protects against THIRD PARTIES only.", type: "exam-alert" },
+      ],
+      knowledgeChecks: [
+        { id: "tb-kc-u9-1-1", question: "An unrecorded deed is:", options: ["Void", "Valid between the parties only", "Invalid until recorded", "Automatically canceled after 30 days"], correctIndex: 1, explanation: "An unrecorded deed is valid and effective between the parties. Recording is needed only to protect against subsequent purchasers without actual knowledge." },
+        { id: "tb-kc-u9-1-2", question: "Which of the following is required for recording a document in Nevada?", options: ["Witness signatures", "Acknowledgment (notarization)", "A court order", "An attorney's certification"], correctIndex: 1, explanation: "Nevada requires acknowledgment (notarization) of signatures for recording. State or U.S. contracts/patents for land are exempt." },
+      ],
+      discussionPrompt: "Why does Nevada law protect a subsequent good-faith purchaser over the original grantee who failed to record?",
+      assignmentSuggestion: "List all recording requirements in Nevada and identify which are required for recording vs. which are required for deed validity.",
+      estimatedTime: "20 minutes",
+      sourceTag: "Textbook",
+      correctsTextbook: false,
+      federalVsNevada: "nevada",
+    },
+    {
+      id: "tb-mod-u9-2",
+      weekNumber: 6,
+      title: "Title Insurance & the Uniform Commercial Code",
+      order: 62,
+      keyTerms: [
+        { id: "tb-kt-u9-2-1", term: "Title Insurance", definition: "A contract by which a title insurance company agrees to indemnify the insured against loss from defects in title, except for listed exceptions and exclusions. The company also agrees to defend, at its own expense, any lawsuit attacking the title based on a covered defect.", source: "Textbook" },
+        { id: "tb-kt-u9-2-2", term: "Owner's Policy", definition: "A title insurance policy issued to the buyer (owner) of property. In Nevada, the seller customarily purchases this policy for the buyer as evidence of marketable title.", source: "Textbook" },
+        { id: "tb-kt-u9-2-3", term: "Standard vs. Extended Coverage", definition: "Standard coverage insures against defects in public records plus forged documents, incompetent grantors, incorrect marital statements, and improperly delivered deeds. Extended coverage adds protection for risks discoverable only through property inspection, inquiry of persons in possession, or a correct survey.", source: "Textbook" },
+        { id: "tb-kt-u9-2-4", term: "UCC-1 Financing Statement", definition: "Filed with the Secretary of State under the Uniform Commercial Code (NRS 104) to give notice of a security interest in personal property. Operates similarly to recording a real property document.", source: "Textbook" },
+      ],
+      conceptExplanation: "In Nevada, the seller proves marketable title by purchasing a title insurance policy for the buyer (the owner's policy). Title insurance indemnifies the insured against losses from title defects not listed as exceptions. A standard coverage policy protects against defects in public records, forgery, incompetent grantors, incorrect marital statements, and improper delivery. Extended coverage adds protection for risks discoverable only through inspection, inquiry of occupants, or survey. The title company examines records and insures against undiscovered defects—but does not insure against defects it actually finds. Nevada has adopted the Uniform Commercial Code (NRS 104), which governs personal property transactions. Security interests in personal property are perfected by filing a UCC-1 financing statement with the Secretary of State, providing notice similar to recording real property documents.",
+      nevadaLegalRefs: "NRS 104 (Uniform Commercial Code); NRS 692A (Title insurance regulations)",
+      realWorldScenario: "A buyer purchases a home and the seller provides a standard title insurance policy. Two years later, the buyer discovers that a neighbor has an unrecorded prescriptive easement across the property. The standard policy would not cover this because it is discoverable only through inspection—the buyer would need extended coverage for this protection.",
+      commonMistakes: "1. Thinking the buyer always purchases their own title insurance—in Nevada, the seller customarily provides the owner's policy\n2. Assuming standard coverage protects against all risks—it does not cover risks discoverable only through inspection or survey\n3. Confusing UCC-1 filings (personal property, Secretary of State) with real property recordings (county recorder)\n4. Thinking title insurance covers defects the company actually discovers—it covers only undiscovered defects",
+      examKeyPoints: "• Seller customarily provides owner's title insurance policy to buyer in Nevada\n• Standard coverage: public record defects + forgery, incompetent grantor, marital errors, improper delivery\n• Extended coverage: standard + inspection risks, occupant inquiries, survey issues\n• Title insurance does NOT cover defects actually found during examination\n• UCC-1 filed with Secretary of State for personal property security interests\n• UCC governs personal property; NRS 111 governs real property recording",
+      examAlerts: [
+        { id: "tb-ea-u9-2-1", text: "Standard title insurance does NOT cover risks discoverable only through property inspection or survey—extended coverage is needed.", type: "exam-alert" },
+        { id: "tb-ea-u9-2-2", text: "UCC-1 financing statements are filed with the SECRETARY OF STATE, not the county recorder.", type: "exam-trap" },
+      ],
+      knowledgeChecks: [
+        { id: "tb-kc-u9-2-1", question: "In Nevada, who customarily purchases the owner's title insurance policy?", options: ["The buyer", "The seller", "The lender", "The title company"], correctIndex: 1, explanation: "In Nevada, the seller customarily purchases a title insurance policy for the buyer as evidence of marketable title." },
+        { id: "tb-kc-u9-2-2", question: "A UCC-1 financing statement is filed with the:", options: ["County recorder", "Secretary of State", "Real Estate Division", "County assessor"], correctIndex: 1, explanation: "UCC-1 financing statements for personal property security interests are filed with the Secretary of State, not the county recorder." },
+      ],
+      discussionPrompt: "Should extended coverage title insurance be the standard in Nevada rather than an upgrade? What consumer protection arguments support this?",
+      assignmentSuggestion: "Compare the protections offered by standard vs. extended title insurance coverage in a two-column chart, with a real-world example of a claim each would or would not cover.",
+      estimatedTime: "20 minutes",
       sourceTag: "Textbook",
       correctsTextbook: false,
       federalVsNevada: "nevada",
@@ -2043,6 +2107,94 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       tags: ["joint tenancy", "tenancy in common", "NRS 111.060", "default"],
       source: "Textbook",
     },
+    // ===== UNIT 9 EXAM QUESTIONS =====
+    {
+      id: "tb-eq-u9-01",
+      topic: "Recording Purpose",
+      question: "The primary purpose of recording a document affecting real property in Nevada is to:",
+      options: ["Make the document legally valid", "Give constructive notice to the world", "Transfer title to the grantee", "Satisfy the statute of frauds"],
+      correctIndex: 1,
+      explanation: "Recording gives constructive notice to the world of an interest in property. It is not required for document validity—most documents are effective between the parties without recording.",
+      wrongExplanations: [
+        "Recording is not required for a document to be valid between the parties.",
+        "Title transfers upon delivery and acceptance of the deed, not upon recording.",
+        "The statute of frauds requires a writing, not recording."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["recording", "constructive notice", "NRS 111"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u9-02",
+      topic: "Assessor's Parcel Number",
+      question: "The assessor's parcel number on a document being recorded in Nevada:",
+      options: ["Serves as a sufficient legal description", "Is required for recording but is NOT a sufficient legal description", "Is optional for recording", "Replaces the need for a metes-and-bounds description"],
+      correctIndex: 1,
+      explanation: "The assessor's parcel number must be included at the top left corner of the first page for recording, but it alone is NOT a sufficient legal description of the property.",
+      wrongExplanations: [
+        "The APN is necessary for recording but does not constitute a legal description.",
+        "The APN is required, not optional, for recording in Nevada.",
+        "A proper legal description (metes-and-bounds, lot/block, or government survey) is still required."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Students may assume the APN serves as the legal description since it is required for recording.",
+      tags: ["APN", "recording", "legal description"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u9-03",
+      topic: "Title Insurance Coverage",
+      question: "Which risk is covered by an extended coverage title insurance policy but NOT by a standard coverage policy?",
+      options: ["Forged documents in the chain of title", "Rights of parties in actual possession of the property", "Incompetent grantors in the chain of title", "Incorrect marital statements in prior deeds"],
+      correctIndex: 1,
+      explanation: "Extended coverage adds protection for risks discoverable only through property inspection (such as rights of occupants), inquiry of persons in possession, or a correct survey. Standard coverage covers public record defects, forgery, incompetent grantors, and marital errors.",
+      wrongExplanations: [
+        "Forged documents are covered by standard coverage.",
+        "Incompetent grantors are covered by standard coverage.",
+        "Incorrect marital statements are covered by standard coverage."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["title insurance", "standard coverage", "extended coverage"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u9-04",
+      topic: "UCC-1 Filing",
+      question: "A UCC-1 financing statement for personal property is filed with the:",
+      options: ["County recorder", "County assessor", "Secretary of State", "Real Estate Division"],
+      correctIndex: 2,
+      explanation: "Under Nevada's Uniform Commercial Code (NRS 104), UCC-1 financing statements for personal property security interests are filed with the Secretary of State.",
+      wrongExplanations: [
+        "The county recorder handles real property documents, not personal property security interests.",
+        "The county assessor handles property valuation, not UCC filings.",
+        "The Real Estate Division handles licensing, not UCC filings."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["UCC-1", "Secretary of State", "personal property", "NRS 104"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u9-05",
+      topic: "Unrecorded Deed",
+      question: "Yuri deeded property to Noreen, who did not record. Yuri then deeded the same property to Juan, who had no knowledge of the prior deed. Who prevails?",
+      options: ["Noreen, because she received the first deed", "Juan, because he is a subsequent purchaser without notice", "Neither—the court must decide", "Yuri, because neither deed was valid"],
+      correctIndex: 1,
+      explanation: "An unrecorded deed is valid between the parties but not against a subsequent purchaser who does not have actual knowledge of the prior conveyance (Moore v. De Bernardi).",
+      wrongExplanations: [
+        "First-in-time does not prevail when the deed was unrecorded and the subsequent purchaser had no notice.",
+        "Nevada recording law clearly protects the subsequent good-faith purchaser without notice.",
+        "Both deeds are valid; the issue is constructive vs. actual notice, not validity."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Students may think 'first in time, first in right' always applies—it doesn't when the first deed is unrecorded.",
+      tags: ["unrecorded deed", "constructive notice", "Moore v. De Bernardi", "subsequent purchaser"],
+      source: "Textbook",
+    },
   ];
 }
 
@@ -2294,6 +2446,37 @@ export function getTextbookActivities(): Activity[] {
       topic: "Transfer Tax & Involuntary Alienation",
       weekNumber: 6,
       tags: ["transfer tax", "adverse possession", "eminent domain", "intestate", "NRS 11.150", "NRS 40.090"],
+    },
+    // ===== UNIT 9 ACTIVITIES =====
+    {
+      id: "tb-act-u9-1",
+      title: "Recording Requirements Checklist",
+      type: "case-study",
+      description: "Students receive 5 documents ready for recording, each with a different deficiency (missing notarization, no APN, no grantee address, metes-and-bounds without preparer info, APN listed as the only legal description). Students identify the deficiency, cite the relevant requirement, and determine whether the document can be recorded as-is.",
+      instructorNotes: "Emphasize that APN is required for recording but is NOT a sufficient legal description. Remind students that state/U.S. contracts or patents are exempt from the acknowledgment requirement. Connect electronic recording (NRS 719) availability in Clark and Washoe counties.",
+      debriefPrompts: [
+        "Which requirement is most commonly overlooked in practice?",
+        "Why is the assessor's parcel number insufficient as a legal description?",
+        "How does electronic recording change the process?",
+      ],
+      topic: "Title Records",
+      weekNumber: 6,
+      tags: ["recording", "APN", "acknowledgment", "NRS 111", "NRS 719"],
+    },
+    {
+      id: "tb-act-u9-2",
+      title: "Title Insurance Coverage Comparison",
+      type: "case-study",
+      description: "Students receive 6 title defect scenarios and must determine whether each is covered by: (A) standard coverage only, (B) extended coverage only, (C) both, or (D) neither. Scenarios include: forged deed in chain of title, unrecorded prescriptive easement, encroachment discoverable by survey, incompetent grantor, rights of a tenant in possession, and a defect the title company discovered during examination.",
+      instructorNotes: "The key distinction is that standard covers public record defects plus forgery/incompetency/marital/delivery issues, while extended adds inspection/possession/survey risks. Neither covers defects actually discovered by the title company. Connect back to Unit 8's discussion of why Nevada's grant, bargain, and sale deed has limited warranties.",
+      debriefPrompts: [
+        "Why would a title company not insure against defects it actually finds?",
+        "In what situations should a buyer insist on extended coverage?",
+        "How does title insurance complement Nevada's grant, bargain, and sale deed?",
+      ],
+      topic: "Title Insurance",
+      weekNumber: 6,
+      tags: ["title insurance", "standard coverage", "extended coverage", "defects"],
     },
   ];
 }
