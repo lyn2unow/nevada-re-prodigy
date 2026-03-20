@@ -1,33 +1,30 @@
 
+Verified target file before any changes:
+- `src/stores/course-store.ts:154` — `upsertSetting`
+- `src/stores/course-store.ts:177` — mount `useEffect`
+- `src/stores/course-store.ts:308` — `updateSyllabus`
 
-## Fix: Guard `upsertSetting` Against Missing Auth Session
+Plan:
+1. Update only `src/stores/course-store.ts`.
+2. Add temporary `console.log` statements with a clear prefix like `[course-store]` so the output is easy to filter.
+3. In `upsertSetting`:
+   - log the `key` being written
+   - log the `session` returned by `supabase.auth.getSession()`
+   - log when the function skips because session is missing
+   - log any returned `error` after the upsert
+4. In the mount `useEffect`:
+   - log the value returned by `fetchSetting("syllabus")` after the `Promise.all` resolves
+   - keep the existing state-setting logic unchanged
+5. In `updateSyllabus`:
+   - log immediately before calling `upsertSetting("syllabus", template)`
+   - log immediately after the await returns, including the returned error value
+6. Do not change any persistence logic, auth logic, or UI behavior yet — diagnostics only.
+7. After you reproduce the bug and share the console output, use those logs to identify whether the failure is:
+   - no session at write time
+   - write error from the backend
+   - successful write but empty/failed read on mount
+   - logout/login causing a different session/user to read different data
 
-### Problem
-The `user_settings` table exists and has correct RLS policies. The 401 error occurs because `upsertSetting` fires while the user is unauthenticated (the authorization header contains the anon key, not a user JWT). This happens when `loadDefaultSyllabus` or `loadNRS645` triggers before auth resolves, or when the user isn't logged in at all.
-
-### Fix: Single change in `src/stores/course-store.ts`
-
-Add a session check at the top of `upsertSetting`. If no valid session exists, skip the write silently (the local state update still works, and the data will persist next time the user is authenticated and triggers a save).
-
-**Change `upsertSetting` (lines 154-161) to:**
-
-```ts
-async function upsertSetting(key: string, value: any) {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) return null; // skip write silently if not authenticated
-  const { error } = await (supabase as any).from("user_settings").upsert(
-    { key, data: value, updated_at: new Date().toISOString() },
-    { onConflict: "key" }
-  );
-  if (error) console.error(`upsertSetting(${key}):`, error);
-  return error;
-}
-```
-
-### Files Modified
-1. `src/stores/course-store.ts` — add session guard to `upsertSetting`
-
-### Not Changed
-- No migration needed (table already exists and is confirmed)
-- No other files
-
+Scope:
+- Only `src/stores/course-store.ts`
+- No changes to `SyllabusPage`, context files, database schema, or policies in this step
