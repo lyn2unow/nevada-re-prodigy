@@ -1497,6 +1497,68 @@ export function getTextbookModules(): Module[] {
       federalVsNevada: "nevada",
       pearsonVueArea: "National II - Land Use Controls & Regulations",
     },
+    // ===== UNIT 15 MODULES: Fair Housing =====
+    {
+      id: "tb-mod-u15-1",
+      weekNumber: 3,
+      title: "Nevada Fair Housing Law (NRS 118) & Protected Classes",
+      order: 82,
+      keyTerms: [
+        { id: "tb-kt-u15-1-1", term: "Nevada Fair Housing Law", definition: "NRS 118 parallels the federal Fair Housing Act but adds three additional protected classes: sexual orientation, gender identity or expression, and ancestry. Uses 'disability' instead of 'handicap' and 'religious creed' instead of 'religion.'", source: "Textbook" },
+        { id: "tb-kt-u15-1-2", term: "Sexual Orientation (NRS 118.093)", definition: "Having or being perceived as having an orientation for heterosexuality, homosexuality, or bisexuality. Added as a protected class in 2011.", source: "Textbook" },
+        { id: "tb-kt-u15-1-3", term: "Gender Identity or Expression (NRS 118.075)", definition: "A gender-related identity, appearance, expression, or behavior of a person, regardless of the person's assigned sex at birth. Added as a protected class in 2011.", source: "Textbook" },
+        { id: "tb-kt-u15-1-4", term: "Nevada Equal Rights Commission", definition: "Part of the Department of Employment, Training, and Rehabilitation. Five members appointed by the governor. Enforces Nevada's Fair Housing Law and other civil rights laws. Has not adopted regulations interpreting specific Fair Housing Law provisions.", source: "Textbook" },
+        { id: "tb-kt-u15-1-5", term: "Blockbusting", definition: "Inducing or attempting to induce a person to sell or rent a dwelling by making representations regarding the entry or prospective entry of persons of a particular protected class into the neighborhood. Prohibited under both NRS 118.100 and the federal Fair Housing Act.", source: "Textbook" },
+      ],
+      conceptExplanation: "Nevada's Fair Housing Law (NRS 118) mirrors the federal Fair Housing Act of 1968 (as amended in 1974 and 1988) but expands protections beyond the seven federal classes. Nevada recognizes 10 protected classes: race, religious creed, color, national origin, disability, sexual orientation, gender identity or expression, ancestry, familial status, and sex. The three Nevada-only classes—sexual orientation, gender identity or expression, and ancestry—have no federal counterpart. Significantly, Nevada repealed language stating its law could not prohibit anything not prohibited federally, ensuring the additional classes have real enforcement power. All NRS 118 prohibitions apply only to dwellings. Enforcement is through the Nevada Equal Rights Commission (5 governor-appointed members, part of the Department of Employment, Training, and Rehabilitation). Alternatively, aggrieved persons may file with HUD or in federal court if the right is also federally protected.",
+      nevadaLegalRefs: "NRS 118 (Nevada Fair Housing Law); NRS 118.093 (sexual orientation defined); NRS 118.075 (gender identity or expression defined); NRS 118.100 (prohibited conduct including blockbusting); NRS 233.040 (Equal Rights Commission composition); NRS 645.321 (licensee fair housing violations)",
+      realWorldScenario: "A property manager refuses to rent to a prospective tenant based on their gender expression. Under federal law, this might require complex legal analysis. Under NRS 118, gender identity or expression is an explicit protected class, making the violation straightforward.",
+      commonMistakes: "1. Assuming Nevada's protected classes are identical to the federal list—Nevada adds sexual orientation, gender identity or expression, and ancestry\n2. Confusing 'handicap' (federal term) with 'disability' (Nevada term)—they have the same meaning\n3. Thinking the Nevada Equal Rights Commission is part of the Real Estate Division—it's under the Dept. of Employment, Training, and Rehabilitation\n4. Believing the repealed 'no broader than federal' language still limits Nevada protections—it was stricken",
+      examKeyPoints: "• Nevada = 10 protected classes; Federal = 7\n• Nevada-only classes: sexual orientation, gender identity or expression, ancestry\n• NRS 118 uses 'disability' not 'handicap'; 'religious creed' not 'religion'\n• Sexual orientation & gender identity or expression added in 2011\n• All NRS 118 prohibitions apply to DWELLINGS only\n• Nevada Equal Rights Commission: 5 members, governor-appointed, Dept. of Employment, Training & Rehabilitation\n• Aggrieved person can file with: NV Equal Rights Commission, HUD, or federal court\n• Nevada repealed the 'no broader than federal' limitation",
+      examAlerts: [
+        { id: "tb-ea-u15-1-1", text: "Nevada has THREE extra protected classes beyond federal law: sexual orientation, gender identity or expression, and ancestry.", type: "exam-alert" },
+        { id: "tb-ea-u15-1-2", text: "The Nevada Equal Rights Commission enforces fair housing—NOT the Real Estate Commission or Division.", type: "exam-trap" },
+      ],
+      knowledgeChecks: [
+        { id: "tb-kc-u15-1-1", question: "Which protected class is recognized by Nevada's Fair Housing Law but NOT by the federal Fair Housing Act?", options: ["Familial status", "National origin", "Ancestry", "Sex"], correctIndex: 2, explanation: "Ancestry is one of three Nevada-only protected classes (along with sexual orientation and gender identity or expression). Familial status, national origin, and sex are protected under both." },
+      ],
+      discussionPrompt: "Why might it matter that Nevada repealed the provision stating its Fair Housing Law could not prohibit anything not already prohibited by the federal act?",
+      assignmentSuggestion: "Create a side-by-side comparison chart of Nevada's 10 protected classes and the corresponding 7 federal classes, noting which have no federal equivalent.",
+      estimatedTime: "20 minutes",
+      sourceTag: "Textbook",
+      correctsTextbook: false,
+      federalVsNevada: "both",
+      pearsonVueArea: "National VI - Property Disclosures",
+    },
+    {
+      id: "tb-mod-u15-2",
+      weekNumber: 3,
+      title: "Licensee Fair Housing Liability (NRS 645.321)",
+      order: 83,
+      keyTerms: [
+        { id: "tb-kt-u15-2-1", term: "NRS 645.321 Licensee Prohibition", definition: "It is unlawful for a real estate licensee to discriminate on account of any protected class by denying access to a residential real estate transaction opportunity or in the terms/conditions of such a transaction.", source: "Textbook" },
+        { id: "tb-kt-u15-2-2", term: "First Offense Penalty", definition: "A first violation of NRS 645.321 can result in a fine of $500.", source: "Textbook" },
+        { id: "tb-kt-u15-2-3", term: "Second Offense Penalty", definition: "A second violation of NRS 645.321 can result in license revocation. Additional civil liability and federal civil/criminal fines may also apply.", source: "Textbook" },
+      ],
+      conceptExplanation: "NRS 645.321 specifically addresses real estate licensees and fair housing. A licensee may not, on account of any protected class, deny a person access to any opportunity to engage in a residential real estate transaction or discriminate in the terms or conditions of such a transaction. The penalty structure is graduated: first offense = $500 fine; second offense = license revocation. These state penalties exist in addition to any civil liability and federal civil/criminal fines. This means a licensee faces potential consequences from multiple sources: the Real Estate Commission (discipline), the Nevada Equal Rights Commission (civil rights enforcement), and federal agencies (HUD complaints or federal court).",
+      nevadaLegalRefs: "NRS 645.321 (licensee fair housing violations and penalties)",
+      realWorldScenario: "A salesperson steers minority buyers away from certain neighborhoods by only showing listings in areas with similar demographics. This violates NRS 645.321 by denying access to transaction opportunities based on race. The salesperson faces a $500 fine for the first offense, and the broker may also face liability for failure to supervise.",
+      commonMistakes: "1. Thinking the $500 fine is the only consequence—civil liability and federal penalties also apply\n2. Not recognizing that a second offense results in revocation, not just a larger fine\n3. Believing fair housing violations are only handled by HUD—NRS 645.321 gives the Real Estate Commission independent enforcement power",
+      examKeyPoints: "• NRS 645.321 applies to ALL protected classes recognized by Nevada\n• First offense: $500 fine\n• Second offense: license REVOCATION\n• Penalties stack—state discipline, civil liability, AND federal fines possible\n• Applies to residential real estate transactions",
+      examAlerts: [
+        { id: "tb-ea-u15-2-1", text: "First fair housing offense by a licensee = $500 fine. SECOND offense = license REVOCATION. Know the escalation.", type: "high-probability" },
+      ],
+      knowledgeChecks: [
+        { id: "tb-kc-u15-2-1", question: "What is the penalty for a real estate licensee's SECOND violation of Nevada's fair housing provisions?", options: ["A $1,000 fine", "A $5,000 fine", "License suspension for one year", "License revocation"], correctIndex: 3, explanation: "Under NRS 645.321, a second offense can result in license revocation. The first offense carries a $500 fine." },
+      ],
+      discussionPrompt: "Is a $500 fine for a first fair housing offense sufficient deterrence? What other consequences might a licensee face beyond the NRS 645.321 penalties?",
+      assignmentSuggestion: "Research a real fair housing complaint filed with HUD or a state agency and summarize: what happened, which protected class was involved, and what penalties were imposed.",
+      estimatedTime: "15 minutes",
+      sourceTag: "Textbook",
+      correctsTextbook: false,
+      federalVsNevada: "both",
+      pearsonVueArea: "National VI - Property Disclosures",
+    },
   ];
 }
 
