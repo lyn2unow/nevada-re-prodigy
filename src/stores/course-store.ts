@@ -139,6 +139,27 @@ async function dbDelete(table: string, id: string) {
   return error;
 }
 
+// ---------- Settings persistence ----------
+
+async function fetchSetting(key: string): Promise<any | undefined> {
+  const { data, error } = await (supabase as any)
+    .from("user_settings")
+    .select("data")
+    .eq("key", key)
+    .maybeSingle();
+  if (error) { console.error(`fetchSetting(${key}):`, error); return undefined; }
+  return data?.data;
+}
+
+async function upsertSetting(key: string, value: any) {
+  const { error } = await (supabase as any).from("user_settings").upsert(
+    { key, data: value, updated_at: new Date().toISOString() },
+    { onConflict: "key" }
+  );
+  if (error) console.error(`upsertSetting(${key}):`, error);
+  return error;
+}
+
 // ---------- Hook ----------
 
 export function useCourseStore() {
