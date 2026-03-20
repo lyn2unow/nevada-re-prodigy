@@ -2446,5 +2446,37 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 6,
       tags: ["transfer tax", "adverse possession", "eminent domain", "intestate", "NRS 11.150", "NRS 40.090"],
     },
+    // ===== UNIT 9 ACTIVITIES =====
+    {
+      id: "tb-act-u9-1",
+      title: "Recording Requirements Checklist",
+      type: "case-study",
+      description: "Students receive 5 documents ready for recording, each with a different deficiency (missing notarization, no APN, no grantee address, metes-and-bounds without preparer info, APN listed as the only legal description). Students identify the deficiency, cite the relevant requirement, and determine whether the document can be recorded as-is.",
+      instructorNotes: "Emphasize that APN is required for recording but is NOT a sufficient legal description. Remind students that state/U.S. contracts or patents are exempt from the acknowledgment requirement. Connect electronic recording (NRS 719) availability in Clark and Washoe counties.",
+      debriefPrompts: [
+        "Which requirement is most commonly overlooked in practice?",
+        "Why is the assessor's parcel number insufficient as a legal description?",
+        "How does electronic recording change the process?",
+      ],
+      topic: "Title Records",
+      weekNumber: 6,
+      tags: ["recording", "APN", "acknowledgment", "NRS 111", "NRS 719"],
+    },
+    {
+      id: "tb-act-u9-2",
+      title: "Title Insurance Coverage Comparison",
+      type: "case-study",
+      description: "Students receive 6 title defect scenarios and must determine whether each is covered by: (A) standard coverage only, (B) extended coverage only, (C) both, or (D) neither. Scenarios include: forged deed in chain of title, unrecorded prescriptive easement, encroachment discoverable by survey, incompetent grantor, rights of a tenant in possession, and a defect the title company discovered during examination.",
+      instructorNotes: "The key distinction is that standard covers public record defects plus forgery/incompetency/marital/delivery issues, while extended adds inspection/possession/survey risks. Neither covers defects actually discovered by the title company. Connect back to Unit 8's discussion of why Nevada's grant, bargain, and sale deed has limited warranties.",
+      debriefPrompts: [
+        "Why would a title company not insure against defects it actually finds?",
+        "In what situations should a buyer insist on extended coverage?",
+        "How does title insurance complement Nevada's grant, bargain, and sale deed?",
+      ],
+      topic: "Title Insurance",
+      weekNumber: 6,
+      tags: ["title insurance", "standard coverage", "extended coverage", "defects"],
+    },
   ];
+}
 }
