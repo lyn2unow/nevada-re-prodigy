@@ -185,9 +185,6 @@ export function useCourseStore() {
         session ? fetchSetting("syllabus") : Promise.resolve(undefined),
         session ? fetchSetting("nrs645") : Promise.resolve(undefined),
       ]);
-      console.log("[course-store] loadData — session:", session ? `yes (${session.user.id})` : "NO SESSION");
-      console.log("[course-store] loadData — syllabus:", syllabus);
-      console.log("[course-store] loadData — nrs645:", nrs645);
       if (!cancelled) {
         setCustomModules(mods);
         setCustomQuestions(qs);
