@@ -2681,6 +2681,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       source: "Textbook",
     },
   ];
+}
 
 export function getTextbookActivities(): Activity[] {
   return [
