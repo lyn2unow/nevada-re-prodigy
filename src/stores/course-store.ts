@@ -152,6 +152,8 @@ async function fetchSetting(key: string): Promise<any | undefined> {
 }
 
 async function upsertSetting(key: string, value: any) {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) return null;
   const { error } = await (supabase as any).from("user_settings").upsert(
     { key, data: value, updated_at: new Date().toISOString() },
     { onConflict: "key" }
