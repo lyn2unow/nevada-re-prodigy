@@ -2193,6 +2193,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: true,
       examTrapNote: "Students may think 'first in time, first in right' always applies—it doesn't when the first deed is unrecorded.",
       tags: ["unrecorded deed", "constructive notice", "Moore v. De Bernardi", "subsequent purchaser"],
+      source: "Textbook",
     },
   ];
 }
