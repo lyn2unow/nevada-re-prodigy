@@ -1,30 +1,61 @@
 
-Verified target file before any changes:
-- `src/stores/course-store.ts:154` — `upsertSetting`
-- `src/stores/course-store.ts:177` — mount `useEffect`
-- `src/stores/course-store.ts:308` — `updateSyllabus`
 
-Plan:
-1. Update only `src/stores/course-store.ts`.
-2. Add temporary `console.log` statements with a clear prefix like `[course-store]` so the output is easy to filter.
-3. In `upsertSetting`:
-   - log the `key` being written
-   - log the `session` returned by `supabase.auth.getSession()`
-   - log when the function skips because session is missing
-   - log any returned `error` after the upsert
-4. In the mount `useEffect`:
-   - log the value returned by `fetchSetting("syllabus")` after the `Promise.all` resolves
-   - keep the existing state-setting logic unchanged
-5. In `updateSyllabus`:
-   - log immediately before calling `upsertSetting("syllabus", template)`
-   - log immediately after the await returns, including the returned error value
-6. Do not change any persistence logic, auth logic, or UI behavior yet — diagnostics only.
-7. After you reproduce the bug and share the console output, use those logs to identify whether the failure is:
-   - no session at write time
-   - write error from the backend
-   - successful write but empty/failed read on mount
-   - logout/login causing a different session/user to read different data
+## Fix: Wait for Auth Before Fetching Settings
 
-Scope:
-- Only `src/stores/course-store.ts`
-- No changes to `SyllabusPage`, context files, database schema, or policies in this step
+### Problem
+The mount `useEffect` fires immediately and calls `fetchSetting("syllabus")` before the auth session resolves. RLS blocks the unauthenticated read, returning nothing. The write works because it happens later when the user is authenticated.
+
+### Fix in `src/stores/course-store.ts` (lines 180–205)
+
+Replace the current mount `useEffect` with one that:
+1. Gets the current session via `supabase.auth.getSession()` first
+2. Subscribes to `onAuthStateChange` to re-fetch when auth state changes (e.g., login)
+3. Only calls `fetchSetting` when a valid session exists; otherwise skips settings fetch
+
+```ts
+useEffect(() => {
+  let cancelled = false;
+
+  const loadData = async (session: any) => {
+    const [mods, qs, acts, pes, syllabus, nrs645] = await Promise.all([
+      fetchCustomModules(),
+      fetchCustomQuestions(),
+      fetchCustomActivities(),
+      fetchCustomPracticeExams(),
+      session ? fetchSetting("syllabus") : Promise.resolve(undefined),
+      session ? fetchSetting("nrs645") : Promise.resolve(undefined),
+    ]);
+    console.log("[course-store] loadData — session:", session ? `yes (${session.user.id})` : "NO SESSION");
+    console.log("[course-store] loadData — syllabus:", syllabus);
+    console.log("[course-store] loadData — nrs645:", nrs645);
+    if (!cancelled) {
+      setCustomModules(mods);
+      setCustomQuestions(qs);
+      setCustomActivities(acts);
+      setCustomPracticeExams(pes);
+      if (syllabus) setSyllabusTemplate(syllabus as SyllabusTemplate);
+      if (nrs645) setStatuteSections(nrs645 as import("@/types/course").StatuteSection[]);
+      setDbLoading(false);
+    }
+  };
+
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (!cancelled) loadData(session);
+  });
+
+  const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    if (!cancelled) loadData(session);
+  });
+
+  return () => {
+    cancelled = true;
+    subscription.unsubscribe();
+  };
+}, []);
+```
+
+### Scope
+- **Only file**: `src/stores/course-store.ts`, lines 180–205
+- Diagnostic logs kept temporarily for verification
+- No other files, no migration, no schema changes
+
