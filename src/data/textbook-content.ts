@@ -3948,5 +3948,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 3,
       tags: ["NRS 645.321", "fair housing", "penalties", "$500 fine", "revocation", "licensee"],
     },
+    // ===== UNIT 16 ACTIVITIES =====
+    {
+      id: "tb-act-u16-1",
+      title: "Escrow Closing Document Assembly Simulation",
+      type: "closing-simulation",
+      description: "Students receive a transaction fact pattern (purchase price, loan details, existing liens, prorations) and must identify every document the buyer and seller should deposit into escrow. Students then sequence the closing steps: earnest money deposit, title search, bring-down search, document review, good funds verification, disbursement, and recording. Teams compete to produce the most complete and correctly ordered closing checklist.",
+      instructorNotes: "Include a scenario where a personal check is deposited instead of a wire—students must recognize the good funds law delay. Add a last-minute lien discovered in the bring-down search to test problem-solving.",
+      debriefPrompts: [
+        "What would happen if the escrow agent disbursed funds before the personal check cleared?",
+        "Why is the bring-down title search critical even when the initial search was clean?",
+        "Who is responsible for delivering the closing statement if the escrow holder fails to do so?",
+      ],
+      topic: "Escrow Closing",
+      weekNumber: 5,
+      tags: ["escrow", "NRS 645A", "NRS 692A", "good funds", "closing", "bring down"],
+    },
+    {
+      id: "tb-act-u16-2",
+      title: "TRID Timeline Construction Exercise",
+      type: "case-study",
+      description: "Given a loan application date and a target closing date, students construct a complete TRID timeline showing: (1) Loan Estimate delivery deadline, (2) borrower's 10-day decision window, (3) Closing Disclosure delivery deadline, and (4) the 3-day pre-closing receipt requirement. Then students receive three change scenarios (APR change, closing date change, prepayment penalty added) and determine which trigger a new 3-day waiting period and which do not, recalculating the closing date accordingly.",
+      instructorNotes: "Emphasize: LE = 3 days AFTER application; CD = 3 days BEFORE closing. Only 3 specific changes restart the CD wait. A simple closing date change does NOT restart it. Have students calculate the actual calendar impact of each trigger.",
+      debriefPrompts: [
+        "How can a licensee proactively prevent TRID-related closing delays?",
+        "Why is a change in closing date NOT one of the three triggers for a new waiting period?",
+        "Who bears liability if the Closing Disclosure is delivered late—the lender, the licensee, or both?",
+      ],
+      topic: "TRID Disclosures",
+      weekNumber: 5,
+      tags: ["TRID", "Loan Estimate", "Closing Disclosure", "3-day waiting", "CFPB", "timeline"],
+    },
   ];
 }
