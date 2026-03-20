@@ -2479,4 +2479,3 @@ export function getTextbookActivities(): Activity[] {
     },
   ];
 }
-}
