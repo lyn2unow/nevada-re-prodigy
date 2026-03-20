@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, Plus, X } from "lucide-react";
+import { ArrowLeft, Plus, X, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,7 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator";
 import { useCourse } from "@/contexts/CourseContext";
 import { toast } from "@/hooks/use-toast";
-import type { Activity, ActivityType } from "@/types/course";
+import { supabase } from "@/integrations/supabase/client";
+import type { Activity, ActivityType, CognitiveLevel, PearsonVueArea } from "@/types/course";
 
 function generateId() {
   return crypto.randomUUID();
@@ -24,6 +25,32 @@ const activityTypes: { value: ActivityType; label: string }[] = [
   { value: "closing-simulation", label: "Closing Simulation" },
   { value: "ethical-debate", label: "Ethical Debate" },
   { value: "other", label: "Other" },
+];
+
+const cognitiveLevels: { value: string; label: string; description: string }[] = [
+  { value: "none", label: "Not specified", description: "" },
+  { value: "knowledge", label: "Knowledge", description: "Recall definitions, rules, timelines" },
+  { value: "application", label: "Application", description: "Apply rules to scenarios" },
+  { value: "analysis", label: "Analysis", description: "Evaluate and reason through problems" },
+];
+
+const pearsonVueAreas: PearsonVueArea[] = [
+  "National I - Property Ownership",
+  "National II - Land Use Controls & Regulations",
+  "National III - Valuation & Market Analysis",
+  "National IV - Financing",
+  "National V - General Principles of Agency",
+  "National VI - Property Disclosures",
+  "National VII - Contracts",
+  "National VIII - Leasing & Property Management",
+  "State I - Duties & Powers of the Real Estate Commission",
+  "State II - Licensing Requirements",
+  "State III - Nevada Agency Relationships",
+  "State IV - Nevada Disclosures",
+  "State V - Nevada Contracts",
+  "State VI - Nevada Property Management",
+  "State VII - Nevada Brokerage Operations",
+  "State VIII - Nevada Disciplinary Actions & Recovery Fund",
 ];
 
 const emptyActivity = (): Activity => ({
@@ -48,6 +75,7 @@ export default function ActivityForm() {
     existing ? { ...existing, debriefPrompts: existing.debriefPrompts.length ? [...existing.debriefPrompts] : [""] } : emptyActivity()
   );
   const [tagInput, setTagInput] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const update = <K extends keyof Activity>(field: K, value: Activity[K]) => {
     setActivity((prev) => ({ ...prev, [field]: value }));
@@ -78,6 +106,66 @@ export default function ActivityForm() {
 
   const removeTag = (tag: string) => {
     update("tags", activity.tags.filter((t) => t !== tag));
+  };
+
+  const handleGenerate = async () => {
+    if (!activity.topic.trim() && !activity.title.trim()) {
+      toast({ title: "Enter a topic or title first", variant: "destructive" });
+      return;
+    }
+
+    setIsGenerating(true);
+
+    try {
+      // Find source content from matching module
+      let sourceContent: Record<string, unknown> | undefined;
+      const matchingModule = data.modules.find((m) => {
+        if (activity.pearsonVueArea && m.pearsonVueArea === activity.pearsonVueArea) return true;
+        if (activity.weekNumber && m.weekNumber === activity.weekNumber) return true;
+        return false;
+      });
+
+      if (matchingModule) {
+        sourceContent = {
+          conceptExplanation: matchingModule.conceptExplanation.slice(0, 1000),
+          keyTerms: matchingModule.keyTerms.slice(0, 10).map((t) => ({ term: t.term, definition: t.definition })),
+          examAlerts: matchingModule.examAlerts.slice(0, 5).map((a) => ({ text: a.text })),
+        };
+      }
+
+      const { data: result, error } = await supabase.functions.invoke("generate-activity", {
+        body: {
+          activityType: activity.type,
+          topic: activity.topic || activity.title,
+          cognitiveLevel: activity.cognitiveLevel || undefined,
+          pearsonVueArea: activity.pearsonVueArea || undefined,
+          sourceContent,
+        },
+      });
+
+      if (error) throw error;
+
+      if (result?.error) {
+        toast({ title: result.error, variant: "destructive" });
+        return;
+      }
+
+      // Populate content fields only
+      setActivity((prev) => ({
+        ...prev,
+        title: result.title || prev.title,
+        description: result.description || prev.description,
+        instructorNotes: result.instructorNotes || prev.instructorNotes,
+        debriefPrompts: result.debriefPrompts?.length ? result.debriefPrompts : prev.debriefPrompts,
+      }));
+
+      toast({ title: "Activity generated — review and save" });
+    } catch (e) {
+      console.error("Generate error:", e);
+      toast({ title: "Generation failed. Try again.", variant: "destructive" });
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleSave = () => {
@@ -126,7 +214,23 @@ export default function ActivityForm() {
       {/* Basic Info */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Activity Details</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg">Activity Details</CardTitle>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1.5"
+              onClick={handleGenerate}
+              disabled={isGenerating}
+            >
+              {isGenerating ? (
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              ) : (
+                <Sparkles className="h-3.5 w-3.5" />
+              )}
+              {isGenerating ? "Generating…" : "AI Generate"}
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
@@ -156,6 +260,44 @@ export default function ActivityForm() {
                 value={activity.topic}
                 onChange={(e) => update("topic", e.target.value)}
               />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>Cognitive Level</Label>
+              <Select
+                value={activity.cognitiveLevel || "none"}
+                onValueChange={(v) => update("cognitiveLevel", v === "none" ? undefined : v as CognitiveLevel)}
+              >
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {cognitiveLevels.map((cl) => (
+                    <SelectItem key={cl.value} value={cl.value}>
+                      {cl.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {activity.cognitiveLevel && (
+                <p className="text-xs text-muted-foreground">
+                  {cognitiveLevels.find((cl) => cl.value === activity.cognitiveLevel)?.description}
+                </p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label>Pearson VUE Exam Area</Label>
+              <Select
+                value={activity.pearsonVueArea || "none"}
+                onValueChange={(v) => update("pearsonVueArea", v === "none" ? undefined : v as PearsonVueArea)}
+              >
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">Not specified</SelectItem>
+                  {pearsonVueAreas.map((area) => (
+                    <SelectItem key={area} value={area}>{area}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <div className="space-y-2">

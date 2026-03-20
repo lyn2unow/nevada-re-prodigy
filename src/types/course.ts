@@ -160,6 +160,8 @@ export interface Activity {
   topic: string;
   weekNumber: number | null;
   tags: string[];
+  cognitiveLevel?: CognitiveLevel;
+  pearsonVueArea?: PearsonVueArea;
 }
 
 export interface StatuteSection {
