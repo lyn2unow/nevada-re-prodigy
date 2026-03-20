@@ -153,12 +153,16 @@ async function fetchSetting(key: string): Promise<any | undefined> {
 
 async function upsertSetting(key: string, value: any) {
   const { data: { session } } = await supabase.auth.getSession();
-  if (!session) return null;
+  console.log(`[course-store] upsertSetting("${key}") — session:`, session ? `yes (${session.user.id})` : "NO SESSION");
+  if (!session) {
+    console.log(`[course-store] upsertSetting("${key}") — SKIPPING, no session`);
+    return null;
+  }
   const { error } = await (supabase as any).from("user_settings").upsert(
     { key, data: value, updated_at: new Date().toISOString() },
     { onConflict: "key" }
   );
-  if (error) console.error(`upsertSetting(${key}):`, error);
+  console.log(`[course-store] upsertSetting("${key}") — result:`, error ? `ERROR: ${JSON.stringify(error)}` : "SUCCESS");
   return error;
 }
 
@@ -185,6 +189,8 @@ export function useCourseStore() {
         fetchSetting("syllabus"),
         fetchSetting("nrs645"),
       ]);
+      console.log("[course-store] mount fetch — syllabusSetting:", syllabusSetting);
+      console.log("[course-store] mount fetch — nrs645Setting:", nrs645Setting);
       if (!cancelled) {
         setCustomModules(mods);
         setCustomQuestions(qs);
@@ -306,8 +312,10 @@ export function useCourseStore() {
   }, []);
 
   const updateSyllabus = useCallback(async (template: SyllabusTemplate) => {
+    console.log("[course-store] updateSyllabus — BEFORE upsert, template keys:", Object.keys(template));
     setSyllabusTemplate(template);
     const err = await upsertSetting("syllabus", template);
+    console.log("[course-store] updateSyllabus — AFTER upsert, error:", err);
     if (err) toast({ title: "Syllabus save failed", variant: "destructive" });
   }, []);
 
