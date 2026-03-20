@@ -296,16 +296,24 @@ export function useCourseStore() {
   const loadLectureNotesContent = loadSeedContent;
   const loadTextbookContent = loadSeedContent;
 
-  const loadNRS645 = useCallback(() => {
-    setStatuteSections(getNRS645Sections());
+  const loadNRS645 = useCallback(async () => {
+    const sections = getNRS645Sections();
+    setStatuteSections(sections);
+    const err = await upsertSetting("nrs645", sections);
+    if (err) toast({ title: "NRS save failed", variant: "destructive" });
   }, []);
 
-  const updateSyllabus = useCallback((template: SyllabusTemplate) => {
+  const updateSyllabus = useCallback(async (template: SyllabusTemplate) => {
     setSyllabusTemplate(template);
+    const err = await upsertSetting("syllabus", template);
+    if (err) toast({ title: "Syllabus save failed", variant: "destructive" });
   }, []);
 
-  const loadDefaultSyllabus = useCallback(() => {
-    setSyllabusTemplate(getDefaultSyllabusTemplate());
+  const loadDefaultSyllabus = useCallback(async () => {
+    const template = getDefaultSyllabusTemplate();
+    setSyllabusTemplate(template);
+    const err = await upsertSetting("syllabus", template);
+    if (err) toast({ title: "Syllabus save failed", variant: "destructive" });
   }, []);
 
   const importData = useCallback((incoming: CourseData, mode: "replace" | "merge") => {
