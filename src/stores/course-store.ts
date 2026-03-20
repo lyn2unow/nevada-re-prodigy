@@ -189,6 +189,8 @@ export function useCourseStore() {
         fetchSetting("syllabus"),
         fetchSetting("nrs645"),
       ]);
+      console.log("[course-store] mount fetch — syllabusSetting:", syllabusSetting);
+      console.log("[course-store] mount fetch — nrs645Setting:", nrs645Setting);
       if (!cancelled) {
         setCustomModules(mods);
         setCustomQuestions(qs);
