@@ -2107,6 +2107,93 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       tags: ["joint tenancy", "tenancy in common", "NRS 111.060", "default"],
       source: "Textbook",
     },
+    // ===== UNIT 9 EXAM QUESTIONS =====
+    {
+      id: "tb-eq-u9-01",
+      topic: "Recording Purpose",
+      question: "The primary purpose of recording a document affecting real property in Nevada is to:",
+      options: ["Make the document legally valid", "Give constructive notice to the world", "Transfer title to the grantee", "Satisfy the statute of frauds"],
+      correctIndex: 1,
+      explanation: "Recording gives constructive notice to the world of an interest in property. It is not required for document validity—most documents are effective between the parties without recording.",
+      wrongExplanations: [
+        "Recording is not required for a document to be valid between the parties.",
+        "Title transfers upon delivery and acceptance of the deed, not upon recording.",
+        "The statute of frauds requires a writing, not recording."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["recording", "constructive notice", "NRS 111"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u9-02",
+      topic: "Assessor's Parcel Number",
+      question: "The assessor's parcel number on a document being recorded in Nevada:",
+      options: ["Serves as a sufficient legal description", "Is required for recording but is NOT a sufficient legal description", "Is optional for recording", "Replaces the need for a metes-and-bounds description"],
+      correctIndex: 1,
+      explanation: "The assessor's parcel number must be included at the top left corner of the first page for recording, but it alone is NOT a sufficient legal description of the property.",
+      wrongExplanations: [
+        "The APN is necessary for recording but does not constitute a legal description.",
+        "The APN is required, not optional, for recording in Nevada.",
+        "A proper legal description (metes-and-bounds, lot/block, or government survey) is still required."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Students may assume the APN serves as the legal description since it is required for recording.",
+      tags: ["APN", "recording", "legal description"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u9-03",
+      topic: "Title Insurance Coverage",
+      question: "Which risk is covered by an extended coverage title insurance policy but NOT by a standard coverage policy?",
+      options: ["Forged documents in the chain of title", "Rights of parties in actual possession of the property", "Incompetent grantors in the chain of title", "Incorrect marital statements in prior deeds"],
+      correctIndex: 1,
+      explanation: "Extended coverage adds protection for risks discoverable only through property inspection (such as rights of occupants), inquiry of persons in possession, or a correct survey. Standard coverage covers public record defects, forgery, incompetent grantors, and marital errors.",
+      wrongExplanations: [
+        "Forged documents are covered by standard coverage.",
+        "Incompetent grantors are covered by standard coverage.",
+        "Incorrect marital statements are covered by standard coverage."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["title insurance", "standard coverage", "extended coverage"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u9-04",
+      topic: "UCC-1 Filing",
+      question: "A UCC-1 financing statement for personal property is filed with the:",
+      options: ["County recorder", "County assessor", "Secretary of State", "Real Estate Division"],
+      correctIndex: 2,
+      explanation: "Under Nevada's Uniform Commercial Code (NRS 104), UCC-1 financing statements for personal property security interests are filed with the Secretary of State.",
+      wrongExplanations: [
+        "The county recorder handles real property documents, not personal property security interests.",
+        "The county assessor handles property valuation, not UCC filings.",
+        "The Real Estate Division handles licensing, not UCC filings."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["UCC-1", "Secretary of State", "personal property", "NRS 104"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u9-05",
+      topic: "Unrecorded Deed",
+      question: "Yuri deeded property to Noreen, who did not record. Yuri then deeded the same property to Juan, who had no knowledge of the prior deed. Who prevails?",
+      options: ["Noreen, because she received the first deed", "Juan, because he is a subsequent purchaser without notice", "Neither—the court must decide", "Yuri, because neither deed was valid"],
+      correctIndex: 1,
+      explanation: "An unrecorded deed is valid between the parties but not against a subsequent purchaser who does not have actual knowledge of the prior conveyance (Moore v. De Bernardi).",
+      wrongExplanations: [
+        "First-in-time does not prevail when the deed was unrecorded and the subsequent purchaser had no notice.",
+        "Nevada recording law clearly protects the subsequent good-faith purchaser without notice.",
+        "Both deeds are valid; the issue is constructive vs. actual notice, not validity."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Students may think 'first in time, first in right' always applies—it doesn't when the first deed is unrecorded.",
+      tags: ["unrecorded deed", "constructive notice", "Moore v. De Bernardi", "subsequent purchaser"],
+    },
   ];
 }
 
