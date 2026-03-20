@@ -3772,5 +3772,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 6,
       tags: ["NRS 119", "exemptions", "owner-developer", "80 acres", "40 acres", "partial exemption"],
     },
+    // ===== UNIT 15 ACTIVITIES =====
+    {
+      id: "tb-act-u15-1",
+      title: "Protected Class Identification Challenge",
+      type: "case-study",
+      description: "Students receive 10 scenarios describing discrimination in housing. For each scenario, they must: (1) identify the protected class involved, (2) state whether it is protected under federal law only, Nevada law only, or both, and (3) identify where the complaint should be filed (Equal Rights Commission, HUD, federal court, or multiple options). Scenarios include ancestry-based steering, gender identity rental denial, and a Civil Rights Act of 1866 race claim.",
+      instructorNotes: "Emphasize the three Nevada-only classes (sexual orientation, gender identity or expression, ancestry). For the 1866 Act scenario, students must recognize that ONLY federal district court is an option. Discuss why Nevada repealed the 'no broader than federal' limitation.",
+      debriefPrompts: [
+        "Which scenarios could ONLY be filed under Nevada law because the protected class has no federal equivalent?",
+        "Why must Civil Rights Act of 1866 complaints go to federal court and not HUD?",
+        "How does having 10 protected classes instead of 7 change a licensee's day-to-day practice?",
+      ],
+      topic: "Fair Housing",
+      weekNumber: 3,
+      tags: ["NRS 118", "fair housing", "protected classes", "discrimination", "Equal Rights Commission", "HUD"],
+    },
+    {
+      id: "tb-act-u15-2",
+      title: "Licensee Fair Housing Penalty Escalation Debate",
+      type: "ethical-debate",
+      description: "Students debate whether the current NRS 645.321 penalty structure ($500 first offense / revocation second offense) is appropriate. Team A argues the penalties are sufficient. Team B argues they are too lenient for first offenses and too severe for second offenses (jumping straight to revocation). Both teams must cite specific NRS provisions and consider the additional civil and federal penalties that may stack on top.",
+      instructorNotes: "Guide students to recognize that the $500 fine is just one layer—civil liability and federal penalties add significantly. Ask whether the jump from $500 to revocation (with no intermediate step like suspension) is good policy design.",
+      debriefPrompts: [
+        "Is $500 a meaningful deterrent for a licensee earning thousands per transaction?",
+        "Should there be an intermediate step between a $500 fine and full revocation?",
+        "How do stacking penalties (state + civil + federal) change the overall deterrence calculation?",
+      ],
+      topic: "Fair Housing Licensee Liability",
+      weekNumber: 3,
+      tags: ["NRS 645.321", "fair housing", "penalties", "$500 fine", "revocation", "licensee"],
+    },
   ];
 }
