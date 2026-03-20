@@ -4122,5 +4122,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 5,
       tags: ["TRID", "Loan Estimate", "Closing Disclosure", "3-day waiting", "CFPB", "timeline"],
     },
+    // ===== UNIT 17 ACTIVITIES =====
+    {
+      id: "tb-act-u17-1",
+      title: "Lead-Based Paint Disclosure Compliance Checklist",
+      type: "case-study",
+      description: "Students receive 6 transaction scenarios involving properties of various ages (1955, 1977, 1979, 1990, etc.) and must determine: (1) whether lead-based paint disclosure is required, (2) what specific documents/pamphlets must be provided, (3) whether the transaction is a sale or rental (affecting the 10-day inspection right), and (4) who is responsible for compliance. Students create a compliance checklist for each applicable scenario.",
+      instructorNotes: "Key trap: 1979 does NOT require disclosure (post-1978). Emphasize that tenants get the pamphlet and disclosure but NOT the 10-day inspection period. Discuss the licensee's dual responsibility alongside the seller/landlord.",
+      debriefPrompts: [
+        "What happens if a seller claims no knowledge of lead paint—does that eliminate the disclosure requirement?",
+        "Why do tenants not receive the 10-day paint inspection period that buyers get?",
+        "Can the 10-day inspection period be shortened? What are the requirements?",
+      ],
+      topic: "Lead-Based Paint Disclosure",
+      weekNumber: 3,
+      tags: ["lead-based paint", "1978", "disclosure", "EPA pamphlet", "10-day inspection"],
+    },
+    {
+      id: "tb-act-u17-2",
+      title: "Nevada Environmental Agency Mapping Exercise",
+      type: "case-study",
+      description: "Students create an organizational chart showing the relationship between: the State Environmental Commission (regulation adoption), the Division of Environmental Protection (administration), the Department of Conservation and Natural Resources (parent department), and the U.S. EPA (federal counterpart). For each entity, students list its primary function, membership/structure, and one example of its authority. Then students place an environmental covenant scenario on the chart, tracing which entities are involved at each stage.",
+      instructorNotes: "Draw parallels to the Real Estate Commission/Division split. The SEC adopts regulations like the Commission adopts regulations; the Division administers laws like the Real Estate Division administers licensing laws. This pattern-matching helps students remember both structures.",
+      debriefPrompts: [
+        "How is the SEC/Division split similar to the Real Estate Commission/Division split?",
+        "Who creates environmental covenants—the SEC or the Division of Environmental Protection?",
+        "Why does Nevada place environmental protection under Conservation and Natural Resources rather than Business and Industry?",
+      ],
+      topic: "Environmental Regulation",
+      weekNumber: 3,
+      tags: ["SEC", "Division of Environmental Protection", "NRS 445D", "brownfields", "organizational structure"],
+    },
   ];
 }
