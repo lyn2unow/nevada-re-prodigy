@@ -239,7 +239,7 @@ export default function SyllabusPage() {
                 <TableHead className="w-28">Day</TableHead>
                 <TableHead>Unit / Topic</TableHead>
                 <TableHead>Assignment / Quiz</TableHead>
-                {editing && <TableHead className="w-10" />}
+                {editing && <TableHead className="w-20" />}
               </TableRow>
             </TableHeader>
             <TableBody>
