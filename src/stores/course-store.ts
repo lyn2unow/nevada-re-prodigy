@@ -177,31 +177,45 @@ export function useCourseStore() {
   const [syllabusTemplate, setSyllabusTemplate] = useState<SyllabusTemplate | undefined>();
   const [statuteSections, setStatuteSections] = useState<import("@/types/course").StatuteSection[] | undefined>();
 
-  // Fetch custom content + settings from DB on mount
+  // Fetch custom content + settings from DB — wait for auth before reading settings
   useEffect(() => {
     let cancelled = false;
-    (async () => {
-      const [mods, qs, acts, pes, syllabusSetting, nrs645Setting] = await Promise.all([
+
+    const loadData = async (session: any) => {
+      const [mods, qs, acts, pes, syllabus, nrs645] = await Promise.all([
         fetchCustomModules(),
         fetchCustomQuestions(),
         fetchCustomActivities(),
         fetchCustomPracticeExams(),
-        fetchSetting("syllabus"),
-        fetchSetting("nrs645"),
+        session ? fetchSetting("syllabus") : Promise.resolve(undefined),
+        session ? fetchSetting("nrs645") : Promise.resolve(undefined),
       ]);
-      console.log("[course-store] mount fetch — syllabusSetting:", syllabusSetting);
-      console.log("[course-store] mount fetch — nrs645Setting:", nrs645Setting);
+      console.log("[course-store] loadData — session:", session ? `yes (${session.user.id})` : "NO SESSION");
+      console.log("[course-store] loadData — syllabus:", syllabus);
+      console.log("[course-store] loadData — nrs645:", nrs645);
       if (!cancelled) {
         setCustomModules(mods);
         setCustomQuestions(qs);
         setCustomActivities(acts);
         setCustomPracticeExams(pes);
-        if (syllabusSetting) setSyllabusTemplate(syllabusSetting as SyllabusTemplate);
-        if (nrs645Setting) setStatuteSections(nrs645Setting as import("@/types/course").StatuteSection[]);
+        if (syllabus) setSyllabusTemplate(syllabus as SyllabusTemplate);
+        if (nrs645) setStatuteSections(nrs645 as import("@/types/course").StatuteSection[]);
         setDbLoading(false);
       }
-    })();
-    return () => { cancelled = true; };
+    };
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!cancelled) loadData(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!cancelled) loadData(session);
+    });
+
+    return () => {
+      cancelled = true;
+      subscription.unsubscribe();
+    };
   }, []);
 
   // Merged data: seed + custom (custom wins on ID collision)
