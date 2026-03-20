@@ -312,8 +312,10 @@ export function useCourseStore() {
   }, []);
 
   const updateSyllabus = useCallback(async (template: SyllabusTemplate) => {
+    console.log("[course-store] updateSyllabus — BEFORE upsert, template keys:", Object.keys(template));
     setSyllabusTemplate(template);
     const err = await upsertSetting("syllabus", template);
+    console.log("[course-store] updateSyllabus — AFTER upsert, error:", err);
     if (err) toast({ title: "Syllabus save failed", variant: "destructive" });
   }, []);
 
