@@ -1,65 +1,45 @@
 
 
-## NRS Update Checker — Revised Plan
+## Combined Plan: Syllabus/NRS Persistence + Insert Row Below
 
-### Overview
-Add a third tab "NRS Update Checker" to `src/pages/NRSReference.tsx` and create a new edge function that calls the Perplexity Sonar API to check for recent legislative changes to NRS 645 & NAC 645.
+### Part A: Database Persistence
 
-### Step 1: New Edge Function — `supabase/functions/check-nrs-updates/index.ts`
+**Step 1: Create `user_settings` table (migration)**
 
-Mirror the CORS headers and authorization pattern from the existing `generate-lecture` edge function exactly.
-
-- Accept POST with `{ sections: string[] }`
-- Call Perplexity Sonar API (`https://api.perplexity.ai/chat/completions`) with model `sonar`
-- Auth: `Bearer ${Deno.env.get("PERPLEXITY_API_KEY")}` (already in secrets)
-- Set `search_recency_filter: "year"` and `return_citations: true`
-- Build prompt requesting JSON array of `{ section, status, summary, billNumber, sourceUrl, checkedAt }`
-- Parse the AI response content, extract JSON, return to client
-- Standard CORS headers, error handling matching `generate-lecture` pattern
-
-### Step 2: Update `src/pages/NRSReference.tsx`
-
-Add third tab "NRS Update Checker" to existing `<Tabs>`.
-
-**New type (inline):**
-```ts
-interface NRSUpdateResult {
-  section: string;
-  status: "changed" | "no_change" | "unknown";
-  summary?: string;
-  billNumber?: string;
-  sourceUrl?: string;
-  checkedAt: string;
-}
+```sql
+create table public.user_settings (
+  key text primary key,
+  data jsonb not null,
+  updated_at timestamptz default now()
+);
+alter table public.user_settings enable row level security;
+create policy "Auth select" on public.user_settings for select to authenticated using (true);
+create policy "Auth insert" on public.user_settings for insert to authenticated with check (true);
+create policy "Auth update" on public.user_settings for update to authenticated using (true) with check (true);
 ```
 
-**New state:**
-- `checkerSections: string[]` — pre-populated with first 10 statutes
-- `checkerResults: NRSUpdateResult[]`
-- `isChecking: boolean`
-- `lastChecked: string | null`
+**Step 2: Update `src/stores/course-store.ts`**
 
-**Tab UI:**
-- Scrollable checkbox list of all statutes (section number + title)
-- Select All / Clear buttons + count badge
-- "Check for Updates" button (disabled when no sections selected, shows Loader2 spinner)
-- Last checked timestamp display
+- Add `fetchSetting(key)` and `upsertSetting(key, data)` helper functions using `user_settings` table
+- Update mount `useEffect` — add `fetchSetting("syllabus")` and `fetchSetting("nrs645")` to `Promise.all`; populate state if found
+- Update `updateSyllabus` — add `await upsertSetting("syllabus", template)` after `setSyllabusTemplate`
+- Update `loadDefaultSyllabus` — add `await upsertSetting("syllabus", ...)` after setting state
+- Update `loadNRS645` — add `await upsertSetting("nrs645", ...)` after setting state
+- Add error toasts on failed upserts
 
-**Results area:**
-- Card per result with colored badge (amber=changed, green=no_change, gray=unknown)
-- Summary text, bill number, external link (using existing `getLegUrl()` as fallback)
-- Footer note about PERPLEXITY_API_KEY requirement
+No changes to `Index.tsx` needed — existing CTA conditions already check data presence.
 
-**New imports:** `Checkbox`, `ScrollArea`, `Loader2`
+### Part B: Insert Row Below (SyllabusPage)
+
+**Step 3: Update `src/pages/SyllabusPage.tsx`**
+
+- Add `insertArrayItemAfter` helper alongside existing `addArrayItem`/`removeArrayItem`
+- In the Weekly Schedule editing branch, add a Plus button before the Trash2 button in each row's action cell
+- New row inherits same `week` number, blank `day`/`unitTopic`/`assignmentQuiz`
+- Widen action column `TableHead` from `w-10` to `w-20`
 
 ### Files Modified
-1. `supabase/functions/check-nrs-updates/index.ts` — new file
-2. `src/pages/NRSReference.tsx` — add third tab with all UI/logic
-
-### Not Changed
-- Existing Statute Reference and Cross-Reference tabs
-- `nrs-reference.ts` data file
-- `getLegUrl()` helper (reused as-is)
-- Any other pages or components
-- `supabase/config.toml`
+1. Database migration — new `user_settings` table with RLS
+2. `src/stores/course-store.ts` — fetch/upsert settings, update mount + three callbacks
+3. `src/pages/SyllabusPage.tsx` — add `insertArrayItemAfter` helper + insert button in schedule table
 
