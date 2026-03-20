@@ -153,16 +153,11 @@ async function fetchSetting(key: string): Promise<any | undefined> {
 
 async function upsertSetting(key: string, value: any) {
   const { data: { session } } = await supabase.auth.getSession();
-  console.log(`[course-store] upsertSetting("${key}") — session:`, session ? `yes (${session.user.id})` : "NO SESSION");
-  if (!session) {
-    console.log(`[course-store] upsertSetting("${key}") — SKIPPING, no session`);
-    return null;
-  }
+  if (!session) return null;
   const { error } = await (supabase as any).from("user_settings").upsert(
     { key, data: value, updated_at: new Date().toISOString() },
     { onConflict: "key" }
   );
-  console.log(`[course-store] upsertSetting("${key}") — result:`, error ? `ERROR: ${JSON.stringify(error)}` : "SUCCESS");
   return error;
 }
 
@@ -190,9 +185,6 @@ export function useCourseStore() {
         session ? fetchSetting("syllabus") : Promise.resolve(undefined),
         session ? fetchSetting("nrs645") : Promise.resolve(undefined),
       ]);
-      console.log("[course-store] loadData — session:", session ? `yes (${session.user.id})` : "NO SESSION");
-      console.log("[course-store] loadData — syllabus:", syllabus);
-      console.log("[course-store] loadData — nrs645:", nrs645);
       if (!cancelled) {
         setCustomModules(mods);
         setCustomQuestions(qs);
@@ -208,8 +200,10 @@ export function useCourseStore() {
       if (!cancelled) loadData(session);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!cancelled) loadData(session);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!cancelled && ['SIGNED_IN', 'SIGNED_OUT', 'TOKEN_REFRESHED'].includes(event)) {
+        loadData(session);
+      }
     });
 
     return () => {
@@ -326,10 +320,8 @@ export function useCourseStore() {
   }, []);
 
   const updateSyllabus = useCallback(async (template: SyllabusTemplate) => {
-    console.log("[course-store] updateSyllabus — BEFORE upsert, template keys:", Object.keys(template));
     setSyllabusTemplate(template);
     const err = await upsertSetting("syllabus", template);
-    console.log("[course-store] updateSyllabus — AFTER upsert, error:", err);
     if (err) toast({ title: "Syllabus save failed", variant: "destructive" });
   }, []);
 
