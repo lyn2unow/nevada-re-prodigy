@@ -1,45 +1,33 @@
 
 
-## Combined Plan: Syllabus/NRS Persistence + Insert Row Below
+## Fix: Guard `upsertSetting` Against Missing Auth Session
 
-### Part A: Database Persistence
+### Problem
+The `user_settings` table exists and has correct RLS policies. The 401 error occurs because `upsertSetting` fires while the user is unauthenticated (the authorization header contains the anon key, not a user JWT). This happens when `loadDefaultSyllabus` or `loadNRS645` triggers before auth resolves, or when the user isn't logged in at all.
 
-**Step 1: Create `user_settings` table (migration)**
+### Fix: Single change in `src/stores/course-store.ts`
 
-```sql
-create table public.user_settings (
-  key text primary key,
-  data jsonb not null,
-  updated_at timestamptz default now()
-);
-alter table public.user_settings enable row level security;
-create policy "Auth select" on public.user_settings for select to authenticated using (true);
-create policy "Auth insert" on public.user_settings for insert to authenticated with check (true);
-create policy "Auth update" on public.user_settings for update to authenticated using (true) with check (true);
+Add a session check at the top of `upsertSetting`. If no valid session exists, skip the write silently (the local state update still works, and the data will persist next time the user is authenticated and triggers a save).
+
+**Change `upsertSetting` (lines 154-161) to:**
+
+```ts
+async function upsertSetting(key: string, value: any) {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) return null; // skip write silently if not authenticated
+  const { error } = await (supabase as any).from("user_settings").upsert(
+    { key, data: value, updated_at: new Date().toISOString() },
+    { onConflict: "key" }
+  );
+  if (error) console.error(`upsertSetting(${key}):`, error);
+  return error;
+}
 ```
 
-**Step 2: Update `src/stores/course-store.ts`**
-
-- Add `fetchSetting(key)` and `upsertSetting(key, data)` helper functions using `user_settings` table
-- Update mount `useEffect` — add `fetchSetting("syllabus")` and `fetchSetting("nrs645")` to `Promise.all`; populate state if found
-- Update `updateSyllabus` — add `await upsertSetting("syllabus", template)` after `setSyllabusTemplate`
-- Update `loadDefaultSyllabus` — add `await upsertSetting("syllabus", ...)` after setting state
-- Update `loadNRS645` — add `await upsertSetting("nrs645", ...)` after setting state
-- Add error toasts on failed upserts
-
-No changes to `Index.tsx` needed — existing CTA conditions already check data presence.
-
-### Part B: Insert Row Below (SyllabusPage)
-
-**Step 3: Update `src/pages/SyllabusPage.tsx`**
-
-- Add `insertArrayItemAfter` helper alongside existing `addArrayItem`/`removeArrayItem`
-- In the Weekly Schedule editing branch, add a Plus button before the Trash2 button in each row's action cell
-- New row inherits same `week` number, blank `day`/`unitTopic`/`assignmentQuiz`
-- Widen action column `TableHead` from `w-10` to `w-20`
-
 ### Files Modified
-1. Database migration — new `user_settings` table with RLS
-2. `src/stores/course-store.ts` — fetch/upsert settings, update mount + three callbacks
-3. `src/pages/SyllabusPage.tsx` — add `insertArrayItemAfter` helper + insert button in schedule table
+1. `src/stores/course-store.ts` — add session guard to `upsertSetting`
+
+### Not Changed
+- No migration needed (table already exists and is confirmed)
+- No other files
 
