@@ -93,6 +93,13 @@ export default function SyllabusPage() {
     setDraft({ ...draft, [field]: arr });
   };
 
+  const insertArrayItemAfter = <T,>(field: keyof SyllabusTemplate, index: number, item: T) => {
+    if (!draft) return;
+    const arr = [...(draft[field] as T[])];
+    arr.splice(index + 1, 0, item);
+    setDraft({ ...draft, [field]: arr });
+  };
+
   const handleCopy = async () => {
     const text = formatSyllabusAsText(d);
     const ok = await copyToClipboard(text);
