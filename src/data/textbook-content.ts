@@ -2561,8 +2561,126 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       tags: ["continuing education", "renewal", "live classroom"],
       source: "Textbook",
     },
+    // ===== UNIT 11 EXAM QUESTIONS =====
+    {
+      id: "tb-eq-u11-01",
+      topic: "Real Estate Financing",
+      question: "In a Nevada deed of trust, the trustor is the:",
+      options: ["Lender", "Trustee", "Borrower/property owner", "Title company"],
+      correctIndex: 2,
+      explanation: "The trustor is the borrower/property owner who transfers a lien to the trustee on behalf of the beneficiary (lender).",
+      wrongExplanations: [
+        "The lender is the beneficiary, not the trustor.",
+        "The trustee holds the lien but is not the trustor.",
+        "A title company often serves as trustee but is not the trustor."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      examTrapNote: "Students frequently confuse trustor (borrower) with beneficiary (lender).",
+      cognitiveLevel: "knowledge",
+      pearsonVueArea: "National IV - Financing",
+      tags: ["deed of trust", "trustor", "beneficiary", "trustee"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u11-02",
+      topic: "Real Estate Financing",
+      question: "Nevada is classified as a:",
+      options: ["Title theory state", "Lien theory state", "Intermediate theory state", "Strict foreclosure state"],
+      correctIndex: 1,
+      explanation: "Under NRS 40.050, a mortgage (including deed of trust) is not a conveyance that enables possession without foreclosure, making Nevada a lien theory state.",
+      wrongExplanations: [
+        "In title theory states, the lender holds legal title—this is not Nevada's approach.",
+        "Intermediate theory is a hybrid; Nevada is purely lien theory under NRS 40.050.",
+        "Nevada allows both judicial and nonjudicial foreclosure—it is not a strict foreclosure state."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      cognitiveLevel: "knowledge",
+      pearsonVueArea: "National IV - Financing",
+      tags: ["lien theory", "NRS 40.050", "mortgage"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u11-03",
+      topic: "Real Estate Financing",
+      question: "In a nonjudicial foreclosure, the notice of sale cannot be recorded until at least how long after the notice of default?",
+      options: ["30 days", "60 days", "3 months", "6 months"],
+      correctIndex: 2,
+      explanation: "Under NRS 107.080, the notice of sale cannot be recorded until at least 3 months after the notice of default has been recorded.",
+      wrongExplanations: [
+        "30 days is the preforeclosure contact period, not the NOD-to-notice-of-sale waiting period.",
+        "60 days is not the correct waiting period under NRS 107.080.",
+        "6 months exceeds the required minimum; the minimum is 3 months."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      cognitiveLevel: "knowledge",
+      pearsonVueArea: "National IV - Financing",
+      tags: ["nonjudicial foreclosure", "notice of default", "notice of sale", "NRS 107.080"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u11-04",
+      topic: "Real Estate Financing",
+      question: "A borrower's right of reinstatement in a nonjudicial foreclosure allows the borrower to:",
+      options: ["Pay the full loan balance to stop foreclosure", "Pay only the past-due amounts plus penalties until 5 days before sale", "Redeem the property after the trustee's sale", "Request a new loan modification from the servicer"],
+      correctIndex: 1,
+      explanation: "The right of reinstatement allows the borrower to bring the loan current by paying only the amount in default plus penalties, interest, and charges—available until 5 days before the trustee's sale. It supersedes any acceleration clause.",
+      wrongExplanations: [
+        "Paying the full balance describes the equitable right of redemption, not reinstatement.",
+        "Redemption after sale (statutory) is only available in judicial foreclosure, not nonjudicial.",
+        "Loan modification is a preforeclosure option, not the right of reinstatement."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Reinstatement = pay arrears only (until 5 days before sale). Redemption = pay full balance (before sale).",
+      cognitiveLevel: "application",
+      pearsonVueArea: "National IV - Financing",
+      tags: ["reinstatement", "foreclosure", "acceleration clause"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u11-05",
+      topic: "Real Estate Financing",
+      question: "After a short sale or foreclosure, a lender must file a deficiency judgment lawsuit within:",
+      options: ["30 days", "6 months", "1 year", "6 years"],
+      correctIndex: 1,
+      explanation: "Nevada shortened the filing deadline for deficiency judgments from 6 years to 6 months. Once judgment is obtained, the collection period is generally 6 years.",
+      wrongExplanations: [
+        "30 days is too short; the statute allows 6 months.",
+        "1 year exceeds the current 6-month filing deadline.",
+        "6 years was the old filing deadline; it has been shortened to 6 months."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Filing deadline = 6 months. Collection after judgment = 6 years. Students often confuse these.",
+      cognitiveLevel: "knowledge",
+      pearsonVueArea: "National IV - Financing",
+      tags: ["deficiency", "short sale", "foreclosure", "judgment"],
+      source: "Textbook",
+    },
+    {
+      id: "tb-eq-u11-06",
+      topic: "Real Estate Financing",
+      question: "A statutory right of redemption in Nevada is available:",
+      options: ["In both judicial and nonjudicial foreclosures", "Only in nonjudicial foreclosures", "Only in judicial foreclosures", "Only in short sales"],
+      correctIndex: 2,
+      explanation: "Statutory redemption (NRS 21.190-21.250) allows redemption after the sale and is only available in judicial foreclosure. Equitable redemption (before the sale) is available in both types.",
+      wrongExplanations: [
+        "Statutory redemption is NOT available in nonjudicial foreclosure—only equitable redemption applies before the sale.",
+        "It is available in judicial foreclosure, not nonjudicial.",
+        "Short sales involve lienholder consent, not a statutory redemption right."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Statutory redemption = after sale, judicial ONLY. Equitable redemption = before sale, both types.",
+      cognitiveLevel: "application",
+      pearsonVueArea: "National IV - Financing",
+      tags: ["statutory redemption", "equitable redemption", "judicial foreclosure", "NRS 21.190"],
+      source: "Textbook",
+    },
   ];
-}
 
 export function getTextbookActivities(): Activity[] {
   return [
