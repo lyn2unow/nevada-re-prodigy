@@ -28,12 +28,26 @@ const ALL_TYPES = [
   { value: "other", label: "Other" },
 ];
 
+const COGNITIVE_LEVELS = [
+  { value: "all", label: "All Levels" },
+  { value: "knowledge", label: "Knowledge" },
+  { value: "application", label: "Application" },
+  { value: "analysis", label: "Analysis" },
+];
+
+const cognitiveBadgeStyles: Record<string, string> = {
+  knowledge: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+  application: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+  analysis: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300",
+};
+
 export default function ActivityGenerator() {
   const { data, deleteActivity } = useCourse();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
   const [weekFilter, setWeekFilter] = useState("all");
+  const [levelFilter, setLevelFilter] = useState("all");
 
   const weekOptions = useMemo(() => {
     const weeks = new Set<number>();
@@ -54,9 +68,11 @@ export default function ActivityGenerator() {
       const matchesType = typeFilter === "all" || a.type === typeFilter;
       const matchesWeek =
         weekFilter === "all" || (a.weekNumber !== null && String(a.weekNumber) === weekFilter);
-      return matchesSearch && matchesType && matchesWeek;
+      const matchesLevel =
+        levelFilter === "all" || a.cognitiveLevel === levelFilter;
+      return matchesSearch && matchesType && matchesWeek && matchesLevel;
     });
-  }, [data.activities, search, typeFilter, weekFilter]);
+  }, [data.activities, search, typeFilter, weekFilter, levelFilter]);
 
   const handleDelete = (id: string, title: string) => {
     deleteActivity(id);
@@ -98,6 +114,18 @@ export default function ActivityGenerator() {
               {ALL_TYPES.map((t) => (
                 <SelectItem key={t.value} value={t.value}>
                   {t.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={levelFilter} onValueChange={setLevelFilter}>
+            <SelectTrigger className="w-full sm:w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {COGNITIVE_LEVELS.map((cl) => (
+                <SelectItem key={cl.value} value={cl.value}>
+                  {cl.label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -149,6 +177,14 @@ export default function ActivityGenerator() {
                 <div className="flex items-start justify-between gap-3">
                   <CardTitle className="text-lg">{activity.title}</CardTitle>
                   <div className="flex items-center gap-1.5 shrink-0">
+                    {activity.cognitiveLevel && (
+                      <Badge
+                        variant="secondary"
+                        className={cognitiveBadgeStyles[activity.cognitiveLevel] || ""}
+                      >
+                        {activity.cognitiveLevel.charAt(0).toUpperCase() + activity.cognitiveLevel.slice(1)}
+                      </Badge>
+                    )}
                     <Badge variant="secondary">{typeLabels[activity.type] || activity.type}</Badge>
                   </div>
                 </div>
