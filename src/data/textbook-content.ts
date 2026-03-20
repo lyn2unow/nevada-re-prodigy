@@ -2993,5 +2993,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 1,
       tags: ["discipline", "Statement of Fact", "NRS 645.633", "Commission hearing", "advisory committee"],
     },
+    // ===== UNIT 11 ACTIVITIES =====
+    {
+      id: "tb-act-u11-1",
+      title: "Foreclosure Timeline Construction",
+      type: "case-study",
+      description: "Students receive a default scenario with specific dates and must construct a complete nonjudicial foreclosure timeline. Given: default date, NOD recording date, and borrower actions (loan modification application, reinstatement attempt). Students must calculate: earliest notice of sale date, latest publication deadline, trustee's sale window, and determine whether dual tracking rules are violated. Include a twist where the servicer misses the 9-month publication deadline.",
+      instructorNotes: "Emphasize the three key time periods: 3 months (NOD to notice of sale), 3 weeks (notice of sale to trustee's sale minimum), 90 days (notice of sale to trustee's sale maximum), and 9 months (NOD to publication deadline). When the 9-month deadline is missed, the entire process must restart. Connect the dual tracking prohibition to the loan modification application.",
+      debriefPrompts: [
+        "What happens when the servicer misses the 9-month publication deadline?",
+        "How does the dual tracking prohibition protect borrowers?",
+        "At what point does the right of reinstatement expire?",
+      ],
+      topic: "Foreclosure Process",
+      weekNumber: 4,
+      tags: ["nonjudicial foreclosure", "NOD", "notice of sale", "NRS 107.080", "dual tracking", "reinstatement"],
+    },
+    {
+      id: "tb-act-u11-2",
+      title: "Short Sale vs. Foreclosure Decision Matrix",
+      type: "case-study",
+      description: "Students receive 4 distressed property scenarios with different loan types, equity positions, and borrower circumstances. For each, students must determine: (1) whether anti-deficiency protection applies, (2) whether a short sale or foreclosure is more advantageous for the borrower, (3) the lender's deficiency rights and filing deadline, and (4) what happens to the property post-sale (REO implications). Include scenarios with both recourse and nonrecourse loans.",
+      instructorNotes: "Key distinctions: anti-deficiency applies primarily to owner-occupied residential since 2009; deficiency filing deadline is 6 months (not 6 years); REO sellers have full disclosure obligations despite 'as is' sales. Emphasize that in a short sale, only buyer and seller are contract parties—the lienholder's approval is a contingency.",
+      debriefPrompts: [
+        "Why might a borrower prefer a short sale over foreclosure even when anti-deficiency protection exists?",
+        "What disclosure obligations does an REO seller have?",
+        "How does the 6-month deficiency filing deadline change lender strategy?",
+      ],
+      topic: "Short Sales & Deficiencies",
+      weekNumber: 4,
+      tags: ["short sale", "deficiency", "REO", "anti-deficiency", "foreclosure"],
+    },
   ];
 }
