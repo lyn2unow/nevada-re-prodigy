@@ -3414,5 +3414,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 4,
       tags: ["security deposit", "30-day deadline", "normal wear", "NRS 118A.242", "trust accounts"],
     },
+    // ===== UNIT 13 ACTIVITIES =====
+    {
+      id: "tb-act-u13-1",
+      title: "Appraiser Credential Level Sorting Exercise",
+      type: "case-study",
+      description: "Students receive 8 property appraisal scenarios and must determine: (1) the minimum appraiser credential level required, (2) whether the property qualifies as 'complex' under NRS 645C.055, and (3) whether any exemption applies. Scenarios include: standard 3-bedroom home, 10-acre mixed-use estate with geothermal, government employee appraising for official duties, real estate agent doing a CMA, commercial warehouse, partial interest in a condo, property in an eminent domain proceeding, and a home with unique architectural design.",
+      instructorNotes: "Emphasize the complex property factors in NRS 645C.055: architectural style, special improvements, lot size, use, environmental factors, partial interest, need for non-standard techniques. Licensed Residential appraisers cannot handle complex property. CMAs and eminent domain assessments are exempt.",
+      debriefPrompts: [
+        "What makes property 'complex' vs. simply expensive?",
+        "Why can a real estate licensee do a CMA but not an appraisal?",
+        "How does the three-level licensing system protect consumers?",
+      ],
+      topic: "Appraiser Licensing & Complex Property",
+      weekNumber: 3,
+      tags: ["appraiser licensing", "complex property", "NRS 645C", "exemptions", "CMA"],
+    },
+    {
+      id: "tb-act-u13-2",
+      title: "BPO vs. Appraisal Comparison Workshop",
+      type: "case-study",
+      description: "Students receive 4 valuation request scenarios and must determine whether each requires a formal appraisal or can be satisfied with a BPO/CMA. For each, students draft the required disclaimer language and identify which NRS section governs. Scenarios include: bank requesting valuation for REO listing, buyer's lender requiring valuation for mortgage, homeowner wanting to know listing price, and asset management company requesting property analysis for portfolio decisions.",
+      instructorNotes: "The key distinction: BPOs are for disposition decisions (listing, selling, leasing), not for federally related lending transactions which require formal appraisals. Every BPO must include the NRS 645.2515 disclaimer. The 2009 law was a direct response to the REO crisis.",
+      debriefPrompts: [
+        "Why did the legislature wait until 2009 to legalize BPOs?",
+        "What harm could result from confusing a BPO with a formal appraisal?",
+        "How do the eight BPO requirements in NRS 645.2515 protect consumers?",
+      ],
+      topic: "Broker Price Opinions",
+      weekNumber: 3,
+      tags: ["BPO", "appraisal", "NRS 645.2515", "disclaimer", "REO"],
+    },
   ];
 }
