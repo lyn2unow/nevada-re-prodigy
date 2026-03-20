@@ -1,4 +1,4 @@
-// Textbook Content — Units 1-15: Real Estate Brokerage and Agency; Listing and Buyer Representation Agreements; Interests in Real Estate; Forms of Ownership; Legal Descriptions; Real Estate Taxes and Other Liens; Real Estate Contracts; Transfer of Title; Title Records; Real Estate License Law; Real Estate Financing; Leases; Real Estate Appraisal; Land Use Controls and Property Development; Fair Housing
+// Textbook Content — Units 1-16: Real Estate Brokerage and Agency; Listing and Buyer Representation Agreements; Interests in Real Estate; Forms of Ownership; Legal Descriptions; Real Estate Taxes and Other Liens; Real Estate Contracts; Transfer of Title; Title Records; Real Estate License Law; Real Estate Financing; Leases; Real Estate Appraisal; Land Use Controls and Property Development; Fair Housing; Closing the Real Estate Transaction
 // Source: Scheible, Nevada Real Estate textbook
 import type { Module, ExamQuestion, Activity } from "@/types/course";
 
