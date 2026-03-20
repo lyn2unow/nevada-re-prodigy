@@ -2746,5 +2746,36 @@ export function getTextbookActivities(): Activity[] {
       weekNumber: 6,
       tags: ["title insurance", "standard coverage", "extended coverage", "defects"],
     },
+    // ===== UNIT 10 ACTIVITIES =====
+    {
+      id: "tb-act-u10-1",
+      title: "License Level Requirements Comparison",
+      type: "case-study",
+      description: "Students receive 6 applicant profiles with different education, experience, and background scenarios. For each, students must determine: (1) which license level(s) the person qualifies for, (2) what additional requirements must be met, and (3) whether any disqualifying factors exist. Profiles include: a recent college graduate, a 10-year out-of-state salesperson, a person with a felony embezzlement conviction, a broker-salesperson seeking broker upgrade, a California broker wanting to work Nevada transactions, and a CPA with no real estate education.",
+      instructorNotes: "Emphasize that broker-salesperson requires broker-level education but NOT experience or financial responsibility. The embezzlement conviction is discretionary denial (the Division 'may, but is not necessarily required to' deny). The California broker needs a cooperative certificate, not a Nevada license, if working with a Nevada broker on non-resident transactions.",
+      debriefPrompts: [
+        "Why does Nevada allow discretionary rather than mandatory denial for certain criminal convictions?",
+        "What is the practical difference between a broker-salesperson and a broker?",
+        "Under what circumstances would you recommend a cooperative certificate vs. obtaining a Nevada license?",
+      ],
+      topic: "License Requirements",
+      weekNumber: 1,
+      tags: ["licensing", "salesperson", "broker", "broker-salesperson", "NRS 645.343", "cooperative certificate"],
+    },
+    {
+      id: "tb-act-u10-2",
+      title: "Disciplinary Process Simulation",
+      type: "role-play",
+      description: "Students role-play a disciplinary scenario from Statement of Fact through Commission hearing. Roles include: complainant (home buyer who discovered undisclosed foundation issues), licensee (listing agent), investigator, administrator, advisory committee member, and Commissioner. The scenario involves alleged failure to disclose a known material defect and failure to present a competing offer. Students work through each stage: filing, investigation, administrator review, advisory committee, and Commission hearing.",
+      instructorNotes: "Walk through the timeline: Statement of Fact → investigator assigned → written report to administrator → administrator options (dismiss, fine up to $2,000, negotiate, advisory committee, Commission hearing). Emphasize that the 3-year statute of limitations runs from DISCOVERY for misrepresentation. The Division cannot compel refunds or cancel contracts—only discipline the licensee.",
+      debriefPrompts: [
+        "At what stage could this matter be resolved without a Commission hearing?",
+        "Why can't the Division compel a refund or cancel the purchase contract?",
+        "How does the discovery rule for statute of limitations protect consumers?",
+      ],
+      topic: "Disciplinary Process",
+      weekNumber: 1,
+      tags: ["discipline", "Statement of Fact", "NRS 645.633", "Commission hearing", "advisory committee"],
+    },
   ];
 }
