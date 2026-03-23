@@ -299,6 +299,11 @@ export function useCourseStore() {
     if (err) toast({ title: "Save failed", variant: "destructive" });
   }, []);
 
+  const deletePracticeExam = useCallback(async (id: string) => {
+    setCustomPracticeExams((prev) => prev.filter((pe) => pe.id !== id));
+    await dbDelete("custom_practice_exams", id);
+  }, []);
+
   const updateWeekTitle = useCallback((_weekNumber: number, _title: string) => {
     // Week titles are derived from seed data; no-op for now
   }, []);
@@ -365,6 +370,7 @@ export function useCourseStore() {
     updateActivity,
     deleteActivity,
     addPracticeExam,
+    deletePracticeExam,
     updateWeekTitle,
     loadSeedContent,
     loadPearsonVueContent,

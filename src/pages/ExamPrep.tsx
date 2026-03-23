@@ -9,12 +9,17 @@ import { toast } from "@/hooks/use-toast";
 import { generateQtiZip } from "@/lib/export-utils";
 
 export default function ExamPrep() {
-  const { data, deleteExamQuestion } = useCourse();
+  const { data, deleteExamQuestion, deletePracticeExam } = useCourse();
   const navigate = useNavigate();
 
   const handleDelete = (id: string) => {
     deleteExamQuestion(id);
     toast({ title: "Question deleted" });
+  };
+
+  const handleDeleteExam = (id: string, title: string) => {
+    deletePracticeExam(id);
+    toast({ title: `"${title}" deleted` });
   };
 
   const handleQtiExport = async (pe: typeof data.practiceExams[0]) => {
@@ -98,6 +103,14 @@ export default function ExamPrep() {
                   <Button variant="outline" className="gap-2" onClick={() => navigate(`/exam-prep/take/${pe.id}`)}>
                     <Play className="h-4 w-4" />
                     Take Exam
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                    onClick={(e) => { e.stopPropagation(); handleDeleteExam(pe.id, pe.title); }}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
                   </Button>
                 </div>
               </CardContent>
