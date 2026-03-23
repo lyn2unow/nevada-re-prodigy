@@ -125,6 +125,39 @@ export type Database = {
         }
         Relationships: []
       }
+      saved_lectures: {
+        Row: {
+          content: string
+          created_at: string | null
+          duration_minutes: number | null
+          id: string
+          title: string
+          topics: string[]
+          user_id: string
+          week_label: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          duration_minutes?: number | null
+          id?: string
+          title: string
+          topics?: string[]
+          user_id: string
+          week_label?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          duration_minutes?: number | null
+          id?: string
+          title?: string
+          topics?: string[]
+          user_id?: string
+          week_label?: string | null
+        }
+        Relationships: []
+      }
       user_settings: {
         Row: {
           data: Json
