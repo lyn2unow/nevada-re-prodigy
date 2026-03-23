@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, CheckSquare, Square, Search, Zap } from "lucide-react";
+import { ArrowLeft, CheckSquare, Square, Search, Zap, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,12 +15,24 @@ import { generateWeightedExam, type AreaAllocation } from "@/lib/weighted-exam";
 
 type BuildMode = "manual" | "weighted";
 
+// Week definitions — mirrors getSeedWeeks() so no extra import needed
+const WEEK_OPTIONS = [
+  { number: 1, title: "Week 1: Law of Agency" },
+  { number: 2, title: "Week 2: Nevada License Law" },
+  { number: 3, title: "Week 3: Contracts" },
+  { number: 4, title: "Week 4: Property Ownership & Transfer" },
+  { number: 5, title: "Week 5: Fair Housing & Ethics" },
+  { number: 6, title: "Week 6: Real Estate Finance" },
+  { number: 7, title: "Week 7: Closing & Settlement" },
+];
+
 export default function PracticeExamBuilder() {
   const navigate = useNavigate();
   const { data, addPracticeExam } = useCourse();
   const [title, setTitle] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
+  const [weekFilter, setWeekFilter] = useState("all");
   const [topicFilter, setTopicFilter] = useState("all");
   const [difficultyFilter, setDifficultyFilter] = useState("all");
   const [sourceFilter, setSourceFilter] = useState("all");
@@ -31,11 +43,17 @@ export default function PracticeExamBuilder() {
   const [weightedPortion, setWeightedPortion] = useState<"both" | "national" | "state">("both");
   const [allocations, setAllocations] = useState<AreaAllocation[] | null>(null);
 
+  // Topic options scoped to the selected week — if a week is chosen, only show
+  // topics that exist within that week's questions so the list stays short.
   const topicOptions = useMemo(() => {
     const topics = new Set<string>();
-    data.examQuestions.forEach((q) => { if (q.topic) topics.add(q.topic); });
+    data.examQuestions.forEach((q) => {
+      if (!q.topic) return;
+      const weekMatch = weekFilter === "all" || q.weekNumber === Number(weekFilter);
+      if (weekMatch) topics.add(q.topic);
+    });
     return Array.from(topics).sort();
-  }, [data.examQuestions]);
+  }, [data.examQuestions, weekFilter]);
 
   const sourceOptions = useMemo(() => {
     const sources = new Set<string>();
@@ -50,12 +68,20 @@ export default function PracticeExamBuilder() {
         q.question.toLowerCase().includes(search.toLowerCase()) ||
         q.topic.toLowerCase().includes(search.toLowerCase()) ||
         q.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+      const matchesWeek = weekFilter === "all" || q.weekNumber === Number(weekFilter);
       const matchesTopic = topicFilter === "all" || q.topic === topicFilter;
       const matchesDifficulty = difficultyFilter === "all" || q.difficulty === difficultyFilter;
       const matchesSource = sourceFilter === "all" || q.source === sourceFilter;
-      return matchesSearch && matchesTopic && matchesDifficulty && matchesSource;
+      return matchesSearch && matchesWeek && matchesTopic && matchesDifficulty && matchesSource;
     });
-  }, [data.examQuestions, search, topicFilter, difficultyFilter, sourceFilter]);
+  }, [data.examQuestions, search, weekFilter, topicFilter, difficultyFilter, sourceFilter]);
+
+  // Reset topic filter when week changes so a stale topic selection doesn't
+  // produce an empty list when switching weeks.
+  const handleWeekChange = (value: string) => {
+    setWeekFilter(value);
+    setTopicFilter("all");
+  };
 
   const toggle = (id: string) => {
     setSelected((prev) => {
@@ -65,20 +91,27 @@ export default function PracticeExamBuilder() {
     });
   };
 
-  const selectFiltered = () => {
+  const addAllShown = () => {
     setSelected((prev) => {
       const next = new Set(prev);
       filtered.forEach((q) => next.add(q.id));
       return next;
     });
+    toast({ title: `Added ${filtered.length} questions to selection` });
   };
 
-  const deselectFiltered = () => {
+  const removeAllShown = () => {
     setSelected((prev) => {
       const next = new Set(prev);
       filtered.forEach((q) => next.delete(q.id));
       return next;
     });
+    toast({ title: `Removed ${filtered.length} questions from selection` });
+  };
+
+  const clearAll = () => {
+    setSelected(new Set());
+    toast({ title: "Selection cleared" });
   };
 
   const handleGenerateWeighted = () => {
@@ -114,8 +147,12 @@ export default function PracticeExamBuilder() {
     navigate("/exam-prep");
   };
 
+  // How many of the currently-shown filtered questions are already selected
+  const selectedInView = filtered.filter((q) => selected.has(q.id)).length;
+
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-12">
+    <div className="max-w-4xl mx-auto space-y-6 pb-32">
+      {/* Header */}
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="icon" onClick={() => navigate("/exam-prep")}>
           <ArrowLeft className="h-5 w-5" />
@@ -124,9 +161,12 @@ export default function PracticeExamBuilder() {
           <h1 className="text-3xl font-bold tracking-tight">Build Practice Exam</h1>
           <p className="text-muted-foreground">Select questions manually or auto-generate a weighted exam</p>
         </div>
-        <Button onClick={handleCreate}>Create Exam</Button>
+        <Button onClick={handleCreate} disabled={selected.size === 0 || !title.trim()}>
+          Create Exam
+        </Button>
       </div>
 
+      {/* Exam Details */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Exam Details</CardTitle>
@@ -210,7 +250,6 @@ export default function PracticeExamBuilder() {
               </div>
             </div>
 
-            {/* Allocation breakdown */}
             {allocations && (
               <div className="space-y-2 pt-2 border-t border-border">
                 <p className="text-sm font-medium">Area Breakdown</p>
@@ -234,27 +273,65 @@ export default function PracticeExamBuilder() {
         </Card>
       )}
 
-      {/* Manual Question Selection */}
+      {/* Question Selection */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap gap-2">
             <CardTitle className="text-lg">
               {mode === "weighted" ? "Selected" : "Select"} Questions ({selected.size} of {data.examQuestions.length})
             </CardTitle>
             {mode === "manual" && (
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={selectFiltered}>
-                  <CheckSquare className="h-3.5 w-3.5 mr-1" /> Select Filtered
+                <Button variant="outline" size="sm" onClick={addAllShown}>
+                  <CheckSquare className="h-3.5 w-3.5 mr-1" />
+                  Add all shown
+                  {filtered.length > 0 && (
+                    <span className="ml-1 text-muted-foreground">({filtered.length})</span>
+                  )}
                 </Button>
-                <Button variant="outline" size="sm" onClick={deselectFiltered}>
-                  <Square className="h-3.5 w-3.5 mr-1" /> Deselect Filtered
+                <Button variant="outline" size="sm" onClick={removeAllShown} disabled={selectedInView === 0}>
+                  <Square className="h-3.5 w-3.5 mr-1" />
+                  Remove all shown
+                  {selectedInView > 0 && (
+                    <span className="ml-1 text-muted-foreground">({selectedInView})</span>
+                  )}
                 </Button>
               </div>
             )}
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          {/* Filters */}
+
+          {/* Row 1 — Week filter (new) + Source filter */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Select value={weekFilter} onValueChange={handleWeekChange}>
+              <SelectTrigger className="w-full sm:w-64">
+                <BookOpen className="h-4 w-4 mr-2 text-muted-foreground shrink-0" />
+                <SelectValue placeholder="All Weeks" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Weeks</SelectItem>
+                {WEEK_OPTIONS.map((w) => (
+                  <SelectItem key={w.number} value={String(w.number)}>
+                    {w.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={sourceFilter} onValueChange={setSourceFilter}>
+              <SelectTrigger className="w-full sm:w-40">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Sources</SelectItem>
+                {sourceOptions.map((s) => (
+                  <SelectItem key={s} value={s}>{s}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Row 2 — Search + Topic (scoped) + Difficulty */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -266,11 +343,13 @@ export default function PracticeExamBuilder() {
               />
             </div>
             <Select value={topicFilter} onValueChange={setTopicFilter}>
-              <SelectTrigger className="w-full sm:w-44">
-                <SelectValue />
+              <SelectTrigger className="w-full sm:w-52">
+                <SelectValue placeholder="All Topics" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Topics</SelectItem>
+                <SelectItem value="all">
+                  {weekFilter === "all" ? "All Topics" : "All topics this week"}
+                </SelectItem>
                 {topicOptions.map((t) => (
                   <SelectItem key={t} value={t}>{t}</SelectItem>
                 ))}
@@ -287,23 +366,18 @@ export default function PracticeExamBuilder() {
                 <SelectItem value="advanced">Advanced</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={sourceFilter} onValueChange={setSourceFilter}>
-              <SelectTrigger className="w-full sm:w-40">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Sources</SelectItem>
-                {sourceOptions.map((s) => (
-                  <SelectItem key={s} value={s}>{s}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
           </div>
 
           <p className="text-xs text-muted-foreground">
             Showing {filtered.length} of {data.examQuestions.length} questions
+            {weekFilter !== "all" && (
+              <span className="ml-1 text-primary font-medium">
+                · {WEEK_OPTIONS.find(w => String(w.number) === weekFilter)?.title}
+              </span>
+            )}
           </p>
 
+          {/* Question list */}
           {data.examQuestions.length === 0 ? (
             <p className="text-muted-foreground text-center py-8">
               No questions available. Create exam questions first.
@@ -317,7 +391,11 @@ export default function PracticeExamBuilder() {
               {filtered.map((q) => (
                 <div
                   key={q.id}
-                  className="flex items-start gap-3 p-3 rounded-md border hover:bg-muted/50 cursor-pointer transition-colors"
+                  className={`flex items-start gap-3 p-3 rounded-md border cursor-pointer transition-colors ${
+                    selected.has(q.id)
+                      ? "bg-primary/5 border-primary/30"
+                      : "hover:bg-muted/50"
+                  }`}
                   onClick={() => toggle(q.id)}
                 >
                   <Checkbox
@@ -331,6 +409,11 @@ export default function PracticeExamBuilder() {
                       <Badge variant="outline" className="text-[10px]">{q.topic}</Badge>
                       <Badge variant="outline" className="text-[10px]">{q.difficulty}</Badge>
                       <Badge variant="secondary" className="text-[10px]">{q.source}</Badge>
+                      {q.weekNumber && (
+                        <Badge variant="outline" className="text-[10px] text-primary border-primary/30">
+                          Wk {q.weekNumber}
+                        </Badge>
+                      )}
                       {q.examTrap && <Badge variant="destructive" className="text-[10px]">Trap</Badge>}
                     </div>
                   </div>
@@ -340,6 +423,28 @@ export default function PracticeExamBuilder() {
           )}
         </CardContent>
       </Card>
+
+      {/* ── Sticky selection tray ── */}
+      {selected.size > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur-sm shadow-lg">
+          <div className="max-w-4xl mx-auto px-6 py-3 flex items-center gap-4">
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold">
+                {selected.size} question{selected.size !== 1 ? "s" : ""} selected
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
+                Selection persists as you change filters — keep adding!
+              </p>
+            </div>
+            <Button variant="ghost" size="sm" onClick={clearAll} className="text-muted-foreground shrink-0">
+              Clear all
+            </Button>
+            <Button onClick={handleCreate} disabled={!title.trim()} className="shrink-0">
+              Create Exam →
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
