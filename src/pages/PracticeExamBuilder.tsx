@@ -49,7 +49,7 @@ export default function PracticeExamBuilder() {
     const topics = new Set<string>();
     data.examQuestions.forEach((q) => {
       if (!q.topic) return;
-      const weekMatch = weekFilter === "all" || q.weekNumber === Number(weekFilter);
+      const weekMatch = weekFilter === "all" || String(q.weekNumber) === weekFilter;
       if (weekMatch) topics.add(q.topic);
     });
     return Array.from(topics).sort();
@@ -68,7 +68,7 @@ export default function PracticeExamBuilder() {
         q.question.toLowerCase().includes(search.toLowerCase()) ||
         q.topic.toLowerCase().includes(search.toLowerCase()) ||
         q.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-      const matchesWeek = weekFilter === "all" || q.weekNumber === Number(weekFilter);
+      const matchesWeek = weekFilter === "all" || String(q.weekNumber) === weekFilter;
       const matchesTopic = topicFilter === "all" || q.topic === topicFilter;
       const matchesDifficulty = difficultyFilter === "all" || q.difficulty === difficultyFilter;
       const matchesSource = sourceFilter === "all" || q.source === sourceFilter;
