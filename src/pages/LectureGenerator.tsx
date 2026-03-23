@@ -31,6 +31,26 @@ const TOPICS = [
 
 const DURATIONS = [15, 30, 45, 60, 75, 90, 105, 120];
 
+const WEEK_TOPICS: Record<number, string[]> = {
+  1: ["Nevada Licensing Requirements (NRS 645, NAC 645)", "Nevada Real Estate Commission: Duties & Powers", "Agency Law & Fiduciary Duties"],
+  2: ["Agency Law & Fiduciary Duties", "Nevada Brokerage Operations", "Property Disclosures (NRS 113, NRS 645)"],
+  3: ["Property Disclosures (NRS 113, NRS 645)", "Valuation & Market Analysis (CMA & Appraisal)"],
+  4: ["Leasing & Property Management", "Real Estate Financing & Lending"],
+  5: ["Contracts: Listing, Purchase & Lease Agreements"],
+  6: ["Contracts: Listing, Purchase & Lease Agreements", "Ethics & Professional Conduct", "Fair Housing (Federal & Nevada)", "Nevada Disciplinary Actions & Recovery Fund"],
+  7: ["Property Ownership & Transfer", "Land Use Controls & Regulations", "Closing Procedures & Settlement Statements"],
+};
+
+const WEEK_LABELS: Record<number, string> = {
+  1: "Week 1: Licensing, Commission & Agency Foundations",
+  2: "Week 2: Agency Deep Dive",
+  3: "Week 3: Nevada Disclosures + National Appraisal & Disclosures",
+  4: "Week 4: Property Management + Guest Speaker + Financing & Math",
+  5: "Week 5: Nevada Contracts Part I & II",
+  6: "Week 6: Record Keeping + National Practice + Special Topics",
+  7: "Week 7: Final Exam",
+};
+
 const STREAM_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-lecture`;
 
 export default function LectureGenerator() {
