@@ -1,19 +1,32 @@
 
 
-# Add QTI Export Button to Practice Exam Cards
+# Add "Load Week's Topics" Feature to Lecture Generator
 
-## Changes — `src/pages/ExamPrep.tsx`
+## Changes — `src/pages/LectureGenerator.tsx`
 
-1. **Add imports**: `FileDown` from lucide-react, `generateQtiZip` from `@/lib/export-utils`
-2. **Add handler** `handleQtiExport` that filters questions by practice exam's `questionIds`, calls `generateQtiZip`, and shows a toast
-3. **Update practice exam card** (line 82–85): Replace the single "Take Exam" button with a flex row containing "Export QTI" (outline) and "Take Exam" (outline) buttons
+### 1. Add imports
+Add `BookOpen` to the lucide-react import (line 11).
 
-### Technical Details
+### 2. Add constants (after line 31, after `DURATIONS`)
+Add `WEEK_TOPICS` (mapping week numbers 1–7 to arrays of topic strings from the existing `TOPICS` list) and `WEEK_LABELS` (mapping week numbers to display titles).
 
-| Location | Change |
-|----------|--------|
-| Line 2 | Add `FileDown` to lucide imports |
-| After line 8 | Import `generateQtiZip` from `@/lib/export-utils` |
-| After line 16 | Add `handleQtiExport` async handler |
-| Lines 82–85 | Replace single button with `<div className="flex gap-2">` containing both buttons |
+### 3. Add state (after line 39)
+Add `selectedWeek` state initialized to `"none"`.
+
+### 4. Add handler
+Add `loadWeekTopics(week)` function that sets `selectedWeek`, and if not `"none"`, sets `selectedTopics` to the matching `WEEK_TOPICS` array.
+
+### 5. Update UI — Configuration CardContent
+Insert a new block **above** the existing Topics label/ScrollArea:
+- A `Label` with `BookOpen` icon: "Load Week's Topics"
+- A `Select` dropdown with placeholder "Select a week..." and 7 week options from `WEEK_LABELS`
+- Helper text: "Pre-selects topics for that class session — adjust as needed."
+- A `Separator` (thin divider) below
+
+### 6. Add Separator import
+Import `Separator` from `@/components/ui/separator`.
+
+| File | Change |
+|------|--------|
+| `src/pages/LectureGenerator.tsx` | Add imports, constants, state, handler, and week-select UI block |
 
