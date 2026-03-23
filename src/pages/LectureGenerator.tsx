@@ -8,7 +8,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Presentation, Copy, Loader2, Sparkles } from "lucide-react";
+import { Presentation, Copy, Loader2, Sparkles, BookOpen } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 const TOPICS = [
   "Property Ownership & Transfer",
