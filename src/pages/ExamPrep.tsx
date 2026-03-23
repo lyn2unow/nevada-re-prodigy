@@ -90,10 +90,16 @@ export default function ExamPrep() {
                     {pe.questionIds.length} questions · {Math.ceil(pe.questionIds.length * 1.5)} min
                   </p>
                 </div>
-                <Button variant="outline" className="gap-2" onClick={() => navigate(`/exam-prep/take/${pe.id}`)}>
-                  <Play className="h-4 w-4" />
-                  Take Exam
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="outline" className="gap-2" onClick={() => handleQtiExport(pe)}>
+                    <FileDown className="h-4 w-4" />
+                    Export QTI
+                  </Button>
+                  <Button variant="outline" className="gap-2" onClick={() => navigate(`/exam-prep/take/${pe.id}`)}>
+                    <Play className="h-4 w-4" />
+                    Take Exam
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
