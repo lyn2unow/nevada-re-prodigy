@@ -26,6 +26,28 @@ const WEEK_OPTIONS = [
   { number: 7, title: "Week 7: Closing & Settlement" },
 ];
 
+const TOPIC_WEEK_MAP: Record<string, number> = {
+  "Agency": 1,
+  "License Law": 2,
+  "Commission Powers": 2,
+  "Licensing": 2,
+  "Contracts": 3,
+  "Property Ownership": 4,
+  "Land Description": 4,
+  "Encumbrances": 4,
+  "Fair Housing": 5,
+  "Ethics": 5,
+  "Nevada Special Topics": 5,
+  "Financing": 6,
+  "Real Estate Finance": 6,
+  "Foreclosure": 6,
+  "Leases": 6,
+  "Closing": 7,
+  "Appraisal": 7,
+  "Land Use Controls": 7,
+  "Environmental Issues": 7,
+};
+
 export default function PracticeExamBuilder() {
   const navigate = useNavigate();
   const { data, addPracticeExam } = useCourse();
