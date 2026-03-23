@@ -90,7 +90,7 @@ export default function PracticeExamBuilder() {
         q.question.toLowerCase().includes(search.toLowerCase()) ||
         q.topic.toLowerCase().includes(search.toLowerCase()) ||
         q.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-      const matchesWeek = weekFilter === "all" || String(q.weekNumber) === weekFilter;
+      const matchesWeek = weekFilter === "all" || TOPIC_WEEK_MAP[q.topic] === Number(weekFilter);
       const matchesTopic = topicFilter === "all" || q.topic === topicFilter;
       const matchesDifficulty = difficultyFilter === "all" || q.difficulty === difficultyFilter;
       const matchesSource = sourceFilter === "all" || q.source === sourceFilter;
