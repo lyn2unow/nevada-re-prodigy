@@ -24,6 +24,47 @@ function detectSlideType(heading: string): Slide["type"] {
   return "content";
 }
 
+function splitLongSlides(slides: Slide[]): Slide[] {
+  const result: Slide[] = [];
+  for (const slide of slides) {
+    const wordCount = slide.content.split(/\s+/).length;
+    if (wordCount <= 600) {
+      result.push(slide);
+      continue;
+    }
+    // Split at paragraph breaks
+    const paragraphs = slide.content.split(/\n\n/);
+    let chunk: string[] = [];
+    let chunkWords = 0;
+    let partIndex = 0;
+
+    for (const para of paragraphs) {
+      const paraWords = para.split(/\s+/).length;
+      if (chunkWords + paraWords > 600 && chunk.length > 0) {
+        result.push({
+          ...slide,
+          title: partIndex === 0 ? slide.title : `${slide.title} (continued)`,
+          content: chunk.join("\n\n").trim(),
+        });
+        chunk = [para];
+        chunkWords = paraWords;
+        partIndex++;
+      } else {
+        chunk.push(para);
+        chunkWords += paraWords;
+      }
+    }
+    if (chunk.length > 0) {
+      result.push({
+        ...slide,
+        title: partIndex === 0 ? slide.title : `${slide.title} (continued)`,
+        content: chunk.join("\n\n").trim(),
+      });
+    }
+  }
+  return result;
+}
+
 function parseLectureToSlides(lecture: LectureInput): Slide[] {
   const lines = lecture.content.split("\n");
   const slides: Slide[] = [];
@@ -53,7 +94,7 @@ function parseLectureToSlides(lecture: LectureInput): Slide[] {
   }
   flush();
 
-  return slides;
+  return splitLongSlides(slides);
 }
 
 function extractNrsRefs(content: string): string[] {
@@ -64,27 +105,45 @@ function extractNrsRefs(content: string): string[] {
 
 function mdToHtml(text: string): string {
   let html = text
-    // Bold
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    // Italic
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    // Subheadings (###)
     .replace(/^###\s+(.+)$/gm, '<div style="font-family:Georgia,serif;font-size:20px;font-weight:bold;color:#1B2A4A;margin:14px 0 6px;">$1</div>');
 
   // Exam trap highlights
   html = html.replace(/⚠️\s*Exam Trap[:\s]*(.*)/gi,
-    '<div style="color:#C0392B;font-weight:bold;margin:6px 0;">⚠️ Exam Trap: $1</div>');
+    '<div style="background:#FFF5F5;border-left:4px solid #C0392B;padding:10px 14px;margin:8px 0;border-radius:4px;color:#C0392B;font-weight:bold;-webkit-print-color-adjust:exact;print-color-adjust:exact;">⚠️ Exam Trap: $1</div>');
 
   // Real-world example boxes
   html = html.replace(/🏠\s*Real[- ]World Example[:\s]*([\s\S]*?)(?=\n\n|\n(?:[-*•]|#{2,3}|⚠️|🏠)|$)/gi,
-    '<div style="background:#FFFDE7;border-left:4px solid #B8860B;padding:10px 14px;margin:8px 0;border-radius:4px;">🏠 <strong>Real-World Example:</strong> $1</div>');
+    '<div style="background:#FFFDE7;border-left:4px solid #B8860B;padding:10px 14px;margin:8px 0;border-radius:4px;-webkit-print-color-adjust:exact;print-color-adjust:exact;">🏠 <strong>Real-World Example:</strong> $1</div>');
 
-  // Bullet points
   const lines = html.split("\n");
   const result: string[] = [];
   let inList = false;
 
   for (const line of lines) {
+    // Blockquote exam trap boxes
+    const blockquoteMatch = line.match(/^>\s*(.*)/);
+    if (blockquoteMatch) {
+      if (inList) { result.push("</ul>"); inList = false; }
+      result.push(`<div style="background:#FFF5F5;border-left:4px solid #C0392B;padding:10px 14px;margin:8px 0;border-radius:4px;color:#C0392B;font-weight:bold;-webkit-print-color-adjust:exact;print-color-adjust:exact;">${blockquoteMatch[1]}</div>`);
+      continue;
+    }
+
+    // Numbered section headers
+    const numberedMatch = line.match(/^(\d+)\.\s+(.*)/);
+    if (numberedMatch && !inList) {
+      result.push(`<div style="font-family:Georgia,serif;font-size:18px;font-weight:bold;color:#1B6B6B;margin:16px 0 6px;">${numberedMatch[1]}. ${numberedMatch[2]}</div>`);
+      continue;
+    }
+
+    // Real-World / Nevada Example lines
+    if (/Real[- ]World|Nevada Example/i.test(line) && !line.startsWith("<div")) {
+      if (inList) { result.push("</ul>"); inList = false; }
+      result.push(`<div style="background:#FFFDE7;border-left:4px solid #B8860B;padding:10px 14px;margin:8px 0;border-radius:4px;-webkit-print-color-adjust:exact;print-color-adjust:exact;">${line}</div>`);
+      continue;
+    }
+
     const bulletMatch = line.match(/^\s*[-*•]\s+(.*)/);
     if (bulletMatch) {
       if (!inList) { result.push("<ul style='margin:6px 0 6px 20px;'>"); inList = true; }
@@ -109,9 +168,8 @@ function buildSlidesHtml(lecture: LectureInput, slides: Slide[]): string {
   const slideWidth = 1122;
   const slideHeight = 794;
 
-  // Title slide
   const titleSlideHtml = `
-    <div class="slide" style="background:#1B6B6B;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px;">
+    <div class="slide title-slide" style="background:#1B6B6B;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
       <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;opacity:0.8;margin-bottom:40px;">RE 103 · Principles of Real Estate</div>
       <div style="font-family:Georgia,serif;font-size:42px;font-weight:bold;line-height:1.2;max-width:900px;">${lecture.title}</div>
       ${lecture.week_label ? `<div style="font-size:18px;margin-top:16px;opacity:0.85;">${lecture.week_label}</div>` : ""}
@@ -128,7 +186,7 @@ function buildSlidesHtml(lecture: LectureInput, slides: Slide[]): string {
       const items = slide.content.split(/\n(?=[-*•]|\d+\.)/).filter(s => s.trim());
       const cards = items.map((item, j) => {
         const color = ACCENT_COLORS[j % ACCENT_COLORS.length];
-        return `<div style="background:#fff;border-top:4px solid ${color};border-radius:6px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+        return `<div style="background:#fff;border-top:4px solid ${color};border-radius:6px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,0.08);-webkit-print-color-adjust:exact;print-color-adjust:exact;">
           <div style="font-size:13px;color:#1B2A4A;">${mdToHtml(item.replace(/^\s*[-*•]\s*/, "").trim())}</div>
         </div>`;
       }).join("");
@@ -137,7 +195,7 @@ function buildSlidesHtml(lecture: LectureInput, slides: Slide[]): string {
       const items = slide.content.split(/\n(?=[-*•]|\d+\.)/).filter(s => s.trim());
       const cards = items.map((item, j) => {
         const color = ACCENT_COLORS[j % ACCENT_COLORS.length];
-        return `<div style="background:#f8f9fa;border-left:4px solid ${color};border-radius:4px;padding:12px 14px;">
+        return `<div style="background:#f8f9fa;border-left:4px solid ${color};border-radius:4px;padding:12px 14px;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
           <div style="font-size:14px;color:#1B2A4A;">${mdToHtml(item.replace(/^\s*[-*•]\s*/, "").replace(/^\d+\.\s*/, "").trim())}</div>
         </div>`;
       }).join("");
@@ -149,25 +207,25 @@ function buildSlidesHtml(lecture: LectureInput, slides: Slide[]): string {
         const colonIdx = cleaned.indexOf(":");
         const termName = colonIdx > 0 ? cleaned.slice(0, colonIdx).replace(/\*\*/g, "") : cleaned;
         const termDef = colonIdx > 0 ? cleaned.slice(colonIdx + 1).trim() : "";
-        return `<div style="background:#f8f9fa;border-radius:4px;padding:10px 14px;margin:4px 0;">
+        return `<div style="background:#f8f9fa;border-radius:4px;padding:10px 14px;margin:4px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
           <span style="font-weight:bold;color:#1B6B6B;">${termName}</span>${termDef ? `: <span style="color:#1B2A4A;">${termDef}</span>` : ""}
         </div>`;
       }).join("");
       bodyHtml = `<div style="display:flex;flex-direction:column;gap:6px;">${cards}</div>`;
     } else {
-      bodyHtml = `<div style="border-left:4px solid #1B6B6B;padding-left:18px;">${mdToHtml(slide.content)}</div>`;
+      bodyHtml = `<div style="border-left:4px solid #1B6B6B;padding-left:18px;-webkit-print-color-adjust:exact;print-color-adjust:exact;">${mdToHtml(slide.content)}</div>`;
     }
 
     return `
-    <div class="slide" style="display:flex;flex-direction:column;">
-      <div style="background:#1B6B6B;padding:18px 30px;display:flex;align-items:baseline;gap:12px;">
+    <div class="slide" style="display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
+      <div class="slide-header" style="background:${accent};padding:18px 30px;display:flex;align-items:baseline;gap:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
         <div style="font-family:Georgia,serif;font-size:26px;font-weight:bold;color:#fff;">${slide.title}</div>
         <div style="font-size:14px;color:rgba(255,255,255,0.65);font-style:italic;">${slide.subtitle}</div>
       </div>
       <div style="flex:1;overflow:hidden;padding:24px 30px;font-size:14px;color:#1B2A4A;line-height:1.55;">
         ${bodyHtml}
       </div>
-      <div style="background:#f0f0f0;padding:8px 30px;display:flex;justify-content:space-between;font-size:11px;color:#666;">
+      <div style="background:#f0f0f0;padding:8px 30px;display:flex;justify-content:space-between;font-size:11px;color:#666;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
         <span>${footerLeft}${footerRight ? " | " + footerRight : ""}</span>
         <span>${slideNum}</span>
       </div>
@@ -180,14 +238,14 @@ function buildSlidesHtml(lecture: LectureInput, slides: Slide[]): string {
 <meta charset="utf-8">
 <title>${lecture.title} — RE 103 Slides</title>
 <style>
-  @media print {
-    @page { size: landscape; margin: 0; }
-    body { margin: 0; }
-    .slide { page-break-after: always; }
-    .slide:last-child { page-break-after: auto; }
-    .no-print { display: none !important; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: system-ui, -apple-system, sans-serif; background: #e0e0e0; }
   .slide {
     width: ${slideWidth}px;
@@ -197,11 +255,18 @@ function buildSlidesHtml(lecture: LectureInput, slides: Slide[]): string {
     box-shadow: 0 2px 12px rgba(0,0,0,0.15);
     overflow: hidden;
   }
-  @media print {
-    body { background: #fff; }
-    .slide { margin: 0; box-shadow: none; }
+  .title-slide {
+    background: #1B6B6B !important;
+    color: #fff !important;
   }
   strong { font-weight: 700; }
+  @media print {
+    @page { size: landscape; margin: 0; }
+    body { margin: 0; background: #fff; }
+    .slide { margin: 0; box-shadow: none; page-break-after: always; }
+    .slide:last-child { page-break-after: auto; }
+    .no-print { display: none !important; }
+  }
 </style>
 </head>
 <body>
