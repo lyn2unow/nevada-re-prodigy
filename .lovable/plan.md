@@ -1,32 +1,21 @@
 
 
-# Add "Load Week's Topics" Feature to Lecture Generator
+# Add Delete Button to Practice Exam Cards
 
-## Changes — `src/pages/LectureGenerator.tsx`
+## Summary
+Add a delete button to each practice exam card and wire up the missing `deletePracticeExam` function through the store and context.
 
-### 1. Add imports
-Add `BookOpen` to the lucide-react import (line 11).
+## Changes
 
-### 2. Add constants (after line 31, after `DURATIONS`)
-Add `WEEK_TOPICS` (mapping week numbers 1–7 to arrays of topic strings from the existing `TOPICS` list) and `WEEK_LABELS` (mapping week numbers to display titles).
+### 1. `src/stores/course-store.ts`
+- Add `deletePracticeExam` callback that removes from local state and calls `dbDelete("custom_practice_exams", id)`
+- Include it in the returned object
 
-### 3. Add state (after line 39)
-Add `selectedWeek` state initialized to `"none"`.
+### 2. `src/pages/ExamPrep.tsx`
+- Destructure `deletePracticeExam` from `useCourse()`
+- Add `handleDeleteExam(id, title)` handler that calls `deletePracticeExam(id)` and shows a toast
+- Add a ghost `Trash2` icon button after the "Take Exam" button in each practice exam card (`Trash2` is already imported)
 
-### 4. Add handler
-Add `loadWeekTopics(week)` function that sets `selectedWeek`, and if not `"none"`, sets `selectedTopics` to the matching `WEEK_TOPICS` array.
-
-### 5. Update UI — Configuration CardContent
-Insert a new block **above** the existing Topics label/ScrollArea:
-- A `Label` with `BookOpen` icon: "Load Week's Topics"
-- A `Select` dropdown with placeholder "Select a week..." and 7 week options from `WEEK_LABELS`
-- Helper text: "Pre-selects topics for that class session — adjust as needed."
-- A `Separator` (thin divider) below
-
-### 6. Add Separator import
-Import `Separator` from `@/components/ui/separator`.
-
-| File | Change |
-|------|--------|
-| `src/pages/LectureGenerator.tsx` | Add imports, constants, state, handler, and week-select UI block |
+### Technical Detail
+No new DB migration needed — the `custom_practice_exams` table already has an authenticated DELETE RLS policy. The store's existing `dbDelete` helper handles the Supabase call.
 
