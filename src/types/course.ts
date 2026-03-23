@@ -85,6 +85,7 @@ export interface ExamQuestion {
   cognitiveLevel?: CognitiveLevel;
   pearsonVueArea?: PearsonVueArea;
   tags: string[];
+  weekNumber?: number;
   source: SourceAuthority;
 }
 
