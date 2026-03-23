@@ -58,6 +58,14 @@ export default function LectureGenerator() {
   const [customTopic, setCustomTopic] = useState("");
   const [customTopicEnabled, setCustomTopicEnabled] = useState(false);
   const [duration, setDuration] = useState("60");
+  const [selectedWeek, setSelectedWeek] = useState<string>("none");
+
+  const loadWeekTopics = (week: string) => {
+    setSelectedWeek(week);
+    if (week === "none") return;
+    const topics = WEEK_TOPICS[Number(week)] || [];
+    setSelectedTopics(topics);
+  };
   const [output, setOutput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
