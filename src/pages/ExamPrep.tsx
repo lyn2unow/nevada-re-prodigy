@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { AuthorityBadge } from "@/components/AuthorityBadge";
 import { useCourse } from "@/contexts/CourseContext";
 import { toast } from "@/hooks/use-toast";
+import { generateQtiZip } from "@/lib/export-utils";
 
 export default function ExamPrep() {
   const { data, deleteExamQuestion } = useCourse();
