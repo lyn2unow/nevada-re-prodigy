@@ -1,21 +1,34 @@
 
 
-# Add Delete Button to Practice Exam Cards
+# Create `saved_lectures` Table
 
-## Summary
-Add a delete button to each practice exam card and wire up the missing `deletePracticeExam` function through the store and context.
+## Migration SQL
 
-## Changes
+Create table `public.saved_lectures` with RLS scoped to the owning user:
 
-### 1. `src/stores/course-store.ts`
-- Add `deletePracticeExam` callback that removes from local state and calls `dbDelete("custom_practice_exams", id)`
-- Include it in the returned object
+```sql
+create table public.saved_lectures (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade not null,
+  title text not null,
+  content text not null,
+  topics text[] not null default '{}',
+  week_label text,
+  duration_minutes integer,
+  created_at timestamptz default now()
+);
 
-### 2. `src/pages/ExamPrep.tsx`
-- Destructure `deletePracticeExam` from `useCourse()`
-- Add `handleDeleteExam(id, title)` handler that calls `deletePracticeExam(id)` and shows a toast
-- Add a ghost `Trash2` icon button after the "Take Exam" button in each practice exam card (`Trash2` is already imported)
+alter table public.saved_lectures enable row level security;
 
-### Technical Detail
-No new DB migration needed — the `custom_practice_exams` table already has an authenticated DELETE RLS policy. The store's existing `dbDelete` helper handles the Supabase call.
+create policy "Users can manage their own saved lectures"
+  on public.saved_lectures
+  for all
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+```
+
+### Notes
+- `user_id` is marked `not null` to prevent RLS bypass via null values
+- Single `FOR ALL` policy covers SELECT, INSERT, UPDATE, DELETE — all scoped to `auth.uid() = user_id`
+- No code changes needed in this step — subsequent prompts will wire up the store and UI
 
