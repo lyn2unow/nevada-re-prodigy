@@ -506,11 +506,11 @@ export default function LectureGenerator() {
                 </CardHeader>
                 {expandedLecture === lecture.id && (
                   <CardContent className="pt-0">
-                    <ScrollArea className="max-h-[400px] w-full rounded-md border border-border bg-muted/30 p-4">
+                    <div className="h-[500px] w-full overflow-y-auto rounded-md border border-border bg-muted/30 p-4">
                       <div className="prose prose-sm max-w-none dark:prose-invert whitespace-pre-wrap font-['Source_Sans_3']">
                         {lecture.content}
                       </div>
-                    </ScrollArea>
+                    </div>
                   </CardContent>
                 )}
               </Card>
