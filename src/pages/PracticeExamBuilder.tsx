@@ -71,7 +71,7 @@ export default function PracticeExamBuilder() {
     const topics = new Set<string>();
     data.examQuestions.forEach((q) => {
       if (!q.topic) return;
-      const weekMatch = weekFilter === "all" || String(q.weekNumber) === weekFilter;
+      const weekMatch = weekFilter === "all" || TOPIC_WEEK_MAP[q.topic] === Number(weekFilter);
       if (weekMatch) topics.add(q.topic);
     });
     return Array.from(topics).sort();
