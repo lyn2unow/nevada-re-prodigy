@@ -9,7 +9,7 @@ import { toast } from "@/hooks/use-toast";
 import { generateQtiZip } from "@/lib/export-utils";
 
 export default function ExamPrep() {
-  const { data, deleteExamQuestion } = useCourse();
+  const { data, deleteExamQuestion, deletePracticeExam } = useCourse();
   const navigate = useNavigate();
 
   const handleDelete = (id: string) => {
