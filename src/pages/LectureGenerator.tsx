@@ -206,6 +206,29 @@ export default function LectureGenerator() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
+              <Label className="flex items-center gap-1.5">
+                <BookOpen className="h-4 w-4 text-accent" />
+                Load Week's Topics
+              </Label>
+              <Select value={selectedWeek} onValueChange={loadWeekTopics}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a week..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">Select a week...</SelectItem>
+                  {Object.entries(WEEK_LABELS).map(([num, label]) => (
+                    <SelectItem key={num} value={num}>
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">
+                Pre-selects topics for that class session — adjust as needed.
+              </p>
+            </div>
+            <Separator />
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Topics</Label>
