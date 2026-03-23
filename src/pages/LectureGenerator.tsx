@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -8,8 +8,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Presentation, Copy, Loader2, Sparkles, BookOpen } from "lucide-react";
+import { Presentation, Copy, Loader2, Sparkles, BookOpen, Save, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 
 const TOPICS = [
   "Property Ownership & Transfer",
@@ -53,12 +55,31 @@ const WEEK_LABELS: Record<number, string> = {
 
 const STREAM_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-lecture`;
 
+type SavedLecture = {
+  id: string;
+  title: string;
+  content: string;
+  topics: string[];
+  week_label: string | null;
+  duration_minutes: number | null;
+  created_at: string | null;
+};
+
 export default function LectureGenerator() {
+  const { user } = useAuth();
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [customTopic, setCustomTopic] = useState("");
   const [customTopicEnabled, setCustomTopicEnabled] = useState(false);
   const [duration, setDuration] = useState("60");
   const [selectedWeek, setSelectedWeek] = useState<string>("none");
+  const [output, setOutput] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [lectureTitle, setLectureTitle] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [savedLectures, setSavedLectures] = useState<SavedLecture[]>([]);
+  const [expandedLecture, setExpandedLecture] = useState<string | null>(null);
+  const [loadingSaved, setLoadingSaved] = useState(false);
+  const { toast } = useToast();
 
   const loadWeekTopics = (week: string) => {
     setSelectedWeek(week);
@@ -66,9 +87,6 @@ export default function LectureGenerator() {
     const topics = WEEK_TOPICS[Number(week)] || [];
     setSelectedTopics(topics);
   };
-  const [output, setOutput] = useState("");
-  const [isGenerating, setIsGenerating] = useState(false);
-  const { toast } = useToast();
 
   const allTopics = [
     ...selectedTopics,
@@ -82,6 +100,49 @@ export default function LectureGenerator() {
     setSelectedTopics((prev) =>
       prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]
     );
+  };
+
+  // Load saved lectures
+  useEffect(() => {
+    if (!user) return;
+    setLoadingSaved(true);
+    supabase
+      .from("saved_lectures")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        setSavedLectures(data || []);
+        setLoadingSaved(false);
+      });
+  }, [user]);
+
+  const handleSave = async () => {
+    if (!user) { toast({ title: "Sign in to save lectures", variant: "destructive" }); return; }
+    if (!output) { toast({ title: "Generate a lecture first", variant: "destructive" }); return; }
+    if (!lectureTitle.trim()) { toast({ title: "Enter a title before saving", variant: "destructive" }); return; }
+    setIsSaving(true);
+    const { data, error } = await supabase.from("saved_lectures").insert({
+      user_id: user.id,
+      title: lectureTitle.trim(),
+      content: output,
+      topics: allTopics,
+      week_label: selectedWeek !== "none" ? WEEK_LABELS[Number(selectedWeek)] : null,
+      duration_minutes: durationNum,
+    }).select().single();
+    if (error) {
+      toast({ title: "Failed to save", description: error.message, variant: "destructive" });
+    } else if (data) {
+      setSavedLectures((prev) => [data, ...prev]);
+      toast({ title: `"${lectureTitle.trim()}" saved!` });
+      setLectureTitle("");
+    }
+    setIsSaving(false);
+  };
+
+  const handleDeleteLecture = async (id: string, title: string) => {
+    await supabase.from("saved_lectures").delete().eq("id", id);
+    setSavedLectures((prev) => prev.filter((l) => l.id !== id));
+    toast({ title: `"${title}" deleted` });
   };
 
   const handleGenerate = useCallback(async () => {
@@ -147,7 +208,6 @@ export default function LectureGenerator() {
         }
       }
 
-      // Final flush
       if (buffer.trim()) {
         for (let raw of buffer.split("\n")) {
           if (!raw) continue;
@@ -330,24 +390,41 @@ export default function LectureGenerator() {
 
         {/* Output */}
         <Card className="lg:col-span-2">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div>
-              <CardTitle className="text-lg">Generated Lecture Notes</CardTitle>
-              <CardDescription>
-                {isGenerating
-                  ? "Streaming..."
-                  : output
-                    ? allTopics.length > 1
-                      ? `Covering: ${allTopics.join(", ")}`
-                      : "Ready — copy and use"
-                    : "Notes will appear here"}
-              </CardDescription>
+          <CardHeader>
+            <div className="flex flex-row items-start justify-between gap-4">
+              <div>
+                <CardTitle className="text-lg">Generated Lecture Notes</CardTitle>
+                <CardDescription>
+                  {isGenerating
+                    ? "Streaming..."
+                    : output
+                      ? allTopics.length > 1
+                        ? `Covering: ${allTopics.join(", ")}`
+                        : "Ready — copy and use"
+                      : "Notes will appear here"}
+                </CardDescription>
+              </div>
+              {output && !isGenerating && (
+                <Button variant="outline" size="sm" onClick={handleCopy}>
+                  <Copy className="h-4 w-4" />
+                  Copy
+                </Button>
+              )}
             </div>
-            {output && !isGenerating && (
-              <Button variant="outline" size="sm" onClick={handleCopy}>
-                <Copy className="h-4 w-4" />
-                Copy
-              </Button>
+            {/* Save section */}
+            {output && !isGenerating && user && (
+              <div className="flex items-center gap-2 pt-2">
+                <Input
+                  placeholder="e.g., Week 1 — Agency & Licensing"
+                  value={lectureTitle}
+                  onChange={(e) => setLectureTitle(e.target.value)}
+                  className="flex-1"
+                />
+                <Button onClick={handleSave} disabled={isSaving || !lectureTitle.trim()} size="sm">
+                  {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                  Save
+                </Button>
+              </div>
             )}
           </CardHeader>
           <CardContent>
@@ -366,6 +443,69 @@ export default function LectureGenerator() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Saved Lectures */}
+      {user && savedLectures.length > 0 && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl font-semibold text-foreground font-['Playfair_Display']">Saved Lectures</h2>
+            <Badge variant="secondary">{savedLectures.length}</Badge>
+          </div>
+          <div className="grid gap-3">
+            {savedLectures.map((lecture) => (
+              <Card key={lecture.id}>
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="space-y-1.5 flex-1 min-w-0">
+                      <CardTitle className="text-base">{lecture.title}</CardTitle>
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        {lecture.week_label && (
+                          <Badge variant="outline" className="text-xs">{lecture.week_label}</Badge>
+                        )}
+                        {lecture.topics.map((t) => (
+                          <Badge key={t} variant="secondary" className="text-xs">{t}</Badge>
+                        ))}
+                        {lecture.duration_minutes && (
+                          <span className="text-xs text-muted-foreground">{lecture.duration_minutes} min</span>
+                        )}
+                        <span className="text-xs text-muted-foreground">
+                          {lecture.created_at ? new Date(lecture.created_at).toLocaleDateString() : ""}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setExpandedLecture(expandedLecture === lecture.id ? null : lecture.id)}
+                      >
+                        {expandedLecture === lecture.id ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleDeleteLecture(lecture.id, lecture.title)}
+                        className="text-destructive hover:text-destructive"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                {expandedLecture === lecture.id && (
+                  <CardContent className="pt-0">
+                    <ScrollArea className="max-h-[400px] w-full rounded-md border border-border bg-muted/30 p-4">
+                      <div className="prose prose-sm max-w-none dark:prose-invert whitespace-pre-wrap font-['Source_Sans_3']">
+                        {lecture.content}
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                )}
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
