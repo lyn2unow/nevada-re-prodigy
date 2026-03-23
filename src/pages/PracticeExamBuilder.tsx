@@ -26,6 +26,28 @@ const WEEK_OPTIONS = [
   { number: 7, title: "Week 7: Closing & Settlement" },
 ];
 
+const TOPIC_WEEK_MAP: Record<string, number> = {
+  "Agency": 1,
+  "License Law": 2,
+  "Commission Powers": 2,
+  "Licensing": 2,
+  "Contracts": 3,
+  "Property Ownership": 4,
+  "Land Description": 4,
+  "Encumbrances": 4,
+  "Fair Housing": 5,
+  "Ethics": 5,
+  "Nevada Special Topics": 5,
+  "Financing": 6,
+  "Real Estate Finance": 6,
+  "Foreclosure": 6,
+  "Leases": 6,
+  "Closing": 7,
+  "Appraisal": 7,
+  "Land Use Controls": 7,
+  "Environmental Issues": 7,
+};
+
 export default function PracticeExamBuilder() {
   const navigate = useNavigate();
   const { data, addPracticeExam } = useCourse();
@@ -49,7 +71,7 @@ export default function PracticeExamBuilder() {
     const topics = new Set<string>();
     data.examQuestions.forEach((q) => {
       if (!q.topic) return;
-      const weekMatch = weekFilter === "all" || String(q.weekNumber) === weekFilter;
+      const weekMatch = weekFilter === "all" || TOPIC_WEEK_MAP[q.topic] === Number(weekFilter);
       if (weekMatch) topics.add(q.topic);
     });
     return Array.from(topics).sort();
@@ -68,7 +90,7 @@ export default function PracticeExamBuilder() {
         q.question.toLowerCase().includes(search.toLowerCase()) ||
         q.topic.toLowerCase().includes(search.toLowerCase()) ||
         q.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-      const matchesWeek = weekFilter === "all" || String(q.weekNumber) === weekFilter;
+      const matchesWeek = weekFilter === "all" || TOPIC_WEEK_MAP[q.topic] === Number(weekFilter);
       const matchesTopic = topicFilter === "all" || q.topic === topicFilter;
       const matchesDifficulty = difficultyFilter === "all" || q.difficulty === difficultyFilter;
       const matchesSource = sourceFilter === "all" || q.source === sourceFilter;
