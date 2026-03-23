@@ -17,6 +17,11 @@ export default function ExamPrep() {
     toast({ title: "Question deleted" });
   };
 
+  const handleDeleteExam = (id: string, title: string) => {
+    deletePracticeExam(id);
+    toast({ title: `"${title}" deleted` });
+  };
+
   const handleQtiExport = async (pe: typeof data.practiceExams[0]) => {
     const questions = data.examQuestions.filter((q) => pe.questionIds.includes(q.id));
     if (questions.length === 0) {
