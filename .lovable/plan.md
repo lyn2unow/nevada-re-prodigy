@@ -1,12 +1,14 @@
 
 
-## Add `weekNumber` to `ExamQuestion`
+# Overwrite PracticeExamBuilder.tsx
 
-Add `weekNumber?: number;` to the `ExamQuestion` interface in `src/types/course.ts`, placed after the `tags` field and before `source`.
+Copy the uploaded file exactly as-is to `src/pages/PracticeExamBuilder.tsx`. No modifications.
 
-### File changed
+## File changed
 
 | File | Change |
 |------|--------|
-| `src/types/course.ts` | Add `weekNumber?: number;` to `ExamQuestion` after `tags` |
+| `src/pages/PracticeExamBuilder.tsx` | Full overwrite with uploaded 450-line file |
+
+The uploaded file contains complete, valid JSX (unlike previous chat-pasted attempts where tags were stripped). It includes all the enhancements: week filter, scoped topics, bulk actions with counts, selected-state highlighting on question rows, sticky selection tray, and the `BookOpen` icon.
 
