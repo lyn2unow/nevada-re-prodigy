@@ -1,34 +1,49 @@
 
 
-# Create `saved_lectures` Table
+# Add Save, Load & Delete for Lectures in LectureGenerator
 
-## Migration SQL
+## Summary
+Wire up the `saved_lectures` table to the Lecture Generator page: save generated lectures, list saved ones with expand/collapse, and delete.
 
-Create table `public.saved_lectures` with RLS scoped to the owning user:
+## Changes — `src/pages/LectureGenerator.tsx`
 
-```sql
-create table public.saved_lectures (
-  id uuid primary key default gen_random_uuid(),
-  user_id uuid references auth.users(id) on delete cascade not null,
-  title text not null,
-  content text not null,
-  topics text[] not null default '{}',
-  week_label text,
-  duration_minutes integer,
-  created_at timestamptz default now()
-);
+### 1. Imports
+- Add `useEffect` to the React import
+- Add `Save, Trash2, ChevronDown, ChevronUp` to lucide-react
+- Add `import { supabase } from "@/integrations/supabase/client"`
+- Add `import { useAuth } from "@/hooks/useAuth"` (corrected path — not `@/contexts/AuthContext`)
 
-alter table public.saved_lectures enable row level security;
-
-create policy "Users can manage their own saved lectures"
-  on public.saved_lectures
-  for all
-  using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+### 2. New state
+```ts
+const { user } = useAuth();
+const [lectureTitle, setLectureTitle] = useState("");
+const [isSaving, setIsSaving] = useState(false);
+const [savedLectures, setSavedLectures] = useState<Array<{...}>>([]);
+const [expandedLecture, setExpandedLecture] = useState<string | null>(null);
+const [loadingSaved, setLoadingSaved] = useState(false);
 ```
 
-### Notes
-- `user_id` is marked `not null` to prevent RLS bypass via null values
-- Single `FOR ALL` policy covers SELECT, INSERT, UPDATE, DELETE — all scoped to `auth.uid() = user_id`
-- No code changes needed in this step — subsequent prompts will wire up the store and UI
+### 3. useEffect — load saved lectures
+Fetch from `saved_lectures` ordered by `created_at desc` when `user` is available.
+
+### 4. handleSave
+Insert into `saved_lectures` with `user_id`, `title`, `content`, `topics`, `week_label`, `duration_minutes`. Prepend to local state on success.
+
+### 5. handleDeleteLecture
+Delete by `id`, remove from local state, show toast.
+
+### 6. UI — Save section in output card
+Above the content ScrollArea, when `output` exists and not generating, show:
+- Title input + Save button (inline row)
+- Placed in the CardHeader area next to the Copy button
+
+### 7. UI — Saved Lectures section
+Below the main grid, conditionally rendered when user is logged in and has saved lectures:
+- Heading with count badge
+- Cards with title, week label + topic badges, date, expand toggle, delete button
+- Expanded view: ScrollArea with full content (max-h 400px)
+
+| File | Change |
+|------|--------|
+| `src/pages/LectureGenerator.tsx` | All changes above — imports, state, handlers, UI sections |
 
