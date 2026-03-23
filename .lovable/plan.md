@@ -1,14 +1,11 @@
 
 
-# Overwrite PracticeExamBuilder.tsx
+# Fix weekFilter comparison in PracticeExamBuilder.tsx
 
-Copy the uploaded file exactly as-is to `src/pages/PracticeExamBuilder.tsx`. No modifications.
+Replace all instances of `q.weekNumber === Number(weekFilter)` with `String(q.weekNumber) === weekFilter` in `src/pages/PracticeExamBuilder.tsx`. This affects two locations:
 
-## File changed
+1. **`topicOptions` useMemo** (~line 56): the week match check
+2. **`filtered` useMemo** (~line 68): the `matchesWeek` condition
 
-| File | Change |
-|------|--------|
-| `src/pages/PracticeExamBuilder.tsx` | Full overwrite with uploaded 450-line file |
-
-The uploaded file contains complete, valid JSX (unlike previous chat-pasted attempts where tags were stripped). It includes all the enhancements: week filter, scoped topics, bulk actions with counts, selected-state highlighting on question rows, sticky selection tray, and the `BookOpen` icon.
+No other files changed.
 
