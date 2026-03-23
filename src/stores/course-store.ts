@@ -370,6 +370,7 @@ export function useCourseStore() {
     updateActivity,
     deleteActivity,
     addPracticeExam,
+    deletePracticeExam,
     updateWeekTitle,
     loadSeedContent,
     loadPearsonVueContent,
