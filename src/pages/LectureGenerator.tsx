@@ -8,7 +8,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Presentation, Copy, Loader2, Sparkles, BookOpen, Save, Trash2, ChevronDown, ChevronUp } from "lucide-react";
+import { Presentation, Copy, Loader2, Sparkles, BookOpen, Save, Trash2, ChevronDown, ChevronUp, FileText } from "lucide-react";
+import { exportLectureAsSlides } from "@/lib/lecture-slides-export";
 import { Separator } from "@/components/ui/separator";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -475,16 +476,26 @@ export default function LectureGenerator() {
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
                       {expandedLecture === lecture.id && (
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={async () => {
-                            await navigator.clipboard.writeText(lecture.content);
-                            toast({ title: "Copied to clipboard!" });
-                          }}
-                        >
-                          <Copy className="h-4 w-4" />
-                        </Button>
+                        <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            title="Export as Slides PDF"
+                            onClick={() => exportLectureAsSlides(lecture)}
+                          >
+                            <FileText className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={async () => {
+                              await navigator.clipboard.writeText(lecture.content);
+                              toast({ title: "Copied to clipboard!" });
+                            }}
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </>
                       )}
                       <Button
                         variant="ghost"
