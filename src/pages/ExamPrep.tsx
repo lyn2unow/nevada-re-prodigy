@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Plus, AlertTriangle, Pencil, Trash2, ListChecks, Play } from "lucide-react";
+import { Plus, AlertTriangle, Pencil, Trash2, ListChecks, Play, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AuthorityBadge } from "@/components/AuthorityBadge";
 import { useCourse } from "@/contexts/CourseContext";
 import { toast } from "@/hooks/use-toast";
+import { generateQtiZip } from "@/lib/export-utils";
 
 export default function ExamPrep() {
   const { data, deleteExamQuestion } = useCourse();
@@ -14,6 +15,16 @@ export default function ExamPrep() {
   const handleDelete = (id: string) => {
     deleteExamQuestion(id);
     toast({ title: "Question deleted" });
+  };
+
+  const handleQtiExport = async (pe: typeof data.practiceExams[0]) => {
+    const questions = data.examQuestions.filter((q) => pe.questionIds.includes(q.id));
+    if (questions.length === 0) {
+      toast({ title: "No matching questions found", variant: "destructive" });
+      return;
+    }
+    await generateQtiZip(pe.title, questions);
+    toast({ title: `QTI ZIP downloaded — ${questions.length} questions ready to import into Canvas` });
   };
 
   return (
@@ -79,10 +90,16 @@ export default function ExamPrep() {
                     {pe.questionIds.length} questions · {Math.ceil(pe.questionIds.length * 1.5)} min
                   </p>
                 </div>
-                <Button variant="outline" className="gap-2" onClick={() => navigate(`/exam-prep/take/${pe.id}`)}>
-                  <Play className="h-4 w-4" />
-                  Take Exam
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="outline" className="gap-2" onClick={() => handleQtiExport(pe)}>
+                    <FileDown className="h-4 w-4" />
+                    Export QTI
+                  </Button>
+                  <Button variant="outline" className="gap-2" onClick={() => navigate(`/exam-prep/take/${pe.id}`)}>
+                    <Play className="h-4 w-4" />
+                    Take Exam
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
