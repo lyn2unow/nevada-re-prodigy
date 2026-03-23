@@ -17,6 +17,16 @@ export default function ExamPrep() {
     toast({ title: "Question deleted" });
   };
 
+  const handleQtiExport = async (pe: typeof data.practiceExams[0]) => {
+    const questions = data.examQuestions.filter((q) => pe.questionIds.includes(q.id));
+    if (questions.length === 0) {
+      toast({ title: "No matching questions found", variant: "destructive" });
+      return;
+    }
+    await generateQtiZip(pe.title, questions);
+    toast({ title: `QTI ZIP downloaded — ${questions.length} questions ready to import into Canvas` });
+  };
+
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
