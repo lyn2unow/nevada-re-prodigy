@@ -476,16 +476,26 @@ export default function LectureGenerator() {
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
                       {expandedLecture === lecture.id && (
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={async () => {
-                            await navigator.clipboard.writeText(lecture.content);
-                            toast({ title: "Copied to clipboard!" });
-                          }}
-                        >
-                          <Copy className="h-4 w-4" />
-                        </Button>
+                        <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            title="Export as Slides PDF"
+                            onClick={() => exportLectureAsSlides(lecture)}
+                          >
+                            <FileText className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={async () => {
+                              await navigator.clipboard.writeText(lecture.content);
+                              toast({ title: "Copied to clipboard!" });
+                            }}
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </>
                       )}
                       <Button
                         variant="ghost"
