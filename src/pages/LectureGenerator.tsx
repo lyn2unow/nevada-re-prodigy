@@ -211,7 +211,7 @@ export default function LectureGenerator() {
       title: lectureTitle.trim(),
       content: output,
       topics: allTopics,
-      week_label: selectedWeek !== "none" ? WEEK_LABELS[Number(selectedWeek)] : null,
+      week_label: selectedSession !== "none" ? (SESSION_OPTIONS.find(s => s.id === selectedSession)?.date + " — " + SESSION_OPTIONS.find(s => s.id === selectedSession)?.sessionTitle) : null,
       duration_minutes: durationNum,
     }).select().single();
     if (error) {
