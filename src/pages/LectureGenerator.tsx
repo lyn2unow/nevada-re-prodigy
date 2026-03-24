@@ -34,25 +34,106 @@ const TOPICS = [
 
 const DURATIONS = [15, 30, 45, 60, 75, 90, 105, 120];
 
-const WEEK_TOPICS: Record<number, string[]> = {
-  1: ["Nevada Licensing Requirements (NRS 645, NAC 645)", "Nevada Real Estate Commission: Duties & Powers", "Agency Law & Fiduciary Duties"],
-  2: ["Agency Law & Fiduciary Duties", "Nevada Brokerage Operations", "Property Disclosures (NRS 113, NRS 645)"],
-  3: ["Property Disclosures (NRS 113, NRS 645)", "Valuation & Market Analysis (CMA & Appraisal)"],
-  4: ["Leasing & Property Management", "Real Estate Financing & Lending"],
-  5: ["Contracts: Listing, Purchase & Lease Agreements"],
-  6: ["Contracts: Listing, Purchase & Lease Agreements", "Ethics & Professional Conduct", "Fair Housing (Federal & Nevada)", "Nevada Disciplinary Actions & Recovery Fund"],
-  7: ["Property Ownership & Transfer", "Land Use Controls & Regulations", "Closing Procedures & Settlement Statements"],
-};
-
-const WEEK_LABELS: Record<number, string> = {
-  1: "Week 1: Licensing, Commission & Agency Foundations",
-  2: "Week 2: Agency Deep Dive",
-  3: "Week 3: Nevada Disclosures + National Appraisal & Disclosures",
-  4: "Week 4: Property Management + Guest Speaker + Financing & Math",
-  5: "Week 5: Nevada Contracts Part I & II",
-  6: "Week 6: Record Keeping + National Practice + Special Topics",
-  7: "Week 7: Final Exam",
-};
+const SESSION_OPTIONS: Array<{
+  id: string;
+  label: string;
+  week: number;
+  date: string;
+  sessionTitle: string;
+  topics: string[];
+}> = [
+  {
+    id: "w1-tue",
+    label: "Week 1 · Tue Mar 31 — Nevada Licensing & NRED Commission",
+    week: 1, date: "Tue Mar 31",
+    sessionTitle: "Nevada Licensing Requirements & Duties/Powers of NRED",
+    topics: ["Nevada Licensing Requirements (NRS 645, NAC 645)", "Nevada Real Estate Commission: Duties & Powers"],
+  },
+  {
+    id: "w1-thu",
+    label: "Week 1 · Thu Apr 2 — Agency: Fiduciary Duties & Disclosures",
+    week: 1, date: "Thu Apr 2",
+    sessionTitle: "Agency: Nevada-Specific Rules, Fiduciary Duties & Disclosure Requirements",
+    topics: ["Agency Law & Fiduciary Duties", "Property Disclosures (NRS 113, NRS 645)"],
+  },
+  {
+    id: "w2-tue",
+    label: "Week 2 · Tue Apr 7 — Agency Deep Dive & Compensation",
+    week: 2, date: "Tue Apr 7",
+    sessionTitle: "Agency Deep Dive: Termination, Compensation Rules & Common Violations",
+    topics: ["Agency Law & Fiduciary Duties", "Nevada Brokerage Operations"],
+  },
+  {
+    id: "w2-thu",
+    label: "Week 2 · Thu Apr 9 — Nevada Disclosures",
+    week: 2, date: "Thu Apr 9",
+    sessionTitle: "Nevada Disclosures: SRPD, Residential Disclosure Guide, CIC & Licensee as Principal",
+    topics: ["Property Disclosures (NRS 113, NRS 645)"],
+  },
+  {
+    id: "w3-tue",
+    label: "Week 3 · Tue Apr 14 — Appraisal & Environmental Disclosures",
+    week: 3, date: "Tue Apr 14",
+    sessionTitle: "Property Value & Appraisal Approaches + Environmental Disclosures",
+    topics: ["Valuation & Market Analysis (CMA & Appraisal)"],
+  },
+  {
+    id: "w3-thu",
+    label: "Week 3 · Thu Apr 16 — Property Characteristics, Legal Descriptions & Title",
+    week: 3, date: "Thu Apr 16",
+    sessionTitle: "Property Characteristics, Legal Descriptions, Forms of Ownership & Title",
+    topics: ["Property Ownership & Transfer"],
+  },
+  {
+    id: "w4-tue",
+    label: "Week 4 · Tue Apr 21 — Contracts & Agency National Overlap",
+    week: 4, date: "Tue Apr 21",
+    sessionTitle: "Real Estate Contracts & Agency — National Overlap Deep Dive",
+    topics: ["Contracts: Listing, Purchase & Lease Agreements", "Agency Law & Fiduciary Duties"],
+  },
+  {
+    id: "w4-tue2",
+    label: "Week 4 · Tue Apr 28 — Nevada Property Management",
+    week: 4, date: "Tue Apr 28",
+    sessionTitle: "Nevada Property Management: PM Agreements, Lease Types, Trust Funds & NRED Rules",
+    topics: ["Leasing & Property Management"],
+  },
+  {
+    id: "w5-thu",
+    label: "Week 5 · Thu Apr 30 — Mortgage Types, Financing & Real Estate Math",
+    week: 5, date: "Thu Apr 30",
+    sessionTitle: "Mortgage Types, Financing Concepts, Settlement & Real Estate Math",
+    topics: ["Real Estate Financing & Lending"],
+  },
+  {
+    id: "w5-tue",
+    label: "Week 5 · Tue May 5 — Nevada Contracts I",
+    week: 5, date: "Tue May 5",
+    sessionTitle: "Nevada Contracts I: Brokerage & Listing Agreements, Advance Fees & Earnest Money",
+    topics: ["Contracts: Listing, Purchase & Lease Agreements"],
+  },
+  {
+    id: "w6-thu",
+    label: "Week 6 · Thu May 7 — Nevada Contracts II",
+    week: 6, date: "Thu May 7",
+    sessionTitle: "Nevada Contracts II: Purchase Agreements, Offers, Counteroffers & Settlement Statements",
+    topics: ["Contracts: Listing, Purchase & Lease Agreements", "Closing Procedures & Settlement Statements"],
+  },
+  {
+    id: "w6-tue",
+    label: "Week 6 · Tue May 12 — Record Keeping, Ethics & Fair Housing",
+    week: 6, date: "Tue May 12",
+    sessionTitle: "Record Keeping + National Real Estate Practice, Ethics & Fair Housing",
+    topics: ["Nevada Brokerage Operations", "Ethics & Professional Conduct", "Fair Housing (Federal & Nevada)"],
+  },
+  {
+    id: "w7-thu",
+    label: "Week 7 · Thu May 14 — Special Topics",
+    week: 7, date: "Thu May 14",
+    sessionTitle: "Special Topics: Water Rights, Solar Easements, Timeshares & Subdivisions",
+    topics: ["Property Ownership & Transfer", "Land Use Controls & Regulations"],
+  },
+];
 
 const STREAM_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-lecture`;
 
@@ -72,7 +153,7 @@ export default function LectureGenerator() {
   const [customTopic, setCustomTopic] = useState("");
   const [customTopicEnabled, setCustomTopicEnabled] = useState(false);
   const [duration, setDuration] = useState("60");
-  const [selectedWeek, setSelectedWeek] = useState<string>("none");
+  const [selectedSession, setSelectedSession] = useState<string>("none");
   const [output, setOutput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [lectureTitle, setLectureTitle] = useState("");
@@ -82,11 +163,14 @@ export default function LectureGenerator() {
   const [loadingSaved, setLoadingSaved] = useState(false);
   const { toast } = useToast();
 
-  const loadWeekTopics = (week: string) => {
-    setSelectedWeek(week);
-    if (week === "none") return;
-    const topics = WEEK_TOPICS[Number(week)] || [];
-    setSelectedTopics(topics);
+  const loadSessionTopics = (sessionId: string) => {
+    setSelectedSession(sessionId);
+    if (sessionId === "none") return;
+    const session = SESSION_OPTIONS.find(s => s.id === sessionId);
+    if (session) {
+      setSelectedTopics(session.topics);
+      setLectureTitle(session.sessionTitle);
+    }
   };
 
   const allTopics = [
@@ -127,7 +211,7 @@ export default function LectureGenerator() {
       title: lectureTitle.trim(),
       content: output,
       topics: allTopics,
-      week_label: selectedWeek !== "none" ? WEEK_LABELS[Number(selectedWeek)] : null,
+      week_label: selectedSession !== "none" ? (SESSION_OPTIONS.find(s => s.id === selectedSession)?.date + " — " + SESSION_OPTIONS.find(s => s.id === selectedSession)?.sessionTitle) : null,
       duration_minutes: durationNum,
     }).select().single();
     if (error) {
@@ -269,17 +353,17 @@ export default function LectureGenerator() {
             <div className="space-y-2">
               <Label className="flex items-center gap-1.5">
                 <BookOpen className="h-4 w-4 text-accent" />
-                Load Week's Topics
+                Load Session Topics
               </Label>
-              <Select value={selectedWeek} onValueChange={loadWeekTopics}>
+              <Select value={selectedSession} onValueChange={loadSessionTopics}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a week..." />
+                  <SelectValue placeholder="Select a session..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">Select a week...</SelectItem>
-                  {Object.entries(WEEK_LABELS).map(([num, label]) => (
-                    <SelectItem key={num} value={num}>
-                      {label}
+                  <SelectItem value="none">Select a session...</SelectItem>
+                  {SESSION_OPTIONS.map((s) => (
+                    <SelectItem key={s.id} value={s.id}>
+                      {s.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
