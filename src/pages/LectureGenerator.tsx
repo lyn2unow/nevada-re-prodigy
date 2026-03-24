@@ -153,7 +153,7 @@ export default function LectureGenerator() {
   const [customTopic, setCustomTopic] = useState("");
   const [customTopicEnabled, setCustomTopicEnabled] = useState(false);
   const [duration, setDuration] = useState("60");
-  const [selectedWeek, setSelectedWeek] = useState<string>("none");
+  const [selectedSession, setSelectedSession] = useState<string>("none");
   const [output, setOutput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [lectureTitle, setLectureTitle] = useState("");
