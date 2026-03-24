@@ -163,11 +163,14 @@ export default function LectureGenerator() {
   const [loadingSaved, setLoadingSaved] = useState(false);
   const { toast } = useToast();
 
-  const loadWeekTopics = (week: string) => {
-    setSelectedWeek(week);
-    if (week === "none") return;
-    const topics = WEEK_TOPICS[Number(week)] || [];
-    setSelectedTopics(topics);
+  const loadSessionTopics = (sessionId: string) => {
+    setSelectedSession(sessionId);
+    if (sessionId === "none") return;
+    const session = SESSION_OPTIONS.find(s => s.id === sessionId);
+    if (session) {
+      setSelectedTopics(session.topics);
+      setLectureTitle(session.sessionTitle);
+    }
   };
 
   const allTopics = [
