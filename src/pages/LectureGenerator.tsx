@@ -353,17 +353,17 @@ export default function LectureGenerator() {
             <div className="space-y-2">
               <Label className="flex items-center gap-1.5">
                 <BookOpen className="h-4 w-4 text-accent" />
-                Load Week's Topics
+                Load Session Topics
               </Label>
-              <Select value={selectedWeek} onValueChange={loadWeekTopics}>
+              <Select value={selectedSession} onValueChange={loadSessionTopics}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a week..." />
+                  <SelectValue placeholder="Select a session..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">Select a week...</SelectItem>
-                  {Object.entries(WEEK_LABELS).map(([num, label]) => (
-                    <SelectItem key={num} value={num}>
-                      {label}
+                  <SelectItem value="none">Select a session...</SelectItem>
+                  {SESSION_OPTIONS.map((s) => (
+                    <SelectItem key={s.id} value={s.id}>
+                      {s.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
