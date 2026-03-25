@@ -1,17 +1,17 @@
 
 
-# Append 10 Property Disclosure Questions to CE Shop Content
+# Append 9 Licensing Questions to CE Shop Content
 
 ## Change — `src/data/ce-shop-content.ts`
 
-Insert 10 new `ExamQuestion` objects (IDs `ce-shop-disc-001` through `ce-shop-disc-010`) into the `getCEShopExamQuestions()` array, right before the closing `];` on line 994.
+Insert 9 new `ExamQuestion` objects (IDs `ce-shop-lic-002` through `ce-shop-lic-010`) into the `getCEShopExamQuestions()` array, right before the closing `];` on line 1274.
 
-All questions have `topic: "Property Disclosures (NRS 113, NRS 645)"`, `source: "CE Shop"`, `weekNumber: 2`. Existing questions remain untouched.
+All questions have `topic: "Nevada Licensing Requirements (NRS 645, NAC 645)"`, `source: "CE Shop"`, `weekNumber: 1`. Existing questions remain untouched.
 
 | Detail | Value |
 |--------|-------|
 | File | `src/data/ce-shop-content.ts` |
-| Location | Before line 994 (`];`) |
-| Items added | 10 ExamQuestion objects |
+| Location | Before line 1274 (`];`) |
+| Items added | 9 ExamQuestion objects |
 | Existing content | Untouched |
 
