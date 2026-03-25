@@ -1649,6 +1649,475 @@ export function getCEShopExamQuestions(): ExamQuestion[] {
       source: "CE Shop",
       weekNumber: 6
     },
+    {
+      id: "ce-shop-lp-001",
+      topic: "License Practice",
+      question: "Which of these describes a custodial client account in Nevada?",
+      options: [
+        "It's a trust account holding client funds that's been frozen by court order.",
+        "It's a type of brokerage account that holds trust funds prior to delivering them to an escrow company, but isn't a trust account.",
+        "It's a type of trust account that allows a client to withdraw funds.",
+        "It's used to hold funds belonging to a client, usually for property management rents, but isn't a trust account."
+      ],
+      correctIndex: 3,
+      explanation: "A custodial client account is not a trust fund. The client owns the account and both the client and broker may withdraw funds. It's typically used for rents from broker-managed property.",
+      wrongExplanations: [
+        "A custodial account is not frozen by court order — it is a voluntary account used for managing client funds like rents.",
+        "A custodial account is not a brokerage holding account for trust funds. It is a separate account owned by the client.",
+        "A custodial account is not a trust account at all. While the client can withdraw funds, calling it a trust account is incorrect."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["custodial account", "trust account", "property management", "rents"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-002",
+      topic: "License Practice",
+      question: "Broker Max authorized licensees Harvey and Zoe to be signatories on the firm's trust accounts. Who is ultimately responsible for all the trust funds?",
+      options: [
+        "Harvey",
+        "Max",
+        "The bank holding the trust account",
+        "Zoe"
+      ],
+      correctIndex: 1,
+      explanation: "Nevada law requires each broker to open and maintain trust accounts in the broker's name or company name. The broker is always ultimately responsible for trust accounts regardless of who is authorized as a signatory.",
+      wrongExplanations: [
+        "Harvey is an authorized signatory but not ultimately responsible — the broker always bears that responsibility.",
+        "The bank holds the funds but has no fiduciary responsibility for how trust funds are managed by the brokerage.",
+        "Zoe is an authorized signatory but the broker remains ultimately responsible for all trust account funds."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["trust account", "broker responsibility", "signatory", "fiduciary"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-003",
+      topic: "License Practice",
+      question: "Tina is a Nevada salesperson who also buys and sells residential property on her own behalf. How must she list these properties?",
+      options: [
+        "For Sale by Owner",
+        "For Sale by Owner-Agent",
+        "For Sale by Owner-Broker",
+        "For Sale by Owner-Salesperson"
+      ],
+      correctIndex: 3,
+      explanation: "When a licensee sells property in which they have an interest, their license status must be disclosed. As a salesperson, Tina must use the phrase 'For Sale by Owner-Salesperson.'",
+      wrongExplanations: [
+        "'For Sale by Owner' omits Tina's license status, which Nevada law requires her to disclose.",
+        "'Owner-Agent' is not the correct designation — Nevada requires the specific license type to be disclosed.",
+        "'Owner-Broker' is incorrect because Tina holds a salesperson license, not a broker license."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      examTrapNote: "Students often confuse 'Agent' with the specific license type. Nevada requires the exact license designation.",
+      tags: ["advertising", "disclosure", "owner-salesperson", "license status"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-004",
+      topic: "License Practice",
+      question: "Nevada salesperson Kevin Winston proposes forming a team with colleagues Beth Davenport and Scott Rockford, calling it the Winston Group. What's true about this situation?",
+      options: [
+        "One of the individuals on the team must be licensed as a broker or broker-salesperson.",
+        "Their team is legal as long as each member of the team is from a different brokerage.",
+        "They can advertise using this team name because it's Kevin's last name.",
+        "They need at least one more person to qualify as a team, which must have a minimum of four people."
+      ],
+      correctIndex: 2,
+      explanation: "A team name must include the last name of one of the team members, so 'Winston Group' is legal. All team members must work under the same broker, and only two members are needed. A team can consist entirely of salespersons.",
+      wrongExplanations: [
+        "A team does not require a broker or broker-salesperson — it can consist entirely of salespersons.",
+        "All team members must work under the same broker, not different brokerages.",
+        "A team requires only two members minimum, not four."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["team name", "advertising", "last name requirement", "minimum members"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-005",
+      topic: "License Practice",
+      question: "Felicia would like to sell her own home. What's the minimum real estate license she must possess?",
+      options: [
+        "Broker",
+        "Broker-salesperson",
+        "None",
+        "Salesperson"
+      ],
+      correctIndex: 2,
+      explanation: "Individuals can sell their own property without a real estate license. A license is only required when performing real estate activities on behalf of another person for compensation.",
+      wrongExplanations: [
+        "A broker license is not needed to sell your own property — no license is required.",
+        "A broker-salesperson license is not needed — owners may sell their own property without any license.",
+        "A salesperson license is not required to sell your own home. Licensing applies only to activities performed for others for compensation."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["license requirement", "own property", "exemption"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-006",
+      topic: "License Practice",
+      question: "Shari, a licensee in Reno, is placing a listing ad in The Presbyterian Outlook, a local magazine. Is this a potential fair housing violation?",
+      options: [
+        "No, because Shari and the sellers are Presbyterian.",
+        "No, because the seller requested it.",
+        "Yes, because she can't place an ad in religious publications.",
+        "Yes, unless she also places the ad in publications that reach a broader market."
+      ],
+      correctIndex: 3,
+      explanation: "Placing a listing ad only in a narrow-reach religious publication can be a fair housing concern. If Shari also places the ad in broader-market publications, she may additionally advertise in narrow-reach publications.",
+      wrongExplanations: [
+        "The religion of the licensee or seller is irrelevant — fair housing rules apply regardless of personal beliefs.",
+        "A seller's request does not override fair housing obligations. The licensee must comply with the law.",
+        "Licensees may advertise in religious publications, but only if they also advertise in broader-market outlets to avoid discriminatory targeting."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "The issue isn't advertising in religious publications — it's advertising ONLY in them without broader market coverage.",
+      tags: ["fair housing", "advertising", "religious publication", "discrimination"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-007",
+      topic: "License Practice",
+      question: "Nevada broker Malcolm has a policies and procedures manual. Which of these statements is NOT true?",
+      options: [
+        "Maintaining the policies and procedures in writing allows Malcolm to avoid any liability for his associated licensees' actions.",
+        "Malcolm also needs to keep his licensees and staff trained on the policies and procedures.",
+        "Malcolm is responsible for enforcing the policies and procedures he's established for the firm.",
+        "The manual must include information about laws and regulations Malcolm's licensees must follow."
+      ],
+      correctIndex: 0,
+      explanation: "Having written policies does not automatically shield a broker from liability. Malcolm must prove he adequately trained and monitored his licensees. He may still be held liable if an associated licensee violates the law.",
+      wrongExplanations: [
+        "Training licensees on policies and procedures is indeed a broker obligation — this statement is true.",
+        "Enforcing established policies is a core broker responsibility — this statement is true.",
+        "Including legal and regulatory information in the manual is required — this statement is true."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Written policies alone do not eliminate broker liability — training and enforcement are also required.",
+      tags: ["broker liability", "policies", "supervision", "training"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-008",
+      topic: "License Practice",
+      question: "Nevada broker Jenna runs a large brokerage with three branch offices. Which associated licensee may she designate as a supervisor?",
+      options: [
+        "April, who has a Colorado broker license as well as a Nevada salesperson license",
+        "Betty, who is licensed as a broker-salesperson and has worked at the brokerage for six months",
+        "Carl, who has a salesperson license and has worked in real estate for more than 15 years",
+        "Dan, who has a business degree as well as a salesperson license"
+      ],
+      correctIndex: 1,
+      explanation: "Only a broker-salesperson may be designated as a supervisor within a brokerage. A broker-salesperson has the same supervisory authority as the broker. NRED must be notified of the designation.",
+      wrongExplanations: [
+        "April holds a Nevada salesperson license — an out-of-state broker license does not qualify her as a supervisor in Nevada.",
+        "Carl's experience is irrelevant — only a broker-salesperson license qualifies someone for supervisory designation.",
+        "Dan's business degree and salesperson license do not qualify him — only a broker-salesperson may be designated as supervisor."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["broker-salesperson", "supervisor", "designation", "branch office"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-009",
+      topic: "License Practice",
+      question: "Your buyer clients want the seller to regrade the west side of the property to direct water away from the house. What is your responsibility at this point?",
+      options: [
+        "You must provide a list of potential contractors for the small repairs.",
+        "You need to communicate to the listing agent that the buyers are requesting regrading.",
+        "You need to send the report to the sellers and ask them what they'd be willing to fix.",
+        "You should encourage them to avoid making such requests of the seller."
+      ],
+      correctIndex: 1,
+      explanation: "When a buyer wants the seller to fix inspection items, the buyer's agent must communicate that request to the listing agent and follow up on its status. The agent should never discourage the buyer from making legitimate repair requests.",
+      wrongExplanations: [
+        "Providing contractor lists is not the agent's responsibility at this stage — the first step is communicating the request to the listing agent.",
+        "The buyer's agent communicates with the listing agent, not directly with the sellers.",
+        "An agent should never discourage clients from making legitimate repair requests."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["buyer agent", "repair request", "communication", "listing agent"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-010",
+      topic: "License Practice",
+      question: "Which of these is NOT a licensee's responsibility when assisting a seller client in a real estate transaction?",
+      options: [
+        "Advocate for and negotiate for the seller.",
+        "Educate and advise the seller throughout the process.",
+        "Maintain communication with both sides of the transaction regarding obligations and deadlines.",
+        "Review offers and steer the client toward the one with the best price and terms."
+      ],
+      correctIndex: 3,
+      explanation: "A licensee must educate and advise clients so they can make informed decisions, but must never try to influence or steer a client's decision. The seller chooses which offer to accept.",
+      wrongExplanations: [
+        "Advocating and negotiating for the seller is a core fiduciary duty — this is a legitimate responsibility.",
+        "Educating and advising the seller throughout the process is a key licensee responsibility.",
+        "Maintaining communication with both sides about obligations and deadlines is part of proper transaction management."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "Steering clients toward specific offers violates the duty to let clients make their own informed decisions.",
+      tags: ["seller agent", "steering", "fiduciary duty", "offer presentation"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-011",
+      topic: "License Practice",
+      question: "Broker-salesperson LaFawnda has a personal assistant who accepts security deposits, writes marketing materials, and counsels clients on offers. Is this legal?",
+      options: [
+        "No. Personal assistants may not perform licensed activities.",
+        "No. These activities are only legal if LaFawnda is a broker and is allowed to employ licensees.",
+        "Yes. LaFawnda's assistant may perform all these tasks as long as it's done under LaFawnda's supervision.",
+        "Yes. LaFawnda's assistant may perform all these tasks as long as the assistant has a real estate license."
+      ],
+      correctIndex: 3,
+      explanation: "Personal assistants who hold an active real estate license may perform any activity that requires a real estate license.",
+      wrongExplanations: [
+        "Licensed personal assistants may perform licensed activities — unlicensed assistants cannot.",
+        "A broker-salesperson can supervise licensed assistants; the assistant doesn't need to be employed by a broker directly.",
+        "Supervision alone is not sufficient — the assistant must hold their own active real estate license."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "The key distinction is whether the assistant holds a license, not whether they are supervised.",
+      tags: ["personal assistant", "licensed activities", "license requirement"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-012",
+      topic: "License Practice",
+      question: "The amount of a broker's commission in a real estate transaction is ______.",
+      options: [
+        "Negotiable between the agent and client",
+        "Payable when the listing agreement is signed",
+        "Specified by statute",
+        "Standardized by jurisdiction"
+      ],
+      correctIndex: 0,
+      explanation: "Broker compensation is always negotiable between the parties. No statute sets commission rates, and no jurisdiction standardizes them.",
+      wrongExplanations: [
+        "Commission is typically earned upon closing or as specified in the agreement, not payable at signing.",
+        "No statute specifies commission rates — they are always negotiable.",
+        "Commission rates are never standardized by jurisdiction — that would be price-fixing."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["commission", "negotiable", "compensation", "antitrust"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-013",
+      topic: "License Practice",
+      question: "Burt is a Nevada licensee representing a seller. Which of these is an action Burt will NOT take?",
+      options: [
+        "Communicate with the buyer's agent regarding contingencies and deadlines.",
+        "Educate his clients regarding the steps they'll take to complete the transaction.",
+        "Follow his clients' instructions regarding property conditions they'll disclose to prospective buyers.",
+        "Present all offers to his clients as soon as practicable and discuss possible responses."
+      ],
+      correctIndex: 2,
+      explanation: "Licensees must help clients disclose properly as required by law. A licensee cannot simply follow client instructions when those instructions would result in improper or incomplete legally required disclosures.",
+      wrongExplanations: [
+        "Communicating with the buyer's agent about contingencies and deadlines is a standard responsibility.",
+        "Educating clients about the transaction process is a core licensee duty.",
+        "Presenting all offers promptly and discussing responses is required by law."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "A licensee cannot blindly follow client instructions that would violate disclosure laws.",
+      tags: ["disclosure", "seller agent", "client instructions", "legal compliance"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-014",
+      topic: "License Practice",
+      question: "Nevada licensee compensation is funneled through the broker. Who may pay the compensation that goes through the broker?",
+      options: [
+        "A party to the transaction, another broker, or a third party",
+        "Only the listing agent",
+        "Only the party the licensee represents",
+        "The title company"
+      ],
+      correctIndex: 0,
+      explanation: "Compensation may be paid by a party to the transaction, a third party, or via a commission split from another broker. In all cases, the compensation must flow through the broker.",
+      wrongExplanations: [
+        "The listing agent does not pay compensation — they receive it through their broker.",
+        "Compensation is not limited to the represented party — it can come from any party, another broker, or a third party.",
+        "The title company facilitates closing but does not pay broker compensation."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["compensation", "broker", "commission split", "third party"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-015",
+      topic: "License Practice",
+      question: "If you're a licensed salesperson in Nevada and are asked to issue a BPO on a property for a buyer, what's true?",
+      options: [
+        "As a salesperson you may not issue a BPO, but your associated broker may do so.",
+        "You can perform the BPO for the buyer but you may not charge a fee unless you're also a licensed appraiser.",
+        "You must receive permission from the buyer's lender for your BPO to be used in approving the buyer's mortgage loan.",
+        "You're allowed to charge a fee for the BPO as long as your license is in good standing and you include all the legal requirements."
+      ],
+      correctIndex: 3,
+      explanation: "Any Nevada licensee with an active license in good standing may perform a BPO for a fee, provided it is presented in writing with all legally required elements. A BPO may never be used for mortgage loan approval purposes.",
+      wrongExplanations: [
+        "Both salespersons and brokers may issue BPOs — it is not restricted to brokers.",
+        "Licensees may charge a fee for BPOs without being licensed appraisers — BPOs are not appraisals.",
+        "BPOs may never be used for mortgage loan approval regardless of lender permission."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "BPOs can be performed by any licensee for a fee, but can never be used for loan qualification.",
+      tags: ["BPO", "broker price opinion", "fee", "mortgage", "appraisal"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-016",
+      topic: "License Practice",
+      question: "Which of the following statements about Nevada licensees and BPOs is true?",
+      options: [
+        "Licensees may issue a BPO only if they're also certified or licensed as an appraiser.",
+        "Licensees may perform BPOs but may not charge a fee.",
+        "Licensees may perform BPOs for a fee as long as they're not for a loan qualification.",
+        "Licensees may perform BPOs only under the supervision of a licensed appraiser."
+      ],
+      correctIndex: 2,
+      explanation: "Nevada licensees may perform BPOs for a fee as long as the BPO is not used for mortgage loan purposes. Licensees may not perform appraisals.",
+      wrongExplanations: [
+        "BPOs do not require appraiser certification — they are distinct from appraisals.",
+        "Licensees may charge a fee for performing BPOs — there is no prohibition on fees.",
+        "BPOs do not require appraiser supervision — any active licensee may perform them independently."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["BPO", "fee", "loan qualification", "appraisal distinction"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-017",
+      topic: "License Practice",
+      question: "A Nevada broker establishes a new trust account for earnest money deposits. Which of these is NOT her obligation when establishing the account?",
+      options: [
+        "Designate the account as a trust account.",
+        "Maintain a minimum of $500 in the account at all times.",
+        "Notify NRED of the account location, name, and number.",
+        "Open the account only in the state of Nevada."
+      ],
+      correctIndex: 1,
+      explanation: "When establishing a trust account in Nevada, the broker must designate it as a trust account, open it in Nevada, and notify NRED of the account number, name, and location. There is no minimum balance requirement beyond what the bank itself may require.",
+      wrongExplanations: [
+        "Designating the account as a trust account is indeed required — this is a valid obligation.",
+        "Notifying NRED of the account details is a legal requirement when opening a trust account.",
+        "Trust accounts must be opened in the state of Nevada — this is a valid obligation."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      examTrapNote: "There is no statutory minimum balance requirement for trust accounts — this is a common exam trap.",
+      tags: ["trust account", "earnest money", "NRED notification", "minimum balance"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-018",
+      topic: "License Practice",
+      question: "A Nevada broker holds trust funds from both property management services and real estate sales. How many separate trust accounts will she need?",
+      options: [
+        "Four",
+        "One",
+        "Three",
+        "Two"
+      ],
+      correctIndex: 2,
+      explanation: "A broker handling property management must maintain one trust account for rents and a separate account for security deposits. A third trust account is required for general real estate transaction funds, as property management accounts cannot be used for sales transaction trust funds.",
+      wrongExplanations: [
+        "Four accounts are not required — only three are needed: rents, security deposits, and sales transaction funds.",
+        "One account is insufficient — Nevada requires separate accounts for rents, security deposits, and sales funds.",
+        "Two accounts are not enough — property management requires separate accounts for rents and security deposits, plus a third for sales."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      examTrapNote: "Students often forget that property management requires TWO separate trust accounts (rents + security deposits) in addition to the sales trust account.",
+      tags: ["trust accounts", "property management", "rents", "security deposits", "three accounts"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-019",
+      topic: "License Practice",
+      question: "Ron and Dawn are notified on licensee Laura's website that checking a box will initiate an agency relationship. Is this legal?",
+      options: [
+        "No, because clicking a box on Laura's website isn't sufficient to create an agency relationship.",
+        "No, because Laura may not use electronic signatures on a brokerage agreement.",
+        "Yes, as long as Laura has registered this method of agency creation with the Nevada Real Estate Division.",
+        "Yes, as long as Laura is a broker."
+      ],
+      correctIndex: 0,
+      explanation: "Accepting electronic terms of use or clicking a checkbox does not constitute an agency relationship. Agency can only be created by following proper disclosure rules and executing a signed brokerage agreement.",
+      wrongExplanations: [
+        "Electronic signatures are permitted on brokerage agreements — the issue is that a checkbox click is not a proper brokerage agreement.",
+        "There is no registration process for agency creation methods — agency must follow statutory requirements.",
+        "Being a broker does not allow creating agency through website checkboxes — proper brokerage agreements are always required."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["agency creation", "website", "checkbox", "brokerage agreement", "electronic"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-lp-020",
+      topic: "License Practice",
+      question: "Which of the following criteria must be met for a Nevada team to advertise themselves as 'The Miller Group'?",
+      options: [
+        "The members of the team work under a broker named Miller.",
+        "The team has at least three salespersons and a broker.",
+        "The team has at least two people and they are under the same broker.",
+        "The team members must all have the same license level."
+      ],
+      correctIndex: 2,
+      explanation: "A Nevada real estate team requires a minimum of two members working under the same broker. The team name must include a member's last name — 'Miller' must be the last name of one team member, not just the broker's name. The team must also verify the name isn't already in use.",
+      wrongExplanations: [
+        "The team name must include a team member's last name, not the broker's — unless the broker is also a team member.",
+        "A team requires only two members minimum and does not need to include a broker.",
+        "Team members may hold different license levels — there is no requirement for uniform licensing."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["team name", "advertising", "minimum members", "same broker", "last name"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
   ];
 }
 
