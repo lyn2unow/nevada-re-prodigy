@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, CheckSquare, Square, Search, Zap, BookOpen } from "lucide-react";
+import { ArrowLeft, CheckSquare, Square, Search, Zap, BookOpen, Eye, Check, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { useCourse } from "@/contexts/CourseContext";
 import { toast } from "@/hooks/use-toast";
@@ -26,62 +27,6 @@ const WEEK_OPTIONS = [
   { number: 7, title: "Week 7: Final Exam" },
 ];
 
-const TOPIC_WEEK_MAP: Record<string, number> = {
-  // Week 1 — Licensing, Commission & Agency Foundations
-  "Licensing": 1, "License Law": 1, "License Practice": 1, "Commission Powers": 1,
-  "Exam Procedures": 1, "Exam Structure": 1, "Content Outline": 1,
-  "Real Estate License Law": 1, "Post-License Education": 1, "Appraiser Licensing": 1,
-
-  // Week 2 — Agency Deep Dive
-  "Agency": 2, "Assigned Agency": 2, "Broker Liability": 2, "Salesperson Authority": 2,
-  "Salesperson Liability": 2, "Termination of Agency": 2, "Disclosure Duties": 2,
-  "Stigmatized Property": 2, "Personal Assistants": 2, "Unlicensed Referral Fees": 2,
-  "Steering": 2,
-
-  // Week 3 — Nevada Disclosures + National Appraisal & Disclosures
-  "Disclosures": 3, "Seller Disclosures": 3, "SRPD Rescission": 3, "SRPD Cancellation": 3,
-  "Treble Damages": 3, "Residential Appraisal": 3, "Broker Price Opinions": 3,
-  "Phase I vs Phase II": 3, "State Environmental Commission": 3,
-  "Legal Descriptions": 3, "Metes and Bounds": 3, "Rectangular Survey System": 3,
-
-  // Week 4 — Property Management + Guest Speaker + Financing & Math
-  "Leases": 4, "Security Deposit": 4, "Security Deposits": 4, "Summary Eviction": 4,
-  "Summary Eviction Timeline": 4, "Finance": 4, "Real Estate Financing": 4,
-  "Lien Priority": 4, "Tax Lien Enforcement": 4, "Tax Abatement": 4,
-  "Property Taxes": 4, "Property Tax Calculation": 4,
-  "TRID": 4, "TRID Timeline": 4, "TRID Triggers": 4, "TRID Disclosures": 4,
-  "Loan Estimate": 4, "Short Sales & Deficiencies": 4, "Proration": 4,
-
-  // Week 5 — Nevada Contracts Part I & II
-  "Contracts": 5, "Listing Agreements": 5, "Net Listings": 5, "Procuring Cause": 5,
-  "Procuring Cause & Broker Compensation": 5, "Specific Performance": 5,
-  "Statute of Frauds": 5, "Oral Agreements": 5, "Paperwork Delivery": 5,
-  "Paperwork Submission": 5, "Trust Accounts": 5, "Supervision, Records & Trust Accounts": 5,
-  "Closing": 5,
-
-  // Week 6 — Record Keeping + National Practice + Special Topics
-  "Record Keeping": 6, "Recordkeeping": 6, "Record Retention": 6,
-  "Fair Housing": 6, "Fair Housing Protected Classes": 6,
-  "Property Ownership": 6, "Forms of Ownership": 6, "Community Property": 6,
-  "Condominium Ownership": 6, "Trust Ownership": 6, "Subchapter S Corporation": 6,
-  "Transfer of Title": 6, "Transfer Tax": 6, "Transfer Tax Calculation": 6,
-  "Transfer Tax & Involuntary Alienation": 6, "Straw-Man Conveyance": 6,
-  "Adverse Possession": 6, "Deed Validity": 6, "Nevada Standard Deed": 6,
-  "Probate Sales": 6, "Probate Commission": 6,
-  "Recording Purpose": 6, "Title Records": 6, "UCC-1 Filing": 6,
-  "Unrecorded Deed": 6, "Title Insurance": 6, "Title Insurance Coverage": 6,
-  "Title Policy Payment": 6,
-
-  // Week 7 — Final Exam
-  "Special Topics": 7, "Water Rights": 7, "Water Rights Doctrine": 7,
-  "Solar Easements": 7, "Time-Shares": 7, "Time-Share Ownership": 7,
-  "Time-Share Sales Agent": 7, "Subdivision Law": 7, "Subdivided Land": 7,
-  "Subdivided Land Exemptions": 7, "Subdivided Land Administration": 7,
-  "Zoning Authority": 7, "Land Use Controls": 7, "Nonconforming Use": 7,
-  "Prescriptive Easement": 7, "Prescriptive Easements": 7, "Trespasser Liability": 7,
-  "Right of Reinstatement": 7, "Statutory Redemption": 7,
-  "Appraiser Exemptions": 7,
-};
 
 export default function PracticeExamBuilder() {
   const navigate = useNavigate();
