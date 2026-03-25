@@ -1726,6 +1726,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often confuse estate and use. Estate = you OWN it (fee simple). Use = you have a RIGHT to use it (expires).",
       tags: ["time-share", "estate", "use", "NRS-119A", "unit-4"],
       source: "Lecture Notes",
+      weekNumber: 7,
     },
     // ── Unit 5: Legal Descriptions of Property ──────────────────────────
     {
