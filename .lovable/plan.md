@@ -1,44 +1,42 @@
 
 
-# Add weekNumber to Lecture Notes Exam Questions
+# Add weekNumber to Textbook Exam Questions
 
-## Change — `src/data/lecture-notes-content.ts`
+## Change — `src/data/textbook-content.ts`
 
-Add `weekNumber` field after the `source` line of each exam question listed below. No other fields modified.
+Add `weekNumber` field after the `source: "Textbook",` line for each of the 113 exam questions in `getTextbookExamQuestions()`. No other fields modified.
 
 ### Mapping
 
-**Unit 1 (lines ~1151–1311):**
-| ID | weekNumber |
-|----|-----------|
-| ln-eq-1 | 1 |
-| ln-eq-2 | 1 |
-| ln-eq-3 | 1 |
-| ln-eq-4 | 1 |
-| ln-eq-5 | 2 |
-| ln-eq-6 | 1 |
-| ln-eq-7 | 2 |
-| ln-eq-8 | 1 |
-| ln-eq-9 | 2 |
-| ln-eq-10 | 2 |
+| Unit | IDs | weekNumber | Count |
+|------|-----|-----------|-------|
+| U1 | tb-eq-u1-01 to 05, 07, 09, 13, 15 | 1 | 9 |
+| U1 | tb-eq-u1-06 | 5 | 1 |
+| U1 | tb-eq-u1-08, 10, 11, 12, 14 | 2 | 5 |
+| U2 | tb-eq-u2-01 to 10 | 5 | 10 |
+| U3 | tb-eq-u3-01 to 05 | 3 | 5 |
+| U3 | tb-eq-u3-06 | 7 | 1 |
+| U4 | tb-eq-u4-01 to 04, 06 | 3 | 5 |
+| U4 | tb-eq-u4-05 | 7 | 1 |
+| U5 | tb-eq-u5-01 to 03 | 3 | 3 |
+| U6 | tb-eq-u6-01 to 05 | 3 | 5 |
+| U7 | tb-eq-u7-01 to 05 | 5 | 5 |
+| U8 | tb-eq-u8-01 to 07 | 3 | 7 |
+| U9 | tb-eq-u9-01 to 05 | 3 | 5 |
+| U10 | tb-eq-u10-01 to 07 | 1 | 7 |
+| U11 | tb-eq-u11-01 to 06 | 5 | 6 |
+| U12 | tb-eq-u12-01 to 06 | 5 | 6 |
+| U13 | tb-eq-u13-01 to 06 | 3 | 6 |
+| U14 | tb-eq-u14-01 to 06 | 7 | 6 |
+| U15 | tb-eq-u15-01 to 06 | 6 | 6 |
+| U16 | tb-eq-u16-01 to 06 | 6 | 6 |
+| U17 | tb-eq-u17-01 to 06 | 3 | 6 |
 
-**Unit 2 (lines ~1315–1487):** All 10 get `weekNumber: 5`
-
-**Unit 3 (lines ~1491–1576):** All 5 get `weekNumber: 3`
-
-**Unit 4 (lines ~1580–1697):**
-| ID | weekNumber |
-|----|-----------|
-| ln-eq-u4-1 through u4-6 | 3 |
-| ln-eq-u4-7 | 7 |
-
-**Unit 5 (lines ~1701–1785):** All 5 get `weekNumber: 3`
-
-Each question gets `weekNumber: N,` inserted after its `source: "Lecture Notes",` line. 37 single-line insertions total.
+**Total**: 113 questions, each gets `weekNumber: N,` inserted after `source: "Textbook",`.
 
 | Detail | Value |
 |--------|-------|
-| File | `src/data/lecture-notes-content.ts` |
-| Lines affected | 37 insertions across lines ~1151–1785 |
+| File | `src/data/textbook-content.ts` |
+| Lines affected | 113 insertions across lines ~1693–end of exam questions |
 | Existing content | Untouched (field additions only) |
 
