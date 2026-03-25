@@ -2118,6 +2118,236 @@ export function getCEShopExamQuestions(): ExamQuestion[] {
       source: "CE Shop",
       weekNumber: 6
     },
+    {
+      id: "ce-shop-st-001",
+      topic: "Special Topics",
+      question: "Which of these methods is NOT a way for homeowners to take advantage of solar energy?",
+      options: [
+        "Passive solar design for buildings",
+        "Photovoltaic solar systems",
+        "Solar diffuser concentration",
+        "Solar thermal water heater"
+      ],
+      correctIndex: 2,
+      explanation: "Homeowners can take advantage of solar energy through passive solar building design, solar thermal water heating, and photovoltaic (PV) electricity generation. Concentrated solar power (CSP) systems exist but are used in large industrial settings — 'solar diffuser concentration' is not a recognized residential solar method.",
+      wrongExplanations: [
+        "Passive solar design is a legitimate residential solar method that uses building orientation and materials to capture heat.",
+        "Photovoltaic solar systems are one of the most common residential solar methods, converting sunlight directly into electricity.",
+        "Solar thermal water heaters are a recognized residential solar method that uses sunlight to heat water."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["solar energy", "passive solar", "photovoltaic", "solar thermal", "residential"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-002",
+      topic: "Special Topics",
+      question: "Who is responsible for regulating residential solar energy systems in Nevada?",
+      options: [
+        "Federal EPC",
+        "Nevada Department of Energy Conservation",
+        "Nevada EPC",
+        "Nevada Public Utility Commission"
+      ],
+      correctIndex: 3,
+      explanation: "The Nevada Public Utility Commission (NPUC) is responsible for regulating solar energy systems in Nevada.",
+      wrongExplanations: [
+        "There is no 'Federal EPC' that regulates residential solar in Nevada.",
+        "The 'Nevada Department of Energy Conservation' is not a real agency — the NPUC handles solar regulation.",
+        "The 'Nevada EPC' is not the correct agency. The Nevada Public Utility Commission regulates residential solar."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["solar regulation", "NPUC", "Nevada Public Utility Commission"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-003",
+      topic: "Special Topics",
+      question: "It's Wednesday, and Mark just signed his timeshare purchase agreement. What's the soonest date he can schedule the closing if the calendar is wide open?",
+      options: [
+        "Friday",
+        "Next week, Tuesday",
+        "Next week, Wednesday",
+        "Today"
+      ],
+      correctIndex: 1,
+      explanation: "Nevada requires a five-day cancellation period to pass before a timeshare closing can be scheduled. Signing on Wednesday means the five days expire the following Monday, making Tuesday the earliest possible closing date.",
+      wrongExplanations: [
+        "Friday is only two days after signing — the five-day cancellation period has not yet passed.",
+        "Wednesday would be seven days later, which is beyond the minimum. Tuesday is the earliest possible date.",
+        "Closing on the same day as signing is not allowed — the five-day cancellation period must pass first."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["timeshare", "cancellation period", "5 days", "closing date"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-004",
+      topic: "Special Topics",
+      question: "What Nevada agency has the authority to approve the developer's public offering statement for a timeshare?",
+      options: [
+        "Nevada Better Business Bureau",
+        "Nevada Business Licensing Bureau",
+        "Nevada Real Estate Division",
+        "Nevada Timeshare Commission"
+      ],
+      correctIndex: 2,
+      explanation: "The administrator of the Nevada Real Estate Division must approve a timeshare public offering statement before it can be used.",
+      wrongExplanations: [
+        "The Better Business Bureau is a private organization, not a government agency with regulatory authority over timeshares.",
+        "The Business Licensing Bureau does not have authority over timeshare public offering statements.",
+        "There is no 'Nevada Timeshare Commission' — the Real Estate Division handles timeshare regulation."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["timeshare", "public offering statement", "NRED", "Real Estate Division"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-005",
+      topic: "Special Topics",
+      question: "Nevada homeowners may grant a ______ that restricts how the area may be used and requires landscaping with low water use. The homeowner receives a monetary incentive.",
+      options: [
+        "Conditional water agreement",
+        "Conservation easement",
+        "Drought easement",
+        "Smart water agreement"
+      ],
+      correctIndex: 1,
+      explanation: "Through the state water authority, homeowners can grant a conservation easement that restricts land use in a manner consistent with water conservation. The homeowner receives a rebate in exchange for granting the easement.",
+      wrongExplanations: [
+        "'Conditional water agreement' is not a recognized legal instrument for this purpose in Nevada.",
+        "'Drought easement' is not a recognized legal term — conservation easement is the correct term.",
+        "'Smart water agreement' is not a recognized legal instrument in Nevada real estate."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["conservation easement", "water conservation", "xeriscape", "rebate"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-006",
+      topic: "Special Topics",
+      question: "Cooper owns land and a water right appurtenant associated with that land. Which of the following is true about this kind of ownership?",
+      options: [
+        "Cooper can only sell the land if he first removes the water right.",
+        "Cooper can sell his water right separately from his land, but only if the state engineer gives approval.",
+        "Cooper's water right is silently conveyed to a new owner if he sells the land.",
+        "The water right deed of ownership is recorded separately from the land deed of ownership."
+      ],
+      correctIndex: 2,
+      explanation: "An appurtenant water right is attached to the land and is automatically (silently) conveyed to the new owner when the land is sold, without needing to be separately mentioned in the deed.",
+      wrongExplanations: [
+        "There is no requirement to remove an appurtenant water right before selling land — it transfers automatically with the property.",
+        "While water rights can sometimes be severed with state engineer approval, the key characteristic of appurtenant rights is that they transfer automatically with the land.",
+        "An appurtenant water right does not require a separate deed — it is silently conveyed with the land deed."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["water rights", "appurtenant", "silent conveyance", "land transfer"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-007",
+      topic: "Special Topics",
+      question: "Hugo and Gerry sold their Henderson home. The new owner wasn't allowed to replace the xeriscaped backyard with a lush irrigated lawn. What's the most likely reason?",
+      options: [
+        "Irrigated lawns are illegal in Nevada.",
+        "The land was transferred with a conservation easement affecting the backyard area.",
+        "The land was transferred with an appurtenant water right.",
+        "There's an existing agreement with the neighbor to maintain a xeriscape."
+      ],
+      correctIndex: 1,
+      explanation: "A conservation easement runs with the land, meaning the new owner must abide by the restriction requiring low-water landscaping. The easement transferred automatically when the property was sold.",
+      wrongExplanations: [
+        "Irrigated lawns are not categorically illegal in Nevada — specific restrictions depend on local ordinances and easements.",
+        "An appurtenant water right grants water usage, it does not restrict landscaping choices.",
+        "A neighbor agreement would not typically have the legal force to prevent landscaping changes — a conservation easement does."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["conservation easement", "xeriscape", "runs with land", "Henderson"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-008",
+      topic: "Special Topics",
+      question: "Nevada primarily uses the ______ system of water rights.",
+      options: [
+        "Community property",
+        "Littoral",
+        "Prior appropriation",
+        "Riparian"
+      ],
+      correctIndex: 2,
+      explanation: "Nevada uses a system of prior appropriation for water rights, which ensures that water is allocated and used for beneficial purposes. This is the dominant system in western states.",
+      wrongExplanations: [
+        "Community property is a form of marital property ownership, not a water rights system.",
+        "Littoral rights relate to properties bordering lakes or oceans, not Nevada's overall water rights system.",
+        "Riparian rights are used in eastern states where water is more abundant — Nevada uses prior appropriation."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["water rights", "prior appropriation", "western states"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-009",
+      topic: "Special Topics",
+      question: "John wants to create a planned community on land he purchased near Carson City. Before he can begin selling lots, what must he obtain from the Nevada Real Estate Division?",
+      options: [
+        "Internal Revenue Service tax waiver",
+        "Property report",
+        "Public approval",
+        "Utility access approval"
+      ],
+      correctIndex: 1,
+      explanation: "A property report must be obtained from the Nevada Real Estate Division before subdivided land can be offered for sale.",
+      wrongExplanations: [
+        "An IRS tax waiver is not required to sell subdivided lots in Nevada.",
+        "Public approval is not a requirement for selling subdivided lots — the NRED property report is what's needed.",
+        "Utility access approval is not the document required from NRED before selling subdivided lots."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["subdivision", "property report", "NRED", "planned community"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
+    {
+      id: "ce-shop-st-010",
+      topic: "Special Topics",
+      question: "Developer Sam Sketchy plans to subdivide desert land and sell lots to out-of-state buyers as lakefront property, even though there hasn't been a lake there for a long time. What will protect prospective buyers from his fraudulent sales pitch?",
+      options: [
+        "The Interstate Land Sales Full Disclosure Act",
+        "Their common sense",
+        "The Seller's Real Property Disclosure",
+        "The Subdivided Lands Property Report Act"
+      ],
+      correctIndex: 0,
+      explanation: "The Interstate Land Sales Full Disclosure Act protects consumers from fraudulent real estate sales occurring within and between states, requiring developers to provide accurate disclosure to buyers.",
+      wrongExplanations: [
+        "Common sense alone does not provide legal protection against fraudulent sales practices.",
+        "The Seller's Real Property Disclosure applies to residential resales, not developer subdivision sales to out-of-state buyers.",
+        "The 'Subdivided Lands Property Report Act' is not the correct federal law — the Interstate Land Sales Full Disclosure Act is the applicable federal consumer protection."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["Interstate Land Sales Full Disclosure Act", "subdivision fraud", "consumer protection", "out-of-state sales"],
+      source: "CE Shop",
+      weekNumber: 7
+    },
   ];
 }
 
