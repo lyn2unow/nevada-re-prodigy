@@ -1419,6 +1419,236 @@ export function getCEShopExamQuestions(): ExamQuestion[] {
       source: "CE Shop",
       weekNumber: 1
     },
+    {
+      id: "ce-shop-contr-001",
+      topic: "Contracts",
+      question: "Kiki's client, Jonas, just signed their brokerage agreement this afternoon. When should Kiki deliver a copy of the completed document to Jonas?",
+      options: [
+        "She shouldn't; the only copy should remain at the brokerage office for safekeeping.",
+        "She should only send a copy if Jonas requests one in writing.",
+        "She should send it as soon as possible.",
+        "She should send it when she has time; there's no deadline for her to deliver it."
+      ],
+      correctIndex: 2,
+      explanation: "Copies of brokerage agreements should be sent to clients as soon as the document is signed or within a reasonable time thereafter.",
+      wrongExplanations: [
+        "Clients are entitled to copies of all documents they sign. Keeping the only copy at the brokerage is not acceptable practice.",
+        "Licensees must proactively deliver copies — they cannot wait for the client to request one in writing.",
+        "There is an implicit duty of promptness. Licensees should deliver copies as soon as possible, not at their convenience."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["brokerage agreement", "document delivery", "copies", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 4
+    },
+    {
+      id: "ce-shop-contr-002",
+      topic: "Contracts",
+      question: "Which type of brokerage agreement prohibits other licensees from interfering with the client-broker relationship?",
+      options: [
+        "Exclusive representation",
+        "Limited agency",
+        "Net listing",
+        "Open brokerage"
+      ],
+      correctIndex: 0,
+      explanation: "When a client signs an exclusive representation agreement with a broker, other licensees are prohibited from interfering with this relationship by approaching the client with representation offers.",
+      wrongExplanations: [
+        "Limited agency is not a type of brokerage agreement that addresses exclusivity or interference by other licensees.",
+        "A net listing relates to how commission is calculated, not to exclusivity of representation.",
+        "An open brokerage agreement allows multiple brokers to compete — it does not prohibit interference."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["exclusive representation", "brokerage agreement", "interference", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 4
+    },
+    {
+      id: "ce-shop-contr-003",
+      topic: "Contracts",
+      question: "Licensees who charge advance fees must provide the client with an accounting of how the money was used within _____ of collecting the fee.",
+      options: [
+        "30 days",
+        "60 days",
+        "Six months",
+        "Three months"
+      ],
+      correctIndex: 3,
+      explanation: "Advance fee agreements require that a client provide money up front for brokerage services. Any licensee who charges advance fees must provide the client with an accounting of how the money was used within three months of collecting the fee.",
+      wrongExplanations: [
+        "30 days is too short. The correct timeframe for advance fee accounting is three months.",
+        "60 days is incorrect. Nevada requires the accounting within three months of collecting the advance fee.",
+        "Six months is too long. The correct requirement is three months, not six."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["advance fees", "accounting", "three months", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 5
+    },
+    {
+      id: "ce-shop-contr-004",
+      topic: "Contracts",
+      question: "When a listing agent accepts an earnest money deposit from a buyer, the funds must be ______.",
+      options: [
+        "Delivered to an escrow company within three business days",
+        "Given to the licensee's broker promptly",
+        "Held in a separate account under the buyer's name",
+        "Submitted to the seller immediately"
+      ],
+      correctIndex: 1,
+      explanation: "Licensees must promptly hand over to their broker any earnest money received from a buyer. The broker will hold it securely until the offer is accepted, and then deposit it in a trust fund or deliver it to an escrow company according to the instructions in the purchase agreement.",
+      wrongExplanations: [
+        "The funds go to the broker first, not directly to an escrow company. The broker decides how to handle them per the purchase agreement.",
+        "Earnest money is not held in a separate account under the buyer's name. It goes to the licensee's broker promptly.",
+        "Earnest money is not submitted to the seller immediately. It must be given to the licensee's broker promptly."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["earnest money", "broker", "trust fund", "deposit handling", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 5
+    },
+    {
+      id: "ce-shop-contr-005",
+      topic: "Contracts",
+      question: "If an escrow company isn't used, Nevada requires licensees to provide their clients with a copy of the closing statement within ______ after closing.",
+      options: [
+        "10 days",
+        "24 hours",
+        "30 days",
+        "Five business days"
+      ],
+      correctIndex: 0,
+      explanation: "Licensees must provide their clients with a copy of their closing statement within 10 days after closing. In most cases, the escrow agent will perform this service, in which case the licensee doesn't need to do so.",
+      wrongExplanations: [
+        "24 hours is too short. The correct timeframe is 10 days after closing.",
+        "30 days is too long. Nevada requires delivery within 10 days, not 30.",
+        "Five business days is incorrect. The requirement is 10 calendar days after closing."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["closing statement", "10 days", "escrow", "document delivery", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-contr-006",
+      topic: "Contracts",
+      question: "Which of the following is NOT true regarding performance of a contract in Nevada?",
+      options: [
+        "Impossibility of performance occurs when the property is destroyed or made the subject of eminent domain.",
+        "In impossibility of performance situations, the parties are released from their contractual obligations.",
+        "Only meeting the terms of the original contract qualifies for specific performance.",
+        "Specific performance requirements can be satisfied through property or monetary damages."
+      ],
+      correctIndex: 3,
+      explanation: "No other property or monetary damages equal specific performance — only meeting the terms of the original contract qualifies.",
+      wrongExplanations: [
+        "This statement is true. Impossibility of performance does occur when the property is destroyed or taken by eminent domain.",
+        "This statement is true. When performance becomes impossible, the parties are released from their obligations.",
+        "This statement is true. Specific performance means fulfilling the exact terms of the original contract."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["specific performance", "impossibility", "contract performance", "eminent domain"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
+    {
+      id: "ce-shop-contr-007",
+      topic: "Contracts",
+      question: "Which of these is NOT typically described in a listing agreement?",
+      options: [
+        "Methods of marketing the property, such as posting on the MLS and yard signage, that require owner permission for placement",
+        "Tasks the agent will undertake for the seller, such as marketing the property and presenting offers",
+        "The licensee's duties, such as disclosure of material facts and maintaining confidential information for the seller",
+        "The seller's reason for selling and characteristics of the desired buyer for the property"
+      ],
+      correctIndex: 3,
+      explanation: "The listing agreement details licensee and client duties, along with a description of the property and the list price, but it will not include the seller's reason for selling or a profile of the desired buyer.",
+      wrongExplanations: [
+        "Marketing methods requiring owner permission are typically described in a listing agreement.",
+        "Agent tasks such as marketing and presenting offers are standard components of a listing agreement.",
+        "Licensee duties including disclosure and confidentiality are standard listing agreement provisions."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["listing agreement", "contents", "marketing", "duties"],
+      source: "CE Shop",
+      weekNumber: 4
+    },
+    {
+      id: "ce-shop-contr-008",
+      topic: "Contracts",
+      question: "The commission may use any of the following measures to discipline non-compliant licensees, EXCEPT _____.",
+      options: [
+        "Administrative fines",
+        "Denial of the renewal of a real estate license",
+        "Jail time",
+        "Suspension of a real estate license"
+      ],
+      correctIndex: 2,
+      explanation: "The commission has several tools to discipline non-compliant licensees, including administrative fines, suspension, revocation, or denial of license renewal. Jail time is a criminal penalty imposed by courts, not the commission.",
+      wrongExplanations: [
+        "Administrative fines are within the commission's disciplinary authority.",
+        "Denial of license renewal is a valid disciplinary measure available to the commission.",
+        "Suspension of a real estate license is a standard disciplinary tool of the commission."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["commission", "discipline", "administrative fines", "suspension", "jail"],
+      source: "CE Shop",
+      weekNumber: 4
+    },
+    {
+      id: "ce-shop-contr-009",
+      topic: "Contracts",
+      question: "Real estate contracts must be enforceable, express, valid, and _____.",
+      options: [
+        "Bilateral",
+        "Oral",
+        "Unilateral",
+        "Voidable"
+      ],
+      correctIndex: 0,
+      explanation: "Real estate sales contracts must be enforceable, express, valid, bilateral, and executed or executory.",
+      wrongExplanations: [
+        "Oral contracts are generally not enforceable for real estate transactions under the Statute of Frauds.",
+        "Unilateral contracts involve a promise by only one party. Real estate sales contracts are bilateral.",
+        "Voidable contracts have defects that allow one party to void them — this is not a requirement of valid real estate contracts."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["bilateral", "contract requirements", "enforceable", "express", "valid"],
+      source: "CE Shop",
+      weekNumber: 4
+    },
+    {
+      id: "ce-shop-contr-010",
+      topic: "Contracts",
+      question: "Gloria went on vacation the day after her clients signed their closing statement. She came back seven days later and then sent the completed documents to all parties to the transaction. Would the commission consider her actions as violations of any regulations?",
+      options: [
+        "No, because there are no time limits on when closing statements must be sent to parties to a transaction.",
+        "No, she didn't violate any regulations.",
+        "Yes, she didn't deliver the completed closing statement within the appropriate amount of time.",
+        "Yes, she went on a vacation within 48 hours of a transaction closing, rather than keeping herself available to her clients for questions."
+      ],
+      correctIndex: 1,
+      explanation: "Gloria delivered a completed copy of the closing statement to all parties within 10 days after the transaction closed (she sent it on day 8), so she did not violate any regulations.",
+      wrongExplanations: [
+        "There is a time limit — 10 days — but Gloria met it by delivering on day 8.",
+        "Gloria delivered the closing statement on day 8, which is within the 10-day requirement. She did not violate any regulations.",
+        "There is no regulation requiring licensees to remain available for 48 hours after closing. The only requirement is delivering closing statements within 10 days."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["closing statement", "10 days", "vacation", "timing", "compliance"],
+      source: "CE Shop",
+      weekNumber: 6
+    },
   ];
 }
 
