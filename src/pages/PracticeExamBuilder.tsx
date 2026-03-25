@@ -420,6 +420,14 @@ export default function PracticeExamBuilder() {
                       {q.examTrap && <Badge variant="destructive" className="text-[10px]">Trap</Badge>}
                     </div>
                   </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="shrink-0 mt-0.5"
+                    onClick={(e) => { e.stopPropagation(); setPreviewQuestion(q); }}
+                  >
+                    <Eye className="h-4 w-4" />
+                  </Button>
                 </div>
               ))}
             </div>
@@ -448,6 +456,65 @@ export default function PracticeExamBuilder() {
           </div>
         </div>
       )}
+
+      {/* ── Question Preview Modal ── */}
+      <Dialog open={!!previewQuestion} onOpenChange={(open) => !open && setPreviewQuestion(null)}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          {previewQuestion && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-lg">Question Preview</DialogTitle>
+                <div className="flex gap-2 flex-wrap pt-1">
+                  <Badge variant="outline">{previewQuestion.topic}</Badge>
+                  <Badge variant="outline" className="capitalize">{previewQuestion.difficulty}</Badge>
+                  <Badge variant="secondary">{previewQuestion.source}</Badge>
+                  {previewQuestion.weekNumber && (
+                    <Badge variant="outline" className="text-primary border-primary/30">
+                      Week {previewQuestion.weekNumber}
+                    </Badge>
+                  )}
+                  {previewQuestion.examTrap && (
+                    <Badge variant="destructive" className="gap-1">
+                      <AlertTriangle className="h-3 w-3" />
+                      Exam Trap
+                    </Badge>
+                  )}
+                </div>
+              </DialogHeader>
+
+              <p className="text-base font-semibold leading-relaxed">{previewQuestion.question}</p>
+
+              <div className="space-y-2">
+                {previewQuestion.options.map((opt, i) => {
+                  const isCorrect = i === previewQuestion.correctIndex;
+                  const wrongIdx = i < previewQuestion.correctIndex ? i : i - 1;
+                  return (
+                    <div key={i} className={`rounded-lg border p-3 ${isCorrect ? "bg-green-500/10 border-green-500/40" : "bg-muted/30"}`}>
+                      <div className="flex items-start gap-2">
+                        {isCorrect && <Check className="h-4 w-4 text-green-600 mt-0.5 shrink-0" />}
+                        <span className="text-sm">{opt}</span>
+                      </div>
+                      {isCorrect && (
+                        <p className="text-xs text-muted-foreground mt-2 pl-6">{previewQuestion.explanation}</p>
+                      )}
+                      {!isCorrect && previewQuestion.wrongExplanations?.[wrongIdx] && (
+                        <p className="text-xs text-muted-foreground mt-2 italic">{previewQuestion.wrongExplanations[wrongIdx]}</p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {previewQuestion.examTrap && previewQuestion.examTrapNote && (
+                <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3">
+                  <p className="text-xs font-semibold text-destructive mb-1">Exam Trap Note</p>
+                  <p className="text-xs text-muted-foreground">{previewQuestion.examTrapNote}</p>
+                </div>
+              )}
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
