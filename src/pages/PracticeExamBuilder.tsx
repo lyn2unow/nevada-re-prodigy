@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import type { ExamQuestion } from "@/types/course";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, CheckSquare, Square, Search, Zap, BookOpen, Eye, Check, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,26 @@ const WEEK_OPTIONS = [
   { number: 7, title: "Week 7: Final Exam" },
 ];
 
+const TOPIC_WEEK_MAP: Record<string, number> = {
+  "Agency": 2, "Law of Agency": 2, "Agency Law & Fiduciary Duties": 2,
+  "License Law": 1, "Nevada Licensing Requirements (NRS 645, NAC 645)": 1,
+  "Nevada Real Estate Commission: Duties & Powers": 1,
+  "Contracts": 5, "Contracts: Listing, Purchase & Lease Agreements": 5,
+  "Property Ownership & Transfer": 6, "Fair Housing": 5,
+  "Fair Housing (Federal & Nevada)": 6, "Ethics & Professional Conduct": 6,
+  "Real Estate Finance": 4, "Real Estate Financing & Lending": 4,
+  "Closing & Settlement": 7, "Closing Procedures & Settlement Statements": 7,
+  "Property Disclosures (NRS 113, NRS 645)": 3,
+  "Valuation & Market Analysis (CMA & Appraisal)": 3,
+  "Leasing & Property Management": 4, "Nevada Brokerage Operations": 6,
+  "Land Use Controls & Regulations": 7,
+};
+
+const getQuestionWeek = (q: ExamQuestion): number | undefined => {
+  if (q.weekNumber !== undefined && q.weekNumber !== null) return q.weekNumber;
+  return TOPIC_WEEK_MAP[q.topic];
+};
+
 
 export default function PracticeExamBuilder() {
   const navigate = useNavigate();
@@ -52,7 +73,7 @@ export default function PracticeExamBuilder() {
     const topics = new Set<string>();
     data.examQuestions.forEach((q) => {
       if (!q.topic) return;
-      const weekMatch = weekFilter === "all" || q.weekNumber === Number(weekFilter);
+      const weekMatch = weekFilter === "all" || getQuestionWeek(q) === Number(weekFilter);
       if (weekMatch) topics.add(q.topic);
     });
     return Array.from(topics).sort();
@@ -71,7 +92,7 @@ export default function PracticeExamBuilder() {
         q.question.toLowerCase().includes(search.toLowerCase()) ||
         q.topic.toLowerCase().includes(search.toLowerCase()) ||
         q.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-      const matchesWeek = weekFilter === "all" || q.weekNumber === Number(weekFilter);
+      const matchesWeek = weekFilter === "all" || getQuestionWeek(q) === Number(weekFilter);
       const matchesTopic = topicFilter === "all" || q.topic === topicFilter;
       const matchesDifficulty = difficultyFilter === "all" || q.difficulty === difficultyFilter;
       const matchesSource = sourceFilter === "all" || q.source === sourceFilter;
