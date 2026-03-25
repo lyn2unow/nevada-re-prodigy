@@ -1,40 +1,57 @@
 
 
-# Fix Week Filter + Add Question Preview Modal
+# Restore TOPIC_WEEK_MAP + Combined Week Filter
+
+## Problem
+Seed exam questions (e.g., `seed-eq-1`) lack `weekNumber` on the object. The previous refactor removed `TOPIC_WEEK_MAP`, breaking week filtering for these questions. New CE Shop questions have `weekNumber` set directly.
 
 ## Changes — `src/pages/PracticeExamBuilder.tsx`
 
-### 1. Replace TOPIC_WEEK_MAP with weekNumber field
+### 1. Add TOPIC_WEEK_MAP constant (after WEEK_OPTIONS, ~line 29)
+Restore the original mapping of topic strings to week numbers:
+```ts
+const TOPIC_WEEK_MAP: Record<string, number> = {
+  "Agency": 2, "Law of Agency": 2, "Agency Law & Fiduciary Duties": 2,
+  "License Law": 1, "Nevada Licensing Requirements (NRS 645, NAC 645)": 1,
+  "Nevada Real Estate Commission: Duties & Powers": 1,
+  "Contracts": 5, "Contracts: Listing, Purchase & Lease Agreements": 5,
+  "Property Ownership & Transfer": 6, "Fair Housing": 5,
+  "Fair Housing (Federal & Nevada)": 6, "Ethics & Professional Conduct": 6,
+  "Real Estate Finance": 4, "Real Estate Financing & Lending": 4,
+  "Closing & Settlement": 7, "Closing Procedures & Settlement Statements": 7,
+  "Property Disclosures (NRS 113, NRS 645)": 3,
+  "Valuation & Market Analysis (CMA & Appraisal)": 3,
+  "Leasing & Property Management": 4, "Nevada Brokerage Operations": 6,
+  "Land Use Controls & Regulations": 7,
+  // Add remaining topics as needed
+};
+```
 
-Remove the entire `TOPIC_WEEK_MAP` constant (lines 29–84). Update all three references to use `q.weekNumber` instead:
+### 2. Add helper function (before the component, ~line 30)
+```ts
+const getQuestionWeek = (q: ExamQuestion): number | undefined => {
+  if (q.weekNumber !== undefined && q.weekNumber !== null) return q.weekNumber;
+  return TOPIC_WEEK_MAP[q.topic];
+};
+```
 
-- **Line 109** (topicOptions): `TOPIC_WEEK_MAP[q.topic] === Number(weekFilter)` → `q.weekNumber === Number(weekFilter)`
-- **Line 128** (filtered): same replacement
-- Keep `WEEK_OPTIONS` as-is (still needed for the dropdown labels)
+### 3. Update topicOptions memo (line 55)
+Change `q.weekNumber === Number(weekFilter)` → `getQuestionWeek(q) === Number(weekFilter)`
 
-### 2. Add Question Preview Modal
+### 4. Update filtered memo (line 74)
+Same change: `q.weekNumber === Number(weekFilter)` → `getQuestionWeek(q) === Number(weekFilter)`
 
-**New state**: `previewQuestion` — holds the `ExamQuestion | null` currently being previewed.
+### 5. Add ExamQuestion type import (line 1 area)
+Import the type for the helper signature:
+```ts
+import type { ExamQuestion } from "@/types/course";
+```
 
-**New import**: `Eye` from lucide-react, `Dialog`/`DialogContent`/`DialogHeader`/`DialogTitle` from `@/components/ui/dialog`.
-
-**Eye button on each question card** (line 463 area): Add an `Eye` icon button next to the checkbox. On click, `e.stopPropagation()` (prevent toggle) and set `previewQuestion` to that question.
-
-**Modal content** (rendered once at bottom of component):
-- Top row: badges for topic, difficulty, source, week, and red "Exam Trap" if applicable
-- Full question text in large readable font
-- 4 answer option cards: correct answer has green background + checkmark icon, wrong answers neutral
-- Below correct answer: explanation text
-- Below each wrong answer: wrong explanation (from `wrongExplanations` array) if available
-- Dialog close button (built-in X from Dialog component)
-
-| Area | Lines | Change |
-|------|-------|--------|
-| Remove TOPIC_WEEK_MAP | 29–84 | Delete entirely |
-| topicOptions memo | 109 | Use `q.weekNumber` |
-| filtered memo | 128 | Use `q.weekNumber` |
-| Imports | 3 | Add `Eye`, Dialog components |
-| State | ~90 | Add `previewQuestion` |
-| Question cards | 448–478 | Add Eye button with stopPropagation |
-| New Dialog | after line 503 | Full question preview modal |
+| Area | Change |
+|------|--------|
+| After WEEK_OPTIONS | Add TOPIC_WEEK_MAP constant |
+| Before component | Add `getQuestionWeek` helper |
+| topicOptions memo | Use `getQuestionWeek(q)` |
+| filtered memo | Use `getQuestionWeek(q)` |
+| Imports | Add `ExamQuestion` type import |
 
