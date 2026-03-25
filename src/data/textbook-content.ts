@@ -1711,6 +1711,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["broker supervision", "liability", "NAC 645.600"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u1-02",
@@ -1733,6 +1734,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["broker supervision", "NAC 645.600"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u1-03",
@@ -1755,6 +1757,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["broker supervision", "NAC 645.600"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u1-04",
@@ -1772,6 +1775,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["recordkeeping", "NAC 645.650"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u1-05",
@@ -1790,6 +1794,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Don't confuse 'business days' with 'calendar days'—paperwork is 5 calendar days; money is 1 business day.",
       tags: ["recordkeeping", "NAC 645.650", "deadlines"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u1-06",
@@ -1812,6 +1817,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["agency", "brokerage agreement", "NRS 645.005"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u1-07",
@@ -1834,6 +1840,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["liability", "salesperson"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u1-08",
@@ -1857,6 +1864,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Assigned agency avoids dual agency entirely—Consent to Act is only for dual agency.",
       tags: ["assigned agency", "Consent to Act", "NRS 645.253"],
       source: "Textbook",
+      weekNumber: 2,
     },
     {
       id: "tb-eq-u1-09",
@@ -1879,6 +1887,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["personal assistants", "licensing"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u1-10",
@@ -1902,6 +1911,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "This tests the property-facts-vs-transaction-facts distinction. Confidentiality is client-only; property facts go to everyone.",
       tags: ["duties", "NRS 645.252", "NRS 645.254", "confidentiality"],
       source: "Textbook",
+      weekNumber: 2,
     },
     {
       id: "tb-eq-u1-11",
@@ -1924,6 +1934,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["stigmatized property", "NRS 40.770", "disclosure"],
       source: "Textbook",
+      weekNumber: 2,
     },
     {
       id: "tb-eq-u1-12",
@@ -1946,6 +1957,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["dual agency", "Consent to Act", "NRS 645.252"],
       source: "Textbook",
+      weekNumber: 2,
     },
     {
       id: "tb-eq-u1-13",
@@ -1963,6 +1975,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["independent contractor", "NRS 608.0155"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u1-14",
@@ -1986,6 +1999,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "This is the classic property-vs-transaction fact distinction. Physical defects = property facts (disclose to all). Financial motivation = transaction fact (client only, confidential).",
       tags: ["disclosure", "NRS 645.252", "NRS 645.254", "material facts"],
       source: "Textbook",
+      weekNumber: 2,
     },
     {
       id: "tb-eq-u1-15",
@@ -2009,6 +2023,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Any item of value given as thanks for a referral = compensation to an unlicensed person. This includes gifts, tickets, gift cards, etc.",
       tags: ["compensation", "unlicensed activity", "referral fees"],
       source: "Textbook",
+      weekNumber: 1,
     },
     // ===== UNIT 2 EXAM QUESTIONS =====
     {
@@ -2027,6 +2042,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["brokerage agreement", "NRS 645.005", "definition"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-02",
@@ -2045,6 +2061,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "The exam may try to trick you into thinking the entire contract is void. Only the compensation provision is voidable, and only by the client.",
       tags: ["exclusive agreement", "auto-renewal", "NRS 645.320", "compensation"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-03",
@@ -2062,6 +2079,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["listing agreement", "exclusive right-to-sell", "broker protection"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-04",
@@ -2080,6 +2098,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Many students assume net listings are illegal because they are prohibited in other states. In Nevada, they are legal per Shell Oil Co. v. Ed Hoppe Realty.",
       tags: ["net listing", "Shell Oil Co.", "compensation", "Nevada Supreme Court"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-05",
@@ -2097,6 +2116,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["procuring cause", "Morrow v. Barger", "broker compensation", "Nevada Supreme Court"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-06",
@@ -2115,6 +2135,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often assume the buyer gets a refund. The MLS agreement is between brokers—the buyer is not a party and has no claim on excess funds.",
       tags: ["buyer representation", "MLS", "compensation", "fee-sharing"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-07",
@@ -2132,6 +2153,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["advance fee", "NAC 645.675", "refund provision"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-08",
@@ -2150,6 +2172,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Don't confuse improved and unimproved—10% for unimproved (higher cap because harder to sell), 7% for improved.",
       tags: ["probate", "NRS 148.110", "broker compensation"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-09",
@@ -2168,6 +2191,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "The salesperson violating office policy does NOT invalidate the contract with the client. The broker is bound by the agreed rate.",
       tags: ["salesperson authority", "office policy", "listing agreement", "binding contract"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u2-10",
@@ -2185,6 +2209,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["exclusive representation", "NRS 645.635", "discipline", "client protection"],
       source: "Textbook",
+      weekNumber: 5,
     },
     // ===== UNIT 3 EXAM QUESTIONS =====
     {
@@ -2203,6 +2228,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["homestead", "NRS 115.050", "exemption", "equity"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u3-02",
@@ -2221,6 +2247,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Many students assume exclusivity is required, but Jordan v. Bailey specifically held that it is NOT.",
       tags: ["prescriptive easement", "Jordan v. Bailey", "Stix v. La Rue", "5 years"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u3-03",
@@ -2238,6 +2265,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["water rights", "prior appropriation", "riparian rights"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u3-04",
@@ -2256,6 +2284,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students who studied pre-2015 law may think reasonable care applies to all. SB 160 restored the common-law distinctions.",
       tags: ["SB 160", "trespasser", "duty of care", "Moody v. Manny's"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u3-05",
@@ -2273,6 +2302,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["summary eviction", "NRS 40", "unlawful occupant", "4 judicial days"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u3-06",
@@ -2290,6 +2320,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["solar easement", "NRS 111.370", "recording", "written grant"],
       source: "Textbook",
+      weekNumber: 7,
     },
     // ===== UNIT 4 EXAM QUESTIONS =====
     {
@@ -2308,6 +2339,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["tenancy in common", "joint tenancy", "NRS 111.060", "default"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u4-02",
@@ -2326,6 +2358,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "This is a favorite exam question. Both spouses MUST sign for community property. Only separate property can be conveyed with one signature.",
       tags: ["community property", "NRS 123", "both spouses", "conveyance"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u4-03",
@@ -2344,6 +2377,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Don't confuse close corporation (30 shareholders) with S-corp (100 shareholders).",
       tags: ["S-corp", "subchapter S", "100 shareholders", "double taxation"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u4-04",
@@ -2361,6 +2395,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["condominium", "NRS 117", "common areas", "tenants in common"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u4-05",
@@ -2379,6 +2414,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Key distinction: estate = fee simple, no termination; use = lease-like, HAS termination date.",
       tags: ["time-share", "NRS 119A", "fee simple", "termination date"],
       source: "Textbook",
+      weekNumber: 7,
     },
     {
       id: "tb-eq-u4-06",
@@ -2397,6 +2433,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Many states require straw-man conveyances, but Nevada does NOT (NRS 111.065).",
       tags: ["joint tenancy", "straw-man", "NRS 111.065", "sole owner"],
       source: "Textbook",
+      weekNumber: 3,
     },
     // ===== UNIT 5 EXAM QUESTIONS =====
     {
@@ -2415,6 +2452,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["rectangular survey", "Mount Diablo", "principal meridian"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u5-02",
@@ -2433,6 +2471,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Street address = OK for purchase agreement. NOT OK for deed, deed of trust, or title insurance.",
       tags: ["legal description", "street address", "Johnson v. Watson", "purchase agreement"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u5-03",
@@ -2450,6 +2489,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["metes and bounds", "POB", "point of beginning", "legal description"],
       source: "Textbook",
+      weekNumber: 3,
     },
     // ===== UNIT 6 EXAM QUESTIONS =====
     {
@@ -2468,6 +2508,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["property tax", "NRS 361.225", "assessment rate", "35%"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u6-02",
@@ -2486,6 +2527,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Don't confuse the 2-year redemption (after certificate of sale) with the 90-day final redemption (after tax deed).",
       tags: ["tax lien", "certificate of sale", "redemption", "2 years"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u6-03",
@@ -2504,6 +2546,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "3% for owner-occupied residential; 8% for commercial/income. Don't confuse them.",
       tags: ["tax abatement", "3%", "8%", "owner-occupied"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u6-04",
@@ -2522,6 +2565,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Nevada is a DIRECT LIEN state. This is one of the most tested concepts in Nevada real estate.",
       tags: ["mechanics lien", "NRS 108", "direct lien", "subcontractor"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u6-05",
@@ -2539,6 +2583,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["HOA", "super-priority lien", "SFR Investments", "NRS 116.3116"],
       source: "Textbook",
+      weekNumber: 3,
     },
     // ===== UNIT 7 EXAM QUESTIONS =====
     {
@@ -2558,6 +2603,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Most states make oral real estate contracts voidable. Nevada makes them VOID. This is a favorite exam question.",
       tags: ["statute of frauds", "NRS 111.210", "void", "oral contract"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u7-02",
@@ -2576,6 +2622,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Don't confuse earnest money with consideration. Consideration is required; earnest money is not.",
       tags: ["earnest money", "consideration", "NRS 645.310", "trust account"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u7-03",
@@ -2593,6 +2640,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["specific performance", "buyer remedy", "breach of contract"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u7-04",
@@ -2611,6 +2659,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "SRPD = 4 WORKING days. Resale package = 5 CALENDAR days. These are commonly confused on exams.",
       tags: ["SRPD", "rescission", "4 working days", "disclosure"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u7-05",
@@ -2628,6 +2677,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["treble damages", "SRPD", "nondisclosure", "defects"],
       source: "Textbook",
+      weekNumber: 5,
     },
     // ===== UNIT 8 EXAM QUESTIONS =====
     {
@@ -2647,6 +2697,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students confuse the limited warranties of Nevada's standard deed with the broader warranties of a general warranty deed.",
       tags: ["grant bargain sale", "NRS 111.170", "deed warranties"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u8-02",
@@ -2665,6 +2716,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students commonly confuse recording requirements with validity requirements.",
       tags: ["deed validity", "delivery", "acknowledgment", "recording"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u8-03",
@@ -2682,6 +2734,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["transfer tax", "Clark County", "math", "per $500"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u8-04",
@@ -2700,6 +2753,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students confuse the tax requirements of the 5-year and 15-year adverse possession periods.",
       tags: ["adverse possession", "NRS 11.150", "taxes", "5-year"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u8-05",
@@ -2717,6 +2771,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["holographic will", "NRS 133.090", "estate"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u8-06",
@@ -2734,6 +2789,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["escheat", "intestate", "NRS 154.010", "education"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u8-07",
@@ -2752,6 +2808,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students may assume joint tenancy is the default when property is conveyed to multiple parties.",
       tags: ["joint tenancy", "tenancy in common", "NRS 111.060", "default"],
       source: "Textbook",
+      weekNumber: 3,
     },
     // ===== UNIT 9 EXAM QUESTIONS =====
     {
@@ -2770,6 +2827,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["recording", "constructive notice", "NRS 111"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u9-02",
@@ -2788,6 +2846,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students may assume the APN serves as the legal description since it is required for recording.",
       tags: ["APN", "recording", "legal description"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u9-03",
@@ -2805,6 +2864,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["title insurance", "standard coverage", "extended coverage"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u9-04",
@@ -2822,6 +2882,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["UCC-1", "Secretary of State", "personal property", "NRS 104"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u9-05",
@@ -2840,6 +2901,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students may think 'first in time, first in right' always applies—it doesn't when the first deed is unrecorded.",
       tags: ["unrecorded deed", "constructive notice", "Moore v. De Bernardi", "subsequent purchaser"],
       source: "Textbook",
+      weekNumber: 3,
     },
     // ===== UNIT 10 EXAM QUESTIONS =====
     {
@@ -2860,6 +2922,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "State I - Duties & Powers of the Real Estate Commission",
       tags: ["commission", "NRS 645.050", "administration"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u10-02",
@@ -2880,6 +2943,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "State VIII - Nevada Disciplinary Actions & Recovery Fund",
       tags: ["discipline", "fines", "administrator", "commission"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u10-03",
@@ -2899,6 +2963,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "State II - Licensing Requirements",
       tags: ["active experience", "broker requirements", "NAC 645.007"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u10-04",
@@ -2919,6 +2984,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "State II - Licensing Requirements",
       tags: ["cooperative certificate", "out-of-state", "NAC 645.185"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u10-05",
@@ -2938,6 +3004,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "State II - Licensing Requirements",
       tags: ["exemptions", "NRS 645.240", "resident manager"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u10-06",
@@ -2957,6 +3024,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "State VIII - Nevada Disciplinary Actions & Recovery Fund",
       tags: ["discipline", "NRS 645.633", "offer presentation"],
       source: "Textbook",
+      weekNumber: 1,
     },
     {
       id: "tb-eq-u10-07",
@@ -2977,6 +3045,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "State II - Licensing Requirements",
       tags: ["continuing education", "renewal", "live classroom"],
       source: "Textbook",
+      weekNumber: 1,
     },
     // ===== UNIT 11 EXAM QUESTIONS =====
     {
@@ -2998,6 +3067,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National IV - Financing",
       tags: ["deed of trust", "trustor", "beneficiary", "trustee"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u11-02",
@@ -3017,6 +3087,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National IV - Financing",
       tags: ["lien theory", "NRS 40.050", "mortgage"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u11-03",
@@ -3036,6 +3107,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National IV - Financing",
       tags: ["nonjudicial foreclosure", "notice of default", "notice of sale", "NRS 107.080"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u11-04",
@@ -3056,6 +3128,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National IV - Financing",
       tags: ["reinstatement", "foreclosure", "acceleration clause"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u11-05",
@@ -3076,6 +3149,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National IV - Financing",
       tags: ["deficiency", "short sale", "foreclosure", "judgment"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u11-06",
@@ -3096,6 +3170,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National IV - Financing",
       tags: ["statutory redemption", "equitable redemption", "judicial foreclosure", "NRS 21.190"],
       source: "Textbook",
+      weekNumber: 5,
     },
     // ===== UNIT 12 EXAM QUESTIONS =====
     {
@@ -3117,6 +3192,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National VIII - Leasing & Property Management",
       tags: ["holdover tenant", "tenancy at sufferance", "leasehold estates"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u12-02",
@@ -3136,6 +3212,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National VIII - Leasing & Property Management",
       tags: ["security deposit", "NRS 118A.242"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u12-03",
@@ -3155,6 +3232,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National VIII - Leasing & Property Management",
       tags: ["eviction", "nuisance", "notice periods"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u12-04",
@@ -3175,6 +3253,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National VIII - Leasing & Property Management",
       tags: ["security deposit", "30-day deadline", "NRS 118A.242"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u12-05",
@@ -3194,6 +3273,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "State VI - Nevada Property Management",
       tags: ["trust accounts", "property management", "NAC 645.655"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "tb-eq-u12-06",
@@ -3214,6 +3294,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       pearsonVueArea: "National VIII - Leasing & Property Management",
       tags: ["essential services", "NRS 118A.380", "tenant remedies"],
       source: "Textbook",
+      weekNumber: 5,
     },
     // ===== UNIT 13 EXAM QUESTIONS =====
     {
@@ -3228,6 +3309,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 645C", "appraiser licensing", "definitions"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u13-02",
@@ -3241,6 +3323,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["appraiser licensing", "continuing education", "renewal"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u13-03",
@@ -3255,6 +3338,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often confuse 'Licensed' with 'Certified' Residential—only Licensed is restricted from complex property.",
       tags: ["complex property", "NRS 645C.055", "Licensed Residential"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u13-04",
@@ -3268,6 +3352,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["BPO", "NRS 645.2515", "disclaimer"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u13-05",
@@ -3281,6 +3366,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["exemptions", "CMA", "NRS 645C.150"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u13-06",
@@ -3295,6 +3381,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students may assume federal exemptions automatically apply at the state level—Nevada explicitly does not use them.",
       tags: ["federal exemptions", "NRS 645C", "licensing"],
       source: "Textbook",
+      weekNumber: 3,
     },
     // ===== UNIT 14 EXAM QUESTIONS: Land Use Controls & Property Development =====
     {
@@ -3309,6 +3396,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 119", "subdivided land", "35 parcels", "threshold"],
       source: "Textbook",
+      weekNumber: 7,
     },
     {
       id: "tb-eq-u14-02",
@@ -3323,6 +3411,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often confuse the Division's and Commission's roles. The Commission handles licensee discipline but only hears subdivided land permit denial appeals.",
       tags: ["NRS 119", "Real Estate Division", "administration", "Commission"],
       source: "Textbook",
+      weekNumber: 7,
     },
     {
       id: "tb-eq-u14-03",
@@ -3337,6 +3426,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Exam may try to confuse calendar days vs. business days. The answer is always 5 CALENDAR days.",
       tags: ["NRS 119.160", "rescission", "5 calendar days", "buyer protection"],
       source: "Textbook",
+      weekNumber: 7,
     },
     {
       id: "tb-eq-u14-04",
@@ -3351,6 +3441,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "The use vs. estate distinction is a favorite exam topic. Estate = freehold = no termination. Use = nonfreehold = terminates.",
       tags: ["NRS 119A", "time-share estate", "time-share use", "freehold"],
       source: "Textbook",
+      weekNumber: 7,
     },
     {
       id: "tb-eq-u14-05",
@@ -3364,6 +3455,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 119A.210", "sales agent", "continuing education", "renewal"],
       source: "Textbook",
+      weekNumber: 7,
     },
     {
       id: "tb-eq-u14-06",
@@ -3377,6 +3469,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 119", "exemptions", "owner-developer", "building contractor"],
       source: "Textbook",
+      weekNumber: 7,
     },
     // ===== UNIT 15 EXAM QUESTIONS: Fair Housing =====
     {
@@ -3391,6 +3484,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 118", "fair housing", "protected classes", "sexual orientation"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u15-02",
@@ -3405,6 +3499,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students confuse the Real Estate Commission/Division with the Equal Rights Commission. They are in completely different departments.",
       tags: ["NRS 118", "Nevada Equal Rights Commission", "enforcement", "fair housing"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u15-03",
@@ -3419,6 +3514,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Exam tests the escalation: first = $500 fine, second = revocation. Don't confuse with other penalty amounts.",
       tags: ["NRS 645.321", "fair housing", "licensee penalties", "$500 fine"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u15-04",
@@ -3432,6 +3528,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 118", "disability", "handicap", "fair housing", "terminology"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u15-05",
@@ -3445,6 +3542,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 118", "protected classes", "10 classes", "fair housing"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u15-06",
@@ -3459,6 +3557,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "The 1866 Act (race-based discrimination) requires FEDERAL district court—it cannot go to HUD or a state commission.",
       tags: ["Civil Rights Act 1866", "federal court", "fair housing", "filing"],
       source: "Textbook",
+      weekNumber: 6,
     },
     // ===== UNIT 16 EXAM QUESTIONS: Closing the Real Estate Transaction =====
     {
@@ -3474,6 +3573,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Escrow AGENTS = Mortgage Lending Division. Escrow OFFICERS = Division of Insurance. Two different divisions for similar roles.",
       tags: ["NRS 692A", "NRS 645A", "escrow officer", "escrow agent", "Division of Insurance"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u16-02",
@@ -3487,6 +3587,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 645.635", "closing statement", "10 business days"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u16-03",
@@ -3500,6 +3601,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["TRID", "Closing Disclosure", "3 days", "CFPB"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u16-04",
@@ -3514,6 +3616,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Only THREE specific changes restart the 3-day CD wait. A closing date change alone does NOT trigger it.",
       tags: ["TRID", "3-day waiting period", "triggers", "Closing Disclosure"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u16-05",
@@ -3527,6 +3630,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["TRID", "Loan Estimate", "Good Faith Estimate", "TIL"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "tb-eq-u16-06",
@@ -3540,6 +3644,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 692A", "escrow officer", "3-year license", "renewal"],
       source: "Textbook",
+      weekNumber: 6,
     },
     // ===== UNIT 17 EXAM QUESTIONS: Environmental Issues =====
     {
@@ -3554,6 +3659,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["lead-based paint", "1978", "disclosure", "federal"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u17-02",
@@ -3568,6 +3674,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "Remember: 10 days for BUYERS only. Tenants get the disclosure but NOT the inspection period.",
       tags: ["lead-based paint", "10-day inspection", "buyers", "disclosure"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u17-03",
@@ -3581,6 +3688,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 645.254", "expert referral", "environmental", "licensee duty"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u17-04",
@@ -3594,6 +3702,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS 445D", "environmental covenant", "2005", "brownfields"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u17-05",
@@ -3607,6 +3716,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["State Environmental Commission", "11 members", "environmental regulation"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "tb-eq-u17-06",
@@ -3621,6 +3731,7 @@ export function getTextbookExamQuestions(): ExamQuestion[] {
       examTrapNote: "SEC ADOPTS regulations; Division of Environmental Protection ADMINISTERS them. Similar to the Commission/Division split in real estate.",
       tags: ["Division of Environmental Protection", "SEC", "administration", "Dept. of Conservation"],
       source: "Textbook",
+      weekNumber: 3,
     },
   ];
 }
