@@ -38,6 +38,7 @@ export default function PracticeExamBuilder() {
   const [topicFilter, setTopicFilter] = useState("all");
   const [difficultyFilter, setDifficultyFilter] = useState("all");
   const [sourceFilter, setSourceFilter] = useState("all");
+  const [previewQuestion, setPreviewQuestion] = useState<import("@/types/course").ExamQuestion | null>(null);
 
   // Weighted mode state
   const [mode, setMode] = useState<BuildMode>("manual");
@@ -51,7 +52,7 @@ export default function PracticeExamBuilder() {
     const topics = new Set<string>();
     data.examQuestions.forEach((q) => {
       if (!q.topic) return;
-      const weekMatch = weekFilter === "all" || TOPIC_WEEK_MAP[q.topic] === Number(weekFilter);
+      const weekMatch = weekFilter === "all" || q.weekNumber === Number(weekFilter);
       if (weekMatch) topics.add(q.topic);
     });
     return Array.from(topics).sort();
@@ -70,7 +71,7 @@ export default function PracticeExamBuilder() {
         q.question.toLowerCase().includes(search.toLowerCase()) ||
         q.topic.toLowerCase().includes(search.toLowerCase()) ||
         q.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-      const matchesWeek = weekFilter === "all" || TOPIC_WEEK_MAP[q.topic] === Number(weekFilter);
+      const matchesWeek = weekFilter === "all" || q.weekNumber === Number(weekFilter);
       const matchesTopic = topicFilter === "all" || q.topic === topicFilter;
       const matchesDifficulty = difficultyFilter === "all" || q.difficulty === difficultyFilter;
       const matchesSource = sourceFilter === "all" || q.source === sourceFilter;
