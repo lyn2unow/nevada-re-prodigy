@@ -172,6 +172,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["exam structure", "Pearson VUE", "salesperson"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-2",
@@ -185,6 +186,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["exam structure", "passing score", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-3",
@@ -199,6 +201,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students may waste time trying to identify and skip pretest items—they cannot be distinguished.",
       tags: ["exam procedures", "pretest items", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-4",
@@ -212,6 +215,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["exam procedures", "identification", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-5",
@@ -226,6 +230,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students may panic about math without their own calculator—the exam provides one built-in.",
       tags: ["exam procedures", "calculator", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-6",
@@ -239,6 +244,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["content outline", "exam weight", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-7",
@@ -252,6 +258,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["math", "memorization", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-8",
@@ -266,6 +273,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrapNote: "Don't confuse the 12-month license application deadline with other time periods (e.g., 90-day document expiration).",
       tags: ["licensing", "application deadline", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-9",
@@ -280,6 +288,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrapNote: "Don't confuse the $100 exam fee with the $125 licensing application fee—they are separate.",
       tags: ["licensing", "exam fees", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-10",
@@ -293,6 +302,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["exam structure", "retake policy", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-11",
@@ -306,6 +316,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["content outline", "state exam", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-12",
@@ -319,6 +330,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["exam structure", "time allotment", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-13",
@@ -333,6 +345,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrapNote: "The 90 hours must include a specific 18-hour Nevada law component within the Real Estate Law course.",
       tags: ["licensing", "education requirements", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-14",
@@ -346,6 +359,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["licensing", "broker requirements", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
     {
       id: "pv-eq-15",
@@ -359,6 +373,7 @@ export function getPearsonVueExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["exam structure", "cognitive levels", "Pearson VUE"],
       source: "Pearson VUE",
+      weekNumber: 7,
     },
   ];
 }
