@@ -733,6 +733,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["property ownership", "community property", "Nevada"],
       source: "NRS/NAC",
+      weekNumber: 3,
     },
   ];
 }
