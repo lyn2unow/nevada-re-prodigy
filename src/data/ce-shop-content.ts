@@ -531,6 +531,466 @@ export function getCEShopExamQuestions(): ExamQuestion[] {
       source: "CE Shop",
       weekNumber: 1
     },
+    {
+      id: "ce-shop-agency-001",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Nevada licensee Roberta is representing Donna in the sale of her condo. Roberta's co-worker, Daniel, represents a buyer interested in purchasing Donna's condo. Their broker, Frank, does allow licensees to practice dual agency. What's true about this situation?",
+      options: [
+        "Either Donna or the buyer must find an agent from a different brokerage since assigned agency isn't an option at a brokerage that allows dual agency.",
+        "Frank, the broker, must assign either Roberta or Daniel to the transaction as a dual agent. Each client must sign a Consent to Act form.",
+        "Their broker may allow them to work with their clients as assigned agents in the transaction. The Consent to Act form isn't required.",
+        "Their broker will be a dual agent for this transaction. They'll need each client to sign a Consent to Act form."
+      ],
+      correctIndex: 2,
+      explanation: "Broker Frank can officially assign licensees Roberta and Daniel to their respective clients, making them assigned agents — not dual agents. Since Frank is the only dual agent in this situation, the Consent to Act form isn't required.",
+      wrongExplanations: [
+        "Assigned agency is absolutely available at a brokerage that permits dual agency. The broker assigns individual licensees to each party, avoiding the dual agency conflict.",
+        "The broker doesn't have to collapse both agents into one dual agent. He can assign each licensee to their own client, which is the preferred approach.",
+        "If the broker were personally acting as dual agent, the Consent to Act form would be required. But here the broker assigns separate agents, so it isn't."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["assigned agency", "dual agency", "Consent to Act", "broker", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-002",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "In Nevada, real estate agency is defined as _____.",
+      options: [
+        "A business that represents one group of people when dealing with another group of people",
+        "A relationship between a client and an agent arising out of a brokerage agreement, whereby the agent is engaged to perform certain acts on behalf of the client",
+        "The capacity of individuals to act independently and to make their own free choices",
+        "The system of rules regulating the actions of an industry's members, which may be enforced by the imposition of penalties"
+      ],
+      correctIndex: 1,
+      explanation: "Nevada defines agency as a relationship between a client and an agent arising out of a brokerage agreement, whereby the agent is engaged to perform certain acts on behalf of the client. This is the statutory definition under NRS 645.",
+      wrongExplanations: [
+        "This describes a general business, not the legal definition of agency under Nevada real estate law.",
+        "This describes personal autonomy — unrelated to the legal definition of agency.",
+        "This describes a regulatory framework, not an agency relationship."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["agency definition", "brokerage agreement", "NRS 645", "statutory agency"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-agency-003",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Theresa is a Nevada licensee who's ready to begin an agency relationship with a client. How and when must she provide agency relationship disclosures?",
+      options: [
+        "On the proper form after the brokerage agreement is signed but no later than when the client signs a purchase agreement",
+        "On the proper form as soon as practical but no later than when the client signs the brokerage agreement",
+        "Verbally at first contact using a division-approved script",
+        "Verbally or in writing prior to the client entering into a purchase agreement"
+      ],
+      correctIndex: 1,
+      explanation: "Theresa must make the initial agency relationship disclosure on the Duties Owed by a Nevada Real Estate Licensee form as soon as practical, but no later than when the client signs the first document.",
+      wrongExplanations: [
+        "The disclosure must occur before or at the brokerage agreement — not after it is already signed.",
+        "Verbal disclosure using a division-approved script is not the required method. The Duties Owed form must be used.",
+        "The disclosure must occur on the proper written form — verbal disclosure alone does not satisfy Nevada's statutory requirement."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["Duties Owed form", "agency disclosure", "timing", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-agency-004",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Karen is hosting an open house for a home she's listed in Carson City. Don walks in and decides he wants to make an offer, but he doesn't have an agent. He asks Karen to represent him. Which of the following must Karen do next?",
+      options: [
+        "End her agency relationship with her seller client so she can represent Don instead.",
+        "Explain to Don that such an arrangement is illegal in Nevada.",
+        "Inform her seller client in writing that she'll be representing the buyer, as well.",
+        "Obtain written consent from both her seller and Don to represent both of them in the transaction."
+      ],
+      correctIndex: 3,
+      explanation: "Dual agency is permitted in Nevada, but the agent must first obtain written consent from all parties on the Consent to Act form before proceeding.",
+      wrongExplanations: [
+        "Karen does not need to end her existing agency relationship. Dual agency is legal in Nevada with proper written consent.",
+        "Dual agency is not illegal in Nevada. It is permitted provided all parties sign the Consent to Act form.",
+        "Informing the seller in writing is not sufficient on its own. Written consent from both parties on the Consent to Act form is required."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["dual agency", "Consent to Act", "open house", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-005",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "According to Nevada's statutory duties, which of the following is true about the duty of confidentiality?",
+      options: [
+        "Confidential information can't be disclosed, even with the client's permission.",
+        "It applies to all transaction parties.",
+        "It ends when the agency agreement terminates.",
+        "It lasts for one year after the termination of the brokerage agreement."
+      ],
+      correctIndex: 3,
+      explanation: "Nevada's statutory duty of confidentiality applies to clients and lasts for one year after the termination of the brokerage agreement, unless the licensee is subject to a court order or given permission by the client.",
+      wrongExplanations: [
+        "Confidential information can be disclosed if the client gives permission or a court orders it. It is not an absolute prohibition.",
+        "The duty of confidentiality applies only to clients — not to all transaction parties.",
+        "Confidentiality does not end at termination. Nevada specifies it continues for one year after the brokerage agreement ends."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["confidentiality", "1 year", "statutory duties", "NRS 645.252", "brokerage termination"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-agency-006",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "In Nevada, would failure to conduct an independent inspection of a property's condition be a breach of the licensee's statutory duties?",
+      options: [
+        "Maybe. If the licensee's client does not perform an inspection, the licensee is statutorily required to perform an independent investigation into a property's condition.",
+        "No. Nevada licensees owe no duties related to a property's condition or an inspection thereof.",
+        "No. Provided that the licensee had no knowledge of the defect and there were no signs of the defect that could have been found with reasonable care and diligence, licensees owe no further duty to conduct investigations into a property's condition.",
+        "Yes. Licensees are required to conduct independent investigations into a property's condition to fulfill their statutory duties."
+      ],
+      correctIndex: 2,
+      explanation: "While Nevada licensees must use reasonable care and diligence to investigate any observable material defects, they are not statutorily obligated to conduct an independent property condition investigation for every property.",
+      wrongExplanations: [
+        "A licensee's duty is not triggered simply because the client skips an inspection. The duty is to use reasonable care with observable defects — not to independently inspect every property.",
+        "Nevada licensees do owe duties related to observable property conditions. They must use reasonable care and diligence with any visible defects.",
+        "Licensees are not blanket-required to independently investigate every property's condition — only to use reasonable care with observable defects."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["reasonable care", "property inspection", "statutory duties", "observable defects", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-agency-007",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Dual agency is legal in Nevada, but the agent must _____.",
+      options: [
+        "Act as a general agent for at least one of the parties",
+        "Assign a sub-agent to one of the principals",
+        "Have all parties sign the Consent to Act form",
+        "Provide the Dual Agency Disclosure pamphlet to all transaction parties"
+      ],
+      correctIndex: 2,
+      explanation: "Dual agency is permitted in Nevada, but the agent must first obtain written consent from all parties using the Consent to Act form.",
+      wrongExplanations: [
+        "Acting as a general agent for one party is not a requirement for dual agency. The key requirement is written consent from all parties.",
+        "Assigning a sub-agent is not required or relevant to dual agency. The Consent to Act form is the required step.",
+        "There is no 'Dual Agency Disclosure pamphlet' requirement in Nevada. The correct form is the Consent to Act form."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      tags: ["dual agency", "Consent to Act", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-008",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Which of these duties does a Nevada licensee owe ONLY to clients in a real estate transaction?",
+      options: [
+        "Compliance with all laws and regulations",
+        "Confidentiality",
+        "Disclosure of each source of compensation to the licensee",
+        "Reasonable skill and care"
+      ],
+      correctIndex: 1,
+      explanation: "Confidentiality is a duty owed only to clients. Reasonable skill and care, compliance with all laws, and disclosure of compensation sources are duties owed to all parties — including customers.",
+      wrongExplanations: [
+        "Compliance with all laws and regulations is a duty owed to all parties, not just clients.",
+        "Disclosure of each source of compensation is owed to all transaction parties, not exclusively to clients.",
+        "Reasonable skill and care is owed to all transaction parties, not exclusively to clients."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["confidentiality", "duties owed", "clients vs customers", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-agency-009",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Which of the following describes the Authorization to Negotiate Directly with Seller form?",
+      options: [
+        "Allows seller clients to waive the agent's duty to present all offers made to and by the client, opening the client up to outside negotiators.",
+        "Allows the agent to represent more than one party to a transaction.",
+        "Allows the buyer client's agent to present offers directly to a seller client.",
+        "Grants a broker's permission for a third-party law professional to participate in the negotiation process."
+      ],
+      correctIndex: 2,
+      explanation: "The Authorization to Negotiate Directly with Seller form allows a seller client and their broker to authorize the buyer's agent to negotiate directly with the seller, after the seller has waived their agent's duty to present all offers using the Waiver Form.",
+      wrongExplanations: [
+        "That describes the Waiver Form — not the Authorization to Negotiate Directly with Seller form. These two forms work together but serve distinct purposes.",
+        "Representing more than one party requires the Consent to Act form, not this form.",
+        "This form is not about third-party legal professionals. It authorizes the buyer's agent to negotiate directly with the seller."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["Authorization to Negotiate", "Waiver Form", "direct negotiation", "seller", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-010",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "What's the purpose of the confirmation of agency relationships required of Nevada licensees?",
+      options: [
+        "It clarifies and confirms all agency relationships at the time principals to a transaction enter into an agreement.",
+        "It confirms the cooperation agreement between agents that allows the brokers to share compensation.",
+        "It educates the consumer prior to entering into an agency relationship.",
+        "It provides the licensee's associated broker with acknowledgment of any dual agency relationships."
+      ],
+      correctIndex: 0,
+      explanation: "Nevada licensees must obtain client signatures on a written confirmation of agency relationships at the time the principals enter into a contract. This clarifies the existing agency relationships for all parties.",
+      wrongExplanations: [
+        "Compensation sharing between brokers is handled through cooperative agreements — not the agency confirmation.",
+        "Consumer education happens earlier through the Duties Owed form. The confirmation occurs at the time of contract.",
+        "The confirmation is for all parties to the transaction — not specifically for the broker's acknowledgment of dual agency."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["confirmation of agency", "purchase agreement", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-011",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Nevada licensee Abigail is working with a very hands-on seller, Sandra. They've agreed that Sandra will accept and reply to offers herself, rather than having them go through Abigail. What two forms does Abigail need to ensure get filled out and signed for this to be functional and legal under Nevada Agency law?",
+      options: [
+        "A brokerage agreement and an Authorization to Negotiate Directly with Seller form",
+        "A brokerage agreement and a Waiver Form",
+        "An Authorization to Negotiate Directly with Seller form and a Release From All Duties form",
+        "A Waiver Form and an Authorization to Negotiate Directly with Seller form"
+      ],
+      correctIndex: 3,
+      explanation: "Both the Waiver Form and the Authorization to Negotiate Directly with Seller form must be used together. Without both, a buyer's agent does not have the seller's broker's permission to present offers or negotiate directly with the seller.",
+      wrongExplanations: [
+        "A brokerage agreement alone doesn't authorize direct negotiation. The Waiver Form and Authorization form are both required.",
+        "A brokerage agreement and Waiver Form alone are insufficient. The Authorization to Negotiate Directly with Seller form is also required.",
+        "There is no 'Release From All Duties' form in Nevada agency law. The correct pairing is the Waiver Form and Authorization to Negotiate Directly with Seller form."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["Waiver Form", "Authorization to Negotiate", "direct negotiation", "seller", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-012",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Bevin doesn't represent either party in a real estate transaction, but it is her best friend's first home purchase, and she'd like to assist in handling the paperwork. She suggests this to her broker who informs her that Nevada doesn't recognize this type of agency. What is Bevin attempting?",
+      options: [
+        "Assigned agency",
+        "Dual agency",
+        "Sub-agency",
+        "Transactional agency"
+      ],
+      correctIndex: 3,
+      explanation: "Under transactional agency, a licensee facilitates paperwork but doesn't act in a fiduciary capacity. This is also called a non-agent arrangement, and it is not recognized as a valid form of agency in Nevada.",
+      wrongExplanations: [
+        "Assigned agency is where a broker assigns individual licensees to represent each party in a dual agency situation — Bevin isn't representing anyone.",
+        "Dual agency involves representing both parties with fiduciary duties to each. Bevin is attempting to represent neither party.",
+        "Sub-agency involves a licensee working under another broker to assist their client. That is not what Bevin is describing."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["transactional agency", "non-agent", "Nevada agency types", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-013",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Which of these steps is required by Nevada law when a licensee is representing a client in a real estate transaction?",
+      options: [
+        "Confirmation of inspection reports by the buyer's agent at least three days prior to closing",
+        "Confirmation of the agency relationship when the client signs the purchase agreement",
+        "Confirmation of the duties the agent has provided to the client at the time closing occurs",
+        "Confirmation of the licensee's association with a broker when a consumer requests information on a listing"
+      ],
+      correctIndex: 1,
+      explanation: "Agency relationships must be confirmed in writing when the parties sign the purchase agreement. This is a statutory requirement under Nevada law.",
+      wrongExplanations: [
+        "There is no statutory requirement to confirm inspection reports three days before closing.",
+        "Confirming duties at closing is not the timing requirement. Confirmation of agency must occur when the purchase agreement is signed.",
+        "While licensees must be associated with a broker, confirming that association when a consumer requests listing information is not the specific agency confirmation requirement."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["confirmation of agency", "purchase agreement", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-014",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Under what circumstance would Nevada licensee Doug utilize the Authorization to Negotiate Directly with Seller form?",
+      options: [
+        "In conjunction with the Waiver Form, which waives Doug's duty to present all offers to a seller client, the authorization form allows the buyer's agent to present the offers instead",
+        "When Doug has a sub-agent assisting him with agency duties that will include offer presentation or negotiation",
+        "When Doug is performing only transactional broker duties, rather than representational agency duties",
+        "When Doug is representing multiple parties in the same transaction"
+      ],
+      correctIndex: 0,
+      explanation: "The Authorization to Negotiate Directly with Seller form is used in conjunction with the Waiver Form to authorize a buyer's agent to negotiate directly with the seller, after the seller has waived their agent's duty to present all offers.",
+      wrongExplanations: [
+        "Sub-agents assisting with offer presentation do not require this form.",
+        "Transactional broker duties are not recognized in Nevada. This form is not related to that concept.",
+        "Representing multiple parties requires the Consent to Act form — not the Authorization to Negotiate Directly with Seller form."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["Authorization to Negotiate", "Waiver Form", "buyer's agent", "seller", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-015",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Which of the following describes Nevada's Waiver Form?",
+      options: [
+        "Allows seller clients to waive the agent's duty to present all offers made to and by the client.",
+        "Allows the agent to represent more than one party to a transaction, waiving the duty of undivided loyalty to a single party.",
+        "Allows the buyer client's agent to present offers directly to a seller client, where the seller client waives any future pursuit of implied agency.",
+        "Permits the agent to act outside of the terms of the brokerage agreement, waiving the duty of fulfilling the agreement's terms."
+      ],
+      correctIndex: 0,
+      explanation: "Nevada licensees are statutorily obligated to submit all offers to or by the client as soon as practicable. Seller clients can waive this specific duty by signing the prescribed Waiver Form provided by the Real Estate Division.",
+      wrongExplanations: [
+        "Representing more than one party requires the Consent to Act form — not the Waiver Form.",
+        "The Waiver Form allows the seller to waive the duty of offer presentation. The implied agency characterization is incorrect.",
+        "The Waiver Form does not permit the agent to act outside their brokerage agreement."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["Waiver Form", "present all offers", "statutory duty", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-016",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "What agency duty a licensee owes to clients may a client choose to waive?",
+      options: [
+        "All of them",
+        "None of them",
+        "The duty to disclose facts to the buyer that would be to the seller's disadvantage",
+        "The duty to present all offers to and from the client"
+      ],
+      correctIndex: 3,
+      explanation: "Only one duty may be waived in Nevada — the duty to present all offers — and only if the client signs the prescribed Waiver Form provided by the Real Estate Division.",
+      wrongExplanations: [
+        "Clients cannot waive all duties. Most statutory duties are non-waiverable in Nevada.",
+        "One duty can be waived — the duty to present all offers — via the Waiver Form.",
+        "The duty of disclosure cannot be waived by clients. Disclosure of material facts is a non-waiverable statutory duty."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["Waiver Form", "waiveable duties", "present all offers", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-017",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "In Nevada, how is the legal requirement for licensees to have their clients confirm their agency relationships accomplished?",
+      options: [
+        "By a clause in the purchase agreement; the parties' signature on the contract confirms the relationship",
+        "By notarizing the brokerage agreement",
+        "By provision of the Consent to Act form",
+        "By provision of the Duties Owed by a Nevada Real Estate Licensee form"
+      ],
+      correctIndex: 0,
+      explanation: "The step of confirming agency relationships occurs when the parties sign the standard purchase contract. A clause in the purchase agreement serves as the written confirmation.",
+      wrongExplanations: [
+        "Notarizing the brokerage agreement is not required and is not the method of confirming agency relationships.",
+        "The Consent to Act form is used for dual agency consent — not for confirming an existing agency relationship at the time of contract.",
+        "The Duties Owed form is provided at the beginning of the relationship — not at the contract stage for confirmation."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["confirmation of agency", "purchase agreement", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-018",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Which of these activities is NOT part of the statutory duty that a client may waive by using the Waiver Form?",
+      options: [
+        "Answering the client's questions regarding offers and counter-offers",
+        "Assisting the client in preparing, communicating, and negotiating offers and counter-offers",
+        "Conveying and accepting delivery of offers and counter-offers",
+        "Maintaining the client's confidential information related to the client's motivation to sell or purchase"
+      ],
+      correctIndex: 3,
+      explanation: "If a client chooses to waive the agent's statutory duty to present all offers, it includes certain activities related to that duty — but the duty of confidentiality always remains and cannot be waived.",
+      wrongExplanations: [
+        "Answering questions about offers and counter-offers is part of the offer-presentation duty and is included in what can be waived.",
+        "Assisting with preparing and negotiating offers is part of the offer-presentation duty and is included in what can be waived.",
+        "Conveying and accepting delivery of offers is part of the offer-presentation duty and is included in what can be waived."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["Waiver Form", "confidentiality", "offer presentation", "non-waiverable", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-agency-019",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "Which of these is NOT a duty real estate agents owe to clients in Nevada?",
+      options: [
+        "Account to the client for all money the agent receives from the client",
+        "Advise the client to seek advice from appropriate professionals when a matter is outside the scope of a real estate license",
+        "Present all offers to and from the client as soon as practicable",
+        "Seek the highest possible price and terms for the subject property"
+      ],
+      correctIndex: 3,
+      explanation: "Licensees must seek a price and terms as stated in the brokerage agreement or a price acceptable to the client — but not necessarily the highest possible price. That is an overstatement of the duty.",
+      wrongExplanations: [
+        "Accounting for all money received is a statutory duty owed to clients under NRS 645.252.",
+        "Advising clients to seek professional advice outside the scope of a real estate license is a statutory duty.",
+        "Presenting all offers as soon as practicable is a statutory duty — though it can be waived by the client using the Waiver Form."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["duties owed", "highest price", "brokerage agreement", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-agency-020",
+      topic: "Agency Law & Fiduciary Duties",
+      question: "In Nevada, which of the following duties does the seller's agent owe the buyer in a transaction?",
+      options: [
+        "Accounting for money and property received in a timely manner",
+        "Being loyal",
+        "Dealing honestly and without fraud or deceit",
+        "Keeping confidential information confidential"
+      ],
+      correctIndex: 2,
+      explanation: "Nevada licensees are expected to deal with all transaction parties — including unrepresented buyers — in a manner that is not deceitful, fraudulent, or dishonest. Loyalty and confidentiality are owed only to clients.",
+      wrongExplanations: [
+        "Accounting for money and property is a duty owed to clients — not to all transaction parties.",
+        "Loyalty is a fiduciary duty owed exclusively to clients. The seller's agent owes loyalty to the seller, not the buyer.",
+        "Confidentiality is owed only to clients. The seller's agent does not owe the buyer confidentiality."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["duties owed", "customers", "honesty", "fraud", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
   ];
 }
 
