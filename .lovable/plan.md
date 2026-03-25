@@ -1,46 +1,44 @@
 
 
-# Add weekNumber to 25 Seed Exam Questions
+# Add weekNumber to Lecture Notes Exam Questions
 
-## Change — `src/data/seed-content.ts`
+## Change — `src/data/lecture-notes-content.ts`
 
-Add `weekNumber` field to each of the 25 existing exam questions in `getSeedExamQuestions()`. No other fields modified.
+Add `weekNumber` field after the `source` line of each exam question listed below. No other fields modified.
 
-### Mapping (by line ranges)
+### Mapping
 
-| ID | Line (after `source:`) | weekNumber |
-|----|----------------------|------------|
-| seed-eq-1 | 386 | 2 |
-| seed-eq-2 | 399 | 2 |
-| seed-eq-3 | 413 | 2 |
-| seed-eq-4 | 426 | 1 |
-| seed-eq-5 | 440 | 1 |
-| seed-eq-6 | 453 | 5 |
-| seed-eq-7 | 467 | 5 |
-| seed-eq-8 | 480 | 5 |
-| seed-eq-9 | 493 | 3 |
-| seed-eq-10 | 507 | 3 |
-| seed-eq-11 | 520 | 3 |
-| seed-eq-12 | 533 | 6 |
-| seed-eq-13 | 546 | 6 |
-| seed-eq-14 | 560 | 6 |
-| seed-eq-15 | 574 | 5 |
-| seed-eq-16 | 588 | 5 |
-| seed-eq-17 | 601 | 5 |
-| seed-eq-18 | 614 | 5 |
-| seed-eq-19 | 627 | 6 |
-| seed-eq-20 | 640 | 6 |
-| seed-eq-21 | 654 | 6 |
-| seed-eq-22 | 667 | 2 |
-| seed-eq-23 | 680 | 1 |
-| seed-eq-24 | 698 | 6 |
-| seed-eq-25 | 711 | 3 |
+**Unit 1 (lines ~1151–1311):**
+| ID | weekNumber |
+|----|-----------|
+| ln-eq-1 | 1 |
+| ln-eq-2 | 1 |
+| ln-eq-3 | 1 |
+| ln-eq-4 | 1 |
+| ln-eq-5 | 2 |
+| ln-eq-6 | 1 |
+| ln-eq-7 | 2 |
+| ln-eq-8 | 1 |
+| ln-eq-9 | 2 |
+| ln-eq-10 | 2 |
 
-Each question gets `weekNumber: N,` added after the `source` line. 25 single-line insertions, no other changes.
+**Unit 2 (lines ~1315–1487):** All 10 get `weekNumber: 5`
+
+**Unit 3 (lines ~1491–1576):** All 5 get `weekNumber: 3`
+
+**Unit 4 (lines ~1580–1697):**
+| ID | weekNumber |
+|----|-----------|
+| ln-eq-u4-1 through u4-6 | 3 |
+| ln-eq-u4-7 | 7 |
+
+**Unit 5 (lines ~1701–1785):** All 5 get `weekNumber: 3`
+
+Each question gets `weekNumber: N,` inserted after its `source: "Lecture Notes",` line. 37 single-line insertions total.
 
 | Detail | Value |
 |--------|-------|
-| File | `src/data/seed-content.ts` |
-| Lines affected | 25 insertions across lines 374–712 |
+| File | `src/data/lecture-notes-content.ts` |
+| Lines affected | 37 insertions across lines ~1151–1785 |
 | Existing content | Untouched (field additions only) |
 
