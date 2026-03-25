@@ -1,24 +1,23 @@
 
 
-# Append 10 Contract Questions to CE Shop Content
+# Append 20 License Practice Questions to CE Shop Content
 
 ## Format Conversion Required
-The provided questions use a different schema (`correctAnswer`, no `wrongExplanations`/`difficulty`/`examTrap`/`tags`/`source`). They must be converted to match the `ExamQuestion` type before insertion:
-- Map `correctAnswer` string → `correctIndex` number
-- Add `wrongExplanations` (3 strings) derived from the explanation context
+The provided questions use `correctAnswer` string format. Each must be converted to `ExamQuestion` type:
+- Map `correctAnswer` → `correctIndex`
+- Add `wrongExplanations` (3 strings)
 - Add `difficulty`, `examTrap`, `tags`, `source: "CE Shop"`
-- Set `topic` to match the provided subtopic/topic pattern used elsewhere
 
 ## Change — `src/data/ce-shop-content.ts`
 
-Insert 10 new `ExamQuestion` objects (IDs `ce-shop-contr-001` through `ce-shop-contr-010`) before the closing `];` on line 1422.
+Insert 20 new `ExamQuestion` objects (IDs `ce-shop-lp-001` through `ce-shop-lp-020`) before the closing `];` on line 1652.
 
-All questions have `topic: "Contracts"`, `source: "CE Shop"`, with `weekNumber` values of 4, 5, or 6 as specified. Each will include proper `correctIndex`, `wrongExplanations`, `difficulty`, `examTrap`, and `tags` fields matching the existing format.
+All questions have `topic: "License Practice"`, `source: "CE Shop"`, `weekNumber: 6`. Covers trust accounts, advertising rules, team names, BPOs, broker supervision, commission negotiation, licensee responsibilities, fair housing in advertising, and custodial accounts.
 
 | Detail | Value |
 |--------|-------|
 | File | `src/data/ce-shop-content.ts` |
-| Location | Before line 1422 (`];`) |
-| Items added | 10 ExamQuestion objects |
+| Location | Before line 1652 (`];`) |
+| Items added | 20 ExamQuestion objects |
 | Existing content | Untouched |
 
