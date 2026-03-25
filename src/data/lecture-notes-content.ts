@@ -1149,6 +1149,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["brokerage", "liability", "supervision", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 1,
     },
     {
       id: "ln-eq-2",
@@ -1166,6 +1167,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["record-keeping", "compliance", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 1,
     },
     {
       id: "ln-eq-3",
@@ -1184,6 +1186,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Watch for 'business days' vs 'calendar days' — the requirement is CALENDAR days.",
       tags: ["record-keeping", "paperwork", "timelines", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 1,
     },
     {
       id: "ln-eq-4",
@@ -1201,6 +1204,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["agency", "salesperson", "broker-authority", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 1,
     },
     {
       id: "ln-eq-5",
@@ -1219,6 +1223,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Consent to Act is for DUAL agency, not assigned agency. This is a frequently tested distinction.",
       tags: ["agency", "assigned-agency", "consent-to-act", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 2,
     },
     {
       id: "ln-eq-6",
@@ -1237,6 +1242,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "EXPECTATION of compensation is enough—no actual payment is required to trigger the licensing requirement.",
       tags: ["NRS-645.030", "broker-definition", "licensing", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 1,
     },
     {
       id: "ln-eq-7",
@@ -1255,6 +1261,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "PROPERTY facts = all parties; TRANSACTION facts = client only. This distinction is heavily tested.",
       tags: ["duties", "disclosure", "NRS-645.252", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 2,
     },
     {
       id: "ln-eq-8",
@@ -1273,6 +1280,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Trust accounts are ONLY required for property management—not for all brokerage activities.",
       tags: ["trust-account", "property-management", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 1,
     },
     {
       id: "ln-eq-9",
@@ -1291,6 +1299,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "BROKER death = agency terminates. SALESPERSON death = agency continues. Common exam trap.",
       tags: ["agency", "termination", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 2,
     },
     {
       id: "ln-eq-10",
@@ -1309,6 +1318,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Stigmatized property conditions (death, AIDS, sex offenders) are generally NOT required to be disclosed under NRS 40.770.",
       tags: ["stigmatized-property", "NRS-40.770", "disclosure", "unit-1"],
       source: "Lecture Notes",
+      weekNumber: 2,
     },
     // ===== UNIT 2 EXAM QUESTIONS =====
     {
@@ -1327,6 +1337,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["NRS-645.320", "exclusive-agreement", "requirements", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-2",
@@ -1345,6 +1356,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Auto-renewal makes the ENTIRE agreement voidable, not just the renewal period.",
       tags: ["NRS-645.320", "auto-renewal", "voidable", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-3",
@@ -1362,6 +1374,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["procuring-cause", "Carrigan-v-Ryan", "compensation", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-4",
@@ -1379,6 +1392,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["net-listing", "compensation", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-5",
@@ -1397,6 +1411,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Net listings are LEGAL in Nevada (Shell Oil Co. v. Ed Hoppe Realty, 1975) but ethically risky and rarely used.",
       tags: ["net-listing", "legal-status", "Shell-Oil", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-6",
@@ -1415,6 +1430,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Don't confuse: 7% = IMPROVED property; 10% = UNIMPROVED property in probate.",
       tags: ["probate", "NRS-148.110", "commission", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-7",
@@ -1432,6 +1448,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["listing-types", "exclusive-right-to-sell", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-8",
@@ -1450,6 +1467,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Oral agreements are VALID in Nevada but only create OPEN agency—not exclusive.",
       tags: ["oral-agreement", "open-agency", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-9",
@@ -1467,6 +1485,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["Morrow-v-Barger", "compensation", "procuring-cause", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     {
       id: "ln-eq-u2-10",
@@ -1485,6 +1504,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Buyer is NOT party to MLS cooperation contract—broker keeps full MLS payment regardless of buyer agreement amount.",
       tags: ["MLS", "buyer-broker", "compensation", "unit-2"],
       source: "Lecture Notes",
+      weekNumber: 5,
     },
     // ===== UNIT 3 EXAM QUESTIONS =====
     {
@@ -1503,6 +1523,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["homestead", "NRS-115.050", "equity", "unit-3"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u3-2",
@@ -1520,6 +1541,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["prescriptive-easement", "5-years", "unit-3"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u3-3",
@@ -1538,6 +1560,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Do NOT confuse prior appropriation (western states, including Nevada) with riparian rights (eastern states).",
       tags: ["water-rights", "prior-appropriation", "unit-3"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u3-4",
@@ -1556,6 +1579,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "SB 160 restored NO-DUTY rule. Only exception: attractive nuisance for children.",
       tags: ["SB-160", "trespasser-liability", "no-duty", "unit-3"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u3-5",
@@ -1574,6 +1598,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "4 judicial days = response to Notice to Surrender. 7 judicial days = hearing if defense filed. Don't confuse the two timelines.",
       tags: ["summary-eviction", "NRS-40", "timeline", "unit-3"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     // ===== UNIT 4 EXAM QUESTIONS =====
     {
@@ -1592,6 +1617,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["co-ownership", "tenancy-in-common", "NRS-111.060", "unit-4"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u4-2",
@@ -1609,6 +1635,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["joint-tenancy", "survivorship", "unit-4"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u4-3",
@@ -1626,6 +1653,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["community-property", "marriage", "unit-4"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u4-4",
@@ -1643,6 +1671,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["trust", "trustee", "title", "unit-4"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u4-5",
@@ -1660,6 +1689,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["condominium", "common-areas", "TIC", "NRS-117", "unit-4"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u4-6",
@@ -1677,6 +1707,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["LLC", "liability", "taxation", "unit-4"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u4-7",
@@ -1695,6 +1726,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often confuse estate and use. Estate = you OWN it (fee simple). Use = you have a RIGHT to use it (expires).",
       tags: ["time-share", "estate", "use", "NRS-119A", "unit-4"],
       source: "Lecture Notes",
+      weekNumber: 7,
     },
     // ── Unit 5: Legal Descriptions of Property ──────────────────────────
     {
@@ -1713,6 +1745,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["legal-descriptions", "methods", "unit-5"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u5-2",
@@ -1731,6 +1764,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students frequently reverse metes (distance) and bounds (direction).",
       tags: ["metes-and-bounds", "definitions", "unit-5"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u5-3",
@@ -1748,6 +1782,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["rectangular-survey", "section", "acres", "unit-5"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u5-4",
@@ -1766,6 +1801,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students may not realize Nevada's meridian is located in California.",
       tags: ["rectangular-survey", "meridian", "Mount-Diablo", "unit-5"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     {
       id: "ln-eq-u5-5",
@@ -1783,6 +1819,7 @@ export function getLectureNotesExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["lot-and-block", "urban", "subdivision", "unit-5"],
       source: "Lecture Notes",
+      weekNumber: 3,
     },
     ...getUnits6to17ExamQuestions(),
   ];
