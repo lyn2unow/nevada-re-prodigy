@@ -1,42 +1,25 @@
 
 
-# Add weekNumber to Textbook Exam Questions
+# Add weekNumber to Pearson VUE Exam Questions
 
-## Change — `src/data/textbook-content.ts`
+## Changes — `src/data/pearson-vue-content.ts`
 
-Add `weekNumber` field after the `source: "Textbook",` line for each of the 113 exam questions in `getTextbookExamQuestions()`. No other fields modified.
+### 1. Exam Questions (pv-eq-1 through pv-eq-15)
+Add `weekNumber: 7,` after the `source: "Pearson VUE",` line for all 15 exam questions in `getPearsonVueExamQuestions()` (lines 174, 187, 201, 214, 228, 241, 254, 268, 282, 295, 308, 321, 335, 348, 361).
 
-### Mapping
+### 2. Knowledge Check Questions (pv-kc-1 through pv-kc-9)
+These are `KnowledgeCheckQuestion` objects embedded inside module `knowledgeChecks` arrays — they are **not** `ExamQuestion` objects and the `KnowledgeCheckQuestion` type does not have a `weekNumber` field. Their parent modules already have `weekNumber: 1` set on the module level.
 
-| Unit | IDs | weekNumber | Count |
-|------|-----|-----------|-------|
-| U1 | tb-eq-u1-01 to 05, 07, 09, 13, 15 | 1 | 9 |
-| U1 | tb-eq-u1-06 | 5 | 1 |
-| U1 | tb-eq-u1-08, 10, 11, 12, 14 | 2 | 5 |
-| U2 | tb-eq-u2-01 to 10 | 5 | 10 |
-| U3 | tb-eq-u3-01 to 05 | 3 | 5 |
-| U3 | tb-eq-u3-06 | 7 | 1 |
-| U4 | tb-eq-u4-01 to 04, 06 | 3 | 5 |
-| U4 | tb-eq-u4-05 | 7 | 1 |
-| U5 | tb-eq-u5-01 to 03 | 3 | 3 |
-| U6 | tb-eq-u6-01 to 05 | 3 | 5 |
-| U7 | tb-eq-u7-01 to 05 | 5 | 5 |
-| U8 | tb-eq-u8-01 to 07 | 3 | 7 |
-| U9 | tb-eq-u9-01 to 05 | 3 | 5 |
-| U10 | tb-eq-u10-01 to 07 | 1 | 7 |
-| U11 | tb-eq-u11-01 to 06 | 5 | 6 |
-| U12 | tb-eq-u12-01 to 06 | 5 | 6 |
-| U13 | tb-eq-u13-01 to 06 | 3 | 6 |
-| U14 | tb-eq-u14-01 to 06 | 7 | 6 |
-| U15 | tb-eq-u15-01 to 06 | 6 | 6 |
-| U16 | tb-eq-u16-01 to 06 | 6 | 6 |
-| U17 | tb-eq-u17-01 to 06 | 3 | 6 |
+**Two options:**
+- **Option A (recommended):** Add `weekNumber` only to the 15 exam questions. The knowledge checks already inherit week context from their parent modules.
+- **Option B:** Also add `weekNumber` to the `KnowledgeCheckQuestion` type in `src/types/course.ts`, then add the field to each knowledge check object.
 
-**Total**: 113 questions, each gets `weekNumber: N,` inserted after `source: "Textbook",`.
+I recommend Option A since the knowledge checks aren't used in the Practice Exam Builder.
 
 | Detail | Value |
 |--------|-------|
-| File | `src/data/textbook-content.ts` |
-| Lines affected | 113 insertions across lines ~1693–end of exam questions |
-| Existing content | Untouched (field additions only) |
+| File | `src/data/pearson-vue-content.ts` |
+| Items modified | 15 exam questions |
+| Change per item | Add `weekNumber: 7,` after `source` line |
+| Existing content | Untouched |
 
