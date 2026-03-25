@@ -1,23 +1,19 @@
 
 
-# Append 20 License Practice Questions to CE Shop Content
-
-## Format Conversion Required
-The provided questions use `correctAnswer` string format. Each must be converted to `ExamQuestion` type:
-- Map `correctAnswer` → `correctIndex`
-- Add `wrongExplanations` (3 strings)
-- Add `difficulty`, `examTrap`, `tags`, `source: "CE Shop"`
+# Append 10 Special Topics Questions to CE Shop Content
 
 ## Change — `src/data/ce-shop-content.ts`
 
-Insert 20 new `ExamQuestion` objects (IDs `ce-shop-lp-001` through `ce-shop-lp-020`) before the closing `];` on line 1652.
+Insert 10 new `ExamQuestion` objects (IDs `ce-shop-st-001` through `ce-shop-st-010`) before the closing `];` on line 2121.
 
-All questions have `topic: "License Practice"`, `source: "CE Shop"`, `weekNumber: 6`. Covers trust accounts, advertising rules, team names, BPOs, broker supervision, commission negotiation, licensee responsibilities, fair housing in advertising, and custodial accounts.
+All questions have `topic: "Special Topics"`, `source: "CE Shop"`, `weekNumber: 7`. Covers solar energy systems, timeshare cancellation periods, conservation easements, water rights (prior appropriation, appurtenant), subdivisions, and the Interstate Land Sales Full Disclosure Act.
+
+Format conversion: map `correctAnswer` → `correctIndex`, add `wrongExplanations`, `difficulty`, `examTrap`, `tags`.
 
 | Detail | Value |
 |--------|-------|
 | File | `src/data/ce-shop-content.ts` |
-| Location | Before line 1652 (`];`) |
-| Items added | 20 ExamQuestion objects |
+| Location | Before line 2121 (`];`) |
+| Items added | 10 ExamQuestion objects |
 | Existing content | Untouched |
 
