@@ -991,6 +991,236 @@ export function getCEShopExamQuestions(): ExamQuestion[] {
       source: "CE Shop",
       weekNumber: 1
     },
+    {
+      id: "ce-shop-disc-001",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "Under what conditions is the Seller's Real Property Disclosure form NOT required in Nevada?",
+      options: [
+        "The property is new construction and has never been occupied.",
+        "The property is owned by the buying or selling broker in the transaction.",
+        "The seller has never lived on the property.",
+        "The seller has occupied the property for less than a year."
+      ],
+      correctIndex: 0,
+      explanation: "The Seller's Real Property Disclosure form isn't required for new construction, foreclosures, or sales between co-owners, spouses, or close relatives.",
+      wrongExplanations: [
+        "A broker owning the property does not exempt the transaction from the SRPD requirement. Exemptions are specific: new construction, foreclosures, and transfers between co-owners, spouses, or close relatives.",
+        "Whether the seller lived on the property is irrelevant to the SRPD requirement. The exemptions are tied to property type and relationship between parties — not occupancy history.",
+        "Length of occupancy does not determine whether the SRPD is required. There is no one-year threshold in Nevada law."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["SRPD", "exemptions", "new construction", "foreclosure", "NRS 113.130"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-002",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "In which of these situations does a Nevada licensee have a disclosable ownership interest in the property?",
+      options: [
+        "Carson represents both the buyer and the seller in a transaction.",
+        "Kennedy is representing his LLC in the purchase of a commercial building.",
+        "Rebecca is listing her neighbor's vacation home.",
+        "Roger is listing a property that he sold to the current owner eight years ago."
+      ],
+      correctIndex: 1,
+      explanation: "Kennedy is part of the LLC that's purchasing a commercial building, so he must disclose this ownership interest to all parties to the transaction.",
+      wrongExplanations: [
+        "Representing both parties is a dual agency situation requiring a Consent to Act form — not a licensee-as-principal disclosure. Carson has no ownership interest.",
+        "Listing a neighbor's home does not create an ownership interest. Rebecca has no financial stake in the property.",
+        "Having previously sold a property to the current owner does not create a current ownership interest requiring disclosure."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["licensee as principal", "ownership interest", "LLC", "disclosure", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-003",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "Nancy is meeting with her buyer client, Jordan. She has a copy of the Nevada Residential Disclosure Guide on her iPad. Which of the following is she required to do?",
+      options: [
+        "Provide a hard copy of the guide to her client.",
+        "Provide a hard copy of the guide to the sellers her buyer client works with.",
+        "Show the guide to her client, and tell him where he can download it.",
+        "Sign the guide digitally and provide a copy to her client."
+      ],
+      correctIndex: 0,
+      explanation: "Nevada licensees must provide the Residential Disclosure Guide to all buyer and seller clients, have them sign it to acknowledge receipt, and retain a copy of the acknowledgement page in the transaction file.",
+      wrongExplanations: [
+        "The guide must be provided to Nancy's own client — Jordan — not to the sellers. Each agent provides the guide to their own client.",
+        "Simply showing the guide on an iPad and directing the client to download it does not satisfy the requirement. A copy must be provided and signed.",
+        "Digital signing alone is insufficient without providing the client a copy. The client must sign to acknowledge receipt and the agent retains that acknowledgement."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["Residential Disclosure Guide", "buyer client", "hard copy", "signature", "NRS 113"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-004",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "The purpose of the Consent to Act Disclosure form is to ______.",
+      options: [
+        "To disclose a personal interest in a transaction",
+        "To disclose that the licensee will represent both parties in a transaction",
+        "To get consent from the seller to access the property",
+        "To inform all parties of the duties a Nevada licensee owes to them"
+      ],
+      correctIndex: 1,
+      explanation: "The Consent to Act Disclosure informs all parties that the licensee will represent both parties in the transaction and obtains written consent from each party to proceed with dual agency.",
+      wrongExplanations: [
+        "Disclosing a personal ownership interest in a transaction requires a licensee-as-principal disclosure — not the Consent to Act form.",
+        "Property access consent is handled through lockbox agreements or showing instructions — not the Consent to Act form.",
+        "Informing parties of the duties a Nevada licensee owes them is the purpose of the Duties Owed by a Nevada Real Estate Licensee form — not the Consent to Act form."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      tags: ["Consent to Act", "dual agency", "disclosure", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-005",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "Which of the following would you need to disclose about a listed property in Reno?",
+      options: [
+        "It was previously listed with another brokerage.",
+        "You owned the property in the 1990s.",
+        "Your stepfather is the property owner.",
+        "You viewed the property as a potential buyer three months ago, but decided against it."
+      ],
+      correctIndex: 2,
+      explanation: "If a licensee has an ownership interest in a property, or a family or organizational connection to the property owner, this must be disclosed to all parties to the transaction. A stepfather relationship is a disclosable family connection.",
+      wrongExplanations: [
+        "Prior listing history with another brokerage is not a licensee-as-principal disclosure requirement. It has no bearing on the licensee's personal interest in the property.",
+        "Past ownership from decades ago does not create a current disclosable interest. The disclosure requirement applies to current ownership or family/organizational connections.",
+        "Viewing a property as a potential buyer without purchasing it does not create a disclosable ownership or family interest in the property."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["licensee as principal", "family connection", "disclosure", "NRS 645.252"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-006",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "Connie is representing Mary, who is selling her Nevada condo. Gerald represents Luke and Cody, who are purchasing Mary's condo. Who's required to complete the Nevada Seller's Real Property Disclosure form?",
+      options: [
+        "Connie",
+        "Gerald",
+        "Luke and Cody",
+        "Mary"
+      ],
+      correctIndex: 3,
+      explanation: "The seller is responsible for completing the Seller's Real Property Disclosure form and providing it to the buyers. Licensees should never complete the form on behalf of the seller.",
+      wrongExplanations: [
+        "Connie is the listing agent — she must advise Mary of her duty to disclose, but she must never fill out the SRPD herself.",
+        "Gerald is the buyer's agent and has no role in completing the SRPD. The form is the seller's responsibility.",
+        "Luke and Cody are the buyers — they receive the SRPD, they do not complete it."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["SRPD", "seller responsibility", "NRS 113.130"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-007",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "You've listed a 35-acre ranch with a home and several outbuildings. It's been divided from the cattle ranch that's still in operation next door. You make sure to tell your seller that the ______ disclosure is required.",
+      options: [
+        "Farming and Ranching",
+        "Hunting and Gaming",
+        "Land Survey",
+        "Open Range"
+      ],
+      correctIndex: 3,
+      explanation: "When property is adjacent to open range where livestock are allowed to graze and roam unfenced, sellers must provide the Open Range disclosure. It informs buyers that the property may be subject to state and county rights-of-way that might interfere with their enjoyment of the property.",
+      wrongExplanations: [
+        "There is no 'Farming and Ranching' disclosure form in Nevada real estate law.",
+        "There is no 'Hunting and Gaming' disclosure form in Nevada real estate law.",
+        "A Land Survey is not a required disclosure for proximity to open range. The specific required form is the Open Range disclosure."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["Open Range disclosure", "adjacent property", "rights-of-way", "NRS 113"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-008",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "What is the purpose of the Nevada Residential Disclosure Guide?",
+      options: [
+        "To educate consumers on the disclosures they should receive, who'll provide them, and when.",
+        "To educate real estate licensees on required disclosures, who'll provide them, and when.",
+        "To provide proof that buyers have received the required disclosures.",
+        "To provide proof that sellers have given buyers the required disclosures."
+      ],
+      correctIndex: 0,
+      explanation: "The purpose of the Nevada Residential Disclosure Guide is to educate consumers on the disclosures they should receive, who will provide them, and when. Licensees must provide the guide to clients, have them sign it to acknowledge receipt, and retain a copy in the transaction file.",
+      wrongExplanations: [
+        "The guide is designed for consumers — not licensees. Licensees are expected to already know the disclosure requirements.",
+        "While the signed acknowledgement page does serve as proof of receipt, that is not the primary purpose of the guide. Its purpose is consumer education.",
+        "The guide is not a proof-of-delivery document for seller-provided disclosures. It educates consumers about what disclosures they should expect to receive."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      tags: ["Residential Disclosure Guide", "consumer education", "NRS 113"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-009",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "According to Nevada law, when new condominium units are sold, the seller must provide ______ to the buyer.",
+      options: [
+        "A Consent to Act Disclosure",
+        "A public offering statement and the Common-Interest Communities Disclosure",
+        "A resale package and the Common-Interest Communities Disclosure",
+        "The Common-Interest Communities Disclosure only"
+      ],
+      correctIndex: 1,
+      explanation: "For new condominium developments, the seller must provide both a public offering statement and the Common-Interest Communities Disclosure to the buyer.",
+      wrongExplanations: [
+        "A Consent to Act Disclosure is for dual agency situations — it has nothing to do with condominium sales disclosures.",
+        "A resale package is required for resale condominiums — not new construction. New condo sales require a public offering statement instead.",
+        "The Common-Interest Communities Disclosure alone is not sufficient for new condo sales. A public offering statement is also required."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["CIC disclosure", "new construction", "public offering statement", "condominium", "NRS 116"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
+    {
+      id: "ce-shop-disc-010",
+      topic: "Property Disclosures (NRS 113, NRS 645)",
+      question: "Nevada consumers who want to make an offer on a resale condominium have ______ to cancel the contract.",
+      options: [
+        "Five calendar days from the date they receive the resale package",
+        "One business day from the date of the contract",
+        "One week from the date they receive the resale package",
+        "Three business days from the date of the contract"
+      ],
+      correctIndex: 0,
+      explanation: "For a resale condominium, Nevada buyers have five calendar days from the date they receive the resale package to cancel the contract.",
+      wrongExplanations: [
+        "One business day is too short and is not the correct timeframe under Nevada law for resale condo cancellation.",
+        "One week is too long. The correct window is five calendar days — not seven.",
+        "Three business days from the contract date is incorrect on both counts — the clock starts from receipt of the resale package, not the contract date, and the window is five calendar days."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["CIC disclosure", "resale package", "5 calendar days", "cancellation", "NRS 116"],
+      source: "CE Shop",
+      weekNumber: 2
+    },
   ];
 }
 
