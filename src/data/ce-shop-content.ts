@@ -322,6 +322,215 @@ export function getCEShopExamQuestions(): ExamQuestion[] {
     { id: "ce-eq-s3", topic: "Special Topics", question: "Nevada follows which water rights doctrine?", options: ["Riparian rights", "Prior appropriation", "Hybrid riparian/appropriation", "Federal water rights"], correctIndex: 1, explanation: "Nevada follows the prior appropriation doctrine ('first in time, first in right'). Water rights are separate from land ownership.", wrongExplanations: ["Riparian rights are used in eastern states, not Nevada.", "Nevada uses pure prior appropriation, not a hybrid system.", "Water rights in Nevada are governed by state law, not federal."], difficulty: "intermediate", examTrap: false, tags: ["special", "water-rights", "prior-appropriation"], source: "CE Shop" },
     { id: "ce-eq-s4", topic: "Special Topics", question: "Can an HOA prohibit a homeowner from installing solar panels in Nevada?", options: ["Yes — HOAs have full authority", "Generally no — Nevada law protects solar access", "Only for aesthetic reasons", "Only in gated communities"], correctIndex: 1, explanation: "Nevada law generally protects access to solar energy, and HOAs cannot prohibit solar installations, though reasonable aesthetic guidelines may be imposed.", wrongExplanations: ["HOAs do not have full authority to prohibit solar in Nevada.", "The protection extends beyond aesthetic considerations.", "The law applies to all communities, not just gated ones."], difficulty: "intermediate", examTrap: false, tags: ["special", "solar", "HOA"], source: "CE Shop" },
     { id: "ce-eq-s5", topic: "Special Topics", question: "Can a timeshare purchaser waive their right of rescission in Nevada?", options: ["Yes, if in writing", "Yes, if both parties agree", "No — the rescission right cannot be waived", "Only after 3 days"], correctIndex: 2, explanation: "The 5-day timeshare rescission right cannot be waived under any circumstances, even with written agreement.", wrongExplanations: ["Written waiver is not permitted for timeshare rescission.", "Mutual agreement cannot override the statutory rescission right.", "The full 5-day period applies — partial waiver is not allowed."], difficulty: "advanced", examTrap: true, examTrapNote: "Even if the buyer 'agrees' to waive rescission, the right stands. This is a common exam trap.", tags: ["special", "timeshare", "rescission", "waiver"], source: "CE Shop" },
+
+    // Nevada Real Estate Commission: Duties & Powers
+    {
+      id: "ce-shop-comm-001",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "Once Nevada's Real Estate Commission investigates a complaint of a Nevada Revised Statute violation and finds evidence sufficient to warrant action, which of these statements about the commission's actions is true?",
+      options: [
+        "The commission will arrest the licensee.",
+        "The commission will automatically revoke the accused's license.",
+        "The commission will hold a hearing and allow the licensee to answer the charges.",
+        "The commission will notify the state attorney to press criminal charges."
+      ],
+      correctIndex: 2,
+      explanation: "After investigation, the commission's administrator will serve the licensee with a formal complaint and set a hearing date. The licensee may then answer the charges within 30 days.",
+      wrongExplanations: [
+        "The commission has no arrest powers — that is a law enforcement function entirely outside its jurisdiction.",
+        "Automatic revocation without a hearing would violate due process. The licensee always has the right to answer charges.",
+        "The commission can refer criminal matters to the courts, but a formal hearing always comes first."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["commission", "hearing", "disciplinary process", "complaint", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-comm-003",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "Who's entitled to reimbursement from the Nevada Real Estate Education, Research, and Recovery Fund?",
+      options: [
+        "A broker affected by his licensee employee's wrongdoing",
+        "A commission member affected by a member of the public's wrongdoing",
+        "A licensee affected by her affiliated broker's wrongdoing",
+        "An aggrieved consumer affected by a licensee's wrongdoing"
+      ],
+      correctIndex: 3,
+      explanation: "The Recovery Fund pays consumers where a judgment awarding damages has been made against a licensee for wrongdoing associated with misrepresentation, fraud, or deceit in real estate activities. It protects the public — not licensees or brokers.",
+      wrongExplanations: [
+        "The fund exists to protect consumers, not brokers. A broker harmed by their licensee must pursue civil remedies.",
+        "Commission members are not beneficiaries of the fund. It exists to protect members of the public.",
+        "The fund protects consumers from licensee misconduct — not licensees from broker misconduct."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["recovery fund", "ERRF", "consumers", "reimbursement", "NRS 645.842"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-comm-004",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "Licensee Jim was investigated by the Nevada Real Estate Commission based on a former client's complaint. Evidence at the hearing proved that Jim failed to exercise reasonable skill and care, and failed to obtain written consent from each party, allowing him to act for more than one party in the transaction. Along with an administrative fine, the commission imposed an additional sanction. Which of these is the commission most likely to require of Jim?",
+      options: [
+        "Additional CE hours in courses covering agency and ethics",
+        "A letter of apology to the former client",
+        "Re-qualification for a salesperson license",
+        "Supervision by a commission member for a six-month period"
+      ],
+      correctIndex: 0,
+      explanation: "When the commission imposes additional education as a sanction, it targets the specific areas of real estate law the licensee violated. Since Jim violated agency duties and failed to obtain dual agency consent, CE hours in agency and ethics are the logical sanction.",
+      wrongExplanations: [
+        "A letter of apology is not a recognized commission sanction under NRS 645.",
+        "Re-qualification for a salesperson license is not a standard commission sanction — the commission suspends, revokes, or fines.",
+        "Supervision by a commission member is not a standard sanction. The commission may require broker supervision, but not by a commissioner personally."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["commission", "sanctions", "CE hours", "agency", "dual agency consent", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-comm-005",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "The commission suspended Nevada licensee Sheila's real estate license after an investigation and hearing. What does this mean for Sheila?",
+      options: [
+        "Her license is void. She's not allowed to practice real estate anymore and can't reactivate her license.",
+        "She may perform all her normal licensed activities, but she's on probation.",
+        "She must complete real estate-related community service to have the suspension removed and may not earn compensation until she does so.",
+        "She's not allowed to practice real estate during the term of the suspension, but after that time, she can continue performing licensed activities."
+      ],
+      correctIndex: 3,
+      explanation: "License suspension means the licensee may not perform real estate activities during the suspension term. The license remains valid and reactivates when the suspension ends. Suspension is temporary — revocation is permanent.",
+      wrongExplanations: [
+        "A void or revoked license is permanent cancellation. Suspension is temporary — the license reactivates after the suspension period ends.",
+        "During suspension the licensee cannot perform any licensed activities at all — they are not merely on probation.",
+        "Community service is not a standard commission sanction. The suspension simply prohibits practice for a defined period."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      tags: ["suspension", "revocation", "license status", "commission", "sanctions"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-comm-006",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "Nevada's Real Estate Commission has the power to ______.",
+      options: [
+        "Conduct investigations and disciplinary hearings",
+        "Create licensing course materials",
+        "Provide internships to new licensees",
+        "Require licensees to maintain separate escrow accounts in commission-maintained financial institutions"
+      ],
+      correctIndex: 0,
+      explanation: "The commission conducts investigations and disciplinary hearings. It does not create course materials, provide internships, or control which financial institutions licensees use for escrow.",
+      wrongExplanations: [
+        "Creating licensing course materials is the role of approved education providers, not the commission.",
+        "Providing internships is not a function or power of the Nevada Real Estate Commission under NRS 645.",
+        "The commission does not maintain financial institutions or dictate which specific institutions licensees must use for escrow."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["commission powers", "investigations", "disciplinary hearings", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-comm-007",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "A fine has been levied against Nevada licensee Cara as a result of a disciplinary hearing. What entity has the power to enact that kind of sanction?",
+      options: [
+        "Cara's broker",
+        "Cara's local city planning board",
+        "Nevada's Real Estate Commission",
+        "The law enforcement branch for her brokerage's city"
+      ],
+      correctIndex: 2,
+      explanation: "Nevada's Real Estate Commission has the power to enact sanctions against licensees for misconduct, including fines, license suspensions, and revocations. No other entity listed has this authority.",
+      wrongExplanations: [
+        "A broker can terminate a licensee's affiliation but has no authority to levy administrative fines.",
+        "City planning boards have jurisdiction over land use and zoning — not real estate licensee discipline.",
+        "Law enforcement handles criminal matters. Administrative fines against licensees are the exclusive domain of the Nevada Real Estate Commission."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["commission", "sanctions", "fines", "authority", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-comm-008",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "Nevada's Real Estate Commission investigated a complaint against licensee Laverne and determined that her case may warrant administrative action. The administrator set a hearing and sent a formal complaint to Laverne. From the date the administrator files the formal complaint, how long does the commission have to hold the hearing?",
+      options: [
+        "10 days",
+        "30 days",
+        "60 days",
+        "90 days"
+      ],
+      correctIndex: 3,
+      explanation: "Hearings must be held within 90 days after the administrator files the official complaint. The hearing can only proceed within five years of the alleged act (or discovery of facts relating to misrepresentation).",
+      wrongExplanations: [
+        "10 days is the notice the licensee must receive before a hearing — not the window in which the hearing must be held.",
+        "30 days is the time the licensee has to answer charges after receiving the formal complaint — not the hearing deadline.",
+        "60 days is a common distractor. The correct window under NRS 645 is 90 days from the filing of the formal complaint."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["hearing timeline", "90 days", "formal complaint", "commission", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-comm-009",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "Whom does the Nevada Real Estate Education, Research and Recovery Fund exist to protect?",
+      options: [
+        "Consumers",
+        "Licensees",
+        "Nevada's Real Estate Commission",
+        "The brokers who employ and supervise licensees"
+      ],
+      correctIndex: 0,
+      explanation: "The Recovery Fund pays consumers for damages awarded by a court in a judgment against licensees for real estate activities involving misrepresentation, fraud, or deceit. It protects the public — not industry participants.",
+      wrongExplanations: [
+        "The fund does not protect licensees. Licensees harmed by others must pursue separate civil or criminal remedies.",
+        "The commission administers the fund but is not a beneficiary of it.",
+        "Brokers are not the protected class under the Recovery Fund. It exists solely for aggrieved members of the public."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["recovery fund", "ERRF", "consumers", "NRS 645.842"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-comm-010",
+      topic: "Nevada Real Estate Commission: Duties & Powers",
+      question: "Jessica is a Nevada licensee found guilty of misrepresentation. The judgment awarded three complainants $30,000 each in damages. Jessica has no money and all three make petitions to the Nevada Real Estate Education, Research, and Recovery Fund. What is the maximum the fund will pay out to Jessica's complainants?",
+      options: [
+        "$100,000 — This is the maximum per-licensee payout.",
+        "$25,000 — This is the maximum payout per court case.",
+        "$75,000 — With a per judgment maximum of $25,000, each claimant can get $25,000.",
+        "$90,000 — With a maximum payout of $100,000 per licensee, all claimants can get their full $30,000."
+      ],
+      correctIndex: 2,
+      explanation: "The maximum per-licensee lifetime payout is $100,000, but the maximum per judgment is $25,000. Each of the three claimants is capped at $25,000, for a total fund payout of $75,000 — not the full $30,000 each they were awarded.",
+      wrongExplanations: [
+        "$100,000 is the per-licensee lifetime cap, not the amount paid here. The $25,000 per-judgment cap limits each individual claimant.",
+        "$25,000 is the per-judgment cap per claimant — but with three claimants each entitled to $25,000, the correct total is $75,000.",
+        "$90,000 would require each claimant to receive their full $30,000, but the $25,000 per-judgment cap applies regardless of the award amount."
+      ],
+      difficulty: "advanced",
+      examTrap: true,
+      tags: ["recovery fund", "ERRF", "$25,000", "$100,000", "per judgment cap", "NRS 645.842"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
   ];
 }
 
