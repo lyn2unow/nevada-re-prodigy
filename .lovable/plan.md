@@ -1,38 +1,19 @@
 
 
-# Replace Week Select with Session Select in LectureGenerator
+# Append 9 Commission Questions to CE Shop Content
 
-## Summary
-Replace the `WEEK_TOPICS`, `WEEK_LABELS` constants and week-based select with a `SESSION_OPTIONS` constant mapping to individual class sessions from the Spring 2026 syllabus. Update state, handler, select UI, and save logic.
+## Change — `src/data/ce-shop-content.ts`
 
-## Changes — `src/pages/LectureGenerator.tsx`
+Insert 9 new `ExamQuestion` objects (IDs `ce-shop-comm-001` through `ce-shop-comm-010`, skipping 002) into the existing array returned by `getCEShopExamQuestions()`, right before the closing `];` on line 325.
 
-### 1. Remove constants (lines 37–55)
-Delete `WEEK_TOPICS` and `WEEK_LABELS`.
+All questions have `topic: "Nevada Real Estate Commission: Duties & Powers"`, `source: "CE Shop"`, `weekNumber: 1`, and cover disciplinary hearings, Recovery Fund caps, suspension vs. revocation, commission powers, and hearing timelines.
 
-### 2. Add `SESSION_OPTIONS` constant (after `DURATIONS`, line 35)
-13 session objects with `id`, `label`, `week`, `date`, `sessionTitle`, and `topics` arrays — exactly as provided by the user.
+No other files or functions are modified.
 
-### 3. Replace state (line 75)
-`selectedWeek` → `selectedSession`, initialized to `"none"`.
-
-### 4. Replace handler (lines 85–90)
-`loadWeekTopics` → `loadSessionTopics(sessionId)`: finds session by id, sets topics, and auto-suggests the session title in `lectureTitle`.
-
-### 5. Update Select UI (lines 269–289)
-- Label: "Load Session Topics"
-- Placeholder: "Select a session..."
-- Options: `SESSION_OPTIONS.map(s => <SelectItem>)` with `s.label` as display text
-- Bind to `selectedSession` / `loadSessionTopics`
-
-### 6. Update handleSave (line 130)
-Change `week_label` from `WEEK_LABELS[Number(selectedWeek)]` to the selected session's `date + " — " + sessionTitle` when a session is selected.
-
-| Area | Lines | Change |
-|------|-------|--------|
-| Constants | 37–55 | Remove WEEK_TOPICS & WEEK_LABELS, add SESSION_OPTIONS after line 35 |
-| State | 75 | `selectedWeek` → `selectedSession` |
-| Handler | 85–90 | `loadWeekTopics` → `loadSessionTopics` |
-| Select UI | 269–289 | Session select with SESSION_OPTIONS |
-| handleSave | 130 | Use session date + title for week_label |
+| Detail | Value |
+|--------|-------|
+| File | `src/data/ce-shop-content.ts` |
+| Location | Before line 325 (`];`) |
+| Items added | 9 ExamQuestion objects |
+| Existing content | Untouched |
 
