@@ -384,6 +384,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["agency", "NRS 645", "disclosure"],
       source: "NRS/NAC",
+      weekNumber: 2,
     },
     {
       id: "seed-eq-2",
@@ -397,6 +398,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["agency", "dual agency", "NRS 645"],
       source: "NRS/NAC",
+      weekNumber: 2,
     },
     {
       id: "seed-eq-3",
@@ -411,6 +413,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often think 'no harm, no foul'—but undisclosed dual agency is a per se violation.",
       tags: ["agency", "dual agency", "exam trap"],
       source: "NRS/NAC",
+      weekNumber: 2,
     },
     {
       id: "seed-eq-4",
@@ -424,6 +427,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["license law", "NRS 645", "education"],
       source: "NRS/NAC",
+      weekNumber: 1,
     },
     {
       id: "seed-eq-5",
@@ -438,6 +442,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students sometimes think brief commingling is acceptable—it never is.",
       tags: ["license law", "trust accounts", "commingling"],
       source: "NRS/NAC",
+      weekNumber: 1,
     },
     {
       id: "seed-eq-6",
@@ -451,6 +456,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["contracts", "statute of frauds"],
       source: "NRS/NAC",
+      weekNumber: 5,
     },
     {
       id: "seed-eq-7",
@@ -465,6 +471,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often believe the original offer remains available—it does not.",
       tags: ["contracts", "counter-offer", "exam trap"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "seed-eq-8",
@@ -478,6 +485,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["contracts", "earnest money", "trust accounts"],
       source: "NRS/NAC",
+      weekNumber: 5,
     },
     {
       id: "seed-eq-9",
@@ -491,6 +499,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["property ownership", "recording", "title"],
       source: "NRS/NAC",
+      weekNumber: 3,
     },
     {
       id: "seed-eq-10",
@@ -505,6 +514,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often confuse recording with validity—recording is for notice, not effectiveness.",
       tags: ["property ownership", "deeds", "exam trap"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "seed-eq-11",
@@ -518,6 +528,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["property ownership", "deeds"],
       source: "Textbook",
+      weekNumber: 3,
     },
     {
       id: "seed-eq-12",
@@ -531,6 +542,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["fair housing", "protected classes"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "seed-eq-13",
@@ -544,6 +556,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["fair housing", "Nevada law", "protected classes"],
       source: "NRS/NAC",
+      weekNumber: 6,
     },
     {
       id: "seed-eq-14",
@@ -558,6 +571,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students forget that licensee involvement removes ALL exemptions.",
       tags: ["fair housing", "exemptions", "exam trap"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "seed-eq-15",
@@ -572,6 +586,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrapNote: "One of the most common exam traps—students assume it applies to all loans.",
       tags: ["finance", "TILA", "rescission", "exam trap"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "seed-eq-16",
@@ -586,6 +601,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrapNote: "Students often think PMI protects the borrower since the borrower pays for it.",
       tags: ["finance", "PMI", "exam trap"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "seed-eq-17",
@@ -599,6 +615,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["finance", "RESPA", "Loan Estimate"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "seed-eq-18",
@@ -612,6 +629,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["finance", "FHA", "down payment"],
       source: "Textbook",
+      weekNumber: 5,
     },
     {
       id: "seed-eq-19",
@@ -625,6 +643,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["closing", "Closing Disclosure", "TRID"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "seed-eq-20",
@@ -638,6 +657,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["closing", "prorations", "Nevada"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "seed-eq-21",
@@ -652,6 +672,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrapNote: "Direction of credit depends on whether taxes are prepaid or in arrears—very common exam confusion.",
       tags: ["closing", "prorations", "exam trap"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "seed-eq-22",
@@ -665,6 +686,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["agency", "fiduciary duties"],
       source: "Textbook",
+      weekNumber: 2,
     },
     {
       id: "seed-eq-23",
@@ -678,6 +700,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["license law", "continuing education"],
       source: "NRS/NAC",
+      weekNumber: 1,
     },
     {
       id: "seed-eq-24",
@@ -696,6 +719,7 @@ export function getSeedExamQuestions(): ExamQuestion[] {
       examTrap: false,
       tags: ["fair housing", "steering", "prohibited practices"],
       source: "Textbook",
+      weekNumber: 6,
     },
     {
       id: "seed-eq-25",
