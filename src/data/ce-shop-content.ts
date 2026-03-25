@@ -1271,5 +1271,213 @@ export function getCEShopActivities(): Activity[] {
       weekNumber: 3,
       tags: ["disclosures", "timelines", "rescission", "forms", "CE Shop"],
     },
+    // — Nevada Licensing Requirements (NRS 645, NAC 645) —
+    {
+      id: "ce-shop-lic-002",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "Tony has passed the Nevada broker's licensing exam but chooses to work as a salesperson. He must be ______.",
+      options: [
+        "A broker",
+        "A brokerage employee",
+        "A broker-salesperson",
+        "An associate broker"
+      ],
+      correctIndex: 2,
+      explanation: "A broker-salesperson is someone who holds a broker's license but chooses to work under another broker as a salesperson. Broker-salespersons may work as either employees or independent contractors.",
+      wrongExplanations: [
+        "Tony has passed the broker's exam but is choosing to work under another broker — that makes him a broker-salesperson, not an independent broker.",
+        "'Brokerage employee' is not a license type in Nevada. The correct license classification is broker-salesperson.",
+        "'Associate broker' is not the Nevada terminology. Nevada uses 'broker-salesperson' to describe someone with broker qualifications working under another broker."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      tags: ["broker-salesperson", "license types", "NRS 645.009"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-lic-003",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "Catherine is a real estate licensee who has two other licensees working under her supervision. What type of license does Catherine hold?",
+      options: [
+        "Broker",
+        "Office manager",
+        "Salesperson",
+        "Supervisor"
+      ],
+      correctIndex: 0,
+      explanation: "Only brokers can employ and supervise other licensees in Nevada. The ability to have licensees working under your supervision is exclusive to the broker license.",
+      wrongExplanations: [
+        "'Office manager' is not a license type in Nevada real estate law.",
+        "A salesperson cannot employ or supervise other licensees. Salespersons must themselves be supervised by a broker.",
+        "'Supervisor' is not a recognized license type in Nevada. Only a broker can supervise other licensees."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["broker", "supervision", "license types", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-lic-004",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "As a Nevada salesperson, how many hours of post-licensing education must you complete the first year you have your license?",
+      options: [
+        "10",
+        "15",
+        "20",
+        "30"
+      ],
+      correctIndex: 3,
+      explanation: "Nevada licensees are required to complete 30 hours of post-licensing education during the first year of licensing in order to qualify for renewal.",
+      wrongExplanations: [
+        "10 hours is insufficient. Nevada requires 30 hours of post-licensing education in the first year.",
+        "15 hours is insufficient. The first-year post-licensing requirement is 30 hours.",
+        "20 hours is insufficient. Nevada requires the full 30 hours of post-licensing education to qualify for first renewal."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      tags: ["post-licensing", "30 hours", "first year", "license maintenance", "NAC 645.4442"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-lic-005",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "Nevada salesperson Christine has decided to leave her current broker. What happens to her license after she terminates her association?",
+      options: [
+        "Her current broker gives it to her, and she'll hand it to her new broker when she finds one. She has 10 days to associate with a new broker or her license is suspended.",
+        "Her current broker is required to hold it until she associates with a new broker or inactivates it, at which point it must be forwarded to the new broker or to the division.",
+        "She may not terminate her association with her current broker until she has affiliated with a new broker. Her license must be forwarded to the new broker within 10 days of the change.",
+        "The division holds it until she associates with a new broker. She has 30 days to do so, or her license becomes inactive."
+      ],
+      correctIndex: 3,
+      explanation: "When a licensee's association is terminated, the broker sends the license to the division. Christine then has 30 days to associate with a new broker — who will receive her license from the division — or her license becomes inactive.",
+      wrongExplanations: [
+        "The broker does not hand the license directly to the salesperson. It goes to the division. The 10-day figure is also incorrect — Christine has 30 days to associate with a new broker.",
+        "The broker does not hold the license. Once the association is terminated, the broker sends it to the division.",
+        "Christine can terminate her association without first finding a new broker. She has 30 days after termination to associate with a new broker before the license becomes inactive."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["license transfer", "30 days", "termination", "division", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-lic-006",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "Kaley is a licensed real estate salesperson. She recently engaged in some sloppy advertising preparation that led to a judgment of consumer fraud. What does Kaley owe to the Nevada Real Estate Division?",
+      options: [
+        "A phone call notifying it of the judgment",
+        "A written apology",
+        "Proof of passage of an ethics course",
+        "Written notification"
+      ],
+      correctIndex: 3,
+      explanation: "Licensees who are convicted of a real estate-related felony, fraud, misrepresentation, deceit, or a crime of moral turpitude must notify the division in writing within 10 days.",
+      wrongExplanations: [
+        "A phone call does not satisfy the notification requirement. Written notification to the division is required within 10 days.",
+        "A written apology is not the required notification. The division requires formal written notification of the judgment.",
+        "Proof of an ethics course is not the immediate requirement. The first obligation is written notification to the division within 10 days."
+      ],
+      difficulty: "intermediate",
+      examTrap: false,
+      tags: ["written notification", "fraud", "moral turpitude", "10 days", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-lic-007",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "Which of the following is a true statement about license status in Nevada?",
+      options: [
+        "A license can be voluntarily or involuntarily placed in inactive status, and the licensee can't practice real estate until her license is reactivated.",
+        "If a license is inactive, the licensee can still practice real estate.",
+        "Only licensees can change their own license status to inactive.",
+        "Only the division can change a license status to inactive."
+      ],
+      correctIndex: 0,
+      explanation: "Both individuals and the division can place a license in inactive status. Licensees cannot practice real estate unless their license is active — whether the inactivation was voluntary or involuntary.",
+      wrongExplanations: [
+        "An inactive license means the licensee cannot practice real estate under any circumstances.",
+        "Both the licensee and the division can inactivate a license — it is not exclusive to the licensee.",
+        "Both the licensee and the division can inactivate a license — it is not exclusive to the division."
+      ],
+      difficulty: "basic",
+      examTrap: true,
+      tags: ["inactive license", "license status", "division", "NRS 645.150"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-lic-008",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "Paul's license has been inactive for more than two years. Which of the following is a step he must take to change his license from inactive to active?",
+      options: [
+        "Complete 15 hours of continuing education.",
+        "Have his sponsoring broker request that his license be made active.",
+        "Retake the pre-licensing final exam.",
+        "Retake the state portion of the licensing exam."
+      ],
+      correctIndex: 3,
+      explanation: "If a Nevada license has been inactive for more than two years, the licensee must retake the state portion of the licensing exam before the license can be reactivated.",
+      wrongExplanations: [
+        "15 hours of CE is not sufficient to reactivate a license that has been inactive for more than two years. The state exam must be retaken.",
+        "A sponsoring broker cannot simply request reactivation of a license that has been inactive for more than two years. The state exam must be retaken first.",
+        "Retaking the pre-licensing final exam is not the requirement. The state portion of the licensing exam specifically must be retaken."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["inactive license", "reactivation", "state exam", "two years", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-lic-009",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "Ruby is a real estate licensee. She and her partner are buying a bigger home and will rent out their current home after they move. What's true about this situation?",
+      options: [
+        "She doesn't need to notify the real estate division of any changes.",
+        "She'll be issued a new license and must pay a fee.",
+        "She'll need to obtain a property management permit to rent out her home.",
+        "She'll need to submit a change of address form to the real estate division."
+      ],
+      correctIndex: 0,
+      explanation: "Licensees must notify the real estate division when their name, business address, or business location changes — but the division does not require notification when only a personal home address changes.",
+      wrongExplanations: [
+        "A new license is not issued simply because a licensee moves to a new home. No fee or new license is required for a personal address change.",
+        "A property management permit is not required for a licensee to rent out their own personal home.",
+        "The division only requires notification of business address changes — not personal home address changes."
+      ],
+      difficulty: "intermediate",
+      examTrap: true,
+      tags: ["address change", "notification", "division", "business address", "NRS 645"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
+    {
+      id: "ce-shop-lic-010",
+      topic: "Nevada Licensing Requirements (NRS 645, NAC 645)",
+      question: "How old must an individual be to qualify for a Nevada salesperson license?",
+      options: [
+        "18",
+        "19",
+        "20",
+        "21"
+      ],
+      correctIndex: 0,
+      explanation: "Nevada applicants for a salesperson license must be at least 18 years of age.",
+      wrongExplanations: [
+        "19 is not the minimum age. Nevada requires applicants to be at least 18.",
+        "20 is not the minimum age. Nevada requires applicants to be at least 18.",
+        "21 is not the minimum age. Nevada requires applicants to be at least 18."
+      ],
+      difficulty: "basic",
+      examTrap: false,
+      tags: ["age requirement", "18", "salesperson", "eligibility", "NRS 645.330"],
+      source: "CE Shop",
+      weekNumber: 1
+    },
   ];
 }
