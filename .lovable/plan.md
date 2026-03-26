@@ -1,25 +1,29 @@
 
 
-# Add weekNumber to Pearson VUE Exam Questions
+# Replace generate-lecture Edge Function — Part 1 of 3
 
-## Changes — `src/data/pearson-vue-content.ts`
+## Overview
+Replace the entire contents of `supabase/functions/generate-lecture/index.ts` with the user-provided code. This is Part 1 of 3 — it contains imports, CORS headers, and the first 5 entries of the `TOPIC_CONTENT` map.
 
-### 1. Exam Questions (pv-eq-1 through pv-eq-15)
-Add `weekNumber: 7,` after the `source: "Pearson VUE",` line for all 15 exam questions in `getPearsonVueExamQuestions()` (lines 174, 187, 201, 214, 228, 241, 254, 268, 282, 295, 308, 321, 335, 348, 361).
+## Change — `supabase/functions/generate-lecture/index.ts`
 
-### 2. Knowledge Check Questions (pv-kc-1 through pv-kc-9)
-These are `KnowledgeCheckQuestion` objects embedded inside module `knowledgeChecks` arrays — they are **not** `ExamQuestion` objects and the `KnowledgeCheckQuestion` type does not have a `weekNumber` field. Their parent modules already have `weekNumber: 1` set on the module level.
+Overwrite the file with the provided code, which defines:
+- Deno serve import
+- CORS headers (unchanged)
+- `TOPIC_CONTENT` typed record with 5 topic entries:
+  1. Nevada Licensing Requirements (NRS 645, NAC 645)
+  2. Nevada Real Estate Commission: Duties & Powers
+  3. Agency Law & Fiduciary Duties
+  4. Property Disclosures (NRS 113, NRS 645)
+  5. Contracts: Listing, Purchase & Lease Agreements
 
-**Two options:**
-- **Option A (recommended):** Add `weekNumber` only to the 15 exam questions. The knowledge checks already inherit week context from their parent modules.
-- **Option B:** Also add `weekNumber` to the `KnowledgeCheckQuestion` type in `src/types/course.ts`, then add the field to each knowledge check object.
+Each entry has 7 structured fields: `nrsRefs`, `keyTerms`, `conceptSummary`, `examAlerts`, `commonMistakes`, `practicalExamples`, `examQuestionSamples`.
 
-I recommend Option A since the knowledge checks aren't used in the Practice Exam Builder.
+The file will be incomplete after this step — Parts 2 and 3 will add remaining topic entries and the serve handler.
 
 | Detail | Value |
 |--------|-------|
-| File | `src/data/pearson-vue-content.ts` |
-| Items modified | 15 exam questions |
-| Change per item | Add `weekNumber: 7,` after `source` line |
-| Existing content | Untouched |
+| File | `supabase/functions/generate-lecture/index.ts` |
+| Action | Full overwrite with Part 1 content |
+| Status after | Incomplete — awaiting Parts 2 & 3 |
 
