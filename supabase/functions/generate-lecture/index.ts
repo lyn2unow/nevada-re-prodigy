@@ -6,148 +6,58 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SYSTEM_PROMPT = `You are a Nevada real estate instructor at Truckee Meadows Community College (TMCC) creating lecture notes for RE 103 — Principles of Real Estate.
-
-You are generating a single cohesive lecture covering one or more RE 103 topics. Allocate time proportionally across all topics. For each topic, draw from the source hierarchy: NRS/NAC → Pearson VUE → CE Shop → Lecture Notes → Textbook. Produce clearly labeled sections per topic with time estimates.
-
-## TMCC Course Objectives
-Generated lectures MUST align with these catalog objectives:
-1. Apply the principles of real property ownership, transfer, and recording
-2. Distinguish between various forms of property ownership and their legal implications
-3. Analyze contracts including listing agreements, purchase agreements, and lease agreements
-4. Apply agency law and fiduciary duties in real estate transactions
-5. Evaluate property valuation methods including comparative market analysis and appraisal
-6. Analyze financing methods, instruments, and the lending process
-7. Apply disclosure requirements under Nevada law (NRS 113, NRS 645)
-8. Interpret land use controls including zoning, environmental regulations, and deed restrictions
-9. Analyze fair housing laws at federal and state levels
-10. Apply property management principles and landlord-tenant law
-11. Evaluate closing procedures, prorations, and settlement statements
-12. Interpret Nevada-specific licensing requirements and regulations (NRS 645, NAC 645)
-13. Apply ethical standards and professional conduct expectations
-
-## Content Authority Hierarchy
-When citing sources or resolving conflicting information, follow this strict priority:
-1. **NRS/NAC** — Ground truth. Nevada Revised Statutes and Nevada Administrative Code are the primary authority. Always cite specific statute numbers.
-2. **Pearson VUE** — Exam content areas and weights. Reference which exam area the topic falls under and its percentage weight.
-3. **CE Shop** — Pre-licensing course alignment. Note where CE Shop materials support or expand on NRS/NAC.
-4. **Lecture Notes** — Instructor-developed materials. Use for practical examples and Nevada-specific context.
-5. **Textbook** — Supplemental reference only. If textbook information conflicts with NRS/NAC, flag the conflict and defer to NRS/NAC.
-
-## Output Format
-Structure every lecture as follows:
-1. **Learning Objectives** — 3-5 measurable objectives mapped to TMCC catalog objectives above
-2. **Key Terms** — Define essential terms with source attribution (e.g., "Defined in NRS 645.0005")
-3. **Lecture Content** — Organized by time blocks matching the requested duration. Each section should:
-   - Lead with the NRS/NAC citation if applicable
-   - Note the Pearson VUE exam area and weight percentage
-   - Include real-world Nevada examples
-   - Flag common exam traps or misconceptions
-4. **Source Priority Notes** — A brief section at the end indicating which authority level supports each major claim
-5. **Discussion Questions** — 2-3 questions to engage students
-6. **Exam Alert** — Key points likely to appear on the Pearson VUE exam
-
-Use markdown formatting. Be thorough, accurate, and Nevada-specific.`;
-
-serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
-  }
-
-  try {
-    const body = await req.json();
-    
-    // Support both legacy `topic` (string) and new `topics` (string[])
-    let topics: string[];
-    if (Array.isArray(body.topics) && body.topics.length > 0) {
-      topics = body.topics;
-    } else if (typeof body.topic === "string" && body.topic.trim()) {
-      topics = [body.topic.trim()];
-    } else {
-      return new Response(
-        JSON.stringify({ error: "topics (array) or topic (string) is required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    const durationMinutes = body.durationMinutes;
-    if (!durationMinutes) {
-      return new Response(
-        JSON.stringify({ error: "durationMinutes is required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
-    }
-
-    const perTopicMinutes = Math.round(durationMinutes / topics.length);
-    const topicList = topics.map((t: string, i: number) => `${i + 1}. ${t}`).join("\n");
-
-    const userPrompt = topics.length === 1
-      ? `Create detailed lecture notes for a ${durationMinutes}-minute class session on the topic: "${topics[0]}"
-
-Allocate time proportionally across sections. For a ${durationMinutes}-minute lecture, include approximately ${Math.ceil(durationMinutes / 15)} major content sections with time stamps (e.g., "0:00–15:00 — Introduction and Key Terms").
-
-Remember to follow the content authority hierarchy: NRS/NAC first, then Pearson VUE exam alignment, then supporting sources.`
-      : `Create detailed lecture notes for a ${durationMinutes}-minute class session covering the following ${topics.length} topics (approximately ${perTopicMinutes} minutes per topic):
-
-${topicList}
-
-Structure the lecture as a single cohesive session. Allocate time proportionally across all topics with clear time stamps (e.g., "0:00–${perTopicMinutes}:00 — ${topics[0]}"). Include transitions between topics. For each topic section, follow the content authority hierarchy: NRS/NAC first, then Pearson VUE exam alignment, then supporting sources.
-
-Include approximately ${Math.ceil(durationMinutes / 15)} major content sections total with time stamps.`;
-
-    const response = await fetch(
-      "https://ai.gateway.lovable.dev/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${LOVABLE_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "google/gemini-3-flash-preview",
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            { role: "user", content: userPrompt },
-          ],
-          stream: true,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "AI usage credits exhausted. Please add credits in Settings → Workspace → Usage." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
-      return new Response(
-        JSON.stringify({ error: "AI gateway error" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    return new Response(response.body, {
-      headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
-    });
-  } catch (e) {
-    console.error("generate-lecture error:", e);
-    return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
-  }
-});
+const TOPIC_CONTENT: Record<string, {
+  nrsRefs: string;
+  keyTerms: string;
+  conceptSummary: string;
+  examAlerts: string;
+  commonMistakes: string;
+  practicalExamples: string;
+  examQuestionSamples: string;
+}> = {
+  "Nevada Licensing Requirements (NRS 645, NAC 645)": {
+    nrsRefs: "NRS 645.343 (salesperson: 90 hrs pre-licensing); NRS 645.330 (broker: 64 additional hrs + 2 yrs active experience); NRS 645.575–645.580 (disciplinary actions); NAC 645.440 (trust account requirements); NRS 645.633 (grounds for discipline); NRS 645.310 (earnest money handling); NRS 645.254 (document delivery within 5 days)",
+    keyTerms: "Pre-licensing education (90 hrs salesperson / 64 additional hrs broker); Continuing education (24 hrs every 2 years); Trust account (separate account, no commingling); NRED (Nevada Real Estate Division); Broker supervision; Independent contractor vs. employee; Reciprocity",
+    conceptSummary: "Nevada salesperson candidates must complete 90 hours of pre-licensing education, pass state and national exam portions, and be sponsored by a licensed broker. Brokers require 64 additional hours beyond salesperson requirements plus 2 years active experience. All licensees renew every 2 years with 24 hours CE. NRED enforces disciplinary actions including fines, suspension, and revocation. Commingling client funds with personal funds is always a violation regardless of duration or intent. Salespersons and broker-salespersons must deliver all original paperwork to their broker within 5 calendar days after contract execution.",
+    examAlerts: "90 hrs pre-licensing (NOT 120 — common trap). CE = 24 hrs every 2 YEARS not annually. Commingling is ALWAYS a violation — even temporarily. Salesperson CANNOT operate independently — must be supervised. Trust account funds must NEVER be commingled. Reciprocity typically still requires Nevada-specific exam components.",
+    commonMistakes: "Confusing 90-hr salesperson requirement with broker requirement; thinking temporary commingling is acceptable; assuming verbal agency agreement is sufficient; not knowing NRED can revoke, suspend, fine, AND require repayment of audit costs",
+    practicalExamples: "A newly licensed salesperson receives an earnest money check and deposits it into their personal checking account planning to transfer it next day — this is commingling, a serious NRS 645.633 violation. A broker-salesperson designated as supervisor must be reported to NRED. An out-of-state licensee seeking Nevada reciprocity must still pass Nevada-specific exam components.",
+    examQuestionSamples: "How many hours of pre-licensing education does Nevada require for a salesperson? (90 hrs) | Commingling of client funds is: (Always a violation under NRS 645.633) | Nevada CE requirement: (24 hours every 2 years) | What is required for a broker license in addition to education? (2 years active experience)",
+  },
+  "Nevada Real Estate Commission: Duties & Powers": {
+    nrsRefs: "NRS 645.410–645.450 (NREC composition and powers); NRS 645.630–645.680 (disciplinary proceedings); NRS 645.575 (grounds for disciplinary action); NRS 119A (timeshares — NRED approval of public offering statement); NRS 645.190 (5-year record retention)",
+    keyTerms: "Nevada Real Estate Commission (NREC — sets policy); Nevada Real Estate Division (NRED — enforces operations); Administrator; License revocation; License suspension; Administrative fine; Recovery Fund; Audit authority; Record retention (5 years within Nevada)",
+    conceptSummary: "The NREC sets policy and rules; NRED enforces day-to-day operations. The Commission can suspend, revoke, deny renewal, impose administrative fines, and require repayment of audit costs — but NOT impose jail time (that is a criminal court function). NRED administrator must approve timeshare public offering statements. Brokers must cooperate with NRED audits during normal business hours. Transaction records must be maintained for 5 years within Nevada. Broker must notify the Division of exact storage location.",
+    examAlerts: "Commission disciplines via fines/suspension/revocation — NOT jail time (courts do that). NRED administrator approves timeshare public offering statements (not 'Nevada Timeshare Commission'). Audit noncompliance: license revocation AND/OR court action AND/OR audit cost repayment. Records must stay WITHIN Nevada. Broker must notify Division of storage location.",
+    commonMistakes: "Confusing NREC (policy) with NRED (enforcement); thinking the commission can impose jail time; not knowing the 5-year retention rule applies within Nevada borders; thinking records can be stored anywhere",
+    practicalExamples: "Big Valley Brokerage audit reveals noncompliance — penalties can include broker license revocation, court action, and/or repayment of audit costs. A broker who shreds files after 3 years violates the 5-year retention rule. NRED schedules audit at 11am Thursday during normal business hours — broker must cooperate.",
+    examQuestionSamples: "The commission may discipline licensees using all EXCEPT: (Jail time) | Audit noncompliance penalties include: (License revocation and/or court action and/or audit cost repayment) | Transaction files must be retained for: (5 years, within Nevada) | Who approves a timeshare public offering statement? (NRED administrator)",
+  },
+  "Agency Law & Fiduciary Duties": {
+    nrsRefs: "NRS 645.252 (Duties Owed form at first substantive contact; dual agency written consent); NRS 645.253 (duties owed by broker to each party); NRS 645.254 (disclosure of agency relationship); NAC 645.605 (Duties Owed form requirements); NRS 40.770 (stigmatized property — no duty to disclose)",
+    keyTerms: "Agency (fiduciary relationship); Fiduciary duties — LOCDAC: Loyalty, Obedience, Confidentiality, Disclosure, Accounting, Care; Dual agency (written consent from BOTH parties); Disclosed dual agency; Assigned agency; Buyer's agent; Seller's agent; Termination of agency; Procuring cause; Stigmatized property (no disclosure required)",
+    conceptSummary: "Nevada agency is governed by NRS 645.252–645.254. The Duties Owed form must be presented at FIRST SUBSTANTIVE CONTACT — not at contract signing. Dual agency requires WRITTEN consent from BOTH parties — verbal is insufficient and undisclosed dual agency is always a violation regardless of whether harm occurs. Fiduciary duties (LOCDAC) apply to the principal (client); all parties are owed honesty and fair dealing. Agency can be created by express agreement, implied actions, or ratification. Confidentiality survives termination of agency. Stigmatized property (murder, suicide, paranormal) requires NO disclosure under NRS 40.770.",
+    examAlerts: "Duties Owed form = FIRST SUBSTANTIVE CONTACT (not contract signing). Dual agency = WRITTEN consent from BOTH parties — verbal is never enough. Undisclosed dual agency = violation EVEN IF no harm occurs. Obedience = follow LAWFUL instructions only. Confidentiality SURVIVES end of agency. Stigmatized property = NO disclosure required (NRS 40.770).",
+    commonMistakes: "Assuming agency requires a written agreement to exist (it can be implied); not presenting Duties Owed form before substantive discussion; confusing customer-level with client-level duties; thinking 'no harm, no foul' for undisclosed dual agency",
+    practicalExamples: "Listing agent at open house — buyer discusses max budget. Agent still owes seller fiduciary duty and must disclose buyer's motivation. Agent representing both parties must get written consent from both before proceeding. Murder occurred at property 3 years ago — NO disclosure required under NRS 40.770.",
+    examQuestionSamples: "When must the Duties Owed form be presented? (First substantive contact) | Dual agency requires: (Written consent from both parties) | Which fiduciary duty requires following the principal's lawful instructions? (Obedience) | Undisclosed dual agency is a violation: (Even if no harm occurs)",
+  },
+  "Property Disclosures (NRS 113, NRS 645)": {
+    nrsRefs: "NRS 113.130 (SRPD required for residential 1-4 units); NRS 113.150 (buyer's right to rescind for late SRPD); NRS 645.252 (licensee disclosure duties); NRS 40.770 (stigmatized property — no duty to disclose); NRS 113.065 (CIC/HOA disclosures)",
+    keyTerms: "SRPD (Seller's Real Property Disclosure); Material fact (affects reasonable person's decision); Stigmatized property; CIC (Common Interest Community); HOA disclosure; Licensee as principal (must disclose license status); Latent defect (hidden); Patent defect (visible); Caveat emptor (buyer beware — NOT Nevada law)",
+    conceptSummary: "Nevada requires sellers of residential 1-4 unit properties to complete the SRPD under NRS 113.130. Buyers may rescind if SRPD is delivered late. Licensees must disclose ALL material facts — client instructions to hide defects must be refused. Stigmatized property (murder, suicide, paranormal) does NOT require disclosure under NRS 40.770. CIC/HOA properties require additional disclosures. Nevada does NOT follow caveat emptor. When a licensee sells their own property, they must disclose their license status.",
+    examAlerts: "SRPD required for 1-4 unit residential ONLY (not commercial, vacant land, or new construction). Stigmatized property = NO disclosure required. Licensee CANNOT follow client instructions to conceal material facts. Late SRPD = buyer may rescind. Licensee selling own property MUST disclose license status. Nevada DOES NOT follow caveat emptor.",
+    commonMistakes: "Thinking stigmatized property must be disclosed; confusing latent vs. patent defects; not knowing buyer's rescission right for late SRPD; assuming SRPD applies to all property types",
+    practicalExamples: "Seller tells agent not to disclose the leaking roof — agent MUST disclose regardless of client instructions. Property where a murder occurred — NO disclosure required. Agent selling their own investment condo must disclose license status in advertising. CIC buyer must receive HOA financials, CC&Rs, and meeting minutes.",
+    examQuestionSamples: "Must a licensee disclose that a homicide occurred on a property? (No — NRS 40.770) | When can a buyer rescind based on the SRPD? (When delivered late) | Which disclosure is required for residential 1-4 unit sales? (SRPD — NRS 113.130) | Can an agent follow seller's instructions not to disclose a material defect? (No — must disclose all material facts)",
+  },
+  "Contracts: Listing, Purchase & Lease Agreements": {
+    nrsRefs: "NRS 111.205 (Statute of Frauds — real estate contracts must be in writing); NRS 645.310 (earnest money — promptly to broker); NRS 645.254 (document delivery within 5 days); NRS 645.310 (advance fee accounting within 3 months); NRS 645.252 (brokerage agreement duties)",
+    keyTerms: "Statute of Frauds (real estate contracts must be written); Purchase agreement; Listing agreement types (exclusive right to sell, exclusive agency, open, net listing); Buyer representation agreement; Earnest money (to broker promptly); Contingency (financing, inspection, appraisal); Counter-offer (TERMINATES original offer); Specific performance; Advance fees (accounting within 3 months); Bilateral contract; Executed vs. executory",
+    conceptSummary: "Real estate contracts must be in WRITING under NRS 111.205. Valid contracts require: competent parties, offer and acceptance, consideration, legal purpose, written form. A counter-offer TERMINATES the original offer — cannot later be accepted. Earnest money goes to broker's trust account PROMPTLY. Exclusive representation prohibits other licensees from approaching the client. Net listings are legal in Nevada but ethically problematic. Advance fee licensees must account for funds within 3 months. Real estate sales contracts must be enforceable, express, valid, bilateral, and executed or executory.",
+    examAlerts: "Counter-offer TERMINATES original offer — top exam trap. Earnest money → broker PROMPTLY (not to seller or escrow directly). Statute of Frauds = WRITTEN contracts for real estate. Brokerage agreement copy must be delivered AS SOON AS SIGNED. Original paperwork to broker within 5 CALENDAR DAYS. Advance fee accounting = 3 months (not 30 days, not 60 days).",
+    commonMistakes: "Believing verbal real estate agreements are enforceable; thinking original offer survives a counter-offer; confusing earnest money with down payment; not knowing advance fee accounting deadline is 3 months",
+    practicalExamples: "Buyer submits offer, seller counter-offers — buyer cannot accept original offer. Agent receives earnest money check — must immediately deliver to broker. Agent charges advance fee for marketing — must provide accounting within 3 months. Agent delivers brokerage agreement copy at contract signing — violation (should be AS SOON AS SIGNED).",
+    examQuestionSamples: "When a seller makes a counter-offer, the original offer is: (Terminated) | Earnest money must be: (Given to the licensee's broker promptly) | Advance fee accounting is required within: (Three months) | Real estate contracts must be: (In writing — Statute of Frauds)",
+  },
+};
