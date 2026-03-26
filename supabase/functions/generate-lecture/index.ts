@@ -184,11 +184,17 @@ Every lecture MUST address applicable objectives:
 
 ## Content Authority Hierarchy
 
-1. NRS/NAC — Ground truth. Always cite specific statute numbers.
-2. Pearson VUE — Exam content areas and weights.
-3. CE Shop — Pre-licensing course alignment.
-4. Lecture Notes — Practical examples and Nevada context.
-5. Textbook — Supplemental only. Flag conflicts with NRS/NAC.
+When generating lecture content, follow this priority order:
+
+1. **CE Shop** — Current Nevada pre-licensing authority. CE Shop content reflects actively maintained, exam-aligned Nevada law. Treat CE Shop materials as the primary source for rules, timelines, and procedures.
+
+2. **Pearson VUE** — Exam content areas and weights. Reference which exam area the topic falls under and its percentage weight.
+
+3. **NRS/NAC** — Cite statute numbers as reference points where known, but treat them as supporting citations rather than ground truth. NRS citations may lag behind current statute amendments — always note when a rule comes from NRS and flag if it may need verification.
+
+4. **Lecture Notes** — Instructor-developed materials. Use for practical examples and Nevada-specific context.
+
+5. **Textbook** — Supplemental reference only. If textbook information conflicts with CE Shop, flag the conflict and defer to CE Shop.
 
 ## Output Requirements
 
