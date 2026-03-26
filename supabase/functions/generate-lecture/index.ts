@@ -293,7 +293,7 @@ CRITICAL INSTRUCTIONS:
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "google/gemini-flash-1.5",
+          model: "google/gemini-3-flash-preview",
           max_tokens: 8000,
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
