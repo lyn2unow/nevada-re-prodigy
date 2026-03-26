@@ -1,28 +1,24 @@
 
 
-# Add NRS Fetch Helper + Update Authority Hierarchy in generate-lecture
+# Fix Pre-Licensing Hours + Update Authority Hierarchy
 
-## Three changes to `supabase/functions/generate-lecture/index.ts`
+## Change 1 — Fix pre-licensing hours in TOPIC_CONTENT (lines 19–25)
 
-### Change 1 — Insert `fetchNRSContent()` function (after line 163, before line 165)
-Insert the full `fetchNRSContent` async function (~70 lines) between the `DEFAULT_CONTENT` closing and the `SYSTEM_PROMPT` constant. This function maps each topic to NRS URLs, fetches them in parallel with an 8-second timeout, strips HTML, and returns formatted statute text.
+Update four fields in the "Nevada Licensing Requirements" entry:
 
-### Change 2 — Update Content Authority Hierarchy (lines 185–197)
-Replace the current CE Shop-first hierarchy with the new NRS-first hierarchy:
-1. **NRS/NAC** — Ground truth, live statute text is primary authority
-2. **CE Shop** — Exam alignment and cross-check
-3. **Pearson VUE** — Exam weights
-4. **Lecture Notes** — Practical examples
-5. **Textbook** — Supplemental only
+- **Line 19 (nrsRefs):** `90 hrs pre-licensing` → `120 hrs pre-licensing — updated 2023`
+- **Line 20 (keyTerms):** `90 hrs salesperson` → `120 hrs salesperson`
+- **Line 21 (conceptSummary):** `complete 90 hours` → `complete 120 hours`
+- **Line 22 (examAlerts):** `90 hrs pre-licensing (NOT 120 — common trap)` → `120 hrs pre-licensing (NOT 90 — statute updated 2023, NRS 645.343)`
+- **Line 23 (commonMistakes):** `90-hr salesperson requirement` → `120-hr salesperson requirement`
+- **Line 25 (examQuestionSamples):** `(90 hrs)` → `(120 hrs — NRS 645.343 updated 2023)`
 
-### Change 3 — Call `fetchNRSContent` and inject into prompt (lines 250 and 279)
-- After line 250 (`perTopicMinutes`), add the `await fetchNRSContent(topics)` call
-- On line 279, append `${liveNRSText}` after `${topicBlocks}`
+## Change 2 — Update authority hierarchy item 1 (line 281)
+
+Replace the current NRS/NAC description with the new text that treats TOPIC_CONTENT values as verified current law and instructs the model not to substitute training-data values.
 
 | Detail | Value |
 |--------|-------|
 | File | `supabase/functions/generate-lecture/index.ts` |
-| Insertions | ~70 lines (fetchNRSContent function) + 2 lines (call + injection) |
-| Replacements | ~12 lines (authority hierarchy) |
-| Net effect | Lectures now fetch live NRS statute text and treat it as ground truth |
+| Lines affected | 19–25 (TOPIC_CONTENT) and 281 (SYSTEM_PROMPT) |
 
