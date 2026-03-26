@@ -161,3 +161,178 @@ const DEFAULT_CONTENT = {
   practicalExamples: "Use real Nevada transaction scenarios to illustrate concepts",
   examQuestionSamples: "Review Pearson VUE content outline for exam-weighted topics in this area",
 };
+
+const SYSTEM_PROMPT = `You are Nathanial Miller, a Nevada real estate instructor at Truckee Meadows Community College (TMCC) teaching RE 103 — Principles of Real Estate. You have a direct, practical teaching style that emphasizes Nevada-specific law, real-world scenarios, and Pearson VUE exam preparation. Your lectures are thorough and designed for adult learners preparing for the Nevada license exam.
+
+## TMCC Course Objectives
+
+Every lecture MUST address applicable objectives:
+
+1. Apply principles of real property ownership, transfer, and recording
+2. Distinguish forms of property ownership and their legal implications
+3. Analyze contracts including listing, purchase, and lease agreements
+4. Apply agency law and fiduciary duties
+5. Evaluate property valuation methods including CMA and appraisal
+6. Analyze financing methods, instruments, and the lending process
+7. Apply disclosure requirements under Nevada law (NRS 113, NRS 645)
+8. Interpret land use controls including zoning and environmental regulations
+9. Analyze fair housing laws at federal and state levels
+10. Apply property management principles and landlord-tenant law
+11. Evaluate closing procedures, prorations, and settlement statements
+12. Interpret Nevada licensing requirements (NRS 645, NAC 645)
+13. Apply ethical standards and professional conduct expectations
+
+## Content Authority Hierarchy
+
+1. NRS/NAC — Ground truth. Always cite specific statute numbers.
+2. Pearson VUE — Exam content areas and weights.
+3. CE Shop — Pre-licensing course alignment.
+4. Lecture Notes — Practical examples and Nevada context.
+5. Textbook — Supplemental only. Flag conflicts with NRS/NAC.
+
+## Output Requirements
+
+Produce a COMPLETE, FULLY DEVELOPED lecture. Do not truncate or summarize. Write every section in full instructor-ready prose.
+
+Structure:
+
+1. LECTURE HEADER — Title, date placeholder, duration, TMCC objectives addressed
+2. LEARNING OBJECTIVES — 4-6 measurable objectives
+3. KEY TERMS AND DEFINITIONS — Every term defined with NRS citation where applicable, written as you would explain it to a student
+4. TIMED LECTURE CONTENT — Fully written instructor prose for each time block. Include: opening hook per section, full concept explanations with NRS citations woven in, real-world Reno/NV examples, explicit EXAM TRAP callouts, Ask the class prompts, smooth transitions
+5. KNOWLEDGE CHECK QUESTIONS — 4-6 Pearson VUE format multiple choice with full answer explanations
+6. DISCUSSION QUESTIONS — 3-4 open-ended questions
+7. EXAM PREP SUMMARY — Every testable fact, number, deadline, and threshold from this lecture organized by NRS section
+8. COMMON EXAM TRAPS — Dedicated section listing every trap covered
+9. NEXT CLASS PREVIEW — Brief connector to next session
+
+Never truncate. Write as a working instructor delivering real class content.`;
+
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const body = await req.json();
+    let topics: string[];
+
+    if (Array.isArray(body.topics) && body.topics.length > 0) {
+      topics = body.topics;
+    } else if (typeof body.topic === "string" && body.topic.trim()) {
+      topics = [body.topic.trim()];
+    } else {
+      return new Response(
+        JSON.stringify({ error: "topics (array) or topic (string) is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const durationMinutes = body.durationMinutes;
+    if (!durationMinutes) {
+      return new Response(
+        JSON.stringify({ error: "durationMinutes is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      throw new Error("LOVABLE_API_KEY is not configured");
+    }
+
+    const perTopicMinutes = Math.round(durationMinutes / topics.length);
+
+    const topicBlocks = topics.map((topic: string, i: number) => {
+      const content = TOPIC_CONTENT[topic] || DEFAULT_CONTENT;
+      const startMin = i * perTopicMinutes;
+      const endMin = startMin + perTopicMinutes;
+
+      return `
+## TOPIC ${i + 1}: ${topic}
+Time Block: ${startMin}:00 – ${endMin}:00 (${perTopicMinutes} minutes)
+
+NRS/NAC References: ${content.nrsRefs}
+Key Terms to Define: ${content.keyTerms}
+Core Concepts: ${content.conceptSummary}
+Exam Alerts (flag explicitly with EXAM TRAP): ${content.examAlerts}
+Common Student Mistakes: ${content.commonMistakes}
+Practical Examples (use Reno/NV context): ${content.practicalExamples}
+Sample Exam Questions for Knowledge Check: ${content.examQuestionSamples}`;
+    }).join("\n\n");
+
+    const minWords = Math.round(durationMinutes * 120);
+    const sectionCount = Math.ceil(durationMinutes / 15);
+
+    const userPrompt = `Generate a COMPLETE ${durationMinutes}-minute RE 103 lecture for TMCC. Write every section fully — no truncating, no placeholders.
+
+Duration: ${durationMinutes} minutes | Topics: ${topics.length} | Per topic: ~${perTopicMinutes} min
+Expected sections: ~${sectionCount} timed content blocks
+Minimum output: ${minWords} words of actual lecture content
+
+${topicBlocks}
+
+CRITICAL INSTRUCTIONS:
+1. Write EVERY section in full — no "continue as above" or placeholder text
+2. Each timed block = 3-5 paragraphs of instructor prose minimum
+3. Define EVERY key term listed above as you would explain it to a class
+4. Weave NRS citations naturally into explanations
+5. Flag EVERY exam trap with the prefix: EXAM TRAP:
+6. Use Reno/Northern Nevada examples wherever possible
+7. Include at least 2 "Ask the class:" interaction prompts per topic
+8. Knowledge check questions must match Pearson VUE multiple-choice format exactly
+9. Exam Prep Summary must list every specific number, deadline, and threshold (90 hrs, 5 years, 3 months, 3 business days, 10 days, 24 hrs CE every 2 years, etc.)
+10. This lecture will be exported as slides — use clear headers but write full prose content under each`;
+
+    const response = await fetch(
+      "https://ai.gateway.lovable.dev/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-preview",
+          max_tokens: 8000,
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: userPrompt },
+          ],
+          stream: true,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        return new Response(
+          JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      if (response.status === 402) {
+        return new Response(
+          JSON.stringify({ error: "AI usage credits exhausted. Please add credits in Settings → Workspace → Usage." }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      const errorText = await response.text();
+      console.error("AI gateway error:", response.status, errorText);
+      return new Response(
+        JSON.stringify({ error: "AI gateway error" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    return new Response(response.body, {
+      headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
+    });
+  } catch (e) {
+    console.error("generate-lecture error:", e);
+    return new Response(
+      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+});
