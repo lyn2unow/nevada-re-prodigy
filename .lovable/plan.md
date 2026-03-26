@@ -1,29 +1,29 @@
 
 
-# Replace generate-lecture Edge Function — Part 1 of 3
-
-## Overview
-Replace the entire contents of `supabase/functions/generate-lecture/index.ts` with the user-provided code. This is Part 1 of 3 — it contains imports, CORS headers, and the first 5 entries of the `TOPIC_CONTENT` map.
+# Append Topics 6–15 + DEFAULT_CONTENT to generate-lecture
 
 ## Change — `supabase/functions/generate-lecture/index.ts`
 
-Overwrite the file with the provided code, which defines:
-- Deno serve import
-- CORS headers (unchanged)
-- `TOPIC_CONTENT` typed record with 5 topic entries:
-  1. Nevada Licensing Requirements (NRS 645, NAC 645)
-  2. Nevada Real Estate Commission: Duties & Powers
-  3. Agency Law & Fiduciary Duties
-  4. Property Disclosures (NRS 113, NRS 645)
-  5. Contracts: Listing, Purchase & Lease Agreements
+Replace line 63 (`};`) with the 10 new topic entries, then close `TOPIC_CONTENT` with `};`, followed by the `DEFAULT_CONTENT` constant.
 
-Each entry has 7 structured fields: `nrsRefs`, `keyTerms`, `conceptSummary`, `examAlerts`, `commonMistakes`, `practicalExamples`, `examQuestionSamples`.
+Topics added:
+1. Leasing & Property Management
+2. Real Estate Financing & Lending
+3. Valuation & Market Analysis (CMA & Appraisal)
+4. Property Ownership & Transfer
+5. Land Use Controls & Regulations
+6. Fair Housing (Federal & Nevada)
+7. Closing Procedures & Settlement Statements
+8. Nevada Brokerage Operations
+9. Ethics & Professional Conduct
+10. Special Topics: Water Rights, Solar Easements, Timeshares & Subdivisions
 
-The file will be incomplete after this step — Parts 2 and 3 will add remaining topic entries and the serve handler.
+Then `DEFAULT_CONTENT` constant with fallback values for all 7 fields.
 
 | Detail | Value |
 |--------|-------|
 | File | `supabase/functions/generate-lecture/index.ts` |
-| Action | Full overwrite with Part 1 content |
-| Status after | Incomplete — awaiting Parts 2 & 3 |
+| Line replaced | 63 (`};`) |
+| Items added | 10 topic entries + DEFAULT_CONTENT object |
+| Existing content above line 63 | Untouched |
 
