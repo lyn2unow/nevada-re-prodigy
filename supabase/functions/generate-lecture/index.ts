@@ -162,6 +162,98 @@ const DEFAULT_CONTENT = {
   examQuestionSamples: "Review Pearson VUE content outline for exam-weighted topics in this area",
 };
 
+// Fetch live NRS statute text for a topic
+async function fetchNRSContent(topics: string[]): Promise<string> {
+  const NRS_URLS: Record<string, string[]> = {
+    "Nevada Licensing Requirements (NRS 645, NAC 645)": [
+      "https://www.leg.state.nv.us/nrs/nrs-645.html"
+    ],
+    "Nevada Real Estate Commission: Duties & Powers": [
+      "https://www.leg.state.nv.us/nrs/nrs-645.html"
+    ],
+    "Agency Law & Fiduciary Duties": [
+      "https://www.leg.state.nv.us/nrs/nrs-645.html"
+    ],
+    "Property Disclosures (NRS 113, NRS 645)": [
+      "https://www.leg.state.nv.us/nrs/nrs-113.html"
+    ],
+    "Contracts: Listing, Purchase & Lease Agreements": [
+      "https://www.leg.state.nv.us/nrs/nrs-111.html",
+      "https://www.leg.state.nv.us/nrs/nrs-645.html"
+    ],
+    "Leasing & Property Management": [
+      "https://www.leg.state.nv.us/nrs/nrs-118a.html"
+    ],
+    "Real Estate Financing & Lending": [
+      "https://www.leg.state.nv.us/nrs/nrs-645b.html"
+    ],
+    "Valuation & Market Analysis (CMA & Appraisal)": [
+      "https://www.leg.state.nv.us/nrs/nrs-645c.html"
+    ],
+    "Property Ownership & Transfer": [
+      "https://www.leg.state.nv.us/nrs/nrs-111.html",
+      "https://www.leg.state.nv.us/nrs/nrs-115.html"
+    ],
+    "Land Use Controls & Regulations": [
+      "https://www.leg.state.nv.us/nrs/nrs-278.html",
+      "https://www.leg.state.nv.us/nrs/nrs-533.html"
+    ],
+    "Fair Housing (Federal & Nevada)": [
+      "https://www.leg.state.nv.us/nrs/nrs-118.html"
+    ],
+    "Closing Procedures & Settlement Statements": [
+      "https://www.leg.state.nv.us/nrs/nrs-645a.html"
+    ],
+    "Nevada Brokerage Operations": [
+      "https://www.leg.state.nv.us/nrs/nrs-645.html"
+    ],
+    "Ethics & Professional Conduct": [
+      "https://www.leg.state.nv.us/nrs/nrs-645.html"
+    ],
+    "Special Topics: Water Rights, Solar Easements, Timeshares & Subdivisions": [
+      "https://www.leg.state.nv.us/nrs/nrs-533.html",
+      "https://www.leg.state.nv.us/nrs/nrs-119a.html",
+      "https://www.leg.state.nv.us/nrs/nrs-119.html"
+    ],
+  };
+
+  const urlsToFetch = new Set<string>();
+  for (const topic of topics) {
+    const urls = NRS_URLS[topic] || [];
+    for (const url of urls) urlsToFetch.add(url);
+  }
+
+  if (urlsToFetch.size === 0) return "";
+
+  const results = await Promise.allSettled(
+    Array.from(urlsToFetch).map(async (url) => {
+      const res = await fetch(url, {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; RE103-LectureGenerator/1.0)" },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!res.ok) return `[Could not fetch ${url}]`;
+      const html = await res.text();
+      const text = html
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+        .replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 8000);
+      return `=== SOURCE: ${url} ===\n${text}`;
+    })
+  );
+
+  const fetched = results
+    .filter((r) => r.status === "fulfilled")
+    .map((r) => (r as PromiseFulfilledResult<string>).value)
+    .join("\n\n");
+
+  return fetched
+    ? `\n\n## LIVE NRS STATUTE TEXT (fetched at generation time — use this as ground truth for all NRS citations):\n${fetched}\n`
+    : "";
+}
+
 const SYSTEM_PROMPT = `You are Nathanial Miller, a Nevada real estate instructor at Truckee Meadows Community College (TMCC) teaching RE 103 — Principles of Real Estate. You have a direct, practical teaching style that emphasizes Nevada-specific law, real-world scenarios, and Pearson VUE exam preparation. Your lectures are thorough and designed for adult learners preparing for the Nevada license exam.
 
 ## TMCC Course Objectives
@@ -248,6 +340,9 @@ serve(async (req) => {
     }
 
     const perTopicMinutes = Math.round(durationMinutes / topics.length);
+
+    // Fetch live NRS statute text for accuracy
+    const liveNRSText = await fetchNRSContent(topics);
 
     const topicBlocks = topics.map((topic: string, i: number) => {
       const content = TOPIC_CONTENT[topic] || DEFAULT_CONTENT;
