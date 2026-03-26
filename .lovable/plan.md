@@ -4,9 +4,9 @@
 
 ## Change — `supabase/functions/generate-lecture/index.ts`
 
-Replace the model string in the API call:
-- **From:** `model: "google/gemini-2.5-flash-preview",`
-- **To:** `model: "google/gemini-flash-1.5",`
+Replace the model string:
+- **From:** `model: "google/gemini-flash-1.5",`
+- **To:** `model: "google/gemini-3-flash-preview",`
 
 Single line change, no other modifications.
 
