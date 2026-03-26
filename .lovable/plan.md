@@ -1,29 +1,25 @@
 
 
-# Append Topics 6–15 + DEFAULT_CONTENT to generate-lecture
+# Append System Prompt + serve() Handler to generate-lecture
 
 ## Change — `supabase/functions/generate-lecture/index.ts`
 
-Replace line 63 (`};`) with the 10 new topic entries, then close `TOPIC_CONTENT` with `};`, followed by the `DEFAULT_CONTENT` constant.
+Append after line 163 (the closing `};` of `DEFAULT_CONTENT`):
 
-Topics added:
-1. Leasing & Property Management
-2. Real Estate Financing & Lending
-3. Valuation & Market Analysis (CMA & Appraisal)
-4. Property Ownership & Transfer
-5. Land Use Controls & Regulations
-6. Fair Housing (Federal & Nevada)
-7. Closing Procedures & Settlement Statements
-8. Nevada Brokerage Operations
-9. Ethics & Professional Conduct
-10. Special Topics: Water Rights, Solar Easements, Timeshares & Subdivisions
-
-Then `DEFAULT_CONTENT` constant with fallback values for all 7 fields.
+1. **`SYSTEM_PROMPT`** constant — instructor persona, TMCC course objectives, content authority hierarchy, output structure requirements
+2. **`serve()` handler** with:
+   - CORS preflight handling
+   - Request parsing (supports `topics` array or `topic` string + `durationMinutes`)
+   - Per-topic content block builder using `TOPIC_CONTENT` with `DEFAULT_CONTENT` fallback
+   - User prompt construction with word minimums, section counts, and 10 critical instructions
+   - Streaming call to Lovable AI Gateway (`google/gemini-2.5-flash-preview`, max_tokens 8000)
+   - Error handling for 429, 402, and general errors
+   - SSE stream passthrough response
 
 | Detail | Value |
 |--------|-------|
 | File | `supabase/functions/generate-lecture/index.ts` |
-| Line replaced | 63 (`};`) |
-| Items added | 10 topic entries + DEFAULT_CONTENT object |
-| Existing content above line 63 | Untouched |
+| Location | After line 163 |
+| Action | Append ~150 lines (SYSTEM_PROMPT + serve handler) |
+| Existing content | Untouched |
 
