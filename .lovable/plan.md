@@ -1,17 +1,15 @@
 
 
-# Update AI Model in generate-lecture Edge Function
+# Update Content Authority Hierarchy in SYSTEM_PROMPT
 
 ## Change — `supabase/functions/generate-lecture/index.ts`
 
-Replace the model string:
-- **From:** `model: "google/gemini-flash-1.5",`
-- **To:** `model: "google/gemini-3-flash-preview",`
+Replace the existing `## Content Authority Hierarchy` section inside `SYSTEM_PROMPT` with the new version that reorders authority: CE Shop → Pearson VUE → NRS/NAC → Lecture Notes → Textbook.
 
-Single line change, no other modifications.
+The old section (5 short lines) is replaced with the new expanded section (5 numbered items with descriptions).
 
 | Detail | Value |
 |--------|-------|
 | File | `supabase/functions/generate-lecture/index.ts` |
-| Change | 1 line — model name |
+| Change | Replace ~6 lines of Content Authority Hierarchy in SYSTEM_PROMPT |
 
