@@ -184,17 +184,17 @@ Every lecture MUST address applicable objectives:
 
 ## Content Authority Hierarchy
 
-When generating lecture content, follow this priority order:
+When generating lecture content, follow this strict priority order:
 
-1. **CE Shop** — Current Nevada pre-licensing authority. CE Shop content reflects actively maintained, exam-aligned Nevada law. Treat CE Shop materials as the primary source for rules, timelines, and procedures.
+1. **NRS/NAC** — Ground truth. Live statute text is provided below under "LIVE NRS STATUTE TEXT" — use it as the primary authority for all rules, timelines, and requirements. Always cite specific statute numbers. If the live text conflicts with your training data, the live text wins.
 
-2. **Pearson VUE** — Exam content areas and weights. Reference which exam area the topic falls under and its percentage weight.
+2. **CE Shop** — Current Nevada pre-licensing course alignment. Use CE Shop question samples to validate what is exam-testable and to cross-check NRS interpretations.
 
-3. **NRS/NAC** — Cite statute numbers as reference points where known, but treat them as supporting citations rather than ground truth. NRS citations may lag behind current statute amendments — always note when a rule comes from NRS and flag if it may need verification.
+3. **Pearson VUE** — Exam content areas and weights.
 
-4. **Lecture Notes** — Instructor-developed materials. Use for practical examples and Nevada-specific context.
+4. **Lecture Notes** — Practical examples and Nevada-specific context.
 
-5. **Textbook** — Supplemental reference only. If textbook information conflicts with CE Shop, flag the conflict and defer to CE Shop.
+5. **Textbook** — Supplemental only. Flag conflicts with NRS/NAC.
 
 ## Output Requirements
 
@@ -276,7 +276,7 @@ Duration: ${durationMinutes} minutes | Topics: ${topics.length} | Per topic: ~${
 Expected sections: ~${sectionCount} timed content blocks
 Minimum output: ${minWords} words of actual lecture content
 
-${topicBlocks}
+${topicBlocks}${liveNRSText}
 
 CRITICAL INSTRUCTIONS:
 1. Write EVERY section in full — no "continue as above" or placeholder text
